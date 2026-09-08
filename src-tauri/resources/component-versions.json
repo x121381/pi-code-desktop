@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "0.1.0",
+  "components": [
+    {
+      "id": "pi-code-desktop",
+      "repository": "x121381/pi-code-desktop",
+      "version": "0.1.0"
+    },
+    {
+      "id": "pi",
+      "repository": "earendil-works/pi",
+      "version": "0.85.1"
+    },
+    {
+      "id": "pi-web",
+      "repository": "agegr/pi-web",
+      "version": "0.8.7"
+    }
+  ]
+}

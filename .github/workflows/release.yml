@@ -1,0 +1,219 @@
+name: Publish signed desktop release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pi-code-desktop-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - runner: macos-15
+            target: aarch64-apple-darwin
+            args: --target aarch64-apple-darwin
+            apple_signing_identity: "-"
+          - runner: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            args: --target x86_64-unknown-linux-gnu --bundles deb
+            apple_signing_identity: ""
+          # Restored after the file-tracer fix in eacaca3/7f2a1c0: a literal
+          # homedir() reaching an fs call made @vercel/nft glob the whole
+          # Windows profile at build time, which failed on its junction loops.
+          # Verified through desktop:prepare by windows-build-debug.yml before
+          # re-enabling; Tauri bundling and signing are first exercised here.
+          - runner: windows-latest
+            target: x86_64-pc-windows-msvc
+            args: --target x86_64-pc-windows-msvc --bundles nsis
+            apple_signing_identity: ""
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Check out pi-code-desktop
+        uses: actions/checkout@v7
+
+      - name: Require updater signing secrets
+        shell: bash
+        env:
+          UPDATER_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          UPDATER_PUBLIC_KEY: ${{ secrets.TAURI_UPDATER_PUBLIC_KEY }}
+        run: |
+          test -n "$UPDATER_PRIVATE_KEY"
+          test -n "$UPDATER_PUBLIC_KEY"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Configure updater public key
+        env:
+          TAURI_UPDATER_PUBLIC_KEY: ${{ secrets.TAURI_UPDATER_PUBLIC_KEY }}
+        run: node scripts/configure-updater-public-key.mjs
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux desktop dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            libayatana-appindicator3-dev \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            librsvg2-dev
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify bundled component releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          npm run release:manifest
+          npm run release:verify
+
+      - name: Prepare packaged Next.js server
+        run: npm run desktop:prepare
+
+      - name: Test desktop shell
+        if: runner.os == 'Windows' || runner.os == 'Linux'
+        run: cargo test --release --manifest-path src-tauri/Cargo.toml --lib --target ${{ matrix.target }}
+
+      - name: Build, sign, and upload updater artifacts
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PI_CODE_DESKTOP_UPDATER_PUBLIC_KEY: ${{ secrets.TAURI_UPDATER_PUBLIC_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ matrix.apple_signing_identity }}
+        with:
+          tagName: v__VERSION__
+          releaseName: pi-code-desktop v__VERSION__
+          releaseBody: |
+            ## Pi Code Desktop 0.1.0
+
+            This is the initial Pi Code desktop release.
+
+            - Uses the native Pi 0.85.1 SDK prompt construction, project context,
+              tools, skills, and session behavior.
+            - Uses Cherry Studio's model registry for model names, context windows,
+              output limits, vision/reasoning capabilities, pricing, and
+              provider-specific overrides.
+            - Preserves each provider's live `/models` discovery and enriches the
+              discovered IDs with bundled or refreshed Cherry metadata.
+            - Shares `~/.pi/agent/` with the Pi CLI for sessions, authentication,
+              custom models, settings, and skills.
+            - Supports complete, signed application updates from this repository's
+              GitHub Releases.
+
+            ---
+
+            ## Pi Code Desktop 0.1.0
+
+            这是 Pi Code 桌面端的首个正式版本。
+
+            - 使用 Pi 0.85.1 SDK 原生构建的系统提示词、项目上下文、工具、Skills
+              与会话行为。
+            - 使用 Cherry Studio 模型目录填充模型名称、上下文窗口、最大输出、
+              视觉/推理能力、价格和 Provider 专属覆盖信息。
+            - 保留各 Provider 的实时 `/models` 发现，并使用内置或在线更新的
+              Cherry 元数据补全发现结果。
+            - 与 Pi CLI 共用 `~/.pi/agent/` 下的会话、认证、自定义模型、设置和 Skills。
+            - 支持通过本仓库 GitHub Releases 分发完整、签名的应用更新。
+          releaseDraft: true
+          prerelease: false
+          uploadUpdaterJson: true
+          args: ${{ matrix.args }}
+
+  manifest:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pi-code-desktop
+        uses: actions/checkout@v7
+
+      - name: Upload component manifest to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$(node -p "require('./src-tauri/pi-code-desktop-package.json').version")"
+          gh release upload "v$version" src-tauri/resources/component-versions.json --clobber
+          gh release edit "v$version" --draft=false --latest
+
+  # A partially failed matrix leaves the release a draft and skips `manifest`,
+  # which is correct — but it was also completely silent. Four consecutive
+  # v0.1.3 builds failed on Windows without anyone noticing, and the release was
+  # published by hand with macOS artifacts only and no component manifest.
+  notify:
+    needs: [build, manifest]
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      # This repository currently has Issues disabled, so an issue-only alert
+      # silently fails and reports nothing — which is how four consecutive
+      # failed releases went unnoticed. The job summary always works; the issue
+      # is attempted on top and starts working by itself if Issues are enabled.
+      - name: Report the failed release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Signed release build failed"
+            echo
+            echo "[Run log]($RUN_URL)"
+            echo
+            echo "The release for this version stays a **draft** and has no"
+            echo "\`component-versions.json\`: the manifest job only runs when every"
+            echo "platform in the build matrix succeeds."
+            echo
+            echo "**Do not publish it by hand.** A release missing a platform's installer"
+            echo "or its component manifest will not serve updates to that platform —"
+            echo "that is exactly how v0.1.3 shipped macOS-only."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          issues_enabled="$(gh api "repos/$GITHUB_REPOSITORY" --jq .has_issues 2>/dev/null || echo false)"
+          if [ "$issues_enabled" != "true" ]; then
+            echo "Issues are disabled for $GITHUB_REPOSITORY; reported in the job summary only."
+            echo "Enable Issues to also get a persistent, notifying alert." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --state open --label release-failure --limit 1 --json number --jq '.[0].number // empty')"
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" \
+              --body "Release build failed again: $RUN_URL"
+          else
+            gh label create release-failure --repo "$GITHUB_REPOSITORY" \
+              --color B60205 --description "Signed desktop release build needs attention" 2>/dev/null || true
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "Signed release build failed" \
+              --label release-failure \
+              --body "The signed desktop release build failed: $RUN_URL
+
+          The release for this version stays a DRAFT and has no component-versions.json,
+          because the manifest job only runs when every platform in the build matrix
+          succeeds. Do not publish it by hand — a release missing a platform's installer
+          or its component manifest will not serve updates to that platform.
+
+          This issue is reused for subsequent failures; close it once a release is green."
+          fi
