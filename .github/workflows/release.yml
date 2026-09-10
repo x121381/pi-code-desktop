@@ -133,7 +133,9 @@ jobs:
               Cherry 元数据补全发现结果。
             - 与 Pi CLI 共用 `~/.pi/agent/` 下的会话、认证、自定义模型、设置和 Skills。
             - 支持通过本仓库 GitHub Releases 分发完整、签名的应用更新。
-          releaseDraft: true
+          # The matrix is serialized, so each platform can append to one
+          # published release without creating a second same-tag draft.
+          releaseDraft: false
           prerelease: false
           uploadUpdaterJson: true
           args: ${{ matrix.args }}
