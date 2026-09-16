@@ -2347,7 +2347,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                       e.currentTarget.style.background = modelDropdownOpen ? "var(--bg-hover)" : "none";
                       e.currentTarget.style.color = "var(--text-muted)";
                     }}
-                    title={modelOptions.length > 0 ? "Change model" : "No available models"}
+                    title={modelOptions.length > 0 ? t("chat.changeModel") : t("chat.noAvailableModels")}
                   >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="4" y="4" width="16" height="16" rx="2" />
@@ -2358,7 +2358,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                       <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" />
                     </svg>
                     <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 }}>
-                      {currentName ?? (modelOptions.length > 0 ? "Select model" : "No models")}
+                      {currentName ?? (modelOptions.length > 0 ? t("chat.selectModel") : t("chat.noModels"))}
                     </span>
                   </button>
                   {modelDropdownOpen && modelDropdownRect && (() => {
@@ -2414,7 +2414,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                       <div style={{ minHeight: 0, overflowY: "auto" }}>
                         {modelsByProvider.length === 0 ? (
                           <div style={{ padding: "8px 12px", color: "var(--text-dim)", fontSize: 12, whiteSpace: "nowrap" }}>
-                            {modelFilter.trim() ? t("chat.noMatchingModels") : "No available models"}
+                            {modelFilter.trim() ? t("chat.noMatchingModels") : t("chat.noAvailableModels")}
                           </div>
                         ) : modelsByProvider.map((group, gi) => (
                           <div key={group.provider}>

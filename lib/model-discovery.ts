@@ -16,6 +16,27 @@ function cleanString(value: unknown): string | undefined {
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
+function optionalPositiveNumber(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : undefined;
+}
+
+function optionalNonNegativeNumber(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : undefined;
+}
+
+function parseCost(value: unknown): DiscoveredModel["cost"] | undefined {
+  if (!isRecord(value)) return undefined;
+  const read = (key: string, alternate: string): number | undefined =>
+    optionalNonNegativeNumber(value[key]) ?? optionalNonNegativeNumber(value[alternate]);
+  const cost = {
+    input: read("input", "prompt"),
+    output: read("output", "completion"),
+    cacheRead: read("cacheRead", "cache_read"),
+    cacheWrite: read("cacheWrite", "cache_write"),
+  };
+  return Object.values(cost).some((entry) => entry !== undefined) ? cost : undefined;
+}
+
 function modelFromValue(value: unknown): DiscoveredModel | null {
   if (typeof value === "string") {
     const id = value.trim();
@@ -25,12 +46,26 @@ function modelFromValue(value: unknown): DiscoveredModel | null {
 
   const rawId = cleanString(value.id) ?? cleanString(value.model) ?? cleanString(value.name);
   if (!rawId) return null;
-  const id = rawId.startsWith("models/") ? rawId.slice("models/".length) : rawId;
+  const id = rawId.replace(/^models\//, "").trim();
   if (!id) return null;
   const name = cleanString(value.display_name)
     ?? cleanString(value.displayName)
     ?? (cleanString(value.id) || cleanString(value.model) ? cleanString(value.name) : undefined);
-  return name && name !== id ? { id, name } : { id };
+  const model: DiscoveredModel = name && name !== id ? { id, name } : { id };
+  if (typeof value.reasoning === "boolean") model.reasoning = value.reasoning;
+  const modalities = Array.isArray(value.input_modalities) ? value.input_modalities : value.input;
+  if (Array.isArray(modalities)) {
+    const input = [...new Set(modalities.filter((entry): entry is string => entry === "text" || entry === "image"))];
+    if (input.length) model.input = input;
+  }
+  const limits = isRecord(value.limits) ? value.limits : {};
+  const contextWindow = optionalPositiveNumber(value.contextWindow) ?? optionalPositiveNumber(value.context_window) ?? optionalPositiveNumber(limits.context);
+  const maxTokens = optionalPositiveNumber(value.maxTokens) ?? optionalPositiveNumber(value.max_output_tokens) ?? optionalPositiveNumber(value.maxOutputTokens) ?? optionalPositiveNumber(limits.output);
+  if (contextWindow !== undefined) model.contextWindow = contextWindow;
+  if (maxTokens !== undefined) model.maxTokens = maxTokens;
+  const cost = parseCost(value.cost);
+  if (cost) model.cost = cost;
+  return model;
 }
 
 const LIST_KEYS = ["data", "models", "results", "items"] as const;

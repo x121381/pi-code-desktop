@@ -42,10 +42,10 @@ interface FileData {
 
 type DisplayMode = "source" | "preview" | "diff";
 
-const DISPLAY_MODE_LABELS: Record<DisplayMode, string> = {
-  source: "Source",
-  preview: "Preview",
-  diff: "Diff",
+const DISPLAY_MODE_LABEL_KEYS: Record<DisplayMode, string> = {
+  source: "fileViewer.source",
+  preview: "fileViewer.preview",
+  diff: "fileViewer.diff",
 };
 
 function getDefaultDisplayMode(filePath: string, initialDisplayMode?: DisplayMode): DisplayMode {
@@ -255,6 +255,7 @@ function DownloadLink({ filePath, sourceSessionId }: { filePath: string; sourceS
 }
 
 function DesktopPathActions({ filePath }: { filePath: string }) {
+  const { t } = useI18n();
   const [desktop, setDesktop] = useState(false);
   useEffect(() => {
     void import("@/lib/desktop-native").then(({ isTauriDesktop }) => {
@@ -267,8 +268,8 @@ function DesktopPathActions({ filePath }: { filePath: string }) {
     <>
       <button
         type="button"
-        title="Open with default app"
-        aria-label="Open with default app"
+        title={t("fileViewer.openWithDefaultApp")}
+        aria-label={t("fileViewer.openWithDefaultApp")}
         className="file-viewer-icon-button"
         onClick={() => {
           void import("@/lib/desktop-native").then(({ openPathNative }) => openPathNative(filePath));
@@ -282,8 +283,8 @@ function DesktopPathActions({ filePath }: { filePath: string }) {
       </button>
       <button
         type="button"
-        title="Reveal in Finder"
-        aria-label="Reveal in Finder"
+        title={t("sidebar.revealWorktree")}
+        aria-label={t("sidebar.revealWorktree")}
         className="file-viewer-icon-button"
         onClick={() => {
           void import("@/lib/desktop-native").then(({ revealItemInDirNative }) => revealItemInDirNative(filePath));
@@ -312,6 +313,7 @@ function FileViewerToolbar({
   sourceSessionId?: string | null;
   children?: ReactNode;
 }) {
+  const { t } = useI18n();
   const relativePath = getRelativeFilePath(filePath, cwd);
   return (
     <div className="file-viewer-toolbar">
@@ -323,12 +325,12 @@ function FileViewerToolbar({
         {metadata && <span className="file-viewer-meta" title={metadata}>{metadata}</span>}
       </div>
       <span
-        title={watching ? "Live sync active" : "Live sync unavailable"}
-        aria-label={watching ? "Live sync active" : "Live sync unavailable"}
+        title={watching ? t("fileViewer.liveSyncActive") : t("fileViewer.liveSyncUnavailable")}
+        aria-label={watching ? t("fileViewer.liveSyncActive") : t("fileViewer.liveSyncUnavailable")}
         className={`file-viewer-live-status${watching ? " is-live" : ""}`}
       >
         <span className="file-viewer-live-indicator" />
-        <span>{watching ? "Live" : "Static"}</span>
+        <span>{watching ? t("fileViewer.live") : t("fileViewer.static")}</span>
       </span>
       <div className="file-viewer-controls">
         {children}
@@ -348,11 +350,12 @@ function FileViewerStatus({
   message?: string;
   onRetry?: () => void;
 }) {
+  const { t } = useI18n();
   const title = kind === "loading"
-    ? "Opening file"
+    ? t("fileViewer.openingFile")
     : kind === "error"
-      ? "Couldn’t open this file"
-      : "Nothing to preview";
+      ? t("fileViewer.openFailed")
+      : t("fileViewer.nothingToPreview");
 
   return (
     <div className={`file-viewer-status is-${kind}`} role={kind === "error" ? "alert" : "status"}>
@@ -378,7 +381,7 @@ function FileViewerStatus({
       {message && <span>{message}</span>}
       {onRetry && (
         <button type="button" className="file-viewer-retry-button" onClick={onRetry}>
-          Try again
+          {t("fileViewer.tryAgain")}
         </button>
       )}
     </div>
@@ -390,7 +393,79 @@ type DiffLine = {
   text: string;
   oldLineNo: number | null;
   newLineNo: number | null;
+  /** Word-level breakdown against this line's paired counterpart, when one exists. */
+  parts?: TokenDiff[];
 };
+
+type TokenDiff = { type: "same" | "removed" | "added"; value: string };
+
+/** Splits a line into words, punctuation runs, and whitespace runs, keeping every character. */
+function tokenize(text: string): string[] {
+  return text.match(/\w+|[^\w\s]+|\s+/g) ?? (text ? [text] : []);
+}
+
+/** Classic LCS-backtrack token diff — fine at line length (tens of tokens), never called on full files. */
+function diffTokens(a: string[], b: string[]): TokenDiff[] {
+  const n = a.length;
+  const m = b.length;
+  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    }
+  }
+  const result: TokenDiff[] = [];
+  let i = 0;
+  let j = 0;
+  while (i < n && j < m) {
+    if (a[i] === b[j]) {
+      result.push({ type: "same", value: a[i] });
+      i++; j++;
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      result.push({ type: "removed", value: a[i] });
+      i++;
+    } else {
+      result.push({ type: "added", value: b[j] });
+      j++;
+    }
+  }
+  while (i < n) { result.push({ type: "removed", value: a[i] }); i++; }
+  while (j < m) { result.push({ type: "added", value: b[j] }); j++; }
+  return result;
+}
+
+// Cursor-style modified-line highlighting: a removed line immediately followed
+// by an added line (a 1:1 edit, the common case) gets a word-level diff so only
+// the actually-changed words are highlighted, not the whole line. Runs with an
+// unequal number of removed/added lines pair only the first min(n, m) of each,
+// in order — the rest render as plain whole-line removed/added, same as before.
+function attachIntralineDiffs(lines: DiffLine[]): DiffLine[] {
+  const out = lines.slice();
+  let i = 0;
+  while (i < out.length) {
+    if (out[i].type !== "removed") { i++; continue; }
+    let removedEnd = i;
+    while (removedEnd < out.length && out[removedEnd].type === "removed") removedEnd++;
+    let addedEnd = removedEnd;
+    while (addedEnd < out.length && out[addedEnd].type === "added") addedEnd++;
+    const pairCount = Math.min(removedEnd - i, addedEnd - removedEnd);
+    for (let k = 0; k < pairCount; k++) {
+      const removedLine = out[i + k];
+      const addedLine = out[removedEnd + k];
+      const aTokens = tokenize(removedLine.text);
+      const bTokens = tokenize(addedLine.text);
+      // Skip pathologically long lines (minified code): O(n*m) DP would be slow
+      // and word-level noise on an unrelated line pair is not useful anyway.
+      if (aTokens.length * bTokens.length > 4000) continue;
+      const tokenDiff = diffTokens(aTokens, bTokens);
+      if (!tokenDiff.some((t) => t.type === "same")) continue;
+      out[i + k] = { ...removedLine, parts: tokenDiff.filter((t) => t.type !== "added") };
+      out[removedEnd + k] = { ...addedLine, parts: tokenDiff.filter((t) => t.type !== "removed") };
+    }
+    i = addedEnd;
+  }
+  return out;
+}
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -398,7 +473,9 @@ function formatSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function formatLanguage(language: string): string {
+function formatLanguage(language: string, translatePlainText: (key: string) => string): string {
+  // Language names (CSS, JavaScript, YAML, …) are proper nouns and stay
+  // untranslated; only the generic "plain text" fallback is localized.
   const labels: Record<string, string> = {
     css: "CSS",
     html: "HTML",
@@ -406,8 +483,8 @@ function formatLanguage(language: string): string {
     jsx: "JavaScript React",
     json: "JSON",
     markdown: "Markdown",
-    plaintext: "Plain text",
-    text: "Plain text",
+    plaintext: translatePlainText("fileViewer.plainText"),
+    text: translatePlainText("fileViewer.plainText"),
     tsx: "TypeScript React",
     typescript: "TypeScript",
     yaml: "YAML",
@@ -453,7 +530,7 @@ function diffLines(patch: string): DiffLine[] {
 
 function DiffView({ patch }: { patch: string }) {
   const { t } = useI18n();
-  const diff = diffLines(patch);
+  const diff = attachIntralineDiffs(diffLines(patch));
 
   const hasChanges = diff.some((l) => l.type !== "unchanged");
   if (!hasChanges) {
@@ -517,7 +594,7 @@ function DiffView({ patch }: { patch: string }) {
                 borderBottom: "1px solid var(--border)",
               }}
             >
-              ... {seg.count} unchanged lines ...
+              … {t("fileViewer.unchangedLines", { count: seg.count })} …
             </div>
           );
           return result;
@@ -575,7 +652,23 @@ function DiffView({ patch }: { patch: string }) {
                   color: "var(--text)",
                 }}
               >
-                {line.text || "\u00a0"}
+                {line.parts ? (
+                  line.parts.map((part, pi) => part.type === "same" ? (
+                    <span key={pi}>{part.value}</span>
+                  ) : (
+                    <span
+                      key={pi}
+                      style={{
+                        background: part.type === "added" ? "rgba(0,200,80,0.38)" : "rgba(240,60,60,0.4)",
+                        borderRadius: 2,
+                      }}
+                    >
+                      {part.value}
+                    </span>
+                  ))
+                ) : (
+                  line.text || "\u00a0"
+                )}
               </span>
             </div>
           );
@@ -587,6 +680,7 @@ function DiffView({ patch }: { patch: string }) {
 }
 
 function ImageViewer({ filePath, cwd, sourceSessionId }: Props) {
+  const { t } = useI18n();
   const [watching, setWatching] = useState(false);
   const [bust, setBust] = useState(0);
   const [size, setSize] = useState<number | null>(null);
@@ -660,7 +754,7 @@ function ImageViewer({ filePath, cwd, sourceSessionId }: Props) {
               const img = e.currentTarget;
               setNaturalSize({ w: img.naturalWidth, h: img.naturalHeight });
             }}
-            onError={() => setError("Failed to load image")}
+            onError={() => setError(t("fileViewer.imageLoadFailed"))}
             style={{
               maxWidth: "100%",
               maxHeight: "100%",
@@ -683,6 +777,7 @@ function formatDuration(seconds: number): string {
 }
 
 function AudioViewer({ filePath, cwd, sourceSessionId }: Props) {
+  const { t } = useI18n();
   const [watching, setWatching] = useState(false);
   const [bust, setBust] = useState(0);
   const [size, setSize] = useState<number | null>(null);
@@ -757,7 +852,7 @@ function AudioViewer({ filePath, cwd, sourceSessionId }: Props) {
             preload="metadata"
             src={src}
             onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-            onError={() => setError("Failed to load audio")}
+            onError={() => setError(t("fileViewer.audioLoadFailed"))}
             style={{ width: "100%" }}
           />
         </div>
@@ -798,7 +893,7 @@ function DocumentViewer({ filePath, cwd, sourceSessionId }: Props) {
         if (typeof d.size === "number") {
           setSize(d.size);
           if (!isPdf && d.size > DOCX_PREVIEW_MAX_BYTES) {
-            setError("DOCX too large for preview (>10MB)");
+            setError(t("fileViewer.docxTooLarge"));
           }
         }
       })
@@ -814,7 +909,7 @@ function DocumentViewer({ filePath, cwd, sourceSessionId }: Props) {
         if (typeof d.size === "number") {
           setSize(d.size);
           if (!isPdf && d.size > DOCX_PREVIEW_MAX_BYTES) {
-            setError("DOCX too large for preview (>10MB)");
+            setError(t("fileViewer.docxTooLarge"));
             return;
           }
         }
@@ -829,10 +924,10 @@ function DocumentViewer({ filePath, cwd, sourceSessionId }: Props) {
       es.close();
       esRef.current = null;
     };
-  }, [filePath, isPdf, sourceSessionId]);
+  }, [filePath, isPdf, sourceSessionId, t]);
 
   const metadata = [
-    ext === "docx" ? "DOCX preview" : "PDF",
+    ext === "docx" ? t("fileViewer.docxPreview") : "PDF",
     size != null ? formatSize(size) : null,
   ].filter(Boolean).join(" · ");
 
@@ -1127,7 +1222,7 @@ function TextFileViewer({ filePath, cwd, sourceSessionId, onOpenFile, onMentionL
   const lineCount = `${lines.length} ${lines.length === 1 ? "line" : "lines"}`;
   const metadata = isDeletedDiff
     ? t("files.deleted")
-    : `${formatLanguage(language)} · ${lineCount} · ${formatSize(data!.size)}`;
+    : `${formatLanguage(language, t)} · ${lineCount} · ${formatSize(data!.size)}`;
 
   return (
     <div className="file-viewer-shell">
@@ -1151,7 +1246,7 @@ function TextFileViewer({ filePath, cwd, sourceSessionId, onOpenFile, onMentionL
                   aria-pressed={active}
                   className="file-viewer-mode-button"
                 >
-                  {DISPLAY_MODE_LABELS[mode]}
+                  {t(DISPLAY_MODE_LABEL_KEYS[mode])}
                 </button>
               );
             })}

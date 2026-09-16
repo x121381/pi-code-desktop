@@ -5,6 +5,7 @@ import { DirectoryPicker } from "./DirectoryPicker";
 import { AnimatedDropdown, PathLabel, displayCwd } from "./path-ui";
 import { isTauriDesktop } from "@/lib/desktop-updater";
 import { selectDirectoryNative } from "@/lib/desktop-window";
+import { useI18n } from "@/hooks/useI18n";
 
 interface ProjectPickerProps {
   recentProjects: string[];
@@ -73,12 +74,14 @@ export async function selectProjectDirectoryNative(selectedCwd: string | null, h
 }
 
 export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, homeDir, onSelectCwd, variant = "block", disabled }: ProjectPickerProps) {
+  const { t } = useI18n();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownRect, setDropdownRect] = useState<{ top: number; left: number; width: number } | null>(null);
   const [projectFilter, setProjectFilter] = useState("");
   const [customPathOpen, setCustomPathOpen] = useState(false);
   const [customPathError, setCustomPathError] = useState<string | null>(null);
   const [customPathValidating, setCustomPathValidating] = useState(false);
+  const [noProjectBusy, setNoProjectBusy] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const closeDropdown = useCallback(() => {
@@ -149,6 +152,28 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
       setDropdownOpen(true);
     }
   }, [selectedCwd, homeDir, onSelectCwd, closeDropdown]);
+
+  const handleNoProject = useCallback(async () => {
+    if (noProjectBusy) return;
+    setNoProjectBusy(true);
+    setCustomPathError(null);
+    try {
+      const res = await fetch("/api/no-project-cwd");
+      const data = await res.json().catch(() => ({})) as { cwd?: string; error?: string };
+      if (!res.ok || data.error || !data.cwd) {
+        setCustomPathError(data.error ?? `HTTP ${res.status}`);
+        setDropdownOpen(true);
+        return;
+      }
+      onSelectCwd(data.cwd);
+      closeDropdown();
+    } catch (e) {
+      setCustomPathError(e instanceof Error ? e.message : String(e));
+      setDropdownOpen(true);
+    } finally {
+      setNoProjectBusy(false);
+    }
+  }, [noProjectBusy, onSelectCwd, closeDropdown]);
 
   const handleDefaultCwd = useCallback(async () => {
     try {
@@ -250,7 +275,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             />
           ) : (
             <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-dim)" }}>
-              Select project…
+              {t("sidebar.selectProject")}
             </span>
           )
         ) : (
@@ -269,7 +294,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             >
               {selectedCwd
                 ? ((selectedProject ?? selectedCwd).split("/").filter(Boolean).pop() ?? displayCwd(selectedProject ?? selectedCwd, homeDir))
-                : "Select project…"}
+                : t("sidebar.selectProject")}
             </span>
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="var(--text-dim)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
               <polyline points="2 3.5 5 6.5 8 3.5" />
@@ -291,8 +316,8 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
                   else closeDropdown();
                 }
               }}
-              placeholder="Filter projects…"
-              aria-label="Filter projects"
+              placeholder={t("sidebar.filterProjects")}
+              aria-label={t("sidebar.filterProjects")}
               autoFocus
               style={{
                 width: "100%",
@@ -347,9 +372,38 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             </button>
           ))}
           {visibleProjects.length === 0 && trimmedFilter && (
-            <div style={{ padding: "8px 10px", fontSize: 11, color: "var(--text-dim)" }}>No matching projects</div>
+            <div style={{ padding: "8px 10px", fontSize: 11, color: "var(--text-dim)" }}>{t("sidebar.noMatchingProjects")}</div>
           )}
         </div>
+
+        {/* Chat without picking a folder: project-scoped tools (Skills/Plugins
+            project scope, file explorer, git) stay off for this session. */}
+        <button
+          className="project-picker-option"
+          onClick={(e) => { e.stopPropagation(); void handleNoProject(); }}
+          disabled={noProjectBusy}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 7,
+            width: "100%",
+            padding: "8px 10px",
+            background: "none",
+            border: "none",
+            borderTop: visibleProjects.length > 0 || trimmedFilter ? "1px solid var(--border)" : "none",
+            color: "var(--text-muted)",
+            cursor: noProjectBusy ? "default" : "pointer",
+            textAlign: "left",
+            fontSize: 11,
+            opacity: noProjectBusy ? 0.6 : 1,
+          }}
+        >
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+            <circle cx="5" cy="5" r="4" />
+            <path d="M3.2 5h3.6" />
+          </svg>
+          <span>{t("sidebar.continueWithoutProject")}</span>
+        </button>
 
         {/* Default cwd shortcut */}
         {!customPathOpen && (
@@ -374,7 +428,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
               <path d="M1 3A1 1 0 0 1 2 2H4L5 3.5H8.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 1 8V3Z" />
             </svg>
-            <span>Use default directory</span>
+            <span>{t("sidebar.useDefaultDirectory")}</span>
           </button>
         )}
 
@@ -404,7 +458,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             <line x1="5" y1="1" x2="5" y2="9" />
             <line x1="1" y1="5" x2="9" y2="5" />
           </svg>
-          <span>Open Folder…</span>
+          <span>{t("sidebar.customPath")}</span>
         </button>
         {customPathError && isTauriDesktop() && (
           <div

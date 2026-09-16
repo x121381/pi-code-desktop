@@ -9,6 +9,7 @@ import {
   minimizeWindow,
   toggleMaximizeWindow,
 } from "@/lib/desktop-window";
+import { useI18n } from "@/hooks/useI18n";
 
 import { useDesktopChrome } from "./useDesktopChrome";
 
@@ -21,6 +22,7 @@ import { useDesktopChrome } from "./useDesktopChrome";
  * files carry a single line instead of the state, effects and icons.
  */
 export function WindowControls() {
+  const { t } = useI18n();
   const { isDesktop, isMacOS } = useDesktopChrome();
   const [maximized, setMaximized] = useState(false);
   const drawsOwnControls = isDesktop && !isMacOS;
@@ -46,7 +48,7 @@ export function WindowControls() {
       <button
         type="button"
         className="window-control-btn"
-        aria-label="Minimize"
+        aria-label={t("window.minimize")}
         onClick={() => { void minimizeWindow(); }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
@@ -56,7 +58,7 @@ export function WindowControls() {
       <button
         type="button"
         className="window-control-btn"
-        aria-label={maximized ? "Restore" : "Maximize"}
+        aria-label={maximized ? t("window.restore") : t("window.maximize")}
         onClick={() => { void handleToggleMaximize(); }}
       >
         {maximized ? (
@@ -73,7 +75,7 @@ export function WindowControls() {
       <button
         type="button"
         className="window-control-btn window-control-btn--close"
-        aria-label="Close"
+        aria-label={t("window.close")}
         onClick={() => { void closeWindow(); }}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">

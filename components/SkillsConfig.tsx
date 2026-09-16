@@ -584,10 +584,14 @@ function AddSkillPanel({
               installedPackages[scope].has(r.package) ||
               newlyInstalledPkgs.has(`${scope}:${r.package}`);
             const isInstalling = installing === r.package;
-            // split "owner/repo@skill" for cleaner display
+            const isGitHub = r.origin === "github";
+            // split "owner/repo@skill" for cleaner display; GitHub results use
+            // a "github:owner/repo" package with no "@skill" suffix.
             const atIdx = r.package.indexOf("@");
-            const repopart = atIdx > -1 ? r.package.slice(0, atIdx) : r.package;
-            const skillpart = atIdx > -1 ? r.package.slice(atIdx + 1) : null;
+            const repopart = isGitHub
+              ? r.package.replace(/^github:/, "")
+              : atIdx > -1 ? r.package.slice(0, atIdx) : r.package;
+            const skillpart = !isGitHub && atIdx > -1 ? r.package.slice(atIdx + 1) : null;
             return (
               <div
                 key={r.package}
@@ -611,6 +615,20 @@ function AddSkillPanel({
                   >
                     {skillpart ?? repopart}
                   </div>
+                  {r.description && (
+                    <div
+                      style={{
+                        fontSize: 11.5,
+                        color: "var(--text-dim)",
+                        marginBottom: 3,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {r.description}
+                    </div>
+                  )}
                   {/* repo + installs + link row */}
                   <div
                     style={{
@@ -629,15 +647,17 @@ function AddSkillPanel({
                     >
                       {repopart}
                     </span>
-                    <span
-                      style={{
-                        fontSize: 12,
-                        color: "var(--text-muted)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {r.installs}
-                    </span>
+                    {r.installs && (
+                      <span
+                        style={{
+                          fontSize: 12,
+                          color: "var(--text-muted)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {r.installs}
+                      </span>
+                    )}
                     {r.url && (
                       <a
                         href={r.url}
@@ -650,7 +670,7 @@ function AddSkillPanel({
                           textDecoration: "none",
                         }}
                       >
-                        skills.sh ↗
+                        {isGitHub ? `${t("skills.github")} ↗` : "skills.sh ↗"}
                       </a>
                     )}
                   </div>
@@ -697,7 +717,7 @@ function AddSkillPanel({
           <div
             style={{ fontSize: 13, color: "var(--text-dim)", lineHeight: 1.8 }}
           >
-            Search{" "}
+            {t("skills.searchHintPrefix")}{" "}
             <a
               href="https://skills.sh"
               target="_blank"
@@ -707,7 +727,8 @@ function AddSkillPanel({
             >
               skills.sh
             </a>{" "}
-            to discover and install skills for your agent.
+            {t("skills.searchHintMiddle")} {t("skills.github")}{" "}
+            {t("skills.searchHintSuffix")}
           </div>
         )
       )}

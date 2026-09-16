@@ -5,6 +5,7 @@ import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { writePrivateFileAtomicSync } from "@/lib/atomic-file";
 import { invalidateModelsCache } from "@/lib/models-cache";
 import { mergeStoredLiteralApiKeys, redactModelsJson } from "@/lib/models-config-redaction";
+import { normalizeModelsConfig } from "@/lib/models-config-normalize";
 
 export const dynamic = "force-dynamic";
 
@@ -44,10 +45,11 @@ export async function PUT(req: Request) {
     // The client never sees stored literal apiKeys (GET redacts them), so an
     // incoming provider that omits the field must keep the stored value while
     // the user edits unrelated settings. An explicit apiKey (even "") wins.
-    writeModelsJson({
+    const normalized = normalizeModelsConfig({
       ...body,
       providers: mergeStoredLiteralApiKeys(incomingProviders, existingProviders),
     });
+    writeModelsJson(normalized);
     invalidateModelsCache();
     return NextResponse.json({ success: true });
   } catch (error) {

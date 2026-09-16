@@ -4,6 +4,9 @@ export interface SkillSearchResult {
   package: string;
   installs: string;
   url: string;
+  /** Where this result came from — used to render provenance and dedupe. Defaults to "skills.sh" when omitted. */
+  origin?: "skills.sh" | "github";
+  description?: string;
 }
 
 export type SkillInstallScope = "global" | "project";

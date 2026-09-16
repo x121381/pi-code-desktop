@@ -98,6 +98,25 @@ export function AppShell() {
   const [skillsConfigOpen, setSkillsConfigOpen] = useState(false);
   const [pluginsConfigOpen, setPluginsConfigOpen] = useState(false);
   const [appSettingsOpen, setAppSettingsOpen] = useState(false);
+  const FOOTER_TOOL_IDS = ["models", "skills", "plugins"] as const;
+  type FooterToolId = (typeof FOOTER_TOOL_IDS)[number];
+  const [footerToolOrder, setFooterToolOrder] = useState<FooterToolId[]>(() => {
+    const stored = getPrefJson<string[]>(APP_PREF_KEYS.footerToolOrder);
+    const valid = stored?.length === FOOTER_TOOL_IDS.length
+      && FOOTER_TOOL_IDS.every((id) => stored.includes(id));
+    return valid ? (stored as FooterToolId[]) : [...FOOTER_TOOL_IDS];
+  });
+  const [draggedFooterTool, setDraggedFooterTool] = useState<FooterToolId | null>(null);
+  const reorderFooterTools = useCallback((dragged: FooterToolId, target: FooterToolId) => {
+    if (dragged === target) return;
+    setFooterToolOrder((prev) => {
+      const next = prev.filter((id) => id !== dragged);
+      const targetIndex = next.indexOf(target);
+      next.splice(targetIndex, 0, dragged);
+      setPrefJson(APP_PREF_KEYS.footerToolOrder, next);
+      return next;
+    });
+  }, []);
   const [projectTrust, setProjectTrust] = useState<ProjectTrustStatus | null>(null);
   const [projectTrustDialogOpen, setProjectTrustDialogOpen] = useState(false);
   const [projectTrustBusy, setProjectTrustBusy] = useState(false);
@@ -947,79 +966,108 @@ export function AppShell() {
         headerControls={sidebarHeaderControls}
       />
       <div className="sidebar-footer" style={{ padding: "8px", flexShrink: 0, display: "flex", justifyContent: "space-between", gap: 4 }}>
-        {([
-          {
-             label: translate("common.models"),
-            onClick: () => setModelsConfigOpen(true),
-            disabled: false,
-            icon: (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" />
-                <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
-                <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
-                <line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" />
-                <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" />
-              </svg>
-            ),
-          },
-          {
-             label: translate("common.skills"),
-            onClick: () => setSkillsConfigOpen(true),
-            disabled: !activeCwd && !selectedSession?.cwd && !newSessionCwd,
-            icon: (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
-            ),
-          },
-          {
-             label: translate("common.plugins"),
-            onClick: () => setPluginsConfigOpen(true),
-            disabled: !activeCwd && !selectedSession?.cwd && !newSessionCwd,
-            icon: (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 7V2" />
-                <path d="M15 7V2" />
-                <path d="M6 13V8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v5a6 6 0 0 1-12 0Z" />
-                <path d="M12 19v3" />
-              </svg>
-            ),
-          },
-          {
-            label: "Settings",
-            onClick: () => setAppSettingsOpen(true),
-            disabled: false,
-            iconOnly: true,
-            icon: (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15a1.7 1.7 0 0 0-1.56-1.03H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06A1.7 1.7 0 0 0 8.97 4.6 1.7 1.7 0 0 0 10 3.04V3h4v.08a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06L19.8 7l-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.96 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
-              </svg>
-            ),
-          },
-        ] as { label: string; onClick: () => void; disabled: boolean; iconOnly?: boolean; icon: React.ReactNode }[]).map(({ label, onClick, disabled, iconOnly, icon }) => (
-          <button
-            key={label}
-            onClick={onClick}
-            disabled={disabled}
-            title={label}
-            aria-label={label}
-            style={{
-              flex: iconOnly ? "0 0 32px" : 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-              height: 32, padding: 0, background: "none", border: "none",
-              borderRadius: 9, color: "var(--text-muted)", cursor: disabled ? "default" : "pointer",
-              fontSize: 12, opacity: disabled ? 0.35 : 1,
-              transition: "background 0.12s, color 0.12s",
-            }}
-            onMouseEnter={(e) => { if (!disabled) { e.currentTarget.style.background = "var(--bg-hover)"; e.currentTarget.style.color = "var(--text)"; } }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "var(--text-muted)"; }}
-          >
-            {icon}
-            {!iconOnly && label}
-          </button>
-        ))}
+        {(() => {
+          const footerItems: Record<FooterToolId, { label: string; onClick: () => void; disabled: boolean; icon: React.ReactNode }> = {
+            models: {
+              label: translate("common.models"),
+              onClick: () => setModelsConfigOpen(true),
+              disabled: false,
+              icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" />
+                  <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
+                  <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
+                  <line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" />
+                  <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" />
+                </svg>
+              ),
+            },
+            skills: {
+              label: translate("common.skills"),
+              onClick: () => setSkillsConfigOpen(true),
+              disabled: !activeCwd && !selectedSession?.cwd && !newSessionCwd,
+              icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5" />
+                  <path d="M2 12l10 5 10-5" />
+                </svg>
+              ),
+            },
+            plugins: {
+              label: translate("common.plugins"),
+              onClick: () => setPluginsConfigOpen(true),
+              disabled: !activeCwd && !selectedSession?.cwd && !newSessionCwd,
+              icon: (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 7V2" />
+                  <path d="M15 7V2" />
+                  <path d="M6 13V8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v5a6 6 0 0 1-12 0Z" />
+                  <path d="M12 19v3" />
+                </svg>
+              ),
+            },
+          };
+          return (
+            <>
+              {footerToolOrder.map((id) => {
+                const { label, onClick, disabled, icon } = footerItems[id];
+                const isDragging = draggedFooterTool === id;
+                return (
+                  <button
+                    key={id}
+                    onClick={onClick}
+                    disabled={disabled}
+                    title={label}
+                    aria-label={label}
+                    draggable
+                    onDragStart={(e) => {
+                      setDraggedFooterTool(id);
+                      e.dataTransfer.effectAllowed = "move";
+                    }}
+                    onDragEnd={() => setDraggedFooterTool(null)}
+                    onDragOver={(e) => { if (draggedFooterTool) e.preventDefault(); }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      if (draggedFooterTool) reorderFooterTools(draggedFooterTool, id);
+                      setDraggedFooterTool(null);
+                    }}
+                    style={{
+                      flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                      height: 32, padding: 0, background: "none", border: "none",
+                      borderRadius: 9, color: "var(--text-muted)", cursor: disabled ? "default" : "grab",
+                      fontSize: 12, opacity: disabled ? 0.35 : isDragging ? 0.4 : 1,
+                      transition: "background 0.12s, color 0.12s",
+                    }}
+                    onMouseEnter={(e) => { if (!disabled) { e.currentTarget.style.background = "var(--bg-hover)"; e.currentTarget.style.color = "var(--text)"; } }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "var(--text-muted)"; }}
+                  >
+                    {icon}
+                    {label}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => setAppSettingsOpen(true)}
+                title={translate("common.settings")}
+                aria-label={translate("common.settings")}
+                style={{
+                  flex: "0 0 32px", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                  height: 32, padding: 0, background: "none", border: "none",
+                  borderRadius: 9, color: "var(--text-muted)", cursor: "pointer",
+                  fontSize: 12, transition: "background 0.12s, color 0.12s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--bg-hover)"; e.currentTarget.style.color = "var(--text)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "var(--text-muted)"; }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15a1.7 1.7 0 0 0-1.56-1.03H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06A1.7 1.7 0 0 0 8.97 4.6 1.7 1.7 0 0 0 10 3.04V3h4v.08a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06L19.8 7l-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.96 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
+                </svg>
+              </button>
+            </>
+          );
+        })()}
       </div>
     </>
   );
@@ -1682,6 +1730,8 @@ export function AppShell() {
               activeTabId={activeFileTabId ?? ""}
               onSelectTab={setActiveFileTabId}
               onCloseTab={handleCloseFileTab}
+              cwd={activeCwd}
+              gitRefreshKey={explorerRefreshKey}
             />
           </div>
           <div className="file-workbench-actions">

@@ -8,6 +8,7 @@ import { handleExternalLinkClick, openExternal } from "@/lib/desktop-native";
 import { ConfirmDangerButton } from "./ConfirmDangerButton";
 import type { ModelCatalogPreset, ModelCatalogRecommendation } from "@/lib/model-catalog";
 import type { DiscoveredModel } from "@/lib/model-discovery";
+import { normalizeModelForConfig, normalizeModelsConfig } from "@/lib/models-config-normalize";
 // Color icons (have their own fill colors — no background needed)
 import AnthropicIcon from "@lobehub/icons/es/Anthropic/components/Mono";
 import OpenAIIcon from "@lobehub/icons/es/OpenAI/components/Mono";
@@ -364,7 +365,7 @@ function ProviderDetail({ name, provider, onChange, onRename, onDelete, onAddMod
     }
   }, [discoveryState.phase, name, provider]);
 
-  const existingModelIds = new Set((provider.models ?? []).map((model) => model.id));
+  const existingModelIds = new Set((provider.models ?? []).map((model) => model.id.trim()).filter(Boolean));
   const discoveredModels = discoveryState.phase === "success" ? discoveryState.models : [];
   const normalizedDiscoveryQuery = discoveryQuery.trim().toLocaleLowerCase();
   const filteredDiscoveredModels = discoveredModels.filter((model) => !normalizedDiscoveryQuery
@@ -1770,11 +1771,12 @@ export function ModelsConfig({ onClose }: { onClose: () => void }) {
     setConfig((prev) => {
       const provider = prev.providers?.[providerName] ?? {};
       const models = [...(provider.models ?? [])];
-      const existingIds = new Set(models.map((model) => model.id));
+      const existingIds = new Set(models.map((model) => model.id.trim()).filter(Boolean));
       for (const discoveredModel of discovered) {
-        if (existingIds.has(discoveredModel.id)) continue;
-        existingIds.add(discoveredModel.id);
-        models.push({ ...discoveredModel });
+        const normalized = normalizeModelForConfig(discoveredModel);
+        if (!normalized || existingIds.has(normalized.id)) continue;
+        existingIds.add(normalized.id);
+        models.push(normalized);
       }
       return { ...prev, providers: { ...(prev.providers ?? {}), [providerName]: { ...provider, models } } };
     });
@@ -1804,15 +1806,17 @@ export function ModelsConfig({ onClose }: { onClose: () => void }) {
     setSaveError(null);
     setSavedOk(false);
     try {
+      const normalized = normalizeModelsConfig(config);
       const res = await fetch("/api/models-config", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(config),
+        body: JSON.stringify(normalized),
       });
       const d = await res.json() as { success?: boolean; error?: string };
       if (!res.ok || d.error) setSaveError(d.error ?? `HTTP ${res.status}`);
       else {
-        savedSnapshotRef.current = JSON.stringify(config);
+        setConfig(normalized);
+        savedSnapshotRef.current = JSON.stringify(normalized);
         setSavedOk(true);
         setTimeout(() => setSavedOk(false), 2000);
       }

@@ -9,6 +9,8 @@ const DEFAULT_LIMIT = 50;
 const MIN_LIMIT = 1;
 const MAX_LIMIT = 50;
 const SEARCH_API_BASE = process.env.SKILLS_API_URL || "https://skills.sh";
+const GITHUB_API_BASE = "https://api.github.com";
+const GITHUB_SEARCH_TIMEOUT_MS = 8000;
 
 interface SkillsApiSkill {
   id?: string;
@@ -61,7 +63,7 @@ async function searchSkillsApi(query: string, limit: number): Promise<SkillSearc
 
   const data = (await res.json()) as SkillsApiResponse;
   return (data.skills ?? [])
-    .map((skill) => {
+    .map((skill): SkillSearchResult | null => {
       const name = skill.name?.trim();
       const source = skill.source?.trim();
       const slug = skill.id?.trim();
@@ -72,10 +74,88 @@ async function searchSkillsApi(query: string, limit: number): Promise<SkillSearc
         package: pkg,
         installs: formatInstalls(skill.installs),
         url: slug ? `${SEARCH_API_BASE}/${slug}` : "",
+        origin: "skills.sh",
       };
     })
     .filter((skill): skill is SkillSearchResult => skill !== null)
     .sort((a, b) => parseInstallCount(b.installs) - parseInstallCount(a.installs));
+}
+
+// A query naming a specific repo, either as a bare "owner/repo" or a full
+// https://github.com/owner/repo URL (optionally with a trailing .git / path).
+const GITHUB_REPO_RE = /^(?:https?:\/\/github\.com\/)?([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i;
+
+interface GitHubRepo {
+  full_name: string;
+  html_url: string;
+  description?: string | null;
+  stargazers_count?: number;
+}
+
+function githubHeaders(): HeadersInit {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": "pi-code-desktop",
+  };
+  // Optional: raises the unauthenticated GitHub API rate limit when a user
+  // supplies their own token via env. Never required and never sent anywhere
+  // else — this is the same token a developer would already export for `gh`.
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  return headers;
+}
+
+async function githubFetch(url: string): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), GITHUB_SEARCH_TIMEOUT_MS);
+  try {
+    return await fetch(url, { headers: githubHeaders(), cache: "no-store", signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function repoToResult(repo: GitHubRepo): SkillSearchResult {
+  return {
+    package: `github:${repo.full_name}`,
+    installs: repo.stargazers_count ? `★ ${repo.stargazers_count.toLocaleString()}` : "",
+    url: repo.html_url,
+    origin: "github",
+    description: repo.description?.trim() || undefined,
+  };
+}
+
+/**
+ * Looks up skills on GitHub. A query that names a specific repo (URL or
+ * "owner/repo") fetches that repo directly; otherwise this searches public
+ * repositories whose name/description/topics mention the query and "skill",
+ * which is how Claude/Pi skill repos are conventionally tagged. Unauthenticated
+ * GitHub API calls are rate-limited but require no credentials.
+ */
+async function searchGitHubSkills(query: string, limit: number): Promise<SkillSearchResult[]> {
+  const trimmed = query.trim();
+  const repoMatch = trimmed.match(GITHUB_REPO_RE);
+  if (repoMatch) {
+    const [, owner, repo] = repoMatch;
+    try {
+      const res = await githubFetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`);
+      if (!res.ok) return [];
+      const data = await res.json() as GitHubRepo;
+      return [repoToResult(data)];
+    } catch {
+      return [];
+    }
+  }
+
+  try {
+    const q = `${trimmed} skill in:name,description,topics`;
+    const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=${Math.min(limit, 25)}`;
+    const res = await githubFetch(url);
+    if (!res.ok) return [];
+    const data = await res.json() as { items?: GitHubRepo[] };
+    return (data.items ?? []).map(repoToResult);
+  } catch {
+    return [];
+  }
 }
 
 function parseInstallCount(installs: string): number {
@@ -87,25 +167,54 @@ function parseInstallCount(installs: string): number {
   return value * multiplier;
 }
 
+function dedupeResults(results: SkillSearchResult[]): SkillSearchResult[] {
+  const seen = new Set<string>();
+  const out: SkillSearchResult[] = [];
+  for (const result of results) {
+    const key = (result.url || result.package).toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(result);
+  }
+  return out;
+}
+
 // POST /api/skills/search  body: { query: string, limit?: number }
+// Searches skills.sh's registry and, in parallel, GitHub (a named "owner/repo"
+// or URL resolves that exact repo; any other query searches public repos
+// tagged/described as skills). Results are merged so users can find both
+// registered skills and skills published only on GitHub.
 export async function POST(req: Request) {
   try {
     const { query, limit: rawLimit } = await req.json() as { query?: string; limit?: unknown };
     if (!query?.trim()) return NextResponse.json({ error: "query required" }, { status: 400 });
     const limit = parseLimit(rawLimit);
+    const trimmedQuery = query.trim();
 
+    const githubResultsPromise = searchGitHubSkills(trimmedQuery, limit);
+
+    let registryResults: SkillSearchResult[] = [];
     try {
-      const results = await searchSkillsApi(query.trim(), limit);
-      return NextResponse.json({ results });
+      registryResults = await searchSkillsApi(trimmedQuery, limit);
     } catch {
-      const { stdout, stderr } = await runNpx(["skills", "find", query.trim()], {
-        timeout: 20000,
-        env: { ...process.env, FORCE_COLOR: "0" },
-      });
-
-      const results = parseSearchOutput(stdout + stderr).slice(0, limit);
-      return NextResponse.json({ results });
+      try {
+        const { stdout, stderr } = await runNpx(["skills", "find", trimmedQuery], {
+          timeout: 20000,
+          env: { ...process.env, FORCE_COLOR: "0" },
+        });
+        registryResults = parseSearchOutput(stdout + stderr).slice(0, limit)
+          .map((r) => ({ ...r, origin: "skills.sh" as const }));
+      } catch {
+        registryResults = [];
+      }
     }
+
+    const githubResults = await githubResultsPromise;
+    const results = dedupeResults([...githubResults, ...registryResults]).slice(0, limit);
+    if (results.length === 0 && registryResults.length === 0 && githubResults.length === 0) {
+      return NextResponse.json({ results: [] });
+    }
+    return NextResponse.json({ results });
   } catch (e: unknown) {
     const err = e as { stdout?: string; stderr?: string; message?: string };
     const raw = (err.stdout ?? "") + (err.stderr ?? "");
