@@ -115,7 +115,7 @@ jobs:
           tagName: v__VERSION__
           releaseName: pi-code-desktop v__VERSION__
           releaseBody: |
-            ## Pi Code Desktop 0.1.3
+            ## Pi Code Desktop 0.1.4
 
             This release adds the desktop workflows requested by users and ships them
             through the signed whole-application updater.
@@ -135,7 +135,7 @@ jobs:
 
             ---
 
-            ## Pi Code Desktop 0.1.3
+            ## Pi Code Desktop 0.1.4
 
             本版本加入用户要求的桌面工作流，并通过签名的整包更新机制发布。
 
