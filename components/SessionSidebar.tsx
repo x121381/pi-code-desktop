@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState, useCallback, useRef, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState, useCallback, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { SessionInfo } from "@/lib/types";
 import { useI18n } from "@/hooks/useI18n";
-import { ProjectPicker, selectProjectDirectoryNative } from "./ProjectPicker";
+import { ProjectPicker, selectNoProjectCwd, selectProjectDirectoryNative } from "./ProjectPicker";
 import { AnimatedDropdown, PathLabel, displayCwd, getRecentProjects } from "./path-ui";
 import { APP_PREF_KEYS, getPrefJson, removePref, setPrefJson } from "@/lib/app-prefs";
 import { groupByProject } from "@/lib/project-group";
@@ -12,6 +12,7 @@ import { notifyDesktop } from "@/lib/desktop-notify";
 import { revealItemInDirNative } from "@/lib/desktop-native";
 import { isTauriDesktop } from "@/lib/desktop-updater";
 import { getDesktopPlatform, type DesktopPlatform } from "@/lib/desktop-window";
+import { isNoProjectWorkspace } from "@/lib/no-project-workspace";
 import { useWindowDrag } from "./desktop";
 interface Props {
   selectedSessionId: string | null;
@@ -23,7 +24,8 @@ interface Props {
   refreshKey?: number;
   onSessionDeleted?: (sessionId: string) => void;
   selectedCwd?: string | null;
-  onCwdChange?: (cwd: string | null, projectRoot?: string | null) => void;
+  onCwdChange?: (cwd: string | null, projectRoot?: string | null, noProjectMode?: boolean) => void;
+  onNoProjectModeChange?: (enabled: boolean) => void;
   onProjectsChange?: (projectRoots: string[]) => void;
   /** Window-chrome controls (theme + sidebar collapse) rendered at the top-right of the sidebar. */
   headerControls?: ReactNode;
@@ -139,9 +141,13 @@ function buildSessionTree(sessions: SessionInfo[]): SessionTreeNode[] {
   return roots;
 }
 
-export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSession, initialSessionId, skipInitialProjectSelection, onInitialRestoreDone, refreshKey, onSessionDeleted, selectedCwd: selectedCwdProp, onCwdChange, onProjectsChange, headerControls }: Props) {
+export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSession, initialSessionId, skipInitialProjectSelection, onInitialRestoreDone, refreshKey, onSessionDeleted, selectedCwd: selectedCwdProp, onCwdChange, onNoProjectModeChange, onProjectsChange, headerControls }: Props) {
   const { t } = useI18n();
   const [allSessions, setAllSessions] = useState<SessionInfo[]>([]);
+  const [noProjectCwd, setNoProjectCwd] = useState<string | null>(null);
+  const [noProjectCwdLoaded, setNoProjectCwdLoaded] = useState(false);
+  const [noProjectBusy, setNoProjectBusy] = useState(false);
+  const [noProjectError, setNoProjectError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedCwd, setSelectedCwd] = useState<string | null>(null);
   const [homeDir, setHomeDir] = useState<string>("");
@@ -375,25 +381,41 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
     fetch("/api/home").then((r) => r.json()).then((d: { home?: string }) => {
       if (d.home) setHomeDir(d.home);
     }).catch(() => {});
+    fetch("/api/no-project-cwd")
+      .then((r) => r.json() as Promise<{ cwd?: string }>)
+      .then((d) => { if (d.cwd) setNoProjectCwd(d.cwd); })
+      .catch(() => {})
+      .finally(() => setNoProjectCwdLoaded(true));
   }, []);
 
   const restoredRef = useRef(false);
 
+  const isNoProjectCwd = useCallback(
+    (cwd: string | null): boolean => isNoProjectWorkspace(cwd, noProjectCwd),
+    [noProjectCwd],
+  );
+
   /** Resolve the project root for a cwd from the freshest data available */
   const projectRootFor = useCallback((cwd: string | null): string | null => {
-    if (!cwd) return null;
+    if (!cwd || isNoProjectCwd(cwd)) return null;
     if (worktreeState && worktreeState.forCwd === cwd) return worktreeState.projectRoot;
     // Any path in the loaded worktree list belongs to that project — covers
     // worktrees without sessions, so switching to them keeps the row mounted.
     if (worktreeState?.worktrees.some((w) => w.path === cwd)) return worktreeState.projectRoot;
     const match = allSessions.find((s) => s.cwd === cwd);
     return match?.projectRoot ?? cwd;
-  }, [worktreeState, allSessions]);
+  }, [worktreeState, allSessions, isNoProjectCwd]);
+
+  const noProjectMode = isNoProjectCwd(selectedCwd);
+  useEffect(() => {
+    onNoProjectModeChange?.(noProjectMode);
+  }, [noProjectMode, onNoProjectModeChange]);
 
   // Selecting a directory is also the explicit "add project" action. If the
   // project was previously removed from the sidebar, make it visible again
   // without touching any of the session files discovered for that directory.
   const activateProject = useCallback((cwd: string) => {
+    onNoProjectModeChange?.(false);
     const projectRoot = projectRootFor(cwd) ?? cwd;
     setArchivedProjectRoots((previous) => {
       if (!previous.has(projectRoot)) return previous;
@@ -402,16 +424,43 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
       return next;
     });
     setSelectedCwd(cwd);
-  }, [projectRootFor]);
+  }, [projectRootFor, onNoProjectModeChange]);
+
+  const activateNoProject = useCallback((cwd: string) => {
+    onNoProjectModeChange?.(true);
+    setNoProjectCwd(cwd);
+    setNoProjectCwdLoaded(true);
+    setSelectedCwd(cwd);
+    const tempId = typeof crypto.randomUUID === "function"
+      ? crypto.randomUUID()
+      : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    onNewSession?.(tempId, cwd);
+  }, [onNewSession, onNoProjectModeChange]);
+
+  const handleNoProject = useCallback(async () => {
+    if (noProjectBusy) return;
+    setNoProjectBusy(true);
+    setNoProjectError(null);
+    try {
+      activateNoProject(noProjectCwd ?? await selectNoProjectCwd());
+    } catch (error) {
+      setNoProjectError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setNoProjectBusy(false);
+    }
+  }, [noProjectBusy, noProjectCwd, activateNoProject]);
 
   // Notify parent only when the effective cwd actually changes (not when
   // projectRootFor identity changes due to session/worktree refreshes).
   const lastNotifiedCwdRef = useRef<string | null>(null);
+  const lastNotifiedNoProjectModeRef = useRef(false);
   useEffect(() => {
-    if (lastNotifiedCwdRef.current === selectedCwd) return;
+    if (selectedCwd && !noProjectCwdLoaded) return;
+    if (lastNotifiedCwdRef.current === selectedCwd && lastNotifiedNoProjectModeRef.current === noProjectMode) return;
     lastNotifiedCwdRef.current = selectedCwd;
-    onCwdChange?.(selectedCwd, projectRootFor(selectedCwd));
-  }, [selectedCwd, onCwdChange, projectRootFor]);
+    lastNotifiedNoProjectModeRef.current = noProjectMode;
+    onCwdChange?.(selectedCwd, projectRootFor(selectedCwd), noProjectMode);
+  }, [selectedCwd, noProjectCwdLoaded, onCwdChange, projectRootFor, noProjectMode]);
 
   // Sync the worktree switcher to the selected session's cwd. Sessions of all
   // worktrees in a project share one list, so clicking a session from another
@@ -432,7 +481,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   // header row doesn't flash and shove the session list down and back up.
   const checkedWorktreeCwdsRef = useRef<Set<string>>(new Set());
   useLayoutEffect(() => {
-    if (!selectedCwd) {
+    if (!selectedCwd || !noProjectCwdLoaded || isNoProjectCwd(selectedCwd)) {
       setWorktreeState(null);
       setWorktreeLoadingCwd(null);
       return;
@@ -466,7 +515,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
         }
       });
     return () => { cancelled = true; };
-  }, [selectedCwd, wtRefreshKey, refreshKey, wtPollTick]);
+  }, [selectedCwd, noProjectCwdLoaded, wtRefreshKey, refreshKey, wtPollTick, isNoProjectCwd]);
 
   // Keep the worktree/branch display honest when branches are switched outside
   // pi (terminal, IDE, another client): poll while the tab is visible and
@@ -488,28 +537,47 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
 
   // Most-recent projects, deduped by projectRoot, used to pick the default
   // cwd when no session is selected yet.
-  const recentProjects = getRecentProjects(allSessions);
-  // Auto-select cwd and restore session from URL on first load
+  const recentProjects = useMemo(
+    () => noProjectCwdLoaded
+      ? getRecentProjects(allSessions.filter((session) => !isNoProjectCwd(session.cwd)))
+      : [],
+    [allSessions, isNoProjectCwd, noProjectCwdLoaded],
+  );
+  // Auto-select cwd and restore session from URL on first load. Wait for both
+  // requests so the internal workspace is never briefly treated as a project.
   useEffect(() => {
-    if (allSessions.length === 0 || skipInitialProjectSelection) return;
+    if (loading || !noProjectCwdLoaded || skipInitialProjectSelection || selectedCwd !== null) return;
 
-    if (selectedCwd === null) {
-      // If restoring a session, set cwd to match that session
-      if (initialSessionId && !restoredRef.current) {
-        restoredRef.current = true;
-        const target = allSessions.find((s) => s.id === initialSessionId);
-        if (target) {
-          setSelectedCwd(target.cwd);
-          onSelectSession(target, true);
-          return;
-        }
-        // Session not found — notify parent so it can show the placeholder
-        onInitialRestoreDone?.();
+    // If restoring a session, set cwd to match that session.
+    if (initialSessionId && !restoredRef.current) {
+      restoredRef.current = true;
+      const target = allSessions.find((s) => s.id === initialSessionId);
+      if (target) {
+        setSelectedCwd(target.cwd);
+        onNoProjectModeChange?.(isNoProjectCwd(target.cwd));
+        onSelectSession(target, true);
+        return;
       }
-      const projects = recentProjects;
-      if (projects.length > 0) setSelectedCwd(projects[0]);
+      // Session not found — notify parent so it can show the placeholder.
+      onInitialRestoreDone?.();
     }
-  }, [allSessions, selectedCwd, initialSessionId, skipInitialProjectSelection, onSelectSession, onInitialRestoreDone, recentProjects]);
+
+    if (recentProjects.length > 0) {
+      setSelectedCwd(recentProjects[0]);
+    }
+  }, [
+    loading,
+    noProjectCwdLoaded,
+    skipInitialProjectSelection,
+    selectedCwd,
+    initialSessionId,
+    allSessions,
+    onSelectSession,
+    onInitialRestoreDone,
+    onNoProjectModeChange,
+    isNoProjectCwd,
+    recentProjects,
+  ]);
 
   // Branch list for the switcher section (and the new-worktree datalist).
   // Loaded while the dropdown is open and on every poll tick, so branches
@@ -771,8 +839,9 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   // open session after manually switching worktrees.
   const handleSelectSessionFromList = useCallback((s: SessionInfo) => {
     if (s.cwd) setSelectedCwd(s.cwd);
+    onNoProjectModeChange?.(isNoProjectCwd(s.cwd));
     onSelectSession(s);
-  }, [onSelectSession]);
+  }, [onSelectSession, onNoProjectModeChange, isNoProjectCwd]);
 
   const handleNewSession = useCallback((cwdOverride?: string) => {
     const cwd = cwdOverride ?? selectedCwd;
@@ -847,15 +916,22 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
         (session.name ?? "").toLowerCase().includes(trimmedSessionQuery)
         || session.firstMessage.toLowerCase().includes(trimmedSessionQuery))
     : allSessions;
-  const allProjects = groupByProject(searchedSessions, { runningIds: runningSessionIds, unreadIds: unreadSessionIds });
+  const noProjectSessions = noProjectCwd
+    ? searchedSessions.filter((session) => isNoProjectCwd(session.cwd))
+    : [];
+  const projectSessions = noProjectCwd
+    ? searchedSessions.filter((session) => !isNoProjectCwd(session.cwd))
+    : searchedSessions;
+  const allProjects = groupByProject(projectSessions, { runningIds: runningSessionIds, unreadIds: unreadSessionIds });
   const activeProjects = allProjects.filter((group) => !archivedProjectRoots.has(group.projectRoot));
+  const hasSidebarItems = activeProjects.length > 0 || noProjectSessions.length > 0 || noProjectMode;
   useEffect(() => {
     const projectRoots = activeProjects.map((group) => group.projectRoot);
     onProjectsChange?.(projectRoots);
   }, [activeProjects, onProjectsChange]);
   // Sessions of every worktree in the selected project are shown together
   const selectedProject = projectRootFor(selectedCwd);
-  const showWorktreeSwitcher = Boolean(
+  const showWorktreeSwitcher = !noProjectMode && Boolean(
     worktreeState?.isGit
     && worktreeState.isTopLevel
     && selectedCwd
@@ -865,7 +941,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   // just not checked out at its top level) — a non-git directory has no
   // worktree feature to point at, so stay silent instead of showing an inert
   // "not available" placeholder.
-  const worktreeGuide = selectedCwd
+  const worktreeGuide = !noProjectMode && selectedCwd
     && worktreeState
     && selectedProject === worktreeState.projectRoot
     && !showWorktreeSwitcher
@@ -889,6 +965,71 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   // below. Keep the old header rows mounted only as an implementation
   // fallback, but do not show the duplicated directory/worktree summary.
   const showLegacyHeaderProjectRows = false;
+
+  const renderNoProjectGroup = () => {
+    const groupTree = buildSessionTree(noProjectSessions);
+    const runningCount = noProjectSessions.filter((session) => runningSessionIds.has(session.id)).length;
+    const unreadCount = noProjectSessions.filter((session) => unreadSessionIds.has(session.id)).length;
+    const isCollapsed = !trimmedSessionQuery && collapsedProjects.has(noProjectCwd ?? "");
+    return (
+      <div key="no-project" className={`sidebar-project-tree-group${isCollapsed ? " is-collapsed" : ""}${noProjectMode ? " is-active" : ""}`}>
+        <div className="sidebar-project-tree-row">
+          <button
+            type="button"
+            className="sidebar-project-tree-row-main"
+            onClick={() => {
+              setCollapsedProjects((previous) => {
+                const next = new Set(previous);
+                if (next.has(noProjectCwd ?? "")) next.delete(noProjectCwd ?? "");
+                else next.add(noProjectCwd ?? "");
+                return next;
+              });
+              if (noProjectCwd && !noProjectMode) {
+                onNoProjectModeChange?.(true);
+                setSelectedCwd(noProjectCwd);
+              }
+            }}
+            aria-expanded={!isCollapsed}
+            title={t("sidebar.noProjectHint")}
+          >
+            <span className="sidebar-project-tree-folder" aria-hidden="true">○</span>
+            <span className="sidebar-project-tree-name">{t("sidebar.noProject")}</span>
+            <span className="sidebar-project-tree-meta">
+              {runningCount > 0 && <span className="sidebar-project-tree-chip is-running">{runningCount}</span>}
+              {unreadCount > 0 && <span className="sidebar-project-tree-chip is-unread">{unreadCount}</span>}
+            </span>
+          </button>
+          <div className="sidebar-project-tree-row-actions" data-no-drag>
+            <button
+              type="button"
+              className="sidebar-project-tree-action"
+              onClick={() => noProjectCwd && handleNewSession(noProjectCwd)}
+              title={t("sidebar.newSessionTitle", { path: t("sidebar.noProject") })}
+              aria-label={t("sidebar.newSessionTitle", { path: t("sidebar.noProject") })}
+            >
+              +
+            </button>
+          </div>
+        </div>
+        {!isCollapsed && (
+          <div className="sidebar-project-tree-children">
+            {groupTree.map((node) => (
+              <SessionTreeItem
+                key={node.session.id}
+                node={node}
+                selectedSessionId={selectedSessionId}
+                runningSessionIds={runningSessionIds}
+                unreadSessionIds={unreadSessionIds}
+                onSelectSession={handleSelectSessionFromList}
+                onRenamed={loadSessions}
+                onSessionDeleted={(id) => { onSessionDeleted?.(id); loadSessions(); }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderProjectGroup = (group: ReturnType<typeof groupByProject>[number]) => {
     const isCollapsed = !trimmedSessionQuery && collapsedProjects.has(group.projectRoot);
@@ -1076,6 +1217,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
               selectedProject={selectedProject}
               homeDir={homeDir}
               onSelectCwd={activateProject}
+              noProjectMode={noProjectMode}
               variant="block"
             />
           </div>
@@ -1595,7 +1737,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
           Clicking a project header toggles collapse; the ⋯ menu offers sort
           and collapse/expand-all; the + button opens the project picker to
           add a new project. The FileExplorer has moved to the right panel. */}
-      {allProjects.length === 0 ? (
+      {!hasSidebarItems ? (
         <div className="sidebar-project-tree-empty">
           {loading
             ? t("sidebar.loading")
@@ -1604,6 +1746,21 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
               : (
                 <div className="sidebar-empty-action">
                   <span className="sidebar-empty-text">{t("sidebar.noProjects")}</span>
+                  <button
+                    type="button"
+                    className="sidebar-empty-add"
+                    onClick={() => void handleNoProject()}
+                    disabled={noProjectBusy || !noProjectCwdLoaded}
+                    title={t("sidebar.continueWithoutProject")}
+                    aria-label={t("sidebar.continueWithoutProject")}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="8" />
+                      <path d="M8 12h8" />
+                    </svg>
+                    <span>{t("sidebar.continueWithoutProject")}</span>
+                  </button>
+                  {noProjectError && <span className="sidebar-empty-text" style={{ color: "#dc2626", overflowWrap: "anywhere" }}>{noProjectError}</span>}
                   <button
                     type="button"
                     className="sidebar-empty-add"
@@ -1657,6 +1814,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
               </button>
             </div>
           </div>
+          {(noProjectSessions.length > 0 || noProjectMode) && renderNoProjectGroup()}
           {activeProjects.map((group) => renderProjectGroup(group))}
         </div>
       )}
@@ -1753,6 +1911,11 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
                 activateProject(cwd);
                 setProjectPickerOpen(false);
               }}
+              onSelectNoProject={(cwd) => {
+                activateNoProject(cwd);
+                setProjectPickerOpen(false);
+              }}
+              noProjectMode={noProjectMode}
               variant="block"
             />
           </div>

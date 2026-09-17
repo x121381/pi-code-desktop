@@ -1,16 +1,32 @@
 import { NextResponse } from "next/server";
 import { runNpx } from "@/lib/npx";
-import type { SkillSearchResult } from "@/lib/api-types";
+import { SKILLS_CLI_PACKAGE } from "@/lib/skills-cli";
+import { parseJsonWithinLimit, RequestBodyTooLargeError } from "@/lib/bounded-form-data";
+import { hasJsonContentType, isApiRequestAllowed } from "@/lib/request-security";
+import {
+  GitHubApiError,
+  inspectGitHubRepository,
+  isPopularCatalogQuery,
+  isValidSkillsPackage,
+  parseGitHubRepositoryQuery,
+  POPULAR_CATALOG_VERSION,
+  POPULAR_REPOSITORIES,
+} from "@/lib/skill-catalog";
+import type { SkillSearchResponse, SkillSearchResult } from "@/lib/api-types";
 
 export const dynamic = "force-dynamic";
 
 const ANSI_RE = /\x1B\[[0-9;]*m/g;
-const DEFAULT_LIMIT = 50;
+const DEFAULT_LIMIT = 30;
 const MIN_LIMIT = 1;
 const MAX_LIMIT = 50;
+const MAX_QUERY_LENGTH = 160;
+const MAX_REQUEST_BYTES = 8 * 1024;
 const SEARCH_API_BASE = process.env.SKILLS_API_URL || "https://skills.sh";
 const GITHUB_API_BASE = "https://api.github.com";
 const GITHUB_SEARCH_TIMEOUT_MS = 8000;
+const MAX_GITHUB_REPOSITORIES = 5;
+const POPULARITY_NOTICE = "Popularity signals are informational and do not imply trust or a security audit. Review every skill before installing it.";
 
 interface SkillsApiSkill {
   id?: string;
@@ -23,17 +39,35 @@ interface SkillsApiResponse {
   skills?: SkillsApiSkill[];
 }
 
+interface GitHubSearchRepository {
+  full_name?: string;
+}
+
 function parseLimit(value: unknown): number {
   const num = typeof value === "number" ? value : Number(value);
   if (!Number.isFinite(num)) return DEFAULT_LIMIT;
   return Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, Math.floor(num)));
 }
 
-function formatInstalls(count?: number): string {
-  if (!count || count <= 0) return "";
-  if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1).replace(/\.0$/, "")}M installs`;
-  if (count >= 1_000) return `${(count / 1_000).toFixed(1).replace(/\.0$/, "")}K installs`;
-  return `${count} install${count === 1 ? "" : "s"}`;
+function registryResult(pkg: string, name: string, installs: number, url: string): SkillSearchResult {
+  return {
+    id: `skills.sh:${pkg}`,
+    name,
+    url,
+    provenance: { source: "skills.sh", package: pkg },
+    popularity: { installs },
+    inspected: false,
+  };
+}
+
+function parseInstallCount(installs: string): number {
+  const match = installs.match(/^([\d.,]+)([KMB])?\s+installs?$/i);
+  if (!match) return 0;
+  const value = Number(match[1].replace(/,/g, ""));
+  if (!Number.isFinite(value)) return 0;
+  const unit = match[2]?.toUpperCase();
+  const multiplier = unit === "B" ? 1_000_000_000 : unit === "M" ? 1_000_000 : unit === "K" ? 1_000 : 1;
+  return Math.round(value * multiplier);
 }
 
 function parseSearchOutput(raw: string): SkillSearchResult[] {
@@ -42,184 +76,206 @@ function parseSearchOutput(raw: string): SkillSearchResult[] {
   const lines = clean.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    // package line: "owner/repo@skill  NNK installs"
-    const pkgMatch = line.match(/^([\w.\-]+\/[\w.\-@:]+)\s+([\d.,]+[KMB]?\s+installs)$/);
-    if (pkgMatch) {
-      const urlLine = lines[i + 1]?.trim().replace(/^└\s*/, "");
-      results.push({
-        package: pkgMatch[1],
-        installs: pkgMatch[2],
-        url: urlLine?.startsWith("https://") ? urlLine : "",
-      });
-    }
+    const match = line.match(/^([\w.-]+\/[\w.-]+@[\w.-]+)\s+([\d.,]+[KMB]?\s+installs)$/i);
+    if (!match || !isValidSkillsPackage(match[1])) continue;
+    const urlLine = lines[i + 1]?.trim().replace(/^└\s*/, "");
+    const name = match[1].slice(match[1].lastIndexOf("@") + 1);
+    results.push(registryResult(
+      match[1],
+      name,
+      parseInstallCount(match[2]),
+      urlLine?.startsWith("https://") ? urlLine : "",
+    ));
   }
   return results;
 }
 
 async function searchSkillsApi(query: string, limit: number): Promise<SkillSearchResult[]> {
   const url = `${SEARCH_API_BASE}/api/search?q=${encodeURIComponent(query)}&limit=${limit}`;
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`skills.sh search failed: HTTP ${res.status}`);
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error(`skills.sh search failed: HTTP ${response.status}`);
 
-  const data = (await res.json()) as SkillsApiResponse;
+  const data = await response.json() as SkillsApiResponse;
   return (data.skills ?? [])
     .map((skill): SkillSearchResult | null => {
       const name = skill.name?.trim();
       const source = skill.source?.trim();
       const slug = skill.id?.trim();
-      if (!name || (!source && !slug)) return null;
-
-      const pkg = `${source || slug}@${name}`;
-      return {
-        package: pkg,
-        installs: formatInstalls(skill.installs),
-        url: slug ? `${SEARCH_API_BASE}/${slug}` : "",
-        origin: "skills.sh",
-      };
+      const pkg = name && source ? `${source}@${name}` : "";
+      if (!name || !isValidSkillsPackage(pkg)) return null;
+      return registryResult(
+        pkg,
+        name,
+        Number.isSafeInteger(skill.installs) && (skill.installs ?? -1) >= 0 ? skill.installs! : 0,
+        slug ? `${SEARCH_API_BASE}/${slug}` : "",
+      );
     })
     .filter((skill): skill is SkillSearchResult => skill !== null)
-    .sort((a, b) => parseInstallCount(b.installs) - parseInstallCount(a.installs));
-}
-
-// A query naming a specific repo, either as a bare "owner/repo" or a full
-// https://github.com/owner/repo URL (optionally with a trailing .git / path).
-const GITHUB_REPO_RE = /^(?:https?:\/\/github\.com\/)?([\w.-]+)\/([\w.-]+?)(?:\.git)?\/?$/i;
-
-interface GitHubRepo {
-  full_name: string;
-  html_url: string;
-  description?: string | null;
-  stargazers_count?: number;
+    .sort((a, b) => (b.popularity.installs ?? 0) - (a.popularity.installs ?? 0));
 }
 
 function githubHeaders(): HeadersInit {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "User-Agent": "pi-code-desktop",
+    "X-GitHub-Api-Version": "2022-11-28",
   };
-  // Optional: raises the unauthenticated GitHub API rate limit when a user
-  // supplies their own token via env. Never required and never sent anywhere
-  // else — this is the same token a developer would already export for `gh`.
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   return headers;
 }
 
-async function githubFetch(url: string): Promise<Response> {
+async function githubFetch(input: string | URL | Request, init?: RequestInit): Promise<Response> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), GITHUB_SEARCH_TIMEOUT_MS);
   try {
-    return await fetch(url, { headers: githubHeaders(), cache: "no-store", signal: controller.signal });
+    return await fetch(input, {
+      ...init,
+      headers: { ...githubHeaders(), ...Object.fromEntries(new Headers(init?.headers).entries()) },
+      cache: "no-store",
+      signal: controller.signal,
+    });
   } finally {
     clearTimeout(timeout);
   }
 }
 
-function repoToResult(repo: GitHubRepo): SkillSearchResult {
-  return {
-    package: `github:${repo.full_name}`,
-    installs: repo.stargazers_count ? `★ ${repo.stargazers_count.toLocaleString()}` : "",
-    url: repo.html_url,
-    origin: "github",
-    description: repo.description?.trim() || undefined,
-  };
+function inspectedResults(inspection: Awaited<ReturnType<typeof inspectGitHubRepository>>): SkillSearchResult[] {
+  return inspection.skills.map((skill) => ({
+    id: `github:${skill.owner}/${skill.repo}@${skill.revision}:${skill.skillPath}`,
+    name: skill.name,
+    description: skill.description,
+    url: skill.url,
+    provenance: {
+      source: "github",
+      host: skill.host,
+      owner: skill.owner,
+      repo: skill.repo,
+    },
+    popularity: { stars: skill.stars },
+    revision: skill.revision,
+    skillPath: skill.skillPath,
+    license: skill.license,
+    updatedAt: skill.updatedAt,
+    inspected: true,
+  }));
 }
 
-/**
- * Looks up skills on GitHub. A query that names a specific repo (URL or
- * "owner/repo") fetches that repo directly; otherwise this searches public
- * repositories whose name/description/topics mention the query and "skill",
- * which is how Claude/Pi skill repos are conventionally tagged. Unauthenticated
- * GitHub API calls are rate-limited but require no credentials.
- */
-async function searchGitHubSkills(query: string, limit: number): Promise<SkillSearchResult[]> {
-  const trimmed = query.trim();
-  const repoMatch = trimmed.match(GITHUB_REPO_RE);
-  if (repoMatch) {
-    const [, owner, repo] = repoMatch;
-    try {
-      const res = await githubFetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`);
-      if (!res.ok) return [];
-      const data = await res.json() as GitHubRepo;
-      return [repoToResult(data)];
-    } catch {
-      return [];
-    }
-  }
-
-  try {
-    const q = `${trimmed} skill in:name,description,topics`;
-    const url = `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=${Math.min(limit, 25)}`;
-    const res = await githubFetch(url);
-    if (!res.ok) return [];
-    const data = await res.json() as { items?: GitHubRepo[] };
-    return (data.items ?? []).map(repoToResult);
-  } catch {
-    return [];
-  }
+async function inspectRepositories(repositories: Array<{ owner: string; repo: string }>): Promise<SkillSearchResult[]> {
+  const settled = await Promise.allSettled(
+    repositories.map(({ owner, repo }) => inspectGitHubRepository(githubFetch, GITHUB_API_BASE, owner, repo)),
+  );
+  const rateLimitError = settled.find(
+    (result): result is PromiseRejectedResult => result.status === "rejected"
+      && result.reason instanceof GitHubApiError
+      && (result.reason.upstreamStatus === 403 || result.reason.upstreamStatus === 429),
+  );
+  if (rateLimitError) throw rateLimitError.reason;
+  return settled.flatMap((result) => result.status === "fulfilled" ? inspectedResults(result.value) : []);
 }
 
-function parseInstallCount(installs: string): number {
-  const match = installs.match(/^([\d.]+)([KMB])?\s+installs?$/);
-  if (!match) return 0;
-  const value = Number(match[1]);
-  if (!Number.isFinite(value)) return 0;
-  const multiplier = match[2] === "B" ? 1_000_000_000 : match[2] === "M" ? 1_000_000 : match[2] === "K" ? 1_000 : 1;
-  return value * multiplier;
+async function searchGitHubSkills(query: string): Promise<SkillSearchResult[]> {
+  const exact = parseGitHubRepositoryQuery(query);
+  if (exact) return inspectRepositories([exact]);
+
+  const q = `${query} skill in:name,description,topics`;
+  const response = await githubFetch(
+    `${GITHUB_API_BASE}/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=${MAX_GITHUB_REPOSITORIES}`,
+  );
+  if (!response.ok) {
+    throw new GitHubApiError(
+      `GitHub search failed with HTTP ${response.status}`,
+      response.status,
+      response.headers.get("retry-after") ?? undefined,
+    );
+  }
+  const data = await response.json() as { items?: GitHubSearchRepository[] };
+  const repositories = (data.items ?? []).flatMap((item) => {
+    const parsed = item.full_name ? parseGitHubRepositoryQuery(item.full_name) : null;
+    return parsed ? [parsed] : [];
+  });
+  return inspectRepositories(repositories);
 }
 
 function dedupeResults(results: SkillSearchResult[]): SkillSearchResult[] {
   const seen = new Set<string>();
-  const out: SkillSearchResult[] = [];
-  for (const result of results) {
-    const key = (result.url || result.package).toLowerCase();
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(result);
-  }
-  return out;
+  return results.filter((result) => {
+    if (seen.has(result.id)) return false;
+    seen.add(result.id);
+    return true;
+  });
 }
 
-// POST /api/skills/search  body: { query: string, limit?: number }
-// Searches skills.sh's registry and, in parallel, GitHub (a named "owner/repo"
-// or URL resolves that exact repo; any other query searches public repos
-// tagged/described as skills). Results are merged so users can find both
-// registered skills and skills published only on GitHub.
-export async function POST(req: Request) {
+async function registryResults(query: string, limit: number): Promise<SkillSearchResult[]> {
   try {
-    const { query, limit: rawLimit } = await req.json() as { query?: string; limit?: unknown };
-    if (!query?.trim()) return NextResponse.json({ error: "query required" }, { status: 400 });
-    const limit = parseLimit(rawLimit);
-    const trimmedQuery = query.trim();
-
-    const githubResultsPromise = searchGitHubSkills(trimmedQuery, limit);
-
-    let registryResults: SkillSearchResult[] = [];
+    return await searchSkillsApi(query, limit);
+  } catch {
+    if (!query) return [];
     try {
-      registryResults = await searchSkillsApi(trimmedQuery, limit);
+      const { stdout, stderr } = await runNpx([SKILLS_CLI_PACKAGE, "find", query], {
+        timeout: 20000,
+        env: { ...process.env, FORCE_COLOR: "0" },
+      });
+      return parseSearchOutput(stdout + stderr).slice(0, limit);
     } catch {
-      try {
-        const { stdout, stderr } = await runNpx(["skills", "find", trimmedQuery], {
-          timeout: 20000,
-          env: { ...process.env, FORCE_COLOR: "0" },
-        });
-        registryResults = parseSearchOutput(stdout + stderr).slice(0, limit)
-          .map((r) => ({ ...r, origin: "skills.sh" as const }));
-      } catch {
-        registryResults = [];
-      }
+      return [];
     }
+  }
+}
 
-    const githubResults = await githubResultsPromise;
-    const results = dedupeResults([...githubResults, ...registryResults]).slice(0, limit);
-    if (results.length === 0 && registryResults.length === 0 && githubResults.length === 0) {
-      return NextResponse.json({ results: [] });
+async function popularResults(limit: number): Promise<SkillSearchResponse> {
+  const [registry, github] = await Promise.all([
+    registryResults("", limit),
+    inspectRepositories([...POPULAR_REPOSITORIES]),
+  ]);
+  const results = dedupeResults([...registry, ...github])
+    .sort((a, b) => {
+      const installs = (b.popularity.installs ?? 0) - (a.popularity.installs ?? 0);
+      return installs || (b.popularity.stars ?? 0) - (a.popularity.stars ?? 0);
+    })
+    .slice(0, limit);
+  return { results, catalogVersion: POPULAR_CATALOG_VERSION, notice: POPULARITY_NOTICE };
+}
+
+export async function POST(req: Request) {
+  if (!isApiRequestAllowed(req)) {
+    return NextResponse.json({ error: "Untrusted API request" }, { status: 403 });
+  }
+  if (!hasJsonContentType(req)) {
+    return NextResponse.json({ error: "Content-Type must be application/json" }, { status: 415 });
+  }
+
+  try {
+    const body = await parseJsonWithinLimit(req, MAX_REQUEST_BYTES) as { query?: unknown; limit?: unknown } | null;
+    if (!body || (body.query !== undefined && typeof body.query !== "string")) {
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     }
-    return NextResponse.json({ results });
-  } catch (e: unknown) {
-    const err = e as { stdout?: string; stderr?: string; message?: string };
-    const raw = (err.stdout ?? "") + (err.stderr ?? "");
-    const results = raw ? parseSearchOutput(raw) : [];
-    if (results.length > 0) return NextResponse.json({ results });
-    return NextResponse.json({ error: err.message ?? String(e) }, { status: 500 });
+    const query = (body.query ?? "").trim();
+    if (query.length > MAX_QUERY_LENGTH) {
+      return NextResponse.json({ error: "query is too long" }, { status: 400 });
+    }
+    const limit = parseLimit(body.limit);
+    if (isPopularCatalogQuery(query)) return NextResponse.json(await popularResults(limit));
+
+    const [registry, github] = await Promise.all([
+      registryResults(query, limit),
+      searchGitHubSkills(query),
+    ]);
+    return NextResponse.json({
+      results: dedupeResults([...github, ...registry]).slice(0, limit),
+      notice: POPULARITY_NOTICE,
+    } satisfies SkillSearchResponse);
+  } catch (error) {
+    if (error instanceof RequestBodyTooLargeError) {
+      return NextResponse.json({ error: "Request body is too large" }, { status: 413 });
+    }
+    if (error instanceof GitHubApiError) {
+      const response = NextResponse.json({ error: error.message }, { status: error.responseStatus });
+      if (error.retryAfter) response.headers.set("Retry-After", error.retryAfter);
+      return response;
+    }
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : String(error) },
+      { status: 500 },
+    );
   }
 }

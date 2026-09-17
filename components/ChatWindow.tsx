@@ -1,7 +1,7 @@
 "use client";
 import { registerAbortHandler } from "@/hooks/useKeyboardShortcuts";
 import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import type { AgentMessage, AssistantContentBlock, AssistantMessage, BashExecutionMessage, CustomMessage, ExtensionUiRequest, SessionInfo, SessionTreeNode, ToolResultMessage, UserMessage } from "@/lib/types";
+import type { AgentMessage, AssistantContentBlock, AssistantMessage, BashExecutionMessage, CustomMessage, ExtensionUiRequest, SessionInfo, SessionTreeNode, ToolApprovalRequest, ToolResultMessage, UserMessage } from "@/lib/types";
 import { normalizeCustomPanelLines, parseAnsiLine } from "@/lib/ansi";
 import { asBracketedPaste, toTerminalKeyData } from "@/lib/terminal-input";
 import { countToolCallBlocks, getDisplayableAssistantBlocks, splitFinalAssistantBlocks } from "@/lib/message-display";
@@ -22,6 +22,7 @@ import {
   VISIBLE_PAGE_SIZE,
 } from "@/lib/chat-lazy-load";
 import { sessionVisibleCounts } from "@/lib/scroll-memory";
+import type { PermissionMode } from "@/lib/tool-presets";
 
 interface Props {
   session: SessionInfo | null;
@@ -246,11 +247,12 @@ export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreate
 
   const {
     loading, error, messages, entryIds, streamState,
-    agentRunning, bashRunning, pendingBash, modelNames, modelList, modelError, modelScopeWarnings, modelThinkingLevels, modelThinkingLevelMaps, toolPreset, thinkingLevel,
+    agentRunning, bashRunning, pendingBash, modelNames, modelList, modelError, modelScopeWarnings, modelThinkingLevels, modelThinkingLevelMaps, permissionMode, thinkingLevel,
     retryInfo, contextUsage, forkingEntryId,
     isCompacting, compactError, compactResult, displayModel: displayModelValue, sessionStats,
     slashCommands, slashCommandsLoading, queuedMessages,
     notices, extensionDialog, extensionCustomUi, extensionWidgets, respondToExtensionUi, sendExtensionCustomInput,
+    toolApprovalRequest, respondToToolApproval,
     isAutoModelSelection,
     agentPhase,
     addNotice,
@@ -262,12 +264,20 @@ export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreate
     dismissModelScopeWarnings,
     handleRecallQueue,
     handleBuiltinSlashCommand, retryLoad,
-    handleToolPresetChange, handleThinkingLevelChange, loadSlashCommands, scrollToBottom, scrollUserMsgToTop,
+    handlePermissionModeChange, handleThinkingLevelChange, loadSlashCommands, scrollToBottom, scrollUserMsgToTop,
   } = useAgentSession({
     session, newSessionCwd, onAgentEnd: wrappedOnAgentEnd, onSessionCreated, onSessionForked,
     modelsRefreshKey, chatInputRef, onBranchDataChange, onSystemPromptChange, onSessionStatsPanelOpen,
   });
   const sessionBusy = agentRunning || bashRunning;
+  const [fullAccessConfirmationOpen, setFullAccessConfirmationOpen] = useState(false);
+  const requestPermissionModeChange = useCallback((mode: PermissionMode) => {
+    if (mode === "full" && permissionMode !== "full") {
+      setFullAccessConfirmationOpen(true);
+      return;
+    }
+    void handlePermissionModeChange(mode);
+  }, [handlePermissionModeChange, permissionMode]);
 
   const conversationTurns = useMemo<ConversationTurnLocation[]>(() => {
     const turns: ConversationTurnLocation[] = [];
@@ -833,8 +843,8 @@ export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreate
       isCompacting={isCompacting}
       compactError={compactError}
       compactResult={compactResult}
-      toolPreset={toolPreset}
-      onToolPresetChange={session || isNew ? handleToolPresetChange : undefined}
+      permissionMode={permissionMode}
+      onPermissionModeChange={session || isNew ? requestPermissionModeChange : undefined}
       thinkingLevel={thinkingLevel}
       onThinkingLevelChange={session || isNew ? handleThinkingLevelChange : undefined}
       availableThinkingLevels={availableThinkingLevels}
@@ -915,6 +925,23 @@ export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreate
             </div>
           </div>
         </div>
+      )}
+
+      {toolApprovalRequest && (
+        <ToolApprovalDialog
+          request={toolApprovalRequest}
+          onRespond={(decision) => void respondToToolApproval(toolApprovalRequest, decision)}
+        />
+      )}
+
+      {fullAccessConfirmationOpen && (
+        <FullAccessConfirmationDialog
+          onCancel={() => setFullAccessConfirmationOpen(false)}
+          onConfirm={() => {
+            setFullAccessConfirmationOpen(false);
+            void handlePermissionModeChange("full");
+          }}
+        />
       )}
 
       {extensionDialog && (
@@ -1156,6 +1183,174 @@ function NoticeShelf({ notices, floating = false, align = "left" }: { notices: N
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function FullAccessConfirmationDialog({
+  onCancel,
+  onConfirm,
+}: {
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  const { t } = useI18n();
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 101,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+        background: "rgba(0,0,0,0.35)",
+      }}
+    >
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="full-access-confirmation-title"
+        aria-describedby="full-access-confirmation-description"
+        style={{
+          width: "min(480px, 100%)",
+          border: "1px solid var(--border)",
+          borderRadius: 8,
+          background: "var(--bg)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.32)",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ padding: "16px", borderBottom: "1px solid var(--border)" }}>
+          <div id="full-access-confirmation-title" style={{ color: "var(--text)", fontSize: 15, fontWeight: 700 }}>
+            {t("permission.fullConfirmTitle")}
+          </div>
+          <div id="full-access-confirmation-description" style={{ marginTop: 8, color: "var(--text-muted)", fontSize: 13, lineHeight: 1.5 }}>
+            {t("permission.fullConfirmDescription")}
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, padding: "10px 16px", background: "var(--bg-panel)" }}>
+          <button type="button" onClick={onCancel} className="native-toolbar-button">
+            {t("permission.cancel")}
+          </button>
+          <button
+            type="button"
+            onClick={onConfirm}
+            style={{
+              minHeight: 32,
+              padding: "0 14px",
+              border: "1px solid #b42318",
+              borderRadius: 6,
+              background: "#b42318",
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: 650,
+              cursor: "pointer",
+            }}
+          >
+            {t("permission.enableFull")}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ToolApprovalDialog({
+  request,
+  onRespond,
+}: {
+  request: ToolApprovalRequest;
+  onRespond: (decision: "allow_once" | "allow_session" | "deny") => void;
+}) {
+  const { t } = useI18n();
+  const details = useMemo(() => {
+    try {
+      return JSON.stringify(request.input, null, 2);
+    } catch {
+      return String(request.input);
+    }
+  }, [request.input]);
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 100,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+        background: "rgba(0,0,0,0.35)",
+      }}
+    >
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="tool-approval-title"
+        style={{
+          width: "min(620px, 100%)",
+          border: "1px solid var(--border)",
+          borderRadius: 8,
+          background: "var(--bg)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.32)",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ padding: "14px 16px", borderBottom: "1px solid var(--border)" }}>
+          <div id="tool-approval-title" style={{ color: "var(--text)", fontSize: 15, fontWeight: 700 }}>
+            {t("permission.approvalTitle", { tool: request.toolName })}
+          </div>
+          <div style={{ marginTop: 5, color: "var(--text-muted)", fontSize: 12, overflowWrap: "anywhere" }}>
+            {request.cwd}
+          </div>
+        </div>
+        <div style={{ padding: 16 }}>
+          <pre style={{
+            margin: 0,
+            maxHeight: "min(42vh, 360px)",
+            overflow: "auto",
+            padding: 12,
+            border: "1px solid var(--border)",
+            borderRadius: 6,
+            background: "var(--bg-panel)",
+            color: "var(--text)",
+            fontFamily: "var(--font-mono)",
+            fontSize: 12,
+            lineHeight: 1.5,
+            whiteSpace: "pre-wrap",
+            overflowWrap: "anywhere",
+          }}>{details}</pre>
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, padding: "10px 16px", borderTop: "1px solid var(--border)", background: "var(--bg-panel)", flexWrap: "wrap" }}>
+          <button type="button" onClick={() => onRespond("deny")} className="native-toolbar-button">
+            {t("permission.deny")}
+          </button>
+          <button type="button" onClick={() => onRespond("allow_once")} className="native-toolbar-button">
+            {t("permission.allowOnce")}
+          </button>
+          <button
+            type="button"
+            onClick={() => onRespond("allow_session")}
+            style={{
+              minHeight: 32,
+              padding: "0 12px",
+              border: "1px solid var(--accent)",
+              borderRadius: 5,
+              background: "var(--accent)",
+              color: "var(--accent-contrast)",
+              cursor: "pointer",
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+          >
+            {t("permission.allowSession")}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

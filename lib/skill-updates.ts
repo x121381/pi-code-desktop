@@ -7,6 +7,7 @@ import type {
   SkillInstallInfo,
   SkillUpdateResult,
 } from "@/lib/api-types";
+import { SKILLS_CLI_PACKAGE } from "./skills-cli";
 
 const CHECK_TIMEOUT_MS = 15_000;
 const GIT_CHECK_TIMEOUT_MS = 30_000;
@@ -53,7 +54,7 @@ export function buildSkillUpdateArgs(install: SkillInstallInfo): string[] {
   const source = folder ? `${install.source}/${folder}` : install.source;
   const ref = install.ref ? `#${encodeURIComponent(install.ref)}` : "";
   const args = [
-    "skills",
+    SKILLS_CLI_PACKAGE,
     "add",
     `${source}${ref}`,
     "--skill",

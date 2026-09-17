@@ -34,3 +34,16 @@ test("re-adding a removed project clears only its sidebar marker", () => {
   assert.match(source, /next\.delete\(projectRoot\);/);
   assert.match(source, /onSelectCwd=\{activateProject\}/);
 });
+
+test("offers a direct no-project chat action in the empty state", () => {
+  assert.match(source, /onClick=\{\(\) => void handleNoProject\(\)\}/);
+  assert.match(source, /t\("sidebar\.continueWithoutProject"\)/);
+  assert.match(source, /onSelectNoProject=\{\(cwd\) =>/);
+});
+
+test("keeps no-project sessions out of project and worktree behavior", () => {
+  assert.match(source, /projectSessions = noProjectCwd[\s\S]*!isNoProjectCwd\(session\.cwd\)/);
+  assert.match(source, /if \(!selectedCwd \|\| !noProjectCwdLoaded \|\| isNoProjectCwd\(selectedCwd\)\)/);
+  assert.match(source, /onCwdChange\?\.\(selectedCwd, projectRootFor\(selectedCwd\), noProjectMode\)/);
+  assert.match(source, /\(noProjectSessions\.length > 0 \|\| noProjectMode\) && renderNoProjectGroup\(\)/);
+});

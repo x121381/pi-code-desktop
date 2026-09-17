@@ -37,3 +37,8 @@ commands.allow = ["set_ui_theme"]
 identifier = "allow-get-desktop-api-token"
 description = "Allows the trusted desktop WebView to authorize native-dialog filesystem requests."
 commands.allow = ["get_desktop_api_token"]
+
+[[permission]]
+identifier = "allow-terminal"
+description = "Allows the desktop WebView to create and control local PTY terminal sessions."
+commands.allow = ["terminal_create", "terminal_write", "terminal_resize", "terminal_kill", "terminal_cleanup"]

@@ -21,13 +21,13 @@ test("context loads ignore stale sessions and out-of-order branch responses", as
   assert.match(body, /if \(!isCurrent\(\)\) return false/);
 });
 
-test("tool preset loads ignore stale sessions and out-of-order responses", async () => {
+test("permission mode loads ignore stale sessions and out-of-order responses", async () => {
   const source = await readFile(sourceUrl, "utf8");
   const body = functionSlice(source, "const loadTools = useCallback", "const promoteNewSession = useCallback");
   assert.match(body, /requestId = \+\+toolsLoadIdRef\.current/);
   assert.match(body, /sessionIdRef\.current === sid/);
   assert.match(body, /toolsLoadIdRef\.current === requestId/);
-  assert.match(body, /tools && isCurrent\(\)/);
+  assert.match(body, /state\.permissionMode && isCurrent\(\)/);
 });
 
 test("agent-end state refreshes cannot overwrite a switched session or newer run", async () => {

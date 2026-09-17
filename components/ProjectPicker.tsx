@@ -13,6 +13,8 @@ interface ProjectPickerProps {
   selectedProject: string | null;
   homeDir: string;
   onSelectCwd: (cwd: string) => void;
+  onSelectNoProject?: (cwd: string) => void;
+  noProjectMode?: boolean;
   /** "block" fills its container (sidebar empty state); "inline" is a compact toolbar trigger. */
   variant?: "block" | "inline";
   disabled?: boolean;
@@ -73,7 +75,17 @@ export async function selectProjectDirectoryNative(selectedCwd: string | null, h
   return data.cwd ?? path;
 }
 
-export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, homeDir, onSelectCwd, variant = "block", disabled }: ProjectPickerProps) {
+/** Resolve the app-owned cwd used for chats that do not have a project. */
+export async function selectNoProjectCwd(): Promise<string> {
+  const res = await fetch("/api/no-project-cwd");
+  const data = await res.json().catch(() => ({})) as { cwd?: string; error?: string };
+  if (!res.ok || data.error || !data.cwd) {
+    throw new Error(data.error ?? `HTTP ${res.status}`);
+  }
+  return data.cwd;
+}
+
+export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, homeDir, onSelectCwd, onSelectNoProject, noProjectMode = false, variant = "block", disabled }: ProjectPickerProps) {
   const { t } = useI18n();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownRect, setDropdownRect] = useState<{ top: number; left: number; width: number } | null>(null);
@@ -158,14 +170,8 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
     setNoProjectBusy(true);
     setCustomPathError(null);
     try {
-      const res = await fetch("/api/no-project-cwd");
-      const data = await res.json().catch(() => ({})) as { cwd?: string; error?: string };
-      if (!res.ok || data.error || !data.cwd) {
-        setCustomPathError(data.error ?? `HTTP ${res.status}`);
-        setDropdownOpen(true);
-        return;
-      }
-      onSelectCwd(data.cwd);
+      const cwd = await selectNoProjectCwd();
+      (onSelectNoProject ?? onSelectCwd)(cwd);
       closeDropdown();
     } catch (e) {
       setCustomPathError(e instanceof Error ? e.message : String(e));
@@ -173,7 +179,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
     } finally {
       setNoProjectBusy(false);
     }
-  }, [noProjectBusy, onSelectCwd, closeDropdown]);
+  }, [noProjectBusy, onSelectCwd, onSelectNoProject, closeDropdown]);
 
   const handleDefaultCwd = useCallback(async () => {
     try {
@@ -245,7 +251,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
           }
           setDropdownOpen((v) => !v);
         }}
-        title={selectedProject ?? selectedCwd ?? ""}
+        title={noProjectMode ? t("sidebar.noProject") : (selectedProject ?? selectedCwd ?? "")}
         style={isInline ? {
           display: "flex", alignItems: "center", gap: 6,
           padding: "8px 12px",
@@ -270,7 +276,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
         {isInline ? (
           selectedCwd ? (
             <PathLabel
-              text={displayCwd(selectedProject ?? selectedCwd, homeDir)}
+              text={noProjectMode ? t("sidebar.noProject") : displayCwd(selectedProject ?? selectedCwd, homeDir)}
               style={{ flex: 1, fontFamily: "var(--font-mono)", fontSize: 12 }}
             />
           ) : (
@@ -292,9 +298,11 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
                 color: selectedCwd ? "var(--text)" : "var(--accent)",
               }}
             >
-              {selectedCwd
-                ? ((selectedProject ?? selectedCwd).split("/").filter(Boolean).pop() ?? displayCwd(selectedProject ?? selectedCwd, homeDir))
-                : t("sidebar.selectProject")}
+              {noProjectMode
+                ? t("sidebar.noProject")
+                : selectedCwd
+                  ? ((selectedProject ?? selectedCwd).split(/[\\/]/).filter(Boolean).pop() ?? displayCwd(selectedProject ?? selectedCwd, homeDir))
+                  : t("sidebar.selectProject")}
             </span>
             <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="var(--text-dim)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
               <polyline points="2 3.5 5 6.5 8 3.5" />

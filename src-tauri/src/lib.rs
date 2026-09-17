@@ -5,9 +5,9 @@ use std::{
     net::{IpAddr, Ipv4Addr, SocketAddr, TcpListener, TcpStream},
     path::{Path, PathBuf},
     process::{Child, Command, Stdio},
-    sync::Mutex,
+    sync::{Arc, Mutex},
     thread,
-    time::{Duration, Instant},
+    time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
 #[cfg(unix)]
@@ -19,13 +19,17 @@ use std::os::windows::process::CommandExt as _;
 use tauri::menu::{Menu, MenuItem};
 #[cfg(not(target_os = "linux"))]
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
+use hmac::{Hmac, Mac};
+use portable_pty::{native_pty_system, Child as PtyChild, CommandBuilder, MasterPty, PtySize, PtySystem};
+use sha2::Sha256;
 use tauri::{
     webview::{Color, NewWindowResponse},
-    AppHandle, Manager, RunEvent, Theme, Url, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
+    AppHandle, Emitter, Manager, RunEvent, Theme, Url, WebviewUrl, WebviewWindow, WebviewWindowBuilder,
 };
 
 const WINDOW_LABEL: &str = "main";
 const DESKTOP_API_TOKEN_ENV: &str = "PI_DESKTOP_API_TOKEN";
+const TERMINAL_AUTHORIZATION_TOKEN_ENV: &str = "PI_TERMINAL_AUTHORIZATION_TOKEN";
 const DESKTOP_INSTANCE_ID_ENV: &str = "PI_DESKTOP_INSTANCE_ID";
 const DESKTOP_INSTANCE_ID_HEADER: &str = "x-pi-desktop-instance";
 #[cfg(not(feature = "custom-protocol"))]
@@ -50,6 +54,195 @@ struct DesktopServer {
 struct CloseQuits(Mutex<bool>);
 
 struct DesktopApiToken(String);
+struct TerminalAuthorizationToken(String);
+
+struct TerminalSession {
+    writer: Mutex<Box<dyn Write + Send>>,
+    master: Mutex<Box<dyn MasterPty + Send>>,
+    child: Mutex<Box<dyn PtyChild + Send>>,
+}
+
+struct TerminalSessions(Mutex<std::collections::HashMap<String, Arc<TerminalSession>>>);
+
+#[derive(serde::Serialize, Clone)]
+struct TerminalOutput {
+    id: String,
+    data: String,
+}
+
+#[derive(serde::Serialize, Clone)]
+struct TerminalExit {
+    id: String,
+}
+
+fn terminal_session_id() -> Result<String, String> {
+    generate_random_hex()
+}
+
+fn canonical_terminal_cwd(cwd: &str) -> Result<PathBuf, String> {
+    let path = Path::new(cwd);
+    if !path.exists() {
+        return Err("Terminal working directory does not exist".into());
+    }
+    if !path.is_dir() {
+        return Err("Terminal working directory is not a directory".into());
+    }
+    fs::canonicalize(path).map_err(|error| format!("Invalid terminal working directory: {error}"))
+}
+
+fn verify_terminal_authorization(
+    secret: &str,
+    cwd: &str,
+    expires_at: u64,
+    authorization: &str,
+) -> Result<(), String> {
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(|_| "System clock is unavailable".to_string())?
+        .as_secs();
+    if expires_at < now || expires_at > now.saturating_add(60) {
+        return Err("Terminal authorization expired".into());
+    }
+
+    let mut mac = Hmac::<Sha256>::new_from_slice(secret.as_bytes())
+        .map_err(|_| "Terminal authorization is unavailable".to_string())?;
+    mac.update(cwd.as_bytes());
+    mac.update(b"\n");
+    mac.update(expires_at.to_string().as_bytes());
+    if authorization.len() != 64 || !authorization.bytes().all(|byte| byte.is_ascii_hexdigit()) {
+        return Err("Invalid terminal authorization".into());
+    }
+    let signature = (0..authorization.len())
+        .step_by(2)
+        .map(|index| u8::from_str_radix(&authorization[index..index + 2], 16))
+        .collect::<Result<Vec<_>, _>>()
+        .map_err(|_| "Invalid terminal authorization".to_string())?;
+    mac.verify_slice(&signature)
+        .map_err(|_| "Invalid terminal authorization".to_string())
+}
+
+fn terminal_shell() -> String {
+    #[cfg(windows)]
+    {
+        env::var("COMSPEC").unwrap_or_else(|_| "cmd.exe".into())
+    }
+    #[cfg(not(windows))]
+    {
+        env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into())
+    }
+}
+
+#[tauri::command]
+fn terminal_create(
+    app: AppHandle,
+    sessions: tauri::State<'_, TerminalSessions>,
+    terminal_token: tauri::State<'_, TerminalAuthorizationToken>,
+    cwd: String,
+    rows: u16,
+    cols: u16,
+    expires_at: u64,
+    authorization: String,
+) -> Result<String, String> {
+    verify_terminal_authorization(&terminal_token.0, &cwd, expires_at, &authorization)?;
+    let cwd = canonical_terminal_cwd(&cwd)?;
+    let rows = rows.clamp(1, 500);
+    let cols = cols.clamp(1, 500);
+    let pty_system = native_pty_system();
+    let pair = pty_system
+        .openpty(PtySize { rows, cols, pixel_width: 0, pixel_height: 0 })
+        .map_err(|error| format!("Failed to open terminal: {error}"))?;
+    let mut command = CommandBuilder::new(terminal_shell());
+    command.cwd(cwd);
+    #[cfg(windows)]
+    command.args(["/Q"]);
+    #[cfg(not(windows))]
+    command.args(["-l"]);
+    let child = pair.slave
+        .spawn_command(command)
+        .map_err(|error| format!("Failed to start terminal: {error}"))?;
+    let reader = pair.master
+        .try_clone_reader()
+        .map_err(|error| format!("Failed to read terminal: {error}"))?;
+    let writer = pair.master
+        .take_writer()
+        .map_err(|error| format!("Failed to write terminal: {error}"))?;
+    let id = terminal_session_id()?;
+    let session = Arc::new(TerminalSession {
+        writer: Mutex::new(writer),
+        master: Mutex::new(pair.master),
+        child: Mutex::new(child),
+    });
+    sessions.0.lock().map_err(|_| "terminal state poisoned")?
+        .insert(id.clone(), Arc::clone(&session));
+    let event_id = id.clone();
+    let cleanup_session = Arc::clone(&session);
+    thread::spawn(move || {
+        let mut reader = reader;
+        let mut buffer = [0_u8; 16 * 1024];
+        loop {
+            match reader.read(&mut buffer) {
+                Ok(0) | Err(_) => break,
+                Ok(size) => {
+                    let data = String::from_utf8_lossy(&buffer[..size]).into_owned();
+                    let _ = app.emit("terminal-output", TerminalOutput { id: event_id.clone(), data });
+                }
+            }
+        }
+        if let Ok(mut child) = cleanup_session.child.lock() {
+            let _ = child.wait();
+        }
+        if let Ok(mut active) = app.state::<TerminalSessions>().0.lock() {
+            active.remove(&event_id);
+        }
+        let _ = app.emit("terminal-exit", TerminalExit { id: event_id });
+    });
+    Ok(id)
+}
+
+#[tauri::command]
+fn terminal_write(sessions: tauri::State<'_, TerminalSessions>, id: String, data: String) -> Result<(), String> {
+    let session = sessions.0.lock().map_err(|_| "terminal state poisoned")?
+        .get(&id).cloned().ok_or_else(|| "Terminal session not found".to_string())?;
+    let mut writer = session.writer.lock().map_err(|_| "terminal writer poisoned")?;
+    writer.write_all(data.as_bytes()).map_err(|error| error.to_string())?;
+    writer.flush().map_err(|error| error.to_string())
+}
+
+#[tauri::command]
+fn terminal_resize(sessions: tauri::State<'_, TerminalSessions>, id: String, rows: u16, cols: u16) -> Result<(), String> {
+    let session = sessions.0.lock().map_err(|_| "terminal state poisoned")?
+        .get(&id).cloned().ok_or_else(|| "Terminal session not found".to_string())?;
+    session.master.lock().map_err(|_| "terminal master poisoned")?
+        .resize(PtySize { rows: rows.clamp(1, 500), cols: cols.clamp(1, 500), pixel_width: 0, pixel_height: 0 })
+        .map_err(|error| error.to_string())
+}
+
+fn kill_terminal_session(session: &TerminalSession) {
+    if let Ok(mut child) = session.child.lock() {
+        let _ = child.kill();
+    }
+}
+
+fn cleanup_terminal_sessions(sessions: &TerminalSessions) -> Result<(), String> {
+    let sessions = std::mem::take(&mut *sessions.0.lock().map_err(|_| "terminal state poisoned")?);
+    for session in sessions.values() {
+        kill_terminal_session(session);
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn terminal_kill(sessions: tauri::State<'_, TerminalSessions>, id: String) -> Result<(), String> {
+    let session = sessions.0.lock().map_err(|_| "terminal state poisoned")?
+        .remove(&id).ok_or_else(|| "Terminal session not found".to_string())?;
+    kill_terminal_session(&session);
+    Ok(())
+}
+
+#[tauri::command]
+fn terminal_cleanup(sessions: tauri::State<'_, TerminalSessions>) -> Result<(), String> {
+    cleanup_terminal_sessions(&sessions)
+}
 
 fn generate_random_hex() -> Result<String, String> {
     let mut bytes = [0_u8; 32];
@@ -57,8 +250,8 @@ fn generate_random_hex() -> Result<String, String> {
     Ok(bytes.iter().map(|byte| format!("{byte:02x}")).collect())
 }
 
-fn load_or_generate_desktop_api_token() -> Result<String, String> {
-    if let Ok(value) = env::var(DESKTOP_API_TOKEN_ENV) {
+fn load_or_generate_secret(name: &str) -> Result<String, String> {
+    if let Ok(value) = env::var(name) {
         let value = value.trim();
         if value.len() >= 32 {
             return Ok(value.to_string());
@@ -66,6 +259,10 @@ fn load_or_generate_desktop_api_token() -> Result<String, String> {
     }
 
     generate_random_hex()
+}
+
+fn load_or_generate_desktop_api_token() -> Result<String, String> {
+    load_or_generate_secret(DESKTOP_API_TOKEN_ENV)
 }
 
 #[tauri::command]
@@ -82,6 +279,9 @@ fn show_main_window(app: &AppHandle) {
 }
 
 fn quit_application(app: &AppHandle) {
+    if let Some(sessions) = app.try_state::<TerminalSessions>() {
+        let _ = cleanup_terminal_sessions(&sessions);
+    }
     if let Some(server) = app.try_state::<DesktopServer>() {
         server.stop();
     }
@@ -955,6 +1155,7 @@ fn wait_for_server(
 fn start_packaged_server(
     app: &tauri::AppHandle,
     desktop_api_token: &str,
+    terminal_authorization_token: &str,
     desktop_instance_id: &str,
 ) -> Result<(Url, DesktopServer), Box<dyn std::error::Error>> {
     let resource_dir = child_process_compatible_path(&app.path().resource_dir()?);
@@ -1003,6 +1204,7 @@ fn start_packaged_server(
         .env("NEXT_TELEMETRY_DISABLED", "1")
         .env("PI_WEB_PARENT_PID", std::process::id().to_string())
         .env(DESKTOP_API_TOKEN_ENV, desktop_api_token)
+        .env(TERMINAL_AUTHORIZATION_TOKEN_ENV, terminal_authorization_token)
         .env(DESKTOP_INSTANCE_ID_ENV, desktop_instance_id)
         .stdin(Stdio::null())
         .stdout(Stdio::from(stdout))
@@ -1265,10 +1467,14 @@ pub fn run() {
 
     let desktop_api_token = load_or_generate_desktop_api_token()
         .expect("failed to create desktop API authorization token");
+    let terminal_authorization_token = load_or_generate_secret(TERMINAL_AUTHORIZATION_TOKEN_ENV)
+        .expect("failed to create terminal authorization token");
     let desktop_instance_id =
         generate_random_hex().expect("failed to create desktop server instance id");
     #[cfg(feature = "custom-protocol")]
     let server_api_token = desktop_api_token.clone();
+    #[cfg(feature = "custom-protocol")]
+    let server_terminal_token = terminal_authorization_token.clone();
     #[cfg(feature = "custom-protocol")]
     let server_instance_id = desktop_instance_id.clone();
     let app = tauri::Builder::default()
@@ -1278,6 +1484,8 @@ pub fn run() {
         .plugin(tauri_plugin_process::init())
         .manage(CloseQuits(Mutex::new(false)))
         .manage(DesktopApiToken(desktop_api_token))
+        .manage(TerminalAuthorizationToken(terminal_authorization_token))
+        .manage(TerminalSessions(Mutex::new(std::collections::HashMap::new())))
         .invoke_handler(tauri::generate_handler![
             get_desktop_api_token,
             open_external_url,
@@ -1286,7 +1494,12 @@ pub fn run() {
             set_close_quits,
             quit_app,
             show_main_window_cmd,
-            set_ui_theme
+            set_ui_theme,
+            terminal_create,
+            terminal_write,
+            terminal_resize,
+            terminal_kill,
+            terminal_cleanup
         ])
         .setup(move |app| {
             // The updater public key is embedded at compile time by the release
@@ -1304,8 +1517,12 @@ pub fn run() {
             }
 
             #[cfg(feature = "custom-protocol")]
-            let (url, server) =
-                start_packaged_server(app.handle(), &server_api_token, &server_instance_id)?;
+            let (url, server) = start_packaged_server(
+                app.handle(),
+                &server_api_token,
+                &server_terminal_token,
+                &server_instance_id,
+            )?;
             #[cfg(not(feature = "custom-protocol"))]
             let (url, server) = start_development_server(app.handle())?;
 
@@ -1353,6 +1570,9 @@ pub fn run() {
         RunEvent::Exit => {
             #[cfg(target_os = "linux")]
             remove_instance_lock();
+            if let Some(sessions) = app_handle.try_state::<TerminalSessions>() {
+                let _ = cleanup_terminal_sessions(&sessions);
+            }
             if let Some(server) = app_handle.try_state::<DesktopServer>() {
                 server.stop();
             }

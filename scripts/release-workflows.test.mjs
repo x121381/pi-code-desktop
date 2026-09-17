@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -71,17 +71,31 @@ test("npm test covers every test directory, recursively", async () => {
 });
 
 test("no test file is left out of npm test", async () => {
-  // Catches a test added in a directory the globs do not cover.
-  const { execFileSync } = await import("node:child_process");
-  const tracked = execFileSync("git", ["ls-files", "*.test.mjs"], { cwd: root, encoding: "utf8" })
-    .split("\n")
-    .filter(Boolean);
+  // Source archives and release workspaces may not include .git, so inspect the
+  // working tree directly while excluding dependencies and generated output.
+  const ignoredDirectories = new Set([
+    ".git",
+    ".next",
+    ".next-desktop",
+    "node_modules",
+    "target",
+  ]);
+  const testFiles = [];
+  async function collect(directory, relative = "") {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      if (entry.isDirectory() && ignoredDirectories.has(entry.name)) continue;
+      const file = relative ? `${relative}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) await collect(join(directory, entry.name), file);
+      else if (entry.isFile() && entry.name.endsWith(".test.mjs")) testFiles.push(file);
+    }
+  }
+  await collect(root);
 
-  const covered = tracked.filter((file) => /^(app|lib|scripts|components|hooks)\//.test(file));
+  const covered = testFiles.filter((file) => /^(app|lib|scripts|components|hooks)\//.test(file));
   assert.deepEqual(
-    tracked.filter((file) => !covered.includes(file)),
+    testFiles.filter((file) => !covered.includes(file)),
     [],
-    "a .test.mjs file lives outside app/, lib/, scripts/, components/ and hooks/ — extend npm test",
+    "a .test.mjs file lives outside app/, lib/, scripts/, components/ and hooks/ - extend npm test",
   );
 });
 
@@ -156,6 +170,9 @@ test("the manifest job only publishes when every platform succeeded", async () =
   assert.match(manifestJob, /needs: build/);
   assert.doesNotMatch(manifestJob, /if: (always|success\(\) \|\|)/);
   assert.match(manifestJob, /--draft=false --latest/);
+  const buildJob = workflow.slice(workflow.indexOf("\n  build:"), workflow.indexOf("\n  manifest:"));
+  assert.match(buildJob, /releaseDraft: true/);
+  assert.doesNotMatch(buildJob, /releaseDraft: false/);
 });
 
 test("release workflow publishes Apple Silicon, Linux x64, and Windows x64 installers", async () => {

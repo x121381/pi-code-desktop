@@ -19,6 +19,7 @@ const ModelsConfig = dynamic(() => import("./ModelsConfig").then((m) => m.Models
 const SkillsConfig = dynamic(() => import("./SkillsConfig").then((m) => m.SkillsConfig), { ssr: false });
 const PluginsConfig = dynamic(() => import("./PluginsConfig").then((m) => m.PluginsConfig), { ssr: false });
 const AppSettings = dynamic(() => import("./AppSettings").then((m) => m.AppSettings), { ssr: false });
+const TerminalPanel = dynamic(() => import("./TerminalPanel").then((m) => m.TerminalPanel), { ssr: false });
 import { SessionStatsPanel } from "./SessionStatsPanel";
 import { ProjectTrustDialog } from "./ProjectTrustDialog";
 import { BranchNavigator } from "./BranchNavigator";
@@ -92,6 +93,7 @@ export function AppShell() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [sessionKey, setSessionKey] = useState(0);
   const [availableProjectRoots, setAvailableProjectRoots] = useState<string[]>([]);
+  const [noProjectMode, setNoProjectMode] = useState(false);
   const [explorerRefreshKey, setExplorerRefreshKey] = useState(0);
   const [modelsConfigOpen, setModelsConfigOpen] = useState(false);
   const [modelsRefreshKey, setModelsRefreshKey] = useState(0);
@@ -311,10 +313,11 @@ export function AppShell() {
   }, [isMobile]);
 
   const handleRightPanelToggle = useCallback(() => {
+    if (noProjectMode) return;
     setActiveTopPanel(null);
     setTopMoreOpen(false);
     setRightPanelOpen(!rightPanelOpen);
-  }, [rightPanelOpen]);
+  }, [rightPanelOpen, noProjectMode]);
 
   useEffect(() => {
     if (!topMoreOpen) return;
@@ -382,8 +385,18 @@ export function AppShell() {
   const [fileExplorerQuery, setFileExplorerQuery] = useState("");
   const fileExplorerRef = useRef<FileExplorerHandle>(null);
   const [fileTreeOpen, setFileTreeOpen] = useState(true);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const [fileActionsMenuOpen, setFileActionsMenuOpen] = useState(false);
   const fileActionsMenuRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!noProjectMode) return;
+    setFileTabs([]);
+    setActiveFileTabId(null);
+    setRightPanelOpen(terminalOpen);
+    setFileActionsMenuOpen(false);
+    setProjectTrustDialogOpen(false);
+  }, [noProjectMode, terminalOpen]);
+
   useEffect(() => {
     if (!fileActionsMenuOpen) return;
 
@@ -458,13 +471,18 @@ export function AppShell() {
     return () => controller.abort();
   }, [initialNavigation]);
 
-  const handleCwdChange = useCallback((cwd: string | null, projectRoot?: string | null) => {
+  const handleCwdChange = useCallback((cwd: string | null, projectRoot?: string | null, isNoProject = false) => {
     setActiveCwd(cwd);
+    setNoProjectMode(isNoProject);
     // Skip if cwd is null (initial mount).
     if (!cwd) return;
-    const newProject = projectRoot ?? cwd;
+    const newProject = isNoProject ? "__no_project__" : (projectRoot ?? cwd);
     const currentProject = activeProjectRootRef.current
-      ?? (selectedSession ? (selectedSession.projectRoot ?? selectedSession.cwd) : null);
+      ?? (selectedSession
+        ? (isNoProject && selectedSession.cwd === cwd
+          ? "__no_project__"
+          : (selectedSession.projectRoot ?? selectedSession.cwd))
+        : null);
     activeProjectRootRef.current = newProject;
 
     // Keep the project identity in sync during the initial URL restore without
@@ -484,7 +502,7 @@ export function AppShell() {
     // click has already committed, so `selectedSession` here IS the clicked
     // session: keep it open and only drop file tabs left over from the
     // previous project, instead of blanking the chat into a new session.
-    if (selectedSession && (selectedSession.projectRoot ?? selectedSession.cwd) === newProject) {
+    if (selectedSession && (isNoProject ? selectedSession.cwd === cwd : (selectedSession.projectRoot ?? selectedSession.cwd) === newProject)) {
       setFileTabs([]);
       setActiveFileTabId(null);
       setRightPanelOpen(false);
@@ -688,6 +706,7 @@ export function AppShell() {
     fileName: string,
     options?: { sourceSessionId?: string | null; modeHint?: "diff" },
   ) => {
+    if (noProjectMode) return;
     const sourceSessionId = options?.sourceSessionId;
     const modeHint = options?.modeHint;
     const tabId = `file:${filePath}`;
@@ -717,7 +736,7 @@ export function AppShell() {
     setRightPanelOpen(true);
     // On mobile the file panel is full-screen; close the drawer so it shows.
     if (isMobile) setSidebarOpen(false);
-  }, [isMobile]);
+  }, [isMobile, noProjectMode]);
 
   const handleCloseFileTab = useCallback((tabId: string) => {
     setFileTabs((prev) => {
@@ -750,7 +769,8 @@ export function AppShell() {
   // Show chat area if a session is selected, or if we have a cwd to start a new session in
   const effectiveNewSessionCwd = newSessionCwd ?? (selectedSession === null && activeCwd ? activeCwd : null);
   const showChat = selectedSession !== null || effectiveNewSessionCwd !== null;
-  const projectTrustCwd = selectedSession?.cwd ?? effectiveNewSessionCwd;
+  const resourceConfigCwd = selectedSession?.cwd ?? effectiveNewSessionCwd;
+  const projectTrustCwd = noProjectMode ? null : resourceConfigCwd;
   // While restoring initial session from URL, don't show the placeholder
   const showPlaceholder = initialSessionRestored && !showChat;
 
@@ -769,7 +789,7 @@ export function AppShell() {
     // Wait for sidebar auto-select before giving up on tab restore.
     if (hasSavedTabs && !canMatch && !cwd && !showPlaceholder) return;
 
-    if (canMatch && persistedWorkspace) {
+    if (canMatch && persistedWorkspace && !noProjectMode) {
       const tabs: Tab[] = persistedWorkspace.fileTabs.map((tab) => ({
         id: `file:${tab.filePath}`,
         label: tab.label,
@@ -797,6 +817,7 @@ export function AppShell() {
     newSessionCwd,
     activeCwd,
     showPlaceholder,
+    noProjectMode,
   ]);
 
   // Persist workspace so the next desktop cold start can restore chat + files.
@@ -892,13 +913,14 @@ export function AppShell() {
     }
   }, [activeFileTab?.filePath]);
   const activeCwdName = activeCwd ? getFileName(activeCwd) || activeCwd : null;
-  const windowTitle = activeCwdName ? `${activeCwdName} - ${PRODUCT_NAME}` : PRODUCT_NAME;
+  const workspaceLabel = noProjectMode ? translate("sidebar.noProject") : activeCwdName;
+  const windowTitle = workspaceLabel ? `${workspaceLabel} - ${PRODUCT_NAME}` : PRODUCT_NAME;
   const topBarTitle = selectedSession
     ? selectedSession.name || selectedSession.firstMessage || translate("appshell.untitledTask")
     : showChat
       ? translate("appshell.newTask")
       : PRODUCT_NAME;
-  const topBarSubtitle = activeCwdName ?? translate("appshell.subtitle");
+  const topBarSubtitle = noProjectMode ? translate("sidebar.noProjectHint") : (activeCwdName ?? translate("appshell.subtitle"));
 
   useEffect(() => {
     const syncWindowTitle = () => {
@@ -962,6 +984,7 @@ export function AppShell() {
         onSessionDeleted={handleSessionDeleted}
         selectedCwd={selectedSession?.cwd ?? newSessionCwd ?? null}
         onCwdChange={handleCwdChange}
+        onNoProjectModeChange={setNoProjectMode}
         onProjectsChange={handleProjectsChange}
         headerControls={sidebarHeaderControls}
       />
@@ -1636,13 +1659,33 @@ export function AppShell() {
         </div>
       </div>
 
+      {desktopMode && (
+        <button
+          type="button"
+          className={`right-panel-toggle-button${terminalOpen ? " is-open" : ""}`}
+          onClick={() => {
+            setTerminalOpen((open) => !open);
+            setRightPanelOpen(true);
+          }}
+          title={terminalOpen ? translate("terminal.close") : translate("terminal.open")}
+          aria-label={terminalOpen ? translate("terminal.close") : translate("terminal.open")}
+          aria-pressed={terminalOpen}
+          disabled={!activeCwd && !selectedSession?.cwd && !newSessionCwd}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14" />
+          </svg>
+        </button>
+      )}
+
       <button
         type="button"
-        className={`right-panel-toggle-button${rightPanelOpen ? " is-open" : ""}`}
+        className={`right-panel-toggle-button${rightPanelOpen && !terminalOpen ? " is-open" : ""}`}
         onClick={handleRightPanelToggle}
         title={rightPanelOpen ? translate("files.hidePanel") : translate("files.showPanel")}
         aria-label={rightPanelOpen ? translate("files.hidePanel") : translate("files.showPanel")}
-        aria-pressed={rightPanelOpen}
+        aria-pressed={rightPanelOpen && !terminalOpen}
+        disabled={noProjectMode}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -1723,6 +1766,13 @@ export function AppShell() {
             <span>{translate("contextPanel.tabDiff")}</span>
           </button>
         */}
+        {terminalOpen ? (
+          <TerminalPanel
+            cwd={selectedSession?.cwd ?? newSessionCwd ?? activeCwd}
+            onClose={() => setTerminalOpen(false)}
+          />
+        ) : (
+          <>
         <div className="right-panel-tab-strip">
           <div className="file-tab-bar-slot">
             <TabBar
@@ -1927,6 +1977,8 @@ export function AppShell() {
             </>
           )}
         </div>
+          </>
+        )}
       </div>
       </div>
     </div>
@@ -1942,13 +1994,20 @@ export function AppShell() {
         onConfirm={() => void handleTrustProject()}
       />
     )}
-    {skillsConfigOpen && projectTrustCwd && (
-      <SkillsConfig cwd={projectTrustCwd} onClose={() => setSkillsConfigOpen(false)} />
-    )}
-    {pluginsConfigOpen && projectTrustCwd && (
-      <PluginsConfig
-        cwd={projectTrustCwd}
+    {skillsConfigOpen && resourceConfigCwd && (
+      <SkillsConfig
+        cwd={resourceConfigCwd}
         sessionId={selectedSession?.id ?? null}
+        projectScopeAvailable={!noProjectMode}
+        onClose={() => setSkillsConfigOpen(false)}
+        onReloaded={() => setSessionKey((k) => k + 1)}
+      />
+    )}
+    {pluginsConfigOpen && resourceConfigCwd && (
+      <PluginsConfig
+        cwd={resourceConfigCwd}
+        sessionId={selectedSession?.id ?? null}
+        projectScopeAvailable={!noProjectMode}
         onClose={() => setPluginsConfigOpen(false)}
         onReloaded={() => setSessionKey((k) => k + 1)}
       />

@@ -1,13 +1,75 @@
 import type { ResourceDiagnostic } from "@earendil-works/pi-coding-agent";
 
+export type SkillSearchProvenance =
+  | { source: "skills.sh"; package: string }
+  | { source: "github"; host: "github.com"; owner: string; repo: string };
+
 export interface SkillSearchResult {
-  package: string;
-  installs: string;
-  url: string;
-  /** Where this result came from — used to render provenance and dedupe. Defaults to "skills.sh" when omitted. */
-  origin?: "skills.sh" | "github";
+  id: string;
+  name: string;
   description?: string;
+  url: string;
+  provenance: SkillSearchProvenance;
+  popularity: {
+    installs?: number;
+    stars?: number;
+  };
+  revision?: string;
+  skillPath?: string;
+  license?: string;
+  updatedAt?: string;
+  inspected: boolean;
 }
+
+export interface SkillSearchResponse {
+  results: SkillSearchResult[];
+  catalogVersion?: string;
+  notice: string;
+}
+
+export type SkillReviewRequest =
+  | { source: "skills.sh"; package: string }
+  | {
+      source: "github";
+      host: "github.com";
+      owner: string;
+      repo: string;
+      revision: string;
+      skillPath: string;
+    };
+
+export interface SkillReviewResponse {
+  source: "github";
+  host: "github.com";
+  owner: string;
+  repo: string;
+  revision: string;
+  skillPath: string;
+  name: string;
+  description: string;
+  content: string;
+  reviewHash: string;
+}
+
+export type SkillInstallRequest =
+  | {
+      source: "skills.sh";
+      package: string;
+      reviewHash: string;
+      scope: SkillInstallScope;
+      cwd?: string;
+    }
+  | {
+      source: "github";
+      host: "github.com";
+      owner: string;
+      repo: string;
+      skillPath: string;
+      revision: string;
+      reviewHash: string;
+      scope: SkillInstallScope;
+      cwd?: string;
+    };
 
 export type SkillInstallScope = "global" | "project";
 

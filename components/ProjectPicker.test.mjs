@@ -6,7 +6,7 @@ const jiti = createJiti(import.meta.url, {
   jsx: { runtime: "automatic" },
   tsconfigPaths: true,
 });
-const { selectVisibleProjects, shouldShowProjectFilter } = await jiti.import("./ProjectPicker.tsx");
+const { selectNoProjectCwd, selectVisibleProjects, shouldShowProjectFilter } = await jiti.import("./ProjectPicker.tsx");
 
 const many = Array.from({ length: 12 }, (_, i) => `/work/project-${i}`);
 
@@ -44,4 +44,27 @@ test("a selected project already inside the cap is not duplicated", () => {
   const visible = selectVisibleProjects(many, "/work/project-2", "");
   assert.equal(visible.filter((p) => p === "/work/project-2").length, 1);
   assert.equal(visible.length, 7);
+});
+
+test("no-project chats resolve their stable cwd from the dedicated API", async (t) => {
+  const originalFetch = globalThis.fetch;
+  t.after(() => { globalThis.fetch = originalFetch; });
+  globalThis.fetch = async (input) => {
+    assert.equal(input, "/api/no-project-cwd");
+    return new Response(JSON.stringify({ cwd: "/app/workspace" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+  assert.equal(await selectNoProjectCwd(), "/app/workspace");
+});
+
+test("no-project cwd resolution rejects invalid API responses", async (t) => {
+  const originalFetch = globalThis.fetch;
+  t.after(() => { globalThis.fetch = originalFetch; });
+  globalThis.fetch = async () => new Response(JSON.stringify({ error: "unavailable" }), {
+    status: 500,
+    headers: { "Content-Type": "application/json" },
+  });
+  await assert.rejects(selectNoProjectCwd(), /unavailable/);
 });

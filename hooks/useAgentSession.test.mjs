@@ -54,6 +54,27 @@ test("keeps the session event stream open through the idle grace window", () => 
   assert.doesNotMatch(sendSource, /if \(e instanceof EventStreamConnectionError\)/);
 });
 
+test("requires explicit confirmation before enabling full access", () => {
+  assert.match(chatWindowSource, /mode === "full" && permissionMode !== "full"/);
+  assert.match(chatWindowSource, /setFullAccessConfirmationOpen\(true\)/);
+  assert.match(chatWindowSource, /function FullAccessConfirmationDialog/);
+  assert.match(chatWindowSource, /handlePermissionModeChange\("full"\)/);
+});
+
+test("connects the event stream before a shell command can wait for approval", () => {
+  const bashSource = source.slice(
+    source.indexOf("  const executeBash = useCallback"),
+    source.indexOf("  const handleAbort = useCallback"),
+  );
+  const connectAt = bashSource.indexOf("await ensureEventsConnected(sid)");
+  const commandAt = bashSource.indexOf("await sendAgentCommand(sid");
+
+  assert.ok(connectAt >= 0);
+  assert.ok(commandAt > connectAt);
+  assert.match(source, /case "tool_approval_request"/);
+  assert.match(source, /decision: "allow_once" \| "allow_session" \| "deny"/);
+});
+
 test("reuses an open event stream and hides an empty agent phase", () => {
   const ensureSource = source.slice(
     source.indexOf("const ensureEventsConnected"),

@@ -20,6 +20,7 @@ import {
 } from "@/lib/desktop-updater";
 import { handleExternalLinkClick, openPathNative, quitAppNative, setCloseQuitsNative } from "@/lib/desktop-native";
 import { useI18n } from "@/hooks/useI18n";
+import { SYSTEM_LOCALE } from "@/lib/i18n/types";
 import { useTheme } from "@/hooks/useTheme";
 import { useDiffViewMode } from "@/hooks/useDiffViewMode";
 
@@ -208,7 +209,7 @@ function VersionChip({
 }
 
 export function AppSettings({ onClose }: { onClose: () => void }) {
-  const { t, locale, setLocale, supportedLocales } = useI18n();
+  const { t, preference, setLocale, supportedLocales } = useI18n();
   const { theme, setTheme } = useTheme();
   const { mode: diffViewMode, setMode: setDiffViewMode } = useDiffViewMode();
   const desktop = isTauriDesktop();
@@ -439,11 +440,17 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
             <div style={sectionTitleStyle}>{t("appSettings.languageSection")}</div>
             <div style={sectionHintStyle}>{t("appSettings.languageHint")}</div>
             <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <ChoiceButton
+                active={preference === SYSTEM_LOCALE}
+                onClick={() => setLocale(SYSTEM_LOCALE)}
+              >
+                {t("appSettings.languageSystem")}
+              </ChoiceButton>
               {supportedLocales.map((plugin) => (
                 <ChoiceButton
                   key={plugin.id}
-                  active={locale === plugin.id}
-                  onClick={() => setLocale(plugin.id as typeof locale)}
+                  active={preference === plugin.id}
+                  onClick={() => setLocale(plugin.id)}
                 >
                   {plugin.label}
                 </ChoiceButton>

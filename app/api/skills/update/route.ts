@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "This skill cannot be updated automatically" }, { status: 400 });
     }
 
-    const { stdout, stderr } = await runNpx(buildSkillUpdateArgs(skill.install), {
+    await runNpx(buildSkillUpdateArgs(skill.install), {
       timeout: 60_000,
       cwd: scope === "project" ? cwd : undefined,
       env: { ...process.env, FORCE_COLOR: "0" },
@@ -51,13 +51,10 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       skill: updatedSkill,
-      output: `${stdout}${stderr}`.slice(-500),
     });
-  } catch (error: unknown) {
-    const detail = error as { stdout?: string; stderr?: string; message?: string };
-    const output = `${detail.stdout ?? ""}${detail.stderr ?? ""}`;
+  } catch {
     return NextResponse.json(
-      { error: output || detail.message || String(error) },
+      { error: "Skill update failed" },
       { status: 500 },
     );
   }

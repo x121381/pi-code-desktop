@@ -2,15 +2,16 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { APP_PREF_KEYS, getPref, setPref } from "@/lib/app-prefs";
-import { getLocalePlugin, getSupportedLocales } from "@/lib/i18n/registry";
+import { getLocaleDirection, getLocalePlugin, getSupportedLocales, resolveLocalePreference } from "@/lib/i18n/registry";
 import { translateMessage } from "@/lib/i18n/format";
-import type { Locale, LocalePlugin, TranslationParams } from "@/lib/i18n/types";
+import { SYSTEM_LOCALE, type Locale, type LocalePlugin, type LocalePreference, type TranslationParams } from "@/lib/i18n/types";
 
 const defaultLocale: Locale = "en";
 
 interface I18nContextValue {
   locale: Locale;
-  setLocale: (locale: Locale) => void;
+  preference: LocalePreference;
+  setLocale: (locale: LocalePreference) => void;
   t: (key: string, params?: TranslationParams) => string;
   supportedLocales: LocalePlugin[];
 }
@@ -25,11 +26,20 @@ function getMessages(): Record<string, Record<string, string>> {
 }
 
 function readInitialLocale(): Locale {
+  const languages = typeof navigator === "undefined"
+    ? []
+    : navigator.languages?.length ? navigator.languages : [navigator.language];
+  return resolveLocalePreference(getPref(APP_PREF_KEYS.locale), languages);
+}
+
+function readInitialPreference(): LocalePreference {
   const stored = getPref(APP_PREF_KEYS.locale);
-  if (stored === "en" || stored === "zh-CN") return stored;
-  // UI defaults to English; browser language is intentionally not consulted
-  // (the topbar language switcher was removed).
-  return defaultLocale;
+  return stored && (stored === SYSTEM_LOCALE || getLocalePlugin(stored)) ? stored : SYSTEM_LOCALE;
+}
+
+function applyDocumentLocale(locale: Locale): void {
+  document.documentElement.lang = locale;
+  document.documentElement.dir = getLocaleDirection(locale);
 }
 
 /**
@@ -39,6 +49,7 @@ function readInitialLocale(): Locale {
  */
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+  const [preference, setPreference] = useState<LocalePreference>(SYSTEM_LOCALE);
   const [hydrated, setHydrated] = useState(false);
   const supportedLocales = useMemo(
     () => getSupportedLocales().map((id) => getLocalePlugin(id)).filter((plugin): plugin is LocalePlugin => Boolean(plugin)),
@@ -48,20 +59,34 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const next = readInitialLocale();
+    setPreference(readInitialPreference());
     setLocaleState(next);
-    document.documentElement.lang = next;
+    applyDocumentLocale(next);
     setHydrated(true);
   }, []);
 
-  const setLocale = useCallback((next: Locale) => {
-    if (!getLocalePlugin(next)) return;
-    setLocaleState(next);
-    document.documentElement.lang = next;
+  useEffect(() => {
+    if (preference !== SYSTEM_LOCALE) return;
+    const handleLanguageChange = () => {
+      const next = readInitialLocale();
+      setLocaleState(next);
+      applyDocumentLocale(next);
+    };
+    window.addEventListener("languagechange", handleLanguageChange);
+    return () => window.removeEventListener("languagechange", handleLanguageChange);
+  }, [preference]);
+
+  const setLocale = useCallback((next: LocalePreference) => {
+    const resolved = next === SYSTEM_LOCALE ? readInitialLocale() : next;
+    if (!getLocalePlugin(resolved)) return;
+    setPreference(next);
+    setLocaleState(resolved);
+    applyDocumentLocale(resolved);
     setPref(APP_PREF_KEYS.locale, next);
   }, []);
 
   const t = useCallback((key: string, params?: TranslationParams) => translateMessage(locale, key, messages, params), [locale, messages]);
-  const value = useMemo(() => ({ locale: hydrated ? locale : defaultLocale, setLocale, t, supportedLocales }), [hydrated, locale, setLocale, t, supportedLocales]);
+  const value = useMemo(() => ({ locale: hydrated ? locale : defaultLocale, preference, setLocale, t, supportedLocales }), [hydrated, locale, preference, setLocale, t, supportedLocales]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { mkdirSync } from "fs";
-import { join } from "path";
 import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { allowFileRoot } from "@/lib/file-access";
+import { getNoProjectWorkspaceCwd } from "@/lib/no-project-workspace";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 // the agent dir this app already owns, so it needs no separate trust prompt.
 export async function GET() {
   try {
-    const dir = join(getAgentDir(), "workspace");
+    const dir = getNoProjectWorkspaceCwd(getAgentDir());
     mkdirSync(dir, { recursive: true });
     allowFileRoot(dir);
     return NextResponse.json({ cwd: dir });

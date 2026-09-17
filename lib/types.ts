@@ -109,6 +109,15 @@ export interface BashExecutionMessage {
 
 export type AgentMessage = UserMessage | AssistantMessage | ToolResultMessage | CustomMessage | BashExecutionMessage;
 
+export interface ToolApprovalRequest {
+  type: "tool_approval_request";
+  id: string;
+  toolCallId: string;
+  toolName: string;
+  cwd: string;
+  input: unknown;
+}
+
 export type ExtensionUiRequest =
   | {
       type: "extension_ui_request";

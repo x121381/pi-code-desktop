@@ -93,7 +93,6 @@ function ResourceList({ pkg }: { pkg: PluginPackageInfo }) {
 
   return (
     <div
-      className="native-modal-backdrop"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -658,11 +657,13 @@ function PackageDetail({
 export function PluginsConfig({
   cwd,
   sessionId,
+  projectScopeAvailable = true,
   onClose,
   onReloaded,
 }: {
   cwd: string;
   sessionId: string | null;
+  projectScopeAvailable?: boolean;
   onClose: () => void;
   onReloaded?: () => void;
 }) {
@@ -680,9 +681,18 @@ export function PluginsConfig({
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
 
-  const packages = useMemo(() => data?.packages ?? [], [data?.packages]);
+  const visiblePackages = useCallback(
+    (items: PluginPackageInfo[]) => items.filter(
+      (pkg) => projectScopeAvailable || pkg.scope !== "project",
+    ),
+    [projectScopeAvailable],
+  );
+  const packages = useMemo(
+    () => visiblePackages(data?.packages ?? []),
+    [data?.packages, visiblePackages],
+  );
   const selectedPackage = packages.find((pkg) => packageKey(pkg) === selected) ?? null;
-  const projectResourcesLoaded = data?.projectResourcesLoaded ?? true;
+  const projectResourcesLoaded = projectScopeAvailable && (data?.projectResourcesLoaded ?? true);
 
   const groupedPackages = useMemo(() => {
     return (["project", "global"] as PluginScope[])
@@ -698,17 +708,18 @@ export function PluginsConfig({
       const next = (await res.json()) as PluginsResponse & { error?: string };
       if (!res.ok || next.error) throw new Error(next.error ?? `HTTP ${res.status}`);
       setData(next);
-      setAddMode((current) => next.packages.length === 0 || current);
+      const nextPackages = visiblePackages(next.packages);
+      setAddMode((current) => nextPackages.length === 0 || current);
       setSelected((current) => {
-        if (current && next.packages.some((pkg) => packageKey(pkg) === current)) return current;
-        return next.packages[0] ? packageKey(next.packages[0]) : null;
+        if (current && nextPackages.some((pkg) => packageKey(pkg) === current)) return current;
+        return nextPackages[0] ? packageKey(nextPackages[0]) : null;
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
-  }, [cwd]);
+  }, [cwd, visiblePackages]);
 
   useEffect(() => {
     void loadPlugins();
@@ -729,8 +740,9 @@ export function PluginsConfig({
       if (!res.ok || next.error) throw new Error(next.error ?? `HTTP ${res.status}`);
       setData(next);
       if (action === "remove") {
-        setSelected(next.packages[0] ? packageKey(next.packages[0]) : null);
-        if (next.packages.length === 0) setAddMode(true);
+        const nextPackages = visiblePackages(next.packages);
+        setSelected(nextPackages[0] ? packageKey(nextPackages[0]) : null);
+        if (nextPackages.length === 0) setAddMode(true);
         setActionMessage(t("i18n.packageRemoved"));
       } else {
         const messageKeys: Record<Exclude<PluginAction, "remove">, string> = {
@@ -746,7 +758,7 @@ export function PluginsConfig({
     } finally {
       setBusyKey(null);
     }
-  }, [cwd, t]);
+  }, [cwd, t, visiblePackages]);
 
   const installPlugin = useCallback(async () => {
     const source = normalizePluginSourceInput(installSource).trim();
@@ -876,7 +888,7 @@ export function PluginsConfig({
           </button>
         </div>
 
-        {!projectResourcesLoaded && (
+        {projectScopeAvailable && !projectResourcesLoaded && (
           <div
             role="status"
             style={{
@@ -1071,7 +1083,7 @@ export function PluginsConfig({
                 cwd={cwd}
                 source={installSource}
                 scope={installScope}
-                projectResourcesLoaded={projectResourcesLoaded}
+                projectResourcesLoaded={projectScopeAvailable && projectResourcesLoaded}
                 busy={addBusy}
                 actionError={actionError}
                 onSourceChange={setInstallSource}

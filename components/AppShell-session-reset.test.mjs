@@ -34,3 +34,20 @@ test("desktop-only workspace and health behavior is gated before use", async () 
   assert.match(source, /useDesktopConnection\(desktopMode\)/);
   assert.match(source, /if \(!desktopMode \|\| !workspaceHydrated\) return/);
 });
+
+test("no-project mode disables project-scoped shell features", async () => {
+  const source = await readFile(new URL("./AppShell.tsx", import.meta.url), "utf8");
+  assert.match(source, /const projectTrustCwd = noProjectMode \? null/);
+  assert.match(source, /setSkillsConfigOpen\(false\)/);
+  assert.match(source, /setPluginsConfigOpen\(false\)/);
+  assert.match(source, /projectScopeAvailable=\{!noProjectMode\}/);
+  assert.match(source, /disabled=\{noProjectMode\}/);
+  assert.match(source, /if \(noProjectMode\) return;[\s\S]*setFileTabs/);
+});
+
+test("no-project mode is clearly identified in the workspace chrome", async () => {
+  const source = await readFile(new URL("./AppShell.tsx", import.meta.url), "utf8");
+  assert.match(source, /workspaceLabel = noProjectMode \? translate\("sidebar\.noProject"\)/);
+  assert.match(source, /topBarSubtitle = noProjectMode \? translate\("sidebar\.noProjectHint"\)/);
+  assert.match(source, /onNoProjectModeChange=\{setNoProjectMode\}/);
+});

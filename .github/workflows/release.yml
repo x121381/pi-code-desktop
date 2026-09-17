@@ -103,51 +103,44 @@ jobs:
           tagName: v__VERSION__
           releaseName: pi-code-desktop v__VERSION__
           releaseBody: |
-            ## Pi Code Desktop 0.1.1
+            ## Pi Code Desktop 0.1.2
 
-            Patch update with several UX improvements and bug fixes.
+            This release adds the desktop workflows requested by users and ships them
+            through the signed whole-application updater.
 
             **Changes**
-            - Models.json normalization: empty model IDs and incomplete cost fields
-              are now repaired at every save boundary, eliminating Pi SDK schema errors.
-            - Skills search now queries GitHub in parallel with skills.sh — paste a
-              `github.com/owner/repo` URL or an `owner/repo` slug to install directly.
-            - New "Continue without a project" entry in the project picker starts a chat
-              session without requiring a folder, using a stable agent workspace directory.
-            - Sidebar footer (Models / Skills / Plugins) is now drag-reorderable and the
-              order is persisted across restarts.
-            - File tabs show a coloured dot when the file has uncommitted Git changes,
-              matching the Cursor visual convention.
-            - Diff view now highlights individual changed words within a modified line
-              (intra-line diff), not just the whole line.
-            - Full Chinese (zh-CN) localisation applied to previously hard-coded strings
-              in FileViewer, ProjectPicker, TabBar, WindowControls, ChatInput, and more.
-            - Fixed a regex syntax error in model-discovery.ts that blocked the TypeScript
-              build on strict mode.
+            - Added signed in-app update checking, download, installation, and relaunch.
+            - Added a real interactive PTY terminal backed by ConPTY on Windows.
+            - Added stable chat sessions that work without selecting a project.
+            - Added Restricted, Request approval, and Full access permission modes.
+            - Added complete English, Simplified Chinese, Traditional Chinese, Japanese,
+              Korean, and Spanish interface packs with an extensible locale registry.
+            - Added secure model discovery from a Base URL and API key, with bounded
+              responses and readable errors for HTML challenges and invalid JSON.
+            - Added a popular-skills catalog with explicit source review before any
+              user-selected installation.
+            - Fixed stale modal backdrops and localized model-discovery errors.
 
             ---
 
-            ## Pi Code Desktop 0.1.1
+            ## Pi Code Desktop 0.1.2
 
-            包含若干 UX 改进和问题修复的补丁更新。
+            本版本加入用户要求的桌面工作流，并通过签名的整包更新机制发布。
 
             **变更**
-            - 模型配置规范化：每次保存时自动修复空模型 ID 和不完整的 cost 字段，
-              消除 Pi SDK schema 错误。
-            - 技能搜索现在同时查询 GitHub 和 skills.sh——粘贴 `github.com/owner/repo`
-              URL 或 `owner/repo` 即可直接安装。
-            - 项目选择器新增"不选择项目直接使用"入口，无需选择文件夹即可开始对话。
-            - 侧边栏底部（模型 / 技能 / 插件）支持拖拽排序，顺序持久化保存。
-            - 文件 Tab 在文件有未提交的 Git 修改时显示彩色小圆点，
-              与 Cursor 视觉风格一致。
-            - Diff 视图现在对修改行进行逐词高亮（行内 diff），而不仅仅高亮整行。
-            - 全面修复 FileViewer、ProjectPicker、TabBar、WindowControls、ChatInput
-              等组件中硬编码的中文和英文字符串，简体中文翻译覆盖。
-            - 修复 model-discovery.ts 中的正则表达式语法错误（该错误在严格模式下
-              会阻断 TypeScript 构建）。
-          # The matrix is serialized, so each platform can append to one
-          # published release without creating a second same-tag draft.
-          releaseDraft: false
+            - 新增应用内检查、下载、安装签名更新并重启的完整流程。
+            - 新增真实交互式 PTY 终端，Windows 使用 ConPTY。
+            - 新增无需选择项目即可使用的稳定纯聊天会话。
+            - 新增受限、请求批准和完全访问三档权限模式。
+            - 新增英语、简体中文、繁体中文、日语、韩语和西班牙语完整语言包，
+              并使用可扩展的语言注册表。
+            - 新增通过 Base URL 和 API Key 安全获取模型，限制响应大小，
+              HTML 安全验证页或无效 JSON 只显示可读错误。
+            - 新增热门技能目录；仅在用户检查来源和完整 SKILL.md 后按选择安装。
+            - 修复残留模态遮罩，并补齐模型获取错误的本地化。
+          # Every platform appends to the same draft. The manifest job publishes
+          # it only after the complete matrix succeeds.
+          releaseDraft: true
           prerelease: false
           uploadUpdaterJson: true
           args: ${{ matrix.args }}

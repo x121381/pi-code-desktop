@@ -8,6 +8,7 @@ import { handleExternalLinkClick, openExternal } from "@/lib/desktop-native";
 import { ConfirmDangerButton } from "./ConfirmDangerButton";
 import type { ModelCatalogPreset, ModelCatalogRecommendation } from "@/lib/model-catalog";
 import type { DiscoveredModel } from "@/lib/model-discovery";
+import { modelDiscoveryErrorKey } from "@/lib/model-discovery-errors";
 import { normalizeModelForConfig, normalizeModelsConfig } from "@/lib/models-config-normalize";
 // Color icons (have their own fill colors — no background needed)
 import AnthropicIcon from "@lobehub/icons/es/Anthropic/components/Mono";
@@ -352,18 +353,23 @@ function ProviderDetail({ name, provider, onChange, onRename, onDelete, onAddMod
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ providerName: name, provider: { ...provider, models: undefined } }),
       });
-      const data = await res.json() as { models?: DiscoveredModel[]; endpoint?: string; error?: string };
+      const data = await res.json() as {
+        models?: DiscoveredModel[];
+        endpoint?: string;
+        error?: string;
+        code?: string;
+      };
       if (requestId !== discoveryRequestIdRef.current) return;
       if (!res.ok || data.error || !data.models) {
-        setDiscoveryState({ phase: "error", message: data.error ?? `HTTP ${res.status}` });
+        setDiscoveryState({ phase: "error", message: t(modelDiscoveryErrorKey(data.code)) });
         return;
       }
       setDiscoveryState({ phase: "success", models: data.models, endpoint: data.endpoint ?? provider.baseUrl });
-    } catch (error) {
+    } catch {
       if (requestId !== discoveryRequestIdRef.current) return;
-      setDiscoveryState({ phase: "error", message: error instanceof Error ? error.message : String(error) });
+      setDiscoveryState({ phase: "error", message: t("models.discoveryErrorFailed") });
     }
-  }, [discoveryState.phase, name, provider]);
+  }, [discoveryState.phase, name, provider, t]);
 
   const existingModelIds = new Set((provider.models ?? []).map((model) => model.id.trim()).filter(Boolean));
   const discoveredModels = discoveryState.phase === "success" ? discoveryState.models : [];
@@ -424,20 +430,20 @@ function ProviderDetail({ name, provider, onChange, onRename, onDelete, onAddMod
         )}
       </Field>
 
-      <Field label="Base URL">
+      <Field label={t("models.baseUrlLabel")}>
         <TextInput value={provider.baseUrl ?? ""} onChange={(v) => set("baseUrl", v || undefined)}
           placeholder="https://api.example.com/v1" mono />
       </Field>
 
-      <Field label="API Key">
+      <Field label={t("models.apiKeyLabel")}>
         <SecretTextInput value={provider.apiKey ?? ""} onChange={(v) => set("apiKey", v || undefined)}
-          placeholder="ENV_VAR_NAME, !shell-command, or literal key" mono />
+          placeholder={t("models.apiKeyPlaceholder")} mono />
         <span style={{ fontSize: 10, color: "var(--text-dim)", marginTop: 2 }}>
-          Prefix with <code style={{ fontFamily: "var(--font-mono)" }}>!</code> to run a shell command, or use an env var name
+          {t("models.apiKeyHelp")}
         </span>
       </Field>
 
-      <Field label="API">
+      <Field label={t("models.apiLabel")}>
         <Select value={provider.api ?? "openai-completions"} onChange={(v) => set("api", v)} options={API_OPTIONS} required />
       </Field>
 
@@ -1410,7 +1416,7 @@ function ApiKeyDetail({ provider, onRefresh }: { provider: ApiKeyProvider; onRef
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-         <SectionTitle>API Key</SectionTitle>
+         <SectionTitle>{t("models.apiKeyLabel")}</SectionTitle>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <span style={{ width: 7, height: 7, borderRadius: "50%", background: provider.configured ? "var(--success)" : "var(--border)", display: "inline-block" }} />
           <span style={{ fontSize: 11, color: provider.configured ? "var(--success)" : "var(--text-dim)" }}>
@@ -1425,7 +1431,7 @@ function ApiKeyDetail({ provider, onRefresh }: { provider: ApiKeyProvider; onRef
           : t("models.apiKeyPrompt", { name: provider.displayName, count: provider.modelCount })}
       </p>
 
-      <Field label="API Key">
+      <Field label={t("models.apiKeyLabel")}>
         <div style={{ display: "flex", gap: 6 }}>
           <SecretTextInput
             value={apiKey}
@@ -1624,7 +1630,7 @@ function AddProviderPicker({
               ))}
 
               {availableApiKey.length > 0 && (
-                <div style={{ gridColumn: "1 / -1", paddingTop: availableOAuth.length > 0 ? 6 : 0, fontSize: 10, fontWeight: 600, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.07em" }}>API Key</div>
+                <div style={{ gridColumn: "1 / -1", paddingTop: availableOAuth.length > 0 ? 6 : 0, fontSize: 10, fontWeight: 600, color: "var(--text-dim)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{t("models.apiKeyLabel")}</div>
               )}
               {availableApiKey.map((p) => (
                 <button className="provider-picker-card" key={p.id} onClick={() => { onSelectApiKey(p.id); onClose(); }}

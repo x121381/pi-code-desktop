@@ -22,6 +22,70 @@ export type SelectSavePathOptions = {
   filters?: DesktopDialogFilter[];
 };
 
+export type TerminalSize = { rows: number; cols: number };
+
+export async function createTerminal(cwd: string, size: TerminalSize): Promise<string> {
+  if (!isTauriDesktop()) {
+    throw new Error("Terminal sessions are only available in the desktop app.");
+  }
+
+  const response = await fetch("/api/desktop/terminal-authorization", {
+    method: "POST",
+    headers: await desktopApiHeaders({ "Content-Type": "application/json" }),
+    body: JSON.stringify({ cwd }),
+  });
+  const authorization = await response.json().catch(() => ({})) as {
+    cwd?: string;
+    expiresAt?: number;
+    authorization?: string;
+    error?: string;
+  };
+  if (!response.ok || typeof authorization.cwd !== "string"
+    || typeof authorization.expiresAt !== "number"
+    || typeof authorization.authorization !== "string") {
+    throw new Error(authorization.error || `Terminal authorization failed (HTTP ${response.status})`);
+  }
+
+  const { invoke } = await import("@tauri-apps/api/core");
+  return invoke<string>("terminal_create", {
+    cwd: authorization.cwd,
+    rows: size.rows,
+    cols: size.cols,
+    expiresAt: authorization.expiresAt,
+    authorization: authorization.authorization,
+  });
+}
+
+export async function writeTerminal(id: string, data: string): Promise<void> {
+  if (!isTauriDesktop()) {
+    throw new Error("Terminal sessions are only available in the desktop app.");
+  }
+  const { invoke } = await import("@tauri-apps/api/core");
+  await invoke("terminal_write", { id, data });
+}
+
+export async function resizeTerminal(id: string, size: TerminalSize): Promise<void> {
+  if (!isTauriDesktop()) {
+    throw new Error("Terminal sessions are only available in the desktop app.");
+  }
+  const { invoke } = await import("@tauri-apps/api/core");
+  await invoke("terminal_resize", { id, rows: size.rows, cols: size.cols });
+}
+
+export async function killTerminal(id: string): Promise<void> {
+  if (!isTauriDesktop()) {
+    throw new Error("Terminal sessions are only available in the desktop app.");
+  }
+  const { invoke } = await import("@tauri-apps/api/core");
+  await invoke("terminal_kill", { id });
+}
+
+export async function cleanupTerminals(): Promise<void> {
+  if (!isTauriDesktop()) return;
+  const { invoke } = await import("@tauri-apps/api/core");
+  await invoke("terminal_cleanup");
+}
+
 function asPathArray(selection: string | string[] | null): string[] {
   if (selection == null) return [];
   return Array.isArray(selection) ? selection.filter((path) => typeof path === "string") : [selection];

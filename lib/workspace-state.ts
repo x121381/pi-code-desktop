@@ -29,6 +29,9 @@ export function resolveInitialNavigation(
   if (workspace?.sessionId) {
     return { requestedCwd: null, sessionId: workspace.sessionId };
   }
+  if (workspace?.cwd) {
+    return { requestedCwd: workspace.cwd, sessionId: null };
+  }
   return fromUrl;
 }
 

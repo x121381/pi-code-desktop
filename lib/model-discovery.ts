@@ -8,6 +8,59 @@ export interface DiscoveredModel {
   cost?: { input?: number; output?: number; cacheRead?: number; cacheWrite?: number };
 }
 
+export const MAX_DISCOVERY_RESPONSE_BYTES = 2 * 1024 * 1024;
+export const MAX_DISCOVERY_REDIRECTS = 3;
+
+export type ModelDiscoveryErrorCode =
+  | "UPSTREAM_AUTH_FAILED"
+  | "UPSTREAM_RATE_LIMITED"
+  | "UPSTREAM_UNAVAILABLE"
+  | "UPSTREAM_HTTP_ERROR"
+  | "UPSTREAM_TIMEOUT"
+  | "UPSTREAM_REDIRECT_BLOCKED"
+  | "UPSTREAM_TOO_MANY_REDIRECTS"
+  | "UPSTREAM_CHALLENGE"
+  | "UPSTREAM_NOT_JSON"
+  | "UPSTREAM_INVALID_JSON"
+  | "UPSTREAM_RESPONSE_TOO_LARGE";
+
+const DISCOVERY_ERROR_MESSAGES: Record<ModelDiscoveryErrorCode, string> = {
+  UPSTREAM_AUTH_FAILED: "Upstream authentication failed",
+  UPSTREAM_RATE_LIMITED: "Upstream rate limit exceeded",
+  UPSTREAM_UNAVAILABLE: "Upstream service is unavailable",
+  UPSTREAM_HTTP_ERROR: "Upstream model request failed",
+  UPSTREAM_TIMEOUT: "Upstream model request timed out",
+  UPSTREAM_REDIRECT_BLOCKED: "Upstream redirect was blocked",
+  UPSTREAM_TOO_MANY_REDIRECTS: "Upstream returned too many redirects",
+  UPSTREAM_CHALLENGE: "Upstream returned an HTML security challenge",
+  UPSTREAM_NOT_JSON: "Upstream model response was not JSON",
+  UPSTREAM_INVALID_JSON: "Upstream model response contained invalid JSON",
+  UPSTREAM_RESPONSE_TOO_LARGE: "Upstream model response was too large",
+};
+
+export class ModelDiscoveryError extends Error {
+  readonly code: ModelDiscoveryErrorCode;
+
+  constructor(code: ModelDiscoveryErrorCode) {
+    super(DISCOVERY_ERROR_MESSAGES[code]);
+    this.name = "ModelDiscoveryError";
+    this.code = code;
+  }
+}
+
+interface FetchDiscoveryJsonOptions {
+  headers: Headers;
+  timeoutMs: number;
+  maxBytes: number;
+  maxRedirects?: number;
+  fetchImpl?: typeof fetch;
+}
+
+interface DiscoveryJsonResult {
+  payload: unknown;
+  bytesRead: number;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -109,6 +162,9 @@ const ENDPOINT_SUFFIX = /\/(?:chat\/completions|completions|messages|responses|e
 
 export function buildModelsListUrl(baseUrl: string, api: string): URL {
   const url = new URL(baseUrl.trim());
+  if ((url.protocol !== "http:" && url.protocol !== "https:") || url.username || url.password) {
+    throw new TypeError("Base URL must use HTTP(S) without credentials");
+  }
   const trimmedPath = url.pathname.replace(/\/+$/, "").replace(ENDPOINT_SUFFIX, "");
 
   if (!/\/models$/i.test(trimmedPath)) {
@@ -127,6 +183,165 @@ export function buildModelsListUrl(baseUrl: string, api: string): URL {
     url.searchParams.set("pageSize", "100");
   }
   return url;
+}
+
+function isJsonMediaType(response: Response): boolean {
+  const mediaType = response.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase();
+  return mediaType === "application/json"
+    || Boolean(mediaType?.startsWith("application/") && mediaType.endsWith("+json"));
+}
+
+function isHtmlOrChallenge(response: Response): boolean {
+  const mediaType = response.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase();
+  return mediaType === "text/html"
+    || mediaType === "application/xhtml+xml"
+    || response.headers.get("cf-mitigated")?.toLowerCase() === "challenge";
+}
+
+function errorForStatus(response: Response): ModelDiscoveryError {
+  if (isHtmlOrChallenge(response)) return new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+  if (response.status === 401 || response.status === 403) {
+    return new ModelDiscoveryError("UPSTREAM_AUTH_FAILED");
+  }
+  if (response.status === 429) return new ModelDiscoveryError("UPSTREAM_RATE_LIMITED");
+  if (response.status >= 500) return new ModelDiscoveryError("UPSTREAM_UNAVAILABLE");
+  return new ModelDiscoveryError("UPSTREAM_HTTP_ERROR");
+}
+
+async function cancelBody(response: Response): Promise<void> {
+  await response.body?.cancel().catch(() => undefined);
+}
+
+async function readResponseBytes(response: Response, maxBytes: number): Promise<Uint8Array> {
+  const contentLength = response.headers.get("content-length");
+  if (contentLength && /^\d+$/.test(contentLength) && Number(contentLength) > maxBytes) {
+    await cancelBody(response);
+    throw new ModelDiscoveryError("UPSTREAM_RESPONSE_TOO_LARGE");
+  }
+
+  const reader = response.body?.getReader();
+  if (!reader) return new Uint8Array();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (size + value.byteLength > maxBytes) {
+        await reader.cancel().catch(() => undefined);
+        throw new ModelDiscoveryError("UPSTREAM_RESPONSE_TOO_LARGE");
+      }
+      chunks.push(value);
+      size += value.byteLength;
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
+
+function validateRedirect(current: URL, location: string): URL {
+  let next: URL;
+  try {
+    next = new URL(location, current);
+  } catch {
+    throw new ModelDiscoveryError("UPSTREAM_REDIRECT_BLOCKED");
+  }
+  if (
+    next.origin !== current.origin
+    || (next.protocol !== "http:" && next.protocol !== "https:")
+    || next.username
+    || next.password
+  ) {
+    throw new ModelDiscoveryError("UPSTREAM_REDIRECT_BLOCKED");
+  }
+  return next;
+}
+
+function isRedirectStatus(status: number): boolean {
+  return status === 301 || status === 302 || status === 303 || status === 307 || status === 308;
+}
+
+export async function fetchDiscoveryJson(
+  initialUrl: URL,
+  options: FetchDiscoveryJsonOptions,
+): Promise<DiscoveryJsonResult> {
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const maxRedirects = options.maxRedirects ?? MAX_DISCOVERY_REDIRECTS;
+  const signal = AbortSignal.timeout(options.timeoutMs);
+  let url = new URL(initialUrl);
+
+  try {
+    for (let redirects = 0; ; redirects += 1) {
+      const response = await fetchImpl(url, {
+        cache: "no-store",
+        headers: options.headers,
+        redirect: "manual",
+        signal,
+      });
+
+      if (isRedirectStatus(response.status)) {
+        const location = response.headers.get("location");
+        await cancelBody(response);
+        if (!location) throw new ModelDiscoveryError("UPSTREAM_REDIRECT_BLOCKED");
+        if (redirects >= maxRedirects) {
+          throw new ModelDiscoveryError("UPSTREAM_TOO_MANY_REDIRECTS");
+        }
+        url = validateRedirect(url, location);
+        continue;
+      }
+
+      if (!response.ok) {
+        const error = errorForStatus(response);
+        await cancelBody(response);
+        throw error;
+      }
+      if (isHtmlOrChallenge(response)) {
+        await cancelBody(response);
+        throw new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+      }
+      if (!isJsonMediaType(response)) {
+        await cancelBody(response);
+        throw new ModelDiscoveryError("UPSTREAM_NOT_JSON");
+      }
+
+      const bytes = await readResponseBytes(response, options.maxBytes);
+      const text = new TextDecoder().decode(bytes);
+      if (/^\s*(?:<!doctype\s+html|<html\b)/i.test(text)) {
+        throw new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+      }
+      try {
+        return { payload: JSON.parse(text) as unknown, bytesRead: bytes.byteLength };
+      } catch {
+        throw new ModelDiscoveryError("UPSTREAM_INVALID_JSON");
+      }
+    }
+  } catch (error) {
+    if (error instanceof ModelDiscoveryError) throw error;
+    if (
+      (error instanceof DOMException && (error.name === "TimeoutError" || error.name === "AbortError"))
+      || (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError"))
+    ) {
+      throw new ModelDiscoveryError("UPSTREAM_TIMEOUT");
+    }
+    throw new ModelDiscoveryError("UPSTREAM_HTTP_ERROR");
+  }
+}
+
+export function discoveryEndpointForDisplay(endpoint: URL): string {
+  const display = new URL(endpoint);
+  display.username = "";
+  display.password = "";
+  display.search = "";
+  display.hash = "";
+  return display.toString();
 }
 
 /**

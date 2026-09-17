@@ -1,7 +1,11 @@
 import { hasTrustRequiringProjectResources, ProjectTrustStore } from "@earendil-works/pi-coding-agent";
 import type { ProjectTrustStatus } from "./api-types";
+import { getNoProjectWorkspaceCwd, isNoProjectWorkspace } from "./no-project-workspace";
 
 export function getProjectTrustStatus(cwd: string, agentDir: string): ProjectTrustStatus {
+  if (isNoProjectWorkspace(cwd, getNoProjectWorkspaceCwd(agentDir))) {
+    return { requiresTrust: false, trusted: false };
+  }
   const requiresTrust = Boolean(cwd) && hasTrustRequiringProjectResources(cwd);
   if (!requiresTrust) return { requiresTrust: false, trusted: true };
 
@@ -41,6 +45,9 @@ export function projectTrustReloadOptions(
   cwd: string,
   agentDir: string,
 ): { resolveProjectTrust: () => Promise<boolean> } | undefined {
+  if (isNoProjectWorkspace(cwd, getNoProjectWorkspaceCwd(agentDir))) {
+    return { resolveProjectTrust: async () => false };
+  }
   const status = getProjectTrustStatus(cwd, agentDir);
   if (!status.requiresTrust) return undefined;
   const trustStore = new ProjectTrustStore(agentDir);

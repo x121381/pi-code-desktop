@@ -11,11 +11,12 @@ import { extractTextContent } from "./session-scan";
 import { cacheSessionPath, invalidateSessionListCache } from "./session-reader";
 import { getProjectTrustStatus, projectTrustReloadOptions } from "./project-trust";
 import { persistExplicitStartupPreferences } from "./startup-preferences";
-import type { SlashCommandInfo } from "@earendil-works/pi-coding-agent";
+import type { InlineExtension, SlashCommandInfo, ToolCallEvent } from "@earendil-works/pi-coding-agent";
 import { PRODUCT_NAME } from "./branding";
 import type { AgentSessionLike, ExtensionUiContextLike, ToolInfo } from "./pi-types";
 import type { ExtensionUiRequest, ExtensionUiResponse, ExtensionWidgetItem } from "./types";
 import { createHeadlessCustomUiTui, DEFAULT_CUSTOM_UI_COLUMNS } from "./custom-ui-terminal";
+import { getToolNamesForPermissionMode, type PermissionMode } from "./tool-presets";
 
 // ============================================================================
 // Types
@@ -85,6 +86,7 @@ const IDLE_RESET_EVENT_TYPES = new Set([
 
 export interface RpcSessionStartOptions {
   toolNames?: string[];
+  permissionMode?: PermissionMode;
   initialModel?: { provider: string; modelId: string };
   thinkingLevel?: ThinkingLevel;
 }
@@ -107,6 +109,139 @@ export interface LiveSessionSnapshot {
 }
 
 const CODING_TOOL_NAMES = ["read", "bash", "edit", "write", "grep", "find", "ls"];
+const READ_ONLY_TOOL_NAMES = new Set(["read", "grep", "find", "ls"]);
+
+type ApprovalDecision = "allow_once" | "allow_session" | "deny";
+type PendingApproval = {
+  event: AgentEvent;
+  resolve: (decision: ApprovalDecision) => void;
+  timeout: ReturnType<typeof setTimeout>;
+};
+
+const TOOL_APPROVAL_TIMEOUT_MS = 5 * 60 * 1000;
+
+function sanitizeApprovalInput(value: unknown, depth = 0): unknown {
+  if (depth > 3) return "[nested value]";
+  if (typeof value === "string") return value.length > 2_000 ? `${value.slice(0, 2_000)}...` : value;
+  if (Array.isArray(value)) return value.slice(0, 20).map((item) => sanitizeApprovalInput(item, depth + 1));
+  if (!value || typeof value !== "object") return value;
+
+  const result: Record<string, unknown> = {};
+  for (const [key, item] of Object.entries(value as Record<string, unknown>).slice(0, 30)) {
+    result[key] = /(?:key|token|secret|password|authorization|credential)/i.test(key)
+      ? "[redacted]"
+      : sanitizeApprovalInput(item, depth + 1);
+  }
+  return result;
+}
+
+class PermissionController {
+  private mode: PermissionMode;
+  private allowedForSession = new Set<string>();
+  private pending = new Map<string, PendingApproval>();
+  private emitter: ((event: AgentEvent) => void) | null = null;
+
+  constructor(private readonly cwd: string, mode: PermissionMode) {
+    this.mode = mode;
+  }
+
+  setEmitter(emitter: (event: AgentEvent) => void): void {
+    this.emitter = emitter;
+  }
+
+  getMode(): PermissionMode {
+    return this.mode;
+  }
+
+  setMode(mode: PermissionMode): void {
+    this.mode = mode;
+    this.allowedForSession.clear();
+    if (mode !== "approval") this.cancelPending("Permission mode changed before approval was granted.");
+  }
+
+  getPendingEvents(): AgentEvent[] {
+    return [...this.pending.values()].map(({ event }) => event);
+  }
+
+  async authorizeTool(event: ToolCallEvent): Promise<boolean> {
+    if (this.mode === "full" || READ_ONLY_TOOL_NAMES.has(event.toolName)) return true;
+    if (this.mode === "restricted") return false;
+    return this.request(event.toolName, event.toolCallId, event.input);
+  }
+
+  async authorizeManualBash(command: string): Promise<boolean> {
+    if (this.mode === "full") return true;
+    if (this.mode === "restricted") return false;
+    return this.request("bash", randomUUID(), { command, source: "user" });
+  }
+
+  resolve(id: string, decision: ApprovalDecision): boolean {
+    const pending = this.pending.get(id);
+    if (!pending) return false;
+    this.pending.delete(id);
+    clearTimeout(pending.timeout);
+    if (decision === "allow_session") {
+      const toolName = pending.event.toolName;
+      if (typeof toolName === "string") this.allowedForSession.add(toolName);
+    }
+    pending.resolve(decision);
+    return true;
+  }
+
+  cancelPending(reason = "Approval request was cancelled."): void {
+    for (const [id, pending] of this.pending) {
+      this.pending.delete(id);
+      clearTimeout(pending.timeout);
+      pending.resolve("deny");
+      this.emitter?.({ type: "tool_approval_cancelled", id, reason });
+    }
+  }
+
+  private async request(toolName: string, toolCallId: string, input: Record<string, unknown>): Promise<boolean> {
+    if (this.allowedForSession.has(toolName)) return true;
+
+    const id = randomUUID();
+    const event: AgentEvent = {
+      type: "tool_approval_request",
+      id,
+      toolCallId,
+      toolName,
+      cwd: this.cwd,
+      input: sanitizeApprovalInput(input),
+    };
+    const decision = await new Promise<ApprovalDecision>((resolveDecision) => {
+      const timeout = setTimeout(() => {
+        const pending = this.pending.get(id);
+        if (!pending) return;
+        this.pending.delete(id);
+        resolveDecision("deny");
+        this.emitter?.({ type: "tool_approval_cancelled", id, reason: "Approval request timed out." });
+      }, TOOL_APPROVAL_TIMEOUT_MS);
+      this.pending.set(id, { event, resolve: resolveDecision, timeout });
+      this.emitter?.(event);
+    });
+    return decision !== "deny";
+  }
+}
+
+function createPermissionExtension(controller: PermissionController): InlineExtension {
+  return {
+    name: "permission-gate",
+    hidden: true,
+    factory(pi) {
+      pi.on("tool_call", async (event) => {
+        const allowed = await controller.authorizeTool(event);
+        if (allowed) return;
+        return {
+          block: true,
+          reason: controller.getMode() === "restricted"
+            ? "This tool is unavailable in restricted mode."
+            : "The user denied this tool request.",
+        };
+      });
+    },
+  };
+}
 
 // Extensions require a complete Theme, while the web UI applies its own styling.
 class PlainTextTheme extends Theme {
@@ -173,7 +308,12 @@ export class AgentSessionWrapper {
   private shutdownPromise: Promise<void> | null = null;
   private _alive = true;
 
-  constructor(public readonly inner: AgentSessionLike) {}
+  constructor(
+    public readonly inner: AgentSessionLike,
+    private readonly permissionController: PermissionController,
+  ) {
+    this.permissionController.setEmitter((event) => this.emit(event));
+  }
 
   get sessionId(): string {
     return this.inner.sessionId;
@@ -403,6 +543,7 @@ export class AgentSessionWrapper {
   onEvent(listener: EventListener): () => void {
     this.listeners.push(listener);
     for (const event of this.pendingUiRequests.values()) listener(event);
+    for (const event of this.permissionController.getPendingEvents()) listener(event);
     return () => {
       const i = this.listeners.indexOf(listener);
       if (i !== -1) this.listeners.splice(i, 1);
@@ -457,6 +598,7 @@ export class AgentSessionWrapper {
       }
 
       case "abort":
+        this.permissionController.cancelPending("Agent execution was aborted.");
         await this.withFinalRunningNotification(() => this.inner.abort());
         return null;
 
@@ -485,6 +627,7 @@ export class AgentSessionWrapper {
             : null,
           systemPrompt: this.inner.agent.state?.systemPrompt ?? "",
           thinkingLevel: this.inner.agent.state?.thinkingLevel ?? "off",
+          permissionMode: this.permissionController.getMode(),
           extensionStatuses: this.getExtensionStatuses(),
           extensionWidgets: this.getExtensionWidgets(),
         };
@@ -661,6 +804,33 @@ export class AgentSessionWrapper {
         return null;
       }
 
+      case "set_permission_mode": {
+        const mode = command.mode as PermissionMode;
+        if (mode !== "restricted" && mode !== "approval" && mode !== "full") {
+          throw new Error(`Invalid permission mode: ${String(command.mode)}`);
+        }
+        this.permissionController.setMode(mode);
+        const toolNames = getToolNamesForPermissionMode(mode);
+        this.setForceEmptySystemPrompt(false);
+        this.inner.setActiveToolsByName(
+          mode === "restricted" ? toolNames : withExtensionTools(this.inner, toolNames),
+        );
+        this.applyForcedEmptySystemPrompt();
+        return { mode };
+      }
+
+      case "tool_approval_response": {
+        const id = command.id as string;
+        const decision = command.decision as ApprovalDecision;
+        if (decision !== "allow_once" && decision !== "allow_session" && decision !== "deny") {
+          throw new Error(`Invalid approval decision: ${String(command.decision)}`);
+        }
+        if (!this.permissionController.resolve(id, decision)) {
+          throw new Error("Approval request is no longer pending");
+        }
+        return null;
+      }
+
       case "reload": {
         await this.waitForExtensionsBound();
         this.extensionStatuses.clear();
@@ -699,8 +869,14 @@ export class AgentSessionWrapper {
         if (this.promptRunning || this.inner.isStreaming || this.inner.isCompacting || this.inner.isBashRunning) {
           throw new Error("Cannot run a shell command while the session is busy");
         }
+        const bashCommand = command.command as string;
+        if (!await this.permissionController.authorizeManualBash(bashCommand)) {
+          throw new Error(this.permissionController.getMode() === "restricted"
+            ? "Shell commands are unavailable in restricted mode."
+            : "Shell command denied by user.");
+        }
         const execution = this.inner.executeBash(
-          command.command as string,
+          bashCommand,
           undefined,
           { excludeFromContext: command.excludeFromContext as boolean | undefined },
         );
@@ -731,6 +907,7 @@ export class AgentSessionWrapper {
     this._alive = false;
     if (this.idleTimer) clearTimeout(this.idleTimer);
     if (this.inner.isBashRunning) this.inner.abortBash();
+    this.permissionController.cancelPending("Session was closed.");
     this.unsubscribe?.();
     for (const pending of this.pendingUiResponses.values()) pending.cancel();
     for (const id of Array.from(this.activeCustomUis.keys())) this.closeCustomUi(id, undefined);
@@ -1266,6 +1443,7 @@ export async function startRpcSession(
   options: RpcSessionStartOptions = {},
 ): Promise<{ session: AgentSessionWrapper; realSessionId: string }> {
   const { toolNames, initialModel, thinkingLevel } = options;
+  const permissionMode = options.permissionMode ?? "approval";
   const registry = getRegistry();
   const locks = getLocks();
 
@@ -1308,9 +1486,13 @@ export async function startRpcSession(
     // Gate untrusted project extensions so opening a repository does not run
     // its .pi/extensions code automatically (see lib/project-trust.ts, #236).
     const trustReloadOptions = projectTrustReloadOptions(sessionCwd, agentDir);
+    const permissionController = new PermissionController(sessionCwd, permissionMode);
     const services = await createAgentSessionServices({
       cwd: sessionCwd,
       agentDir,
+      resourceLoaderOptions: {
+        extensionFactories: [createPermissionExtension(permissionController)],
+      },
       ...(trustReloadOptions ? { resourceLoaderReloadOptions: trustReloadOptions } : {}),
     });
     const scope = await resolveVisibleModels(
@@ -1358,10 +1540,12 @@ export async function startRpcSession(
     // requested builtin coding tools PLUS all extension/package tools, so installed
     // extensions stay usable in Pi Web just like in the `pi` CLI.
     if (toolNames && toolNames.length > 0) {
-      inner.setActiveToolsByName(withExtensionTools(inner, toolNames));
+      inner.setActiveToolsByName(
+        permissionMode === "restricted" ? toolNames : withExtensionTools(inner, toolNames),
+      );
     }
 
-    const wrapper = new AgentSessionWrapper(inner);
+    const wrapper = new AgentSessionWrapper(inner, permissionController);
     // When all tools are disabled, clear the system prompt entirely.
     // pi's buildSystemPrompt always produces a non-empty prompt even with no tools;
     // keep this forced after extension resource discovery and reloads as well.
