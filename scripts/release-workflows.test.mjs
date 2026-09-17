@@ -50,6 +50,13 @@ test("the signed release workflow is manual-only", async () => {
   assert.doesNotMatch(release, /\bpush:/);
 });
 
+test("Rust setup retries transient toolchain download failures", async () => {
+  const release = await readFile(join(root, ".github", "workflows", "release.yml"), "utf8");
+  assert.match(release, /for attempt in 1 2 3/);
+  assert.match(release, /rustup toolchain install stable --profile minimal --target "\$RUST_TARGET"/);
+  assert.match(release, /sleep "\$\(\(attempt \* 15\)\)"/);
+});
+
 test("the merge gate covers tests, types, lint and a real build", () => {
   assert.match(componentUpdates, /npm test/);
   assert.match(componentUpdates, /tsc --noEmit/);

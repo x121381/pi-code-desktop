@@ -1,6 +1,6 @@
 [package]
 name = "pi-code-desktop"
-version = "0.1.2"
+version = "0.1.3"
 description = "Desktop shell for Pi Code"
 authors = ["pi-code-desktop contributors"]
 license = "MIT"
