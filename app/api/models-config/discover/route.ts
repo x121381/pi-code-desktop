@@ -44,6 +44,8 @@ function buildHeaders(api: string, apiKey: string | undefined, configured: Recor
 }
 
 export async function POST(req: Request) {
+  let displayEndpoint: string | undefined;
+
   if (!isApiRequestAllowed(req)) {
     return NextResponse.json(
       { error: "Untrusted API request", code: "UNTRUSTED_REQUEST" },
@@ -79,6 +81,7 @@ export async function POST(req: Request) {
     let endpoint: URL;
     try {
       endpoint = buildModelsListUrl(baseUrl, api);
+      displayEndpoint = discoveryEndpointForDisplay(endpoint);
     } catch {
       return NextResponse.json({ error: "Base URL is invalid", code: "INVALID_BASE_URL" }, { status: 400 });
     }
@@ -114,7 +117,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No models found in the upstream response", code: "NO_MODELS_FOUND" }, { status: 502 });
     }
 
-    return NextResponse.json({ models, endpoint: discoveryEndpointForDisplay(endpoint) });
+    return NextResponse.json({ models, endpoint: displayEndpoint });
   } catch (error) {
     if (error instanceof RequestBodyTooLargeError) {
       return NextResponse.json(
@@ -124,7 +127,7 @@ export async function POST(req: Request) {
     }
     if (error instanceof ModelDiscoveryError) {
       return NextResponse.json(
-        { error: error.message, code: error.code },
+        { error: error.message, code: error.code, endpoint: displayEndpoint },
         { status: error.code === "UPSTREAM_TIMEOUT" ? 504 : 502 },
       );
     }

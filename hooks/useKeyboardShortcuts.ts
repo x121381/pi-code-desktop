@@ -21,10 +21,8 @@ export function registerAbortHandler(handler: (() => void) | null): void {
 // ---------------------------------------------------------------------------
 
 interface UseGlobalKeyboardShortcutsOptions {
-  /** Called when ⌘N (macOS) / Ctrl+N is pressed. Receives current cwd. */
-  onNewSession?: (cwd: string) => void;
-  /** The currently selected project directory (sidebar cwd). */
-  activeCwd?: string | null;
+  /** Called when ⌘N (macOS) / Ctrl+N is pressed. */
+  onNewSession?: () => void;
 }
 
 /**
@@ -32,8 +30,7 @@ interface UseGlobalKeyboardShortcutsOptions {
  *
  * Shortcuts handled here:
  *   Esc              – stop the running agent (via module-level abort handler)
- *   ⌘N / Ctrl+N      – create a new session in the active project directory
- *                      (Ctrl+Alt+N still works for backwards familiarity)
+ *   ⌘N / Ctrl+N      – open the new-session chooser
  *
  * Note: Esc inside <textarea> or <input> is deliberately NOT handled here.
  * ChatInput manages its own Esc logic (closing slash / @ file menus, stopping
@@ -43,7 +40,7 @@ interface UseGlobalKeyboardShortcutsOptions {
 export function useGlobalKeyboardShortcuts(
   options: UseGlobalKeyboardShortcutsOptions,
 ): void {
-  const { onNewSession, activeCwd } = options;
+  const { onNewSession } = options;
 
   useEffect(() => {
     const handler = (e: KeyboardEvent): void => {
@@ -64,13 +61,13 @@ export function useGlobalKeyboardShortcuts(
       // Note: regular browsers reserve ⌘N/Ctrl+N for "new window"; this works
       // in the desktop (Tauri) build where the page receives the event.
       if (e.key.toLowerCase() === "n" && (e.metaKey || e.ctrlKey) && !e.shiftKey) {
-        if (!activeCwd || !onNewSession) return;
+        if (!onNewSession) return;
         e.preventDefault();
-        onNewSession(activeCwd);
+        onNewSession();
       }
     };
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [activeCwd, onNewSession]);
+  }, [onNewSession]);
 }

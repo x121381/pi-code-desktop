@@ -20,7 +20,10 @@ async function findTests(directory) {
 const tests = (await Promise.all(searchRoots.map(findTests))).flat().sort();
 if (tests.length === 0) throw new Error("No test files found");
 
-const child = spawn(process.execPath, ["--test", ...tests], { stdio: "inherit" });
+// node --test treats file arguments as globs, so Next.js folders like [id]
+// would otherwise match a single character and silently drop the test file.
+const testArgs = tests.map((file) => file.replaceAll("\\", "/").replaceAll("[", "[[]"));
+const child = spawn(process.execPath, ["--test", ...testArgs], { stdio: "inherit" });
 child.once("error", (error) => {
   throw error;
 });

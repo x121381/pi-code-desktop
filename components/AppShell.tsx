@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGlobalKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { SessionSidebar } from "./SessionSidebar";
 import { ChatWindow } from "./ChatWindow";
-import { selectProjectDirectoryNative } from "./ProjectPicker";
+import { selectNoProjectCwd, selectProjectDirectoryNative } from "./ProjectPicker";
 import { clearDraft } from "@/lib/draft-store";
 import { TabBar, type Tab } from "./TabBar";
 
@@ -19,6 +19,7 @@ const ModelsConfig = dynamic(() => import("./ModelsConfig").then((m) => m.Models
 const SkillsConfig = dynamic(() => import("./SkillsConfig").then((m) => m.SkillsConfig), { ssr: false });
 const PluginsConfig = dynamic(() => import("./PluginsConfig").then((m) => m.PluginsConfig), { ssr: false });
 const AppSettings = dynamic(() => import("./AppSettings").then((m) => m.AppSettings), { ssr: false });
+const CloudChatDialog = dynamic(() => import("./CloudChatDialog").then((m) => m.CloudChatDialog), { ssr: false });
 const TerminalPanel = dynamic(() => import("./TerminalPanel").then((m) => m.TerminalPanel), { ssr: false });
 import { SessionStatsPanel } from "./SessionStatsPanel";
 import { ProjectTrustDialog } from "./ProjectTrustDialog";
@@ -40,6 +41,16 @@ import {
   workspaceFileTabsMatchContext,
   type PersistedWorkspace,
 } from "@/lib/workspace-state";
+import {
+  filesShareSlot,
+  hitTestDockSlot,
+  movePaneToSlot,
+  panesInSlot,
+  parseWorkspaceLayout,
+  type DockPane,
+  type WorkspaceLayout,
+} from "@/lib/workspace-layout";
+import { DockDropOverlay, DockSlotFrame, PaneDockHandle, type PaneDragState } from "./PaneDock";
 import { WindowControls, useDesktopChrome, useWindowDrag } from "./desktop";
 import {
   getDefaultRightPanelWidth,
@@ -70,6 +81,22 @@ const FILE_TREE_DEFAULT_WIDTH = 300;
 const FILE_TREE_MIN_WIDTH = 220;
 const FILE_TREE_MAX_WIDTH = 520;
 const FILE_TREE_PREVIEW_MIN_WIDTH = 240;
+const LEFT_PANEL_DEFAULT_WIDTH = 360;
+const BOTTOM_PANEL_DEFAULT_HEIGHT = 280;
+const BOTTOM_PANEL_MIN_HEIGHT = 160;
+const BOTTOM_PANEL_MAX_HEIGHT = 560;
+
+function readStoredNumber(key: string, fallback: number): number {
+  if (typeof window === "undefined") return fallback;
+  try {
+    const stored = window.localStorage.getItem(key);
+    const parsed = stored ? Number.parseInt(stored, 10) : fallback;
+    return Number.isFinite(parsed) ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export function AppShell() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -91,6 +118,7 @@ export function AppShell() {
   );
   const [initialCwdError, setInitialCwdError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [newSessionRequestKey, setNewSessionRequestKey] = useState(0);
   const [sessionKey, setSessionKey] = useState(0);
   const [availableProjectRoots, setAvailableProjectRoots] = useState<string[]>([]);
   const [noProjectMode, setNoProjectMode] = useState(false);
@@ -125,6 +153,16 @@ export function AppShell() {
   const [projectTrustError, setProjectTrustError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [rightPanelOpen, setRightPanelOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [terminalNotice, setTerminalNotice] = useState<string | null>(null);
+  const [workspaceLayout, setWorkspaceLayout] = useState<WorkspaceLayout>(() => (
+    parseWorkspaceLayout(getPrefJson<PersistedWorkspace>(APP_PREF_KEYS.workspace)?.layout)
+  ));
+  const [paneDrag, setPaneDrag] = useState<PaneDragState>(null);
+  const workspaceRef = useRef<HTMLDivElement>(null);
+  const [bottomPanelHeight, setBottomPanelHeight] = useState(() => (
+    readStoredNumber("pi-bottom-panel-height", BOTTOM_PANEL_DEFAULT_HEIGHT)
+  ));
   const [mobileSidebarReady, setMobileSidebarReady] = useState(false);
   // The desktop window has no native title bar. macOS keeps its traffic lights
   // and only needs the top bar inset for them; other platforms get the buttons
@@ -134,6 +172,7 @@ export function AppShell() {
   const sidebarWidthRef = useRef(SIDEBAR_DEFAULT_WIDTH);
   const rightPanelWidthRef = useRef(RIGHT_PANEL_FALLBACK_WIDTH);
   const fileTreeWidthRef = useRef(FILE_TREE_DEFAULT_WIDTH);
+  const leftPanelWidthRef = useRef(LEFT_PANEL_DEFAULT_WIDTH);
   const getResponsiveRightPanelWidth = useCallback(
     () => typeof window === "undefined"
       ? RIGHT_PANEL_FALLBACK_WIDTH
@@ -202,6 +241,17 @@ export function AppShell() {
     },
     [],
   );
+  const leftPanelResizer = useResizablePanel({
+    ariaLabel: translate("layout.resizeFilePanel"),
+    cssVariable: "--left-panel-width",
+    defaultWidth: LEFT_PANEL_DEFAULT_WIDTH,
+    getMaxWidth: getResponsiveRightPanelMaxWidth,
+    growthDirection: "right",
+    maxWidth: RIGHT_PANEL_MAX_WIDTH,
+    minWidth: RIGHT_PANEL_MIN_WIDTH,
+    storageKey: "pi-left-panel-width",
+    widthRef: leftPanelWidthRef,
+  });
   const fileTreeResizer = useResizablePanel({
     ariaLabel: translate("layout.resizeFileTree"),
     cssVariable: "--file-tree-width",
@@ -230,7 +280,9 @@ export function AppShell() {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mql = window.matchMedia(`(max-width: ${SPLIT_PANEL_MIN_WIDTH - 1}px)`);
     const checkWidth = () => {
-      if (mql.matches) setRightPanelOpen(false);
+      if (!mql.matches) return;
+      setRightPanelOpen(false);
+      setTerminalOpen(false);
     };
     checkWidth();
     mql.addEventListener("change", checkWidth);
@@ -293,6 +345,7 @@ export function AppShell() {
   // Single active panel — only one dropdown open at a time
   const [activeTopPanel, setActiveTopPanel] = useState<"branches" | "system" | "session" | null>(null);
   const [topMoreOpen, setTopMoreOpen] = useState(false);
+  const [cloudChatOpen, setCloudChatOpen] = useState(false);
   const topMoreRef = useRef<HTMLDivElement>(null);
   const [topPanelPos, setTopPanelPos] = useState<{ top: number; left: number; width: number } | null>(null);
 
@@ -312,12 +365,86 @@ export function AppShell() {
     setSidebarOpen((open) => !open);
   }, [isMobile]);
 
+  const closeRightPanel = useCallback(() => {
+    setRightPanelOpen(false);
+    setTerminalOpen(false);
+  }, []);
+
   const handleRightPanelToggle = useCallback(() => {
     if (noProjectMode) return;
     setActiveTopPanel(null);
     setTopMoreOpen(false);
-    setRightPanelOpen(!rightPanelOpen);
-  }, [rightPanelOpen, noProjectMode]);
+    setTerminalNotice(null);
+    if (rightPanelOpen && !terminalOpen) {
+      closeRightPanel();
+      return;
+    }
+    setTerminalOpen(false);
+    setRightPanelOpen(true);
+  }, [closeRightPanel, noProjectMode, rightPanelOpen, terminalOpen]);
+
+  const handleTerminalToggle = useCallback(() => {
+    setActiveTopPanel(null);
+    setTopMoreOpen(false);
+    if (!desktopMode) {
+      setTerminalNotice(translate("terminal.webOnly"));
+      return;
+    }
+    setTerminalNotice(null);
+    if (rightPanelOpen && terminalOpen) {
+      closeRightPanel();
+      return;
+    }
+    setTerminalOpen(true);
+    setRightPanelOpen(true);
+  }, [closeRightPanel, desktopMode, rightPanelOpen, terminalOpen, translate]);
+
+  const handlePaneDrop = useCallback((pane: DockPane, x: number, y: number) => {
+    if (isMobile) return;
+    const bounds = workspaceRef.current?.getBoundingClientRect();
+    if (!bounds) return;
+    const slot = hitTestDockSlot(x, y, bounds);
+    setWorkspaceLayout((prev) => movePaneToSlot(prev, pane, slot));
+    if (pane !== "chat" && slot === "right") {
+      setTerminalOpen(false);
+      setRightPanelOpen(true);
+    }
+    if (pane !== "chat" && slot !== "right") {
+      setTerminalOpen(false);
+    }
+  }, [isMobile]);
+
+  const bottomHeightRef = useRef(bottomPanelHeight);
+  bottomHeightRef.current = bottomPanelHeight;
+  const onBottomResizePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const startY = event.clientY;
+    const startHeight = bottomHeightRef.current;
+    const target = event.currentTarget;
+    target.setPointerCapture(event.pointerId);
+    const onMove = (moveEvent: PointerEvent) => {
+      const next = Math.max(
+        BOTTOM_PANEL_MIN_HEIGHT,
+        Math.min(BOTTOM_PANEL_MAX_HEIGHT, startHeight + (startY - moveEvent.clientY)),
+      );
+      bottomHeightRef.current = next;
+      setBottomPanelHeight(next);
+    };
+    const onUp = (upEvent: PointerEvent) => {
+      target.releasePointerCapture(upEvent.pointerId);
+      target.removeEventListener("pointermove", onMove);
+      target.removeEventListener("pointerup", onUp);
+      try {
+        window.localStorage.setItem("pi-bottom-panel-height", String(bottomHeightRef.current));
+      } catch {
+        // ignore quota / private-mode failures
+      }
+    };
+    target.addEventListener("pointermove", onMove);
+    target.addEventListener("pointerup", onUp);
+  }, []);
 
   useEffect(() => {
     if (!topMoreOpen) return;
@@ -385,7 +512,6 @@ export function AppShell() {
   const [fileExplorerQuery, setFileExplorerQuery] = useState("");
   const fileExplorerRef = useRef<FileExplorerHandle>(null);
   const [fileTreeOpen, setFileTreeOpen] = useState(true);
-  const [terminalOpen, setTerminalOpen] = useState(false);
   const [fileActionsMenuOpen, setFileActionsMenuOpen] = useState(false);
   const fileActionsMenuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -505,7 +631,7 @@ export function AppShell() {
     if (selectedSession && (isNoProject ? selectedSession.cwd === cwd : (selectedSession.projectRoot ?? selectedSession.cwd) === newProject)) {
       setFileTabs([]);
       setActiveFileTabId(null);
-      setRightPanelOpen(false);
+      closeRightPanel();
       return;
     }
     // Close any session that belongs to a different project — it no longer
@@ -526,9 +652,9 @@ export function AppShell() {
     // now-empty right panel.
     setFileTabs([]);
     setActiveFileTabId(null);
-    setRightPanelOpen(false);
+    closeRightPanel();
     router.replace("/", { scroll: false });
-  }, [router, selectedSession]);
+  }, [closeRightPanel, router, selectedSession]);
 
   const handleSelectSession = useCallback((session: SessionInfo, isRestore = false) => {
     setNewSessionCwd(null);
@@ -587,9 +713,8 @@ export function AppShell() {
   }, []);
 
   const handleProjectChangeFromComposer = useCallback((projectRoot: string) => {
-    if (selectedSession) return;
     handleNewSession(`project-${Date.now()}`, projectRoot);
-  }, [handleNewSession, selectedSession]);
+  }, [handleNewSession]);
 
   const handleSelectProjectFromComposer = useCallback(async () => {
     if (!desktopMode) return;
@@ -604,10 +729,18 @@ export function AppShell() {
     }
   }, [desktopMode, selectedSession?.cwd, newSessionCwd, activeCwd, handleNewSession]);
 
+  const handleLeaveProjectFromComposer = useCallback(async () => {
+    try {
+      const cwd = await selectNoProjectCwd();
+      handleNewSession(`normal-${Date.now()}`, cwd);
+    } catch (error) {
+      console.error("Failed to leave project chat:", error);
+    }
+  }, [handleNewSession]);
+
   // Global keyboard shortcuts (handles Esc, Ctrl+Alt+N etc.)
   useGlobalKeyboardShortcuts({
-    onNewSession: (cwd: string) => handleNewSession(`kb-${Date.now()}`, cwd),
-    activeCwd,
+    onNewSession: () => setNewSessionRequestKey((key) => key + 1),
   });
 
   // Client-built transient SessionInfo (new session / fork) lacks the
@@ -733,6 +866,7 @@ export function AppShell() {
       });
     });
     setActiveFileTabId(tabId);
+    setTerminalOpen(false);
     setRightPanelOpen(true);
     // On mobile the file panel is full-screen; close the drawer so it shows.
     if (isMobile) setSidebarOpen(false);
@@ -741,7 +875,7 @@ export function AppShell() {
   const handleCloseFileTab = useCallback((tabId: string) => {
     setFileTabs((prev) => {
       const next = prev.filter((t) => t.id !== tabId);
-      if (next.length === 0) setRightPanelOpen(false);
+      if (next.length === 0) closeRightPanel();
       return next;
     });
     setActiveFileTabId((cur) => {
@@ -749,7 +883,7 @@ export function AppShell() {
       const remaining = fileTabs.filter((t) => t.id !== tabId);
       return remaining.length > 0 ? remaining[remaining.length - 1].id : null;
     });
-  }, [fileTabs]);
+  }, [closeRightPanel, fileTabs]);
 
   const handleViewFullHistory = useCallback(() => {
     if (!selectedSession) return;
@@ -805,6 +939,7 @@ export function AppShell() {
           : (tabs[0]?.id ?? null),
       );
       setRightPanelOpen(Boolean(persistedWorkspace.rightPanelOpen && tabs.length > 0));
+      if (persistedWorkspace.layout) setWorkspaceLayout(parseWorkspaceLayout(persistedWorkspace.layout));
     }
     setWorkspaceHydrated(true);
   }, [
@@ -834,6 +969,7 @@ export function AppShell() {
       })),
       activeFileTabId,
       rightPanelOpen,
+      layout: workspaceLayout,
     } satisfies PersistedWorkspace);
   }, [
     workspaceHydrated,
@@ -845,7 +981,21 @@ export function AppShell() {
     fileTabs,
     activeFileTabId,
     rightPanelOpen,
+    workspaceLayout,
   ]);
+
+  useEffect(() => {
+    if (desktopMode) return;
+    const current = getPrefJson<PersistedWorkspace>(APP_PREF_KEYS.workspace);
+    setPrefJson(APP_PREF_KEYS.workspace, {
+      sessionId: current?.sessionId ?? null,
+      cwd: current?.cwd ?? null,
+      fileTabs: current?.fileTabs ?? [],
+      activeFileTabId: current?.activeFileTabId ?? null,
+      rightPanelOpen: current?.rightPanelOpen ?? false,
+      layout: workspaceLayout,
+    } satisfies PersistedWorkspace);
+  }, [desktopMode, workspaceLayout]);
 
   useEffect(() => {
     setProjectTrust(null);
@@ -986,6 +1136,7 @@ export function AppShell() {
         onCwdChange={handleCwdChange}
         onNoProjectModeChange={setNoProjectMode}
         onProjectsChange={handleProjectsChange}
+        newSessionRequestKey={newSessionRequestKey}
         headerControls={sidebarHeaderControls}
       />
       <div className="sidebar-footer" style={{ padding: "8px", flexShrink: 0, display: "flex", justifyContent: "space-between", gap: 4 }}>
@@ -1094,6 +1245,357 @@ export function AppShell() {
       </div>
     </>
   );
+
+  const dockDragEnabled = !isMobile;
+  const dockHandleFor = (pane: DockPane) => (
+    pane === "chat" ? (
+      <PaneDockHandle
+        pane="chat"
+        label={translate("layout.dragToDock")}
+        disabled={!dockDragEnabled}
+        onDragChange={setPaneDrag}
+        onDrop={handlePaneDrop}
+      />
+    ) : pane === "preview" ? (
+      <PaneDockHandle
+        pane="preview"
+        label={translate("layout.dockPreview")}
+        disabled={!dockDragEnabled}
+        onDragChange={setPaneDrag}
+        onDrop={handlePaneDrop}
+      />
+    ) : (
+      <PaneDockHandle
+        pane="files"
+        label={translate("layout.dockFiles")}
+        disabled={!dockDragEnabled}
+        onDragChange={setPaneDrag}
+        onDrop={handlePaneDrop}
+      />
+    )
+  );
+  const wrapDockPane = (pane: DockPane, body: ReactNode) => (
+    <div className="dock-pane-unit" data-pane={pane} key={pane}>
+      {dockDragEnabled && (
+        <div className="dock-pane-title">
+          {dockHandleFor(pane)}
+          <span>{translate(pane === "chat" ? "layout.dockChat" : pane === "preview" ? "layout.dockPreview" : "layout.dockFiles")}</span>
+        </div>
+      )}
+      <div style={{ flex: 1, minHeight: 0, overflow: "hidden", position: "relative" }}>{body}</div>
+    </div>
+  );
+  const chatPaneBody = showChat ? (
+    <ChatWindow
+      key={sessionKey}
+      session={selectedSession}
+      newSessionCwd={effectiveNewSessionCwd}
+      onAgentEnd={handleAgentEnd}
+      onSessionCreated={handleSessionCreated}
+      onSessionForked={handleSessionForked}
+      modelsRefreshKey={modelsRefreshKey}
+      chatInputRef={chatInputRef}
+      onBranchDataChange={handleBranchDataChange}
+      onSystemPromptChange={handleSystemPromptChange}
+      onSessionStatsChange={handleSessionStatsChange}
+      onSessionStatsPanelOpen={openSessionStatsPanel}
+      onContextUsageChange={handleContextUsageChange}
+      onSelectProject={desktopMode ? () => void handleSelectProjectFromComposer() : undefined}
+      projectOptions={availableProjectRoots}
+      onProjectChange={handleProjectChangeFromComposer}
+      onLeaveProject={noProjectMode ? undefined : () => void handleLeaveProjectFromComposer()}
+      noProjectMode={noProjectMode}
+      onOpenModelsConfig={() => setModelsConfigOpen(true)}
+    />
+  ) : initialCwdStatus === "validating" ? (
+    <div
+      role="status"
+      style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 24, color: "var(--text-muted)", textAlign: "center" }}
+    >
+      <div style={{ fontSize: 14, color: "var(--text)" }}>{translate("workspace.opening")}</div>
+      <div style={{ maxWidth: "min(720px, 100%)", overflowWrap: "anywhere", fontFamily: "var(--font-mono)", fontSize: 12 }}>
+        {initialNavigation.requestedCwd}
+      </div>
+    </div>
+  ) : initialCwdStatus === "error" ? (
+    <div
+      role="alert"
+      style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 24, color: "var(--text-muted)", textAlign: "center" }}
+    >
+      <div style={{ fontSize: 14, color: "#dc2626" }}>{translate("workspace.unable")}</div>
+      <div style={{ maxWidth: "min(720px, 100%)", overflowWrap: "anywhere", fontFamily: "var(--font-mono)", fontSize: 12 }}>
+        {initialNavigation.requestedCwd}
+      </div>
+      <div style={{ maxWidth: 720, fontSize: 12 }}>{initialCwdError}</div>
+    </div>
+  ) : showPlaceholder ? (
+    activeCwd ? (
+      <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: 15 }}>
+        {translate("workspace.selectSession")}
+      </div>
+    ) : (
+      <div style={{ position: "absolute", top: 12, left: 12, display: "flex", alignItems: "flex-start", gap: 8, userSelect: "none", pointerEvents: "none" }}>
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.7, flexShrink: 0 }}>
+          <line x1="20" y1="12" x2="4" y2="12" /><polyline points="10 6 4 12 10 18" />
+        </svg>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text)", marginBottom: 8 }}>{translate("workspace.getStarted")}</div>
+          <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.8 }}>
+            <span style={{ color: "var(--text-dim)", marginRight: 6 }}>1.</span>{translate("workspace.selectProject")}<br />
+            <span style={{ color: "var(--text-dim)", marginRight: 6 }}>2.</span>{translate("workspace.addModels")}
+          </div>
+        </div>
+      </div>
+    )
+  ) : null;
+  const previewPaneBody = (
+    <div style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      <div className="right-panel-tab-strip">
+        <div className="file-tab-bar-slot">
+          <TabBar
+            tabs={fileTabs}
+            activeTabId={activeFileTabId ?? ""}
+            onSelectTab={setActiveFileTabId}
+            onCloseTab={handleCloseFileTab}
+            cwd={activeCwd}
+            gitRefreshKey={explorerRefreshKey}
+          />
+        </div>
+        <div className="file-workbench-actions">
+          <div className="file-actions-menu-anchor" ref={fileActionsMenuRef}>
+            <button
+              type="button"
+              className="file-workbench-icon-button"
+              onClick={() => {
+                setFileActionsMenuOpen((open) => !open);
+              }}
+              title={translate("contextPanel.fileActions")}
+              aria-label={translate("contextPanel.fileActions")}
+              aria-haspopup="menu"
+              aria-expanded={fileActionsMenuOpen}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="19" cy="12" r="1.5" /></svg>
+            </button>
+            {fileActionsMenuOpen && (
+              <div className="native-popover file-actions-menu" role="menu" aria-label={translate("contextPanel.fileActions")}>
+                <button type="button" role="menuitem" disabled={!activeFileTab} onClick={() => void copyActiveFilePath()}>
+                  <span className="file-action-menu-icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="8" y="8" width="11" height="11" rx="2" />
+                      <path d="M16 8V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h1" />
+                    </svg>
+                  </span>
+                  <span>{translate("contextPanel.copyPath")}</span>
+                </button>
+                <button type="button" role="menuitem" disabled={!activeFileTab} onClick={() => void copyActiveFileContent()}>
+                  <span className="file-action-menu-icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="8" y="8" width="11" height="11" rx="2" />
+                      <path d="M16 8V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h1" />
+                    </svg>
+                  </span>
+                  <span>{translate("contextPanel.copyContents")}</span>
+                </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  disabled={!activeFileTab}
+                  onClick={() => {
+                    window.dispatchEvent(new Event("pi:file-toggle-wrap"));
+                    setFileActionsMenuOpen(false);
+                  }}
+                >
+                  <span className="file-action-menu-icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 7h11a4 4 0 0 1 4 4v1" />
+                      <path d="m16 9 3 3-3 3" />
+                      <path d="M4 17h8" />
+                    </svg>
+                  </span>
+                  <span>{translate("contextPanel.wordWrap")}</span>
+                </button>
+              </div>
+            )}
+          </div>
+          {filesShareSlot(workspaceLayout) && (
+            <button
+              type="button"
+              className={`file-workbench-icon-button${fileTreeOpen ? " is-active" : ""}`}
+              onClick={() => setFileTreeOpen((open) => !open)}
+              title={fileTreeOpen ? translate("contextPanel.hideFileList") : translate("contextPanel.showFileList")}
+              aria-label={fileTreeOpen ? translate("contextPanel.hideFileList") : translate("contextPanel.showFileList")}
+              aria-pressed={fileTreeOpen}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" /><path d="M15 7v10" /></svg>
+            </button>
+          )}
+        </div>
+      </div>
+      <div style={{ flex: 1, overflow: "hidden", paddingBottom: "env(safe-area-inset-bottom)" }}>
+        {activeFileTab?.filePath ? (
+          <FileViewer
+            filePath={activeFileTab.filePath}
+            cwd={activeCwd ?? undefined}
+            sourceSessionId={activeFileTab.sourceSessionId}
+            gitRefreshKey={explorerRefreshKey}
+            initialDisplayMode={activeFileTab.initialDisplayMode}
+            onMentionLines={handleFileLineMention}
+            onOpenFile={(filePath) => handleOpenFile(
+              filePath,
+              getFileName(filePath),
+              { sourceSessionId: activeFileTab.sourceSessionId },
+            )}
+          />
+        ) : (
+          <div className="file-panel-empty-state">
+            <span className="file-panel-empty-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5Z" />
+              </svg>
+            </span>
+            <strong>{translate("files.noneOpen")}</strong>
+            <span>{translate("files.choosePreview")}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+  const filesPaneBody = activeCwd && (fileTreeOpen || !filesShareSlot(workspaceLayout)) ? (
+    <div
+      ref={fileTreeResizer.panelRef}
+      id="file-tree-panel"
+      className="file-tree-panel"
+      style={{
+        "--file-tree-width": filesShareSlot(workspaceLayout) ? `${fileTreeResizer.width}px` : "100%",
+        width: filesShareSlot(workspaceLayout) ? undefined : "100%",
+        minWidth: filesShareSlot(workspaceLayout) ? undefined : 0,
+        flex: filesShareSlot(workspaceLayout) ? undefined : 1,
+      } as React.CSSProperties}
+    >
+      <div className="context-panel-files-toolbar">
+        <div className="context-panel-file-filter-wrap">
+          <input
+            className="context-panel-file-filter"
+            value={fileExplorerQuery}
+            onChange={(event) => setFileExplorerQuery(event.target.value)}
+            placeholder={translate("sidebar.filterFiles")}
+            aria-label={translate("sidebar.filterFiles")}
+            spellCheck={false}
+          />
+        </div>
+        {changesCount > 0 && (
+          <button
+            type="button"
+            onClick={() => setChangesCollapsed((v) => !v)}
+            title={translate("sidebar.changedFiles", { count: changesCount })}
+            aria-pressed={!changesCollapsed}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              width: 26, height: 26, padding: 0,
+              background: changesCollapsed ? "none" : "var(--bg-selected)",
+              border: "none",
+              color: changesCollapsed ? "var(--text-dim)" : "var(--accent)",
+              cursor: "pointer", borderRadius: 5,
+            }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M3 12h6" />
+              <path d="M15 12h6" />
+            </svg>
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => fileExplorerRef.current?.openUploadPicker()}
+          disabled={explorerUploadBusy}
+          title={translate("sidebar.uploadFilesTitle")}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            width: 26, height: 26, padding: 0,
+            background: "none", border: "none",
+            color: "var(--text-dim)", cursor: "pointer", borderRadius: 5,
+            opacity: explorerUploadBusy ? 0.6 : 1,
+          }}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <path d="m17 8-5-5-5 5" />
+            <path d="M12 3v12" />
+          </svg>
+        </button>
+      </div>
+      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
+        <FileExplorer
+          ref={fileExplorerRef}
+          cwd={activeCwd}
+          onOpenFile={handleOpenFile}
+          selectedFilePath={activeFileTab?.filePath ?? null}
+          refreshKey={explorerKey}
+          searchQuery={fileExplorerQuery}
+          onAtMention={(rel, isDir) => {
+            chatInputRef.current?.insertText(buildAtMentionText(rel, isDir));
+          }}
+          onAtMentions={(rels) => {
+            const mentions = buildFileAtMentionsText(rels);
+            if (mentions) chatInputRef.current?.insertText(mentions);
+          }}
+          onUploadBusyChange={setExplorerUploadBusy}
+          changesCollapsed={changesCollapsed}
+          onChangesCountChange={setChangesCount}
+        />
+      </div>
+    </div>
+  ) : null;
+  const sharedFilesPreview = (
+    <div style={{ display: "flex", flex: 1, minHeight: 0, minWidth: 0 }}>
+      {previewPaneBody}
+      {activeCwd && fileTreeOpen && (
+        <>
+          <div
+            {...fileTreeResizer.separatorProps}
+            aria-controls="file-tree-panel"
+            className={`panel-resize-handle file-tree-resize-handle${fileTreeResizer.isResizing ? " is-resizing" : ""}`}
+            data-resize-handle="file-tree"
+            title={`${translate("layout.resizeFileTree")}: ${translate("layout.resizeHint")}`}
+          />
+          {filesPaneBody}
+        </>
+      )}
+    </div>
+  );
+  const renderDockPanes = (panes: DockPane[]) => {
+    if (panes.length === 0) return null;
+    const shared = filesShareSlot(workspaceLayout) && panes.includes("preview") && panes.includes("files");
+    if (shared) {
+      return (
+        <div className="dock-pane-unit" data-pane="preview-files">
+          {dockDragEnabled && (
+            <div className="dock-pane-title">
+              {dockHandleFor("preview")}
+              {dockHandleFor("files")}
+            </div>
+          )}
+          {sharedFilesPreview}
+        </div>
+      );
+    }
+    return panes.map((pane) => {
+      if (pane === "chat") return wrapDockPane("chat", chatPaneBody);
+      if (pane === "preview") return wrapDockPane("preview", previewPaneBody);
+      return wrapDockPane("files", filesPaneBody);
+    });
+  };
+  const leftPanes = panesInSlot(workspaceLayout, "left");
+  const centerPanes = panesInSlot(workspaceLayout, "center");
+  const rightPanes = panesInSlot(workspaceLayout, "right");
+  const bottomPanes = panesInSlot(workspaceLayout, "bottom");
+  const leftVisible = leftPanes.length > 0 && !(noProjectMode && !leftPanes.includes("chat"));
+  const rightHoldsChat = rightPanes.includes("chat");
+  const rightHoldsFiles = rightPanes.some((pane) => pane !== "chat");
+  const showRightSlot = terminalOpen || rightHoldsChat || (rightPanelOpen && rightHoldsFiles);
+  const expandLeft = leftVisible && (leftPanes.includes("chat") || centerPanes.length === 0);
+  const expandRight = showRightSlot && (rightHoldsChat || (centerPanes.length === 0 && !leftPanes.includes("chat")));
 
   return (
     <>
@@ -1230,8 +1732,15 @@ export function AppShell() {
         />
       )}
 
-      {/* Center: chat */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 }}>
+      {/* Workspace: chat / files / preview dock around the session sidebar. */}
+      <div
+        ref={workspaceRef}
+        className="workspace-shell"
+        style={{
+          "--left-panel-width": `${leftPanelResizer.width}px`,
+          "--bottom-panel-height": `${bottomPanelHeight}px`,
+        } as React.CSSProperties}
+      >
         {/* Top bar with sidebar toggle */}
         <div
           ref={topBarRef}
@@ -1308,8 +1817,36 @@ export function AppShell() {
               {!isMobile && <span>{translate("trust.resourcesNotLoaded")}</span>}
             </button>
           )}
-          {showChat && (
-            <div className="app-topbar-actions" style={{ display: "flex", alignItems: "stretch", height: "100%" }}>
+          <div className="app-topbar-actions" style={{ display: "flex", alignItems: "stretch", height: "100%" }}>
+              <button
+                type="button"
+                className={`native-toolbar-button right-panel-toggle-button${rightPanelOpen && terminalOpen ? " is-open" : ""}`}
+                onClick={handleTerminalToggle}
+                title={rightPanelOpen && terminalOpen ? translate("terminal.close") : translate("terminal.open")}
+                aria-label={rightPanelOpen && terminalOpen ? translate("terminal.close") : translate("terminal.open")}
+                aria-pressed={rightPanelOpen && terminalOpen}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 34,
+                  minWidth: 34,
+                  height: "100%",
+                  padding: 0,
+                  background: "none",
+                  border: "none",
+                  color: "var(--text-muted)",
+                  cursor: "pointer",
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="M8 9h.01M11 9h5" />
+                  <path d="m8 14 2 2 4-4" />
+                </svg>
+              </button>
+              {showChat && (
+              <>
               <button
                 className="native-toolbar-button"
                 onClick={handleViewFullHistory}
@@ -1501,8 +2038,8 @@ export function AppShell() {
                           const t = sessionStats?.tokens;
                           const c = sessionStats?.cost ?? 0;
                           const parts: string[] = [];
-                          if (t && t.input > 0) parts.push(`↑${fmt(t.input)}`);
-                          if (t && t.output > 0) parts.push(`↓${fmt(t.output)}`);
+                          if (t && t.input > 0) parts.push(`↓ ${fmt(t.input)}`);
+                          if (t && t.output > 0) parts.push(`↑ ${fmt(t.output)}`);
                           if (c > 0) parts.push(c >= 0.01 ? `$${c.toFixed(2)}` : "<$0.01");
                           if (contextUsage?.contextWindow && contextUsage.percent !== null) {
                             parts.push(`${contextUsage.percent.toFixed(1)}% ctx`);
@@ -1533,13 +2070,35 @@ export function AppShell() {
                             </button>
                           );
                         })()}
+                        <button
+                          className="app-topbar-more-item"
+                          type="button"
+                          role="menuitem"
+                          disabled={!selectedSession}
+                          onClick={() => {
+                            setTopMoreOpen(false);
+                            setCloudChatOpen(true);
+                          }}
+                        >
+                          <span className="app-topbar-more-icon" style={{ color: "var(--text-muted)" }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <path d="M10 13a5 5 0 0 0 7.54.54l1.92-1.92a5 5 0 0 0-7.07-7.07L10.83 6.5" />
+                              <path d="M14 11a5 5 0 0 0-7.54-.54L4.54 12.38a5 5 0 0 0 7.07 7.07L13.17 17.5" />
+                            </svg>
+                          </span>
+                          <span className="app-topbar-more-copy">
+                            <span>{translate("cloud.share")}</span>
+                            <small>{selectedSession ? translate("cloud.shareHint") : translate("cloud.unsaved")}</small>
+                          </span>
+                        </button>
                       </div>
                     )}
                   </div>
                 );
               })()}
+              </>
+              )}
             </div>
-          )}
           {/* Top panel dropdown — shared, only one active at a time */}
           {activeTopPanel && topPanelPos && (
             <div style={{
@@ -1592,113 +2151,68 @@ export function AppShell() {
 
           <WindowControls />
         </div>
+        {terminalNotice && (
+          <div className="native-inline-alert" role="status" style={{ margin: "8px 12px 0" }}>
+            {terminalNotice}
+          </div>
+        )}
 
-        {/* Chat content */}
-        <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
-          {showChat ? (
-            <ChatWindow
-              key={sessionKey}
-              session={selectedSession}
-              newSessionCwd={effectiveNewSessionCwd}
-              onAgentEnd={handleAgentEnd}
-              onSessionCreated={handleSessionCreated}
-              onSessionForked={handleSessionForked}
-              modelsRefreshKey={modelsRefreshKey}
-              chatInputRef={chatInputRef}
-              onBranchDataChange={handleBranchDataChange}
-              onSystemPromptChange={handleSystemPromptChange}
-              onSessionStatsChange={handleSessionStatsChange}
-              onSessionStatsPanelOpen={openSessionStatsPanel}
-              onContextUsageChange={handleContextUsageChange}
-              onSelectProject={desktopMode ? () => void handleSelectProjectFromComposer() : undefined}
-              projectOptions={selectedSession ? [] : availableProjectRoots}
-              onProjectChange={selectedSession ? undefined : handleProjectChangeFromComposer}
-              onOpenModelsConfig={() => setModelsConfigOpen(true)}
-            />
-          ) : initialCwdStatus === "validating" ? (
+      <div className="workspace-top">
+      {leftVisible && (
+        <>
+          <DockSlotFrame slot="left" className={`${expandLeft ? " is-expand" : ""}${leftPanes.includes("chat") ? " contains-chat" : ""}`}>
             <div
-              role="status"
-              style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 24, color: "var(--text-muted)", textAlign: "center" }}
+              ref={leftPanelResizer.panelRef}
+              className="left-panel-container"
+              style={{
+                display: "flex",
+                flex: 1,
+                minHeight: 0,
+                flexDirection: "column",
+                width: expandLeft ? "100%" : undefined,
+              }}
             >
-               <div style={{ fontSize: 14, color: "var(--text)" }}>{translate("workspace.opening")}</div>
-              <div style={{ maxWidth: "min(720px, 100%)", overflowWrap: "anywhere", fontFamily: "var(--font-mono)", fontSize: 12 }}>
-                {initialNavigation.requestedCwd}
-              </div>
+              {renderDockPanes(leftPanes)}
             </div>
-          ) : initialCwdStatus === "error" ? (
-            <div
-              role="alert"
-              style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 24, color: "var(--text-muted)", textAlign: "center" }}
-            >
-               <div style={{ fontSize: 14, color: "#dc2626" }}>{translate("workspace.unable")}</div>
-              <div style={{ maxWidth: "min(720px, 100%)", overflowWrap: "anywhere", fontFamily: "var(--font-mono)", fontSize: 12 }}>
-                {initialNavigation.requestedCwd}
-              </div>
-              <div style={{ maxWidth: 720, fontSize: 12 }}>{initialCwdError}</div>
-            </div>
-          ) : showPlaceholder ? (
-            activeCwd ? (
-              <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)", fontSize: 15 }}>
-                 {translate("workspace.selectSession")}
-              </div>
-            ) : (
-              <div style={{ position: "absolute", top: 12, left: 12, display: "flex", alignItems: "flex-start", gap: 8, userSelect: "none", pointerEvents: "none" }}>
-                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.7, flexShrink: 0 }}>
-                  <line x1="20" y1="12" x2="4" y2="12" /><polyline points="10 6 4 12 10 18" />
-                </svg>
-                <div>
-                   <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text)", marginBottom: 8 }}>{translate("workspace.getStarted")}</div>
-                  <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.8 }}>
-                     <span style={{ color: "var(--text-dim)", marginRight: 6 }}>1.</span>{translate("workspace.selectProject")}<br />
-                     <span style={{ color: "var(--text-dim)", marginRight: 6 }}>2.</span>{translate("workspace.addModels")}
-                  </div>
-                </div>
-              </div>
-            )
-          ) : null}
+          </DockSlotFrame>
+          <div
+            {...leftPanelResizer.separatorProps}
+            aria-controls="workspace-left"
+            className={`panel-resize-handle left-panel-resize-handle${leftPanelResizer.isResizing ? " is-resizing" : ""}`}
+            data-resize-handle="left-panel"
+            title={`${translate("layout.resizeFilePanel")}: ${translate("layout.resizeHint")}`}
+          />
+        </>
+      )}
+      <div className="workspace-main">
+        <div className="workspace-center">
+          {centerPanes.length > 0 ? renderDockPanes(centerPanes) : null}
         </div>
       </div>
 
-      {desktopMode && (
+      <div className="right-panel-toggle-group">
         <button
           type="button"
-          className={`right-panel-toggle-button${terminalOpen ? " is-open" : ""}`}
-          onClick={() => {
-            setTerminalOpen((open) => !open);
-            setRightPanelOpen(true);
-          }}
-          title={terminalOpen ? translate("terminal.close") : translate("terminal.open")}
-          aria-label={terminalOpen ? translate("terminal.close") : translate("terminal.open")}
-          aria-pressed={terminalOpen}
-          disabled={!activeCwd && !selectedSession?.cwd && !newSessionCwd}
+          className={`right-panel-toggle-button${rightPanelOpen && !terminalOpen ? " is-open" : ""}`}
+          onClick={handleRightPanelToggle}
+          title={rightPanelOpen && !terminalOpen ? translate("files.hidePanel") : translate("files.showPanel")}
+          aria-label={rightPanelOpen && !terminalOpen ? translate("files.hidePanel") : translate("files.showPanel")}
+          aria-pressed={rightPanelOpen && !terminalOpen}
+          disabled={noProjectMode}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14" />
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <line x1="15" y1="3" x2="15" y2="21" />
           </svg>
         </button>
-      )}
-
-      <button
-        type="button"
-        className={`right-panel-toggle-button${rightPanelOpen && !terminalOpen ? " is-open" : ""}`}
-        onClick={handleRightPanelToggle}
-        title={rightPanelOpen ? translate("files.hidePanel") : translate("files.showPanel")}
-        aria-label={rightPanelOpen ? translate("files.hidePanel") : translate("files.showPanel")}
-        aria-pressed={rightPanelOpen && !terminalOpen}
-        disabled={noProjectMode}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <line x1="15" y1="3" x2="15" y2="21" />
-        </svg>
-      </button>
+      </div>
 
       <div
         aria-hidden="true"
         className={`right-panel-overlay-backdrop${rightPanelOpen ? " is-open" : ""}`}
-        onClick={() => setRightPanelOpen(false)}
+        onClick={closeRightPanel}
       />
-      {rightPanelOpen && (
+      {showRightSlot && (
         <div
           {...rightPanelResizer.separatorProps}
           aria-controls="file-panel"
@@ -1708,277 +2222,59 @@ export function AppShell() {
         />
       )}
 
-      {/* Right panel: local files, browser, or diff — width animated via CSS */}
+      <DockSlotFrame slot="right" className={`${expandRight ? " is-expand" : ""}${rightHoldsChat ? " contains-chat" : ""}`}>
       <div
         ref={rightPanelResizer.panelRef}
         id="file-panel"
-        className={`right-panel-container${rightPanelOpen ? " right-panel-open" : " right-panel-closed"}${rightPanelResizer.isResizing ? " right-panel-resizing" : ""}`}
+        className={`right-panel-container${showRightSlot ? " right-panel-open" : " right-panel-closed"}${rightPanelResizer.isResizing ? " right-panel-resizing" : ""}${expandRight ? " is-expand" : ""}`}
         style={{
           "--right-panel-width": `${rightPanelResizer.width}px`,
           display: "flex",
           flexDirection: "column",
           borderLeft: "1px solid var(--border)",
           background: "var(--bg)",
+          width: expandRight ? "100%" : undefined,
         } as React.CSSProperties}
       >
-        {/* The panel is intentionally focused on local files. */}
-        {/*
-          <button
-            type="button"
-            role="tab"
-            aria-selected={contextPanelTab === "files"}
-            className={`context-panel-mode-tab${contextPanelTab === "files" ? " is-active" : ""}`}
-            onClick={() => setContextPanelTab("files")}
-            title={translate("contextPanel.tabFiles")}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
-            </svg>
-            <span>{translate("contextPanel.tabFiles")}</span>
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={contextPanelTab === "browser"}
-            className={`context-panel-mode-tab${contextPanelTab === "browser" ? " is-active" : ""}`}
-            onClick={() => setContextPanelTab("browser")}
-            title={translate("contextPanel.tabBrowser")}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z" />
-            </svg>
-            <span>{translate("contextPanel.tabBrowser")}</span>
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={contextPanelTab === "diff"}
-            className={`context-panel-mode-tab${contextPanelTab === "diff" ? " is-active" : ""}`}
-            onClick={() => setContextPanelTab("diff")}
-            title={translate("contextPanel.tabDiff")}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="6" r="2.5" />
-              <circle cx="12" cy="18" r="2.5" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            <span>{translate("contextPanel.tabDiff")}</span>
-          </button>
-        */}
         {terminalOpen ? (
           <TerminalPanel
             cwd={selectedSession?.cwd ?? newSessionCwd ?? activeCwd}
-            onClose={() => setTerminalOpen(false)}
+            onClose={closeRightPanel}
           />
         ) : (
-          <>
-        <div className="right-panel-tab-strip">
-          <div className="file-tab-bar-slot">
-            <TabBar
-              tabs={fileTabs}
-              activeTabId={activeFileTabId ?? ""}
-              onSelectTab={setActiveFileTabId}
-              onCloseTab={handleCloseFileTab}
-              cwd={activeCwd}
-              gitRefreshKey={explorerRefreshKey}
-            />
-          </div>
-          <div className="file-workbench-actions">
-              <div className="file-actions-menu-anchor" ref={fileActionsMenuRef}>
-                <button
-                  type="button"
-                  className="file-workbench-icon-button"
-                  onClick={() => {
-                    setFileActionsMenuOpen((open) => !open);
-                  }}
-                  title={translate("contextPanel.fileActions")}
-                  aria-label={translate("contextPanel.fileActions")}
-                  aria-haspopup="menu"
-                  aria-expanded={fileActionsMenuOpen}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="19" cy="12" r="1.5" /></svg>
-                </button>
-                {fileActionsMenuOpen && (
-                  <div className="native-popover file-actions-menu" role="menu" aria-label={translate("contextPanel.fileActions")}>
-                    <button type="button" role="menuitem" disabled={!activeFileTab} onClick={() => void copyActiveFilePath()}>
-                      <span className="file-action-menu-icon" aria-hidden="true">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="8" y="8" width="11" height="11" rx="2" />
-                          <path d="M16 8V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h1" />
-                        </svg>
-                      </span>
-                      <span>{translate("contextPanel.copyPath")}</span>
-                    </button>
-                    <button type="button" role="menuitem" disabled={!activeFileTab} onClick={() => void copyActiveFileContent()}>
-                      <span className="file-action-menu-icon" aria-hidden="true">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="8" y="8" width="11" height="11" rx="2" />
-                          <path d="M16 8V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h1" />
-                        </svg>
-                      </span>
-                      <span>{translate("contextPanel.copyContents")}</span>
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      disabled={!activeFileTab}
-                      onClick={() => {
-                        window.dispatchEvent(new Event("pi:file-toggle-wrap"));
-                        setFileActionsMenuOpen(false);
-                      }}
-                    >
-                      <span className="file-action-menu-icon" aria-hidden="true">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 7h11a4 4 0 0 1 4 4v1" />
-                          <path d="m16 9 3 3-3 3" />
-                          <path d="M4 17h8" />
-                        </svg>
-                      </span>
-                      <span>{translate("contextPanel.wordWrap")}</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-              <button
-                type="button"
-                className={`file-workbench-icon-button${fileTreeOpen ? " is-active" : ""}`}
-                onClick={() => setFileTreeOpen((open) => !open)}
-                title={fileTreeOpen ? translate("contextPanel.hideFileList") : translate("contextPanel.showFileList")}
-                aria-label={fileTreeOpen ? translate("contextPanel.hideFileList") : translate("contextPanel.showFileList")}
-                aria-pressed={fileTreeOpen}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" /><path d="M15 7v10" /></svg>
-              </button>
-            </div>
-          </div>
-        {/* Local files: preview on the left, project tree on the right. */}
-        <div style={{ display: "flex", flex: 1, minHeight: 0 }}>
-          {/* Preview column */}
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            <div style={{ flex: 1, overflow: "hidden", paddingBottom: "env(safe-area-inset-bottom)" }}>
-              {activeFileTab?.filePath ? (
-                <FileViewer
-                  filePath={activeFileTab.filePath}
-                  cwd={activeCwd ?? undefined}
-                  sourceSessionId={activeFileTab.sourceSessionId}
-                  gitRefreshKey={explorerRefreshKey}
-                  initialDisplayMode={activeFileTab.initialDisplayMode}
-                  onMentionLines={rightPanelOpen ? handleFileLineMention : undefined}
-                  onOpenFile={(filePath) => handleOpenFile(
-                    filePath,
-                    getFileName(filePath),
-                    { sourceSessionId: activeFileTab.sourceSessionId },
-                  )}
-                />
-              ) : (
-                <div className="file-panel-empty-state">
-                  <span className="file-panel-empty-icon" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H10l2 2h6.5A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5Z" />
-                    </svg>
-                  </span>
-                  <strong>{translate("files.noneOpen")}</strong>
-                  <span>{translate("files.choosePreview")}</span>
-                </div>
-              )}
-            </div>
-          </div>
-          {/* Explorer column — always-on project file tree */}
-          {activeCwd && fileTreeOpen && (
-            <>
-              <div
-                {...fileTreeResizer.separatorProps}
-                aria-controls="file-tree-panel"
-                className={`panel-resize-handle file-tree-resize-handle${fileTreeResizer.isResizing ? " is-resizing" : ""}`}
-                data-resize-handle="file-tree"
-                title={`${translate("layout.resizeFileTree")}: ${translate("layout.resizeHint")}`}
-              />
-              <div
-                ref={fileTreeResizer.panelRef}
-                id="file-tree-panel"
-                className="file-tree-panel"
-                style={{ "--file-tree-width": `${fileTreeResizer.width}px` } as React.CSSProperties}
-              >
-              <div className="context-panel-files-toolbar">
-                <div className="context-panel-file-filter-wrap">
-                  <input
-                    className="context-panel-file-filter"
-                    value={fileExplorerQuery}
-                    onChange={(event) => setFileExplorerQuery(event.target.value)}
-                    placeholder={translate("sidebar.filterFiles")}
-                    aria-label={translate("sidebar.filterFiles")}
-                    spellCheck={false}
-                  />
-                </div>
-                {changesCount > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setChangesCollapsed((v) => !v)}
-                    title={translate("sidebar.changedFiles", { count: changesCount })}
-                    aria-pressed={!changesCollapsed}
-                    style={{
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      width: 26, height: 26, padding: 0,
-                      background: changesCollapsed ? "none" : "var(--bg-selected)",
-                      border: "none",
-                      color: changesCollapsed ? "var(--text-dim)" : "var(--accent)",
-                      cursor: "pointer", borderRadius: 5,
-                    }}
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <circle cx="12" cy="12" r="3" />
-                      <path d="M3 12h6" />
-                      <path d="M15 12h6" />
-                    </svg>
-                  </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => fileExplorerRef.current?.openUploadPicker()}
-                  disabled={explorerUploadBusy}
-                  title={translate("sidebar.uploadFilesTitle")}
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    width: 26, height: 26, padding: 0,
-                    background: "none", border: "none",
-                    color: "var(--text-dim)", cursor: "pointer", borderRadius: 5,
-                    opacity: explorerUploadBusy ? 0.6 : 1,
-                  }}
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <path d="m17 8-5-5-5 5" />
-                    <path d="M12 3v12" />
-                  </svg>
-                </button>
-              </div>
-              <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
-                <FileExplorer
-                  ref={fileExplorerRef}
-                  cwd={activeCwd}
-                  onOpenFile={handleOpenFile}
-                  selectedFilePath={activeFileTab?.filePath ?? null}
-                  refreshKey={explorerKey}
-                  searchQuery={fileExplorerQuery}
-                  onAtMention={(rel, isDir) => {
-                    chatInputRef.current?.insertText(buildAtMentionText(rel, isDir));
-                  }}
-                  onAtMentions={(rels) => {
-                    const mentions = buildFileAtMentionsText(rels);
-                    if (mentions) chatInputRef.current?.insertText(mentions);
-                  }}
-                  onUploadBusyChange={setExplorerUploadBusy}
-                  changesCollapsed={changesCollapsed}
-                  onChangesCountChange={setChangesCount}
-                />
-              </div>
-              </div>
-            </>
-          )}
-        </div>
-          </>
+          renderDockPanes(rightPanes)
         )}
+      </div>
+      </DockSlotFrame>
+      </div>
+      {bottomPanes.length > 0 && (
+        <>
+          <div
+            role="separator"
+            aria-orientation="horizontal"
+            aria-label={translate("layout.resizeBottomPanel")}
+            className="panel-resize-handle bottom-panel-resize-handle"
+            data-resize-handle="bottom-panel"
+            title={`${translate("layout.resizeBottomPanel")}: ${translate("layout.resizeHint")}`}
+            onPointerDown={onBottomResizePointerDown}
+          />
+          <DockSlotFrame slot="bottom" className={bottomPanes.includes("chat") ? "contains-chat" : undefined}>
+            {renderDockPanes(bottomPanes)}
+          </DockSlotFrame>
+        </>
+      )}
+      {paneDrag && (
+        <DockDropOverlay
+          drag={paneDrag}
+          labels={{
+            left: translate("layout.dockLeft"),
+            center: translate("layout.dockCenter"),
+            right: translate("layout.dockRight"),
+            bottom: translate("layout.dockBottom"),
+          }}
+          workspaceRef={workspaceRef}
+        />
+      )}
       </div>
       </div>
     </div>
@@ -2013,6 +2309,16 @@ export function AppShell() {
       />
     )}
     {appSettingsOpen && <AppSettings onClose={() => setAppSettingsOpen(false)} />}
+    {cloudChatOpen && (
+      <CloudChatDialog
+        sessionId={selectedSession?.id ?? null}
+        onClose={() => setCloudChatOpen(false)}
+        onOpenSettings={() => {
+          setCloudChatOpen(false);
+          setAppSettingsOpen(true);
+        }}
+      />
+    )}
     <UpdateReminder onOpenSettings={() => setAppSettingsOpen(true)} />
     </>
   );

@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
-import { existsSync, readdirSync, readFileSync, statSync, unlinkSync, writeFileSync } from "fs";
-import { dirname, join } from "path";
+import { existsSync, statSync } from "fs";
 import { SessionManager } from "@earendil-works/pi-coding-agent";
 import {
   resolveSessionPath,
   resolveSessionIdByPath,
   invalidateSessionPathCache,
   invalidateSessionListCache,
-  invalidateScannedSession,
   buildSessionContext,
   readSessionHeader,
 } from "@/lib/session-reader";
-import { sessionPathKey } from "@/lib/session-path";
 import { openSessionManagerForRead } from "@/lib/session-manager-access";
 import { getRpcSession } from "@/lib/rpc-manager";
+import { reparentDirectChildSessions } from "@/lib/session-reparent";
+import {
+  beginSessionStorageOperation,
+  deleteSessionReplicas,
+} from "@/lib/session-storage";
 
 // BranchNavigator still traverses recursively, so keep the response tree shallow.
 const MAX_PROJECTED_TREE_DEPTH = 200;
@@ -182,6 +184,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  const releaseStorage = await beginSessionStorageOperation();
   try {
     const { name } = await req.json() as { name?: string };
     if (typeof name !== "string") {
@@ -209,6 +212,8 @@ export async function PATCH(
     return NextResponse.json({ ok: true });
   } catch (error) {
     return NextResponse.json({ error: String(error) }, { status: 500 });
+  } finally {
+    releaseStorage();
   }
 }
 
@@ -218,6 +223,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  const releaseStorage = await beginSessionStorageOperation();
   try {
     const filePath = await resolveSessionPath(id);
     if (!filePath) {
@@ -241,42 +247,17 @@ export async function DELETE(
     // Read only the bounded header before deleting.
     const parentSessionPath = readSessionHeader(filePath)?.parentSession;
 
-    // Re-attach all direct children to this session's parent (cascade re-parent)
-    // Scan sibling files in the same directory
-    const targetPathKey = sessionPathKey(filePath);
-    const dir = dirname(filePath);
-    try {
-      const files = readdirSync(dir).filter(
-        (file) => file.endsWith(".jsonl") && sessionPathKey(join(dir, file)) !== targetPathKey,
-      );
-      for (const file of files) {
-        const childPath = join(dir, file);
-        try {
-          // Bounded header read first — only actual children (usually few)
-          // pay for a full-file rewrite. Previously every sibling .jsonl in
-          // the directory was loaded into memory wholesale.
-          const header = readSessionHeader(childPath);
-          if (
-            header?.parentSession &&
-            sessionPathKey(header.parentSession) === targetPathKey
-          ) {
-            const content = readFileSync(childPath, "utf8");
-            const newlineIdx = content.indexOf("\n");
-            const rest = newlineIdx === -1 ? "" : content.slice(newlineIdx);
-            const newHeader = { ...header, parentSession: parentSessionPath };
-            writeFileSync(childPath, JSON.stringify(newHeader) + rest);
-            invalidateScannedSession(childPath);
-          }
-        } catch { /* skip malformed */ }
-      }
-    } catch { /* skip if dir unreadable */ }
+    // A child may still live in a retained historical root after migration.
+    await reparentDirectChildSessions(filePath, parentSessionPath);
 
     await getRpcSession(id)?.shutdown();
-    unlinkSync(filePath);
+    deleteSessionReplicas(id);
     invalidateSessionPathCache(id);
     invalidateSessionListCache();
     return NextResponse.json({ ok: true });
   } catch (error) {
     return NextResponse.json({ error: String(error) }, { status: 500 });
+  } finally {
+    releaseStorage();
   }
 }

@@ -1,4 +1,5 @@
 import { getInitialNavigation, type InitialNavigation } from "./initial-navigation.ts";
+import type { WorkspaceLayout } from "./workspace-layout.ts";
 
 export type PersistedFileTab = {
   filePath: string;
@@ -13,6 +14,7 @@ export type PersistedWorkspace = {
   fileTabs: PersistedFileTab[];
   activeFileTabId: string | null;
   rightPanelOpen: boolean;
+  layout?: WorkspaceLayout;
 };
 
 /**

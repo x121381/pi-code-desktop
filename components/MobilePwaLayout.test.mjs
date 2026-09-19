@@ -47,3 +47,15 @@ test("contains chat content and inputs within the mobile viewport", () => {
 test("prevents iOS focus zoom from widening the layout", () => {
   assert.match(cssSource, /@media \(max-width: 640px\)[\s\S]*?textarea,[\s\S]*?input,[\s\S]*?select \{\s*font-size: 16px !important;/);
 });
+
+test("keeps the session chooser above the mobile sidebar", () => {
+  const chooserLayer = Number(
+    nativeThemeSource.match(/\.project-picker-modal-overlay \{[\s\S]*?z-index: (\d+);/)?.[1],
+  );
+  const sidebarLayers = [...appShellSource.matchAll(/zIndex: (199|200)/g)].map((match) =>
+    Number(match[1]),
+  );
+
+  assert.equal(sidebarLayers.length, 2);
+  assert.ok(sidebarLayers.every((layer) => chooserLayer > layer));
+});

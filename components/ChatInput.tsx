@@ -91,6 +91,10 @@ interface Props {
   projectOptions?: string[];
   /** Switch the new-session composer to one of the active projects. */
   onProjectChange?: (projectRoot: string) => void;
+  /** Leave the selected project and continue as a normal chat. */
+  onLeaveProject?: () => void;
+  /** True when the composer is in the app-owned no-project workspace. */
+  noProjectMode?: boolean;
   /** Focus the textarea on mount / when this becomes true (e.g. New task page). */
   autoFocus?: boolean;
   /** Extension footer statuses (tools/err/last, etc.) shown next to the model selector */
@@ -493,6 +497,8 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
   onSelectProject,
   projectOptions = [],
   onProjectChange,
+  onLeaveProject,
+  noProjectMode = false,
   autoFocus = false,
   extensionStatuses = [],
   contextUsage,
@@ -512,7 +518,12 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
   const [attachedImages, setAttachedImages] = useState<AttachedImage[]>(() => (
     draftKey ? draftImagesToAttachedImages(getDraft(draftKey)?.images) : []
   ));
-  const projectLabel = getProjectLabel(projectPath);
+  const projectLabel = noProjectMode ? t("sidebar.noProject") : getProjectLabel(projectPath);
+  const listedProjects = projectOptions.length > 0
+    ? projectOptions
+    : (!noProjectMode && projectPath ? [projectPath] : []);
+  const canLeaveProject = Boolean(onLeaveProject) && !noProjectMode && Boolean(projectPath);
+  const showProjectMenu = listedProjects.length > 0 || canLeaveProject;
   const trimmedValue = value.trimStart();
   const bashMode = attachedImages.length === 0 && trimmedValue.startsWith("!");
   const bashExcluded = bashMode && trimmedValue.startsWith("!!");
@@ -2232,22 +2243,26 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                 <button
                   type="button"
                   className="chat-project-context"
-                  title={`${t("chat.switchProject")} · ${t("chat.currentProject", { path: projectPath ?? projectLabel })}`}
-                  aria-label={t("chat.currentProject", { path: projectPath ?? projectLabel })}
-                  aria-haspopup={projectOptions.length > 0 && onProjectChange ? "menu" : undefined}
-                  aria-expanded={projectOptions.length > 0 && onProjectChange ? projectDropdownOpen : undefined}
+                  title={
+                    canLeaveProject
+                      ? `${t("chat.switchProject")} · ${t("sidebar.leaveProjectChat")}`
+                      : `${t("chat.switchProject")} · ${t("chat.currentProject", { path: projectPath ?? projectLabel })}`
+                  }
+                  aria-label={noProjectMode ? t("sidebar.noProject") : t("chat.currentProject", { path: projectPath ?? projectLabel })}
+                  aria-haspopup={showProjectMenu ? "menu" : undefined}
+                  aria-expanded={showProjectMenu ? projectDropdownOpen : undefined}
                   onClick={() => {
-                    if (projectOptions.length > 0 && onProjectChange) setProjectDropdownOpen((open) => !open);
+                    if (showProjectMenu) setProjectDropdownOpen((open) => !open);
                     else onSelectProject?.();
                   }}
-                  disabled={!onSelectProject && !(projectOptions.length > 0 && onProjectChange)}
+                  disabled={!onSelectProject && !showProjectMenu}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
                   </svg>
                   <span>{projectLabel}</span>
                 </button>
-                {projectDropdownOpen && projectOptions.length > 0 && onProjectChange && (
+                {projectDropdownOpen && showProjectMenu && (
                   <div
                     className="native-popover"
                     role="menu"
@@ -2261,9 +2276,40 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                       padding: 5,
                     }}
                   >
-                    {projectOptions.map((projectRoot) => {
+                    {canLeaveProject && (
+                      <button
+                        type="button"
+                        role="menuitem"
+                        onClick={() => {
+                          setProjectDropdownOpen(false);
+                          onLeaveProject?.();
+                        }}
+                        title={t("sidebar.leaveProjectChatHint")}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          width: "100%",
+                          minWidth: 0,
+                          padding: "7px 9px",
+                          border: 0,
+                          borderRadius: 6,
+                          background: "transparent",
+                          color: "var(--text)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          fontSize: 12,
+                        }}
+                      >
+                        <span aria-hidden="true">○</span>
+                        <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {t("sidebar.normalChat")}
+                        </span>
+                      </button>
+                    )}
+                    {listedProjects.map((projectRoot) => {
                       const label = getProjectLabel(projectRoot) ?? projectRoot;
-                      const isCurrent = projectRoot === projectPath;
+                      const isCurrent = !noProjectMode && projectRoot === projectPath;
                       return (
                         <button
                           key={projectRoot}
@@ -2271,7 +2317,11 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                           role="menuitem"
                           onClick={() => {
                             setProjectDropdownOpen(false);
-                            if (!isCurrent) onProjectChange(projectRoot);
+                            if (isCurrent && canLeaveProject) {
+                              onLeaveProject?.();
+                              return;
+                            }
+                            if (!isCurrent) onProjectChange?.(projectRoot);
                           }}
                           style={{
                             display: "flex",
@@ -2284,7 +2334,7 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                             borderRadius: 6,
                             background: isCurrent ? "var(--bg-selected)" : "transparent",
                             color: isCurrent ? "var(--text)" : "var(--text-muted)",
-                            cursor: "pointer",
+                            cursor: isCurrent && canLeaveProject ? "pointer" : isCurrent ? "default" : "pointer",
                             textAlign: "left",
                             fontSize: 12,
                           }}
@@ -2292,9 +2342,9 @@ export const ChatInput = forwardRef<ChatInputHandle, Props>(function ChatInput({
                             if (!isCurrent) e.currentTarget.style.background = "var(--bg-hover)";
                           }}
                           onMouseLeave={(e) => {
-                            if (!isCurrent) e.currentTarget.style.background = "transparent";
+                            if (!isCurrent) e.currentTarget.style.background = isCurrent ? "var(--bg-selected)" : "transparent";
                           }}
-                          title={projectRoot}
+                          title={isCurrent && canLeaveProject ? t("sidebar.leaveProjectChat") : projectRoot}
                         >
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />

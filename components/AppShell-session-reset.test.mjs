@@ -51,3 +51,26 @@ test("no-project mode is clearly identified in the workspace chrome", async () =
   assert.match(source, /topBarSubtitle = noProjectMode \? translate\("sidebar\.noProjectHint"\)/);
   assert.match(source, /onNoProjectModeChange=\{setNoProjectMode\}/);
 });
+
+test("global new-session shortcut requests the sidebar-owned chooser", async () => {
+  const source = await readFile(new URL("./AppShell.tsx", import.meta.url), "utf8");
+  assert.match(source, /onNewSession: \(\) => setNewSessionRequestKey\(\(key\) => key \+ 1\)/);
+  assert.match(source, /newSessionRequestKey=\{newSessionRequestKey\}/);
+  assert.doesNotMatch(source, /onNewSession: \(cwd: string\) => handleNewSession/);
+});
+
+test("composer project picker can leave a selected project for ordinary chat", async () => {
+  const source = await readFile(new URL("./AppShell.tsx", import.meta.url), "utf8");
+  assert.match(source, /selectNoProjectCwd/);
+  assert.match(source, /handleLeaveProjectFromComposer/);
+  assert.match(source, /onLeaveProject=\{noProjectMode \? undefined : \(\) => void handleLeaveProjectFromComposer\(\)\}/);
+  assert.match(source, /noProjectMode=\{noProjectMode\}/);
+  assert.match(source, /projectOptions=\{availableProjectRoots\}/);
+});
+
+test("the more menu can open the cloud chat dialog for a saved session", async () => {
+  const source = await readFile(new URL("./AppShell.tsx", import.meta.url), "utf8");
+  assert.match(source, /setCloudChatOpen\(true\)/);
+  assert.match(source, /translate\("cloud\.share"\)/);
+  assert.match(source, /sessionId=\{selectedSession\?\.id \?\? null\}/);
+});

@@ -27,6 +27,8 @@ interface Props {
   onCwdChange?: (cwd: string | null, projectRoot?: string | null, noProjectMode?: boolean) => void;
   onNoProjectModeChange?: (enabled: boolean) => void;
   onProjectsChange?: (projectRoots: string[]) => void;
+  /** Incremented by AppShell when the global new-session shortcut is used. */
+  newSessionRequestKey?: number;
   /** Window-chrome controls (theme + sidebar collapse) rendered at the top-right of the sidebar. */
   headerControls?: ReactNode;
 }
@@ -141,7 +143,7 @@ function buildSessionTree(sessions: SessionInfo[]): SessionTreeNode[] {
   return roots;
 }
 
-export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSession, initialSessionId, skipInitialProjectSelection, onInitialRestoreDone, refreshKey, onSessionDeleted, selectedCwd: selectedCwdProp, onCwdChange, onNoProjectModeChange, onProjectsChange, headerControls }: Props) {
+export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSession, initialSessionId, skipInitialProjectSelection, onInitialRestoreDone, refreshKey, onSessionDeleted, selectedCwd: selectedCwdProp, onCwdChange, onNoProjectModeChange, onProjectsChange, newSessionRequestKey = 0, headerControls }: Props) {
   const { t } = useI18n();
   const [allSessions, setAllSessions] = useState<SessionInfo[]>([]);
   const [noProjectCwd, setNoProjectCwd] = useState<string | null>(null);
@@ -197,7 +199,10 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   const [projectBranchMenu, setProjectBranchMenu] = useState<ProjectBranchMenuState | null>(null);
   const [projectBranchLoading, setProjectBranchLoading] = useState(false);
   const projectMenuRef = useRef<HTMLDivElement>(null);
-  const [projectPickerOpen, setProjectPickerOpen] = useState(false);
+  const [sessionChooserMode, setSessionChooserMode] = useState<"choose" | "project" | "add-project" | null>(null);
+  const sessionChooserRef = useRef<HTMLDivElement>(null);
+  const sessionChooserPreviousFocusRef = useRef<HTMLElement | null>(null);
+  const noProjectRequestRef = useRef<AbortController | null>(null);
   const [runningSessionIds, setRunningSessionIds] = useState<Set<string>>(() => new Set());
   const [unreadSessionIds, setUnreadSessionIds] = useState<Set<string>>(() => loadUnreadSessionIds());
   const previousRunningSessionIdsRef = useRef<Set<string>>(new Set());
@@ -437,6 +442,15 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
     onNewSession?.(tempId, cwd);
   }, [onNewSession, onNoProjectModeChange]);
 
+  const sessionChooserGenerationRef = useRef(0);
+  const closeSessionChooser = useCallback(() => {
+    sessionChooserGenerationRef.current += 1;
+    noProjectRequestRef.current?.abort();
+    noProjectRequestRef.current = null;
+    setNoProjectBusy(false);
+    setSessionChooserMode(null);
+  }, []);
+
   const handleNoProject = useCallback(async () => {
     if (noProjectBusy) return;
     setNoProjectBusy(true);
@@ -449,6 +463,100 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
       setNoProjectBusy(false);
     }
   }, [noProjectBusy, noProjectCwd, activateNoProject]);
+
+  const handleNormalChat = useCallback(async () => {
+    if (noProjectBusy) return;
+    const generation = sessionChooserGenerationRef.current;
+    const controller = new AbortController();
+    noProjectRequestRef.current?.abort();
+    noProjectRequestRef.current = controller;
+    setNoProjectBusy(true);
+    setNoProjectError(null);
+    try {
+      const cwd = await selectNoProjectCwd(controller.signal);
+      if (sessionChooserGenerationRef.current !== generation) return;
+      activateNoProject(cwd);
+      closeSessionChooser();
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      if (sessionChooserGenerationRef.current === generation) {
+        setNoProjectError(error instanceof Error ? error.message : String(error));
+      }
+    } finally {
+      if (noProjectRequestRef.current === controller) {
+        noProjectRequestRef.current = null;
+        setNoProjectBusy(false);
+      }
+    }
+  }, [noProjectBusy, activateNoProject, closeSessionChooser]);
+
+  const openNewSessionChooser = useCallback(() => {
+    sessionChooserGenerationRef.current += 1;
+    setNoProjectError(null);
+    setSessionChooserMode("choose");
+  }, []);
+
+  const previousNewSessionRequestKeyRef = useRef(newSessionRequestKey);
+  useEffect(() => {
+    if (newSessionRequestKey === previousNewSessionRequestKeyRef.current) return;
+    previousNewSessionRequestKeyRef.current = newSessionRequestKey;
+    openNewSessionChooser();
+  }, [newSessionRequestKey, openNewSessionChooser]);
+
+  useEffect(() => {
+    if (!sessionChooserMode) return;
+    if (!sessionChooserPreviousFocusRef.current) {
+      sessionChooserPreviousFocusRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
+    const frame = requestAnimationFrame(() => {
+      const first = sessionChooserRef.current?.querySelector<HTMLElement>(
+        "button:not(:disabled), input:not(:disabled), [href], [tabindex]:not([tabindex='-1'])",
+      );
+      first?.focus();
+    });
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        closeSessionChooser();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(sessionChooserRef.current?.querySelectorAll<HTMLElement>(
+        "button:not(:disabled), input:not(:disabled), [href], [tabindex]:not([tabindex='-1'])",
+      ) ?? []);
+      if (focusable.length === 0) {
+        event.preventDefault();
+        sessionChooserRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("keydown", handleKeyDown, true);
+    };
+  }, [sessionChooserMode, closeSessionChooser]);
+
+  useEffect(() => {
+    if (sessionChooserMode) return;
+    const previous = sessionChooserPreviousFocusRef.current;
+    sessionChooserPreviousFocusRef.current = null;
+    previous?.focus();
+  }, [sessionChooserMode]);
+
+  useEffect(() => () => noProjectRequestRef.current?.abort(), []);
 
   // Notify parent only when the effective cwd actually changes (not when
   // projectRootFor identity changes due to session/worktree refreshes).
@@ -867,7 +975,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
 
   const handleAddProject = useCallback(async () => {
     if (!isTauriDesktop()) {
-      setProjectPickerOpen(true);
+      setSessionChooserMode("add-project");
       return;
     }
 
@@ -965,6 +1073,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
   // below. Keep the old header rows mounted only as an implementation
   // fallback, but do not show the duplicated directory/worktree summary.
   const showLegacyHeaderProjectRows = false;
+  const sessionChooserGeneration = sessionChooserGenerationRef.current;
 
   const renderNoProjectGroup = () => {
     const groupTree = buildSessionTree(noProjectSessions);
@@ -1195,9 +1304,8 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
         {/* Row 1: New Session — full-width flat row, Claude Desktop style */}
         <button
           className="sidebar-header-row sidebar-new-row"
-          onClick={() => handleNewSession()}
-          disabled={!selectedCwd}
-          title={selectedCwd ? `${t("sidebar.newSessionTitle", { path: selectedCwd })} (⌘/Ctrl+N)` : t("sidebar.selectProject")}
+          onClick={openNewSessionChooser}
+          title={`${t("sidebar.newChat")} (⌘/Ctrl+N)`}
         >
           <span className="sidebar-new-plus" aria-hidden="true">
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -1217,6 +1325,7 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
               selectedProject={selectedProject}
               homeDir={homeDir}
               onSelectCwd={activateProject}
+              onDeselectProject={() => { void handleNormalChat(); }}
               noProjectMode={noProjectMode}
               variant="block"
             />
@@ -1899,27 +2008,77 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
         </div>,
         document.body,
       )}
-      {projectPickerOpen && (
-        <div className="project-picker-modal-overlay" role="dialog" aria-modal="true" onClick={() => setProjectPickerOpen(false)}>
-          <div className="project-picker-modal-shell" onClick={(e) => e.stopPropagation()}>
-            <ProjectPicker
+      {sessionChooserMode && createPortal(
+        <div className="project-picker-modal-overlay" role="presentation" onClick={closeSessionChooser}>
+          <div
+            ref={sessionChooserRef}
+            className="project-picker-modal-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="session-chooser-title"
+            tabIndex={-1}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="session-chooser-header">
+              <h2 id="session-chooser-title">
+                {sessionChooserMode === "choose" ? t("sidebar.newSessionChoose") : t("sidebar.projectChat")}
+              </h2>
+              <button type="button" onClick={closeSessionChooser} aria-label={t("sidebar.cancel")} title={t("sidebar.cancel")}>×</button>
+            </div>
+            {sessionChooserMode === "choose" ? (
+              <div className="session-chooser-options">
+                <button type="button" onClick={() => void handleNormalChat()} disabled={noProjectBusy}>
+                  <span className="session-chooser-option-icon" aria-hidden="true">○</span>
+                  <span><strong>{t("sidebar.normalChat")}</strong><small>{t("sidebar.normalChatHint")}</small></span>
+                </button>
+                <button type="button" onClick={() => setSessionChooserMode("project")}>
+                  <span className="session-chooser-option-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" />
+                    </svg>
+                  </span>
+                  <span><strong>{t("sidebar.projectChat")}</strong><small>{t("sidebar.projectChatHint")}</small></span>
+                </button>
+                {noProjectError && <div className="session-chooser-error" role="alert">{noProjectError}</div>}
+              </div>
+            ) : (
+              <>
+              {sessionChooserMode === "project" && (
+                <div className="session-chooser-options" style={{ paddingBottom: 0, borderBottom: "1px solid var(--border)" }}>
+                  <button type="button" onClick={() => void handleNormalChat()} disabled={noProjectBusy}>
+                    <span className="session-chooser-option-icon" aria-hidden="true">○</span>
+                    <span><strong>{t("sidebar.normalChat")}</strong><small>{t("sidebar.leaveProjectChatHint")}</small></span>
+                  </button>
+                  {noProjectError && <div className="session-chooser-error" role="alert">{noProjectError}</div>}
+                </div>
+              )}
+              <ProjectPicker
               recentProjects={recentProjects}
-              selectedCwd={selectedCwdProp ?? null}
+              selectedCwd={selectedCwd}
               selectedProject={selectedProject}
               homeDir={homeDir}
               onSelectCwd={(cwd) => {
+                if (sessionChooserGenerationRef.current !== sessionChooserGeneration) return;
                 activateProject(cwd);
-                setProjectPickerOpen(false);
+                if (sessionChooserMode === "project") handleNewSession(cwd);
+                closeSessionChooser();
               }}
-              onSelectNoProject={(cwd) => {
-                activateNoProject(cwd);
-                setProjectPickerOpen(false);
-              }}
+              onDeselectProject={sessionChooserMode === "project" ? () => {
+                if (sessionChooserGenerationRef.current !== sessionChooserGeneration) return;
+                void handleNormalChat();
+              } : undefined}
               noProjectMode={noProjectMode}
-              variant="block"
-            />
+              variant="panel"
+              showNoProjectOption={false}
+              />
+              </>
+            )}
+            <button type="button" className="session-chooser-cancel" onClick={closeSessionChooser}>
+              {t("sidebar.cancel")}
+            </button>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

@@ -75,6 +75,7 @@ test("npm test covers every test directory, recursively", async () => {
     assert.match(runner, new RegExp(`\\b${dir}\\b`), `npm test must recurse into ${dir}/`);
   }
   assert.match(runner, /recursive:\s*true/);
+  assert.match(runner, /replaceAll\("\[", "\[\[\]"\)/);
 });
 
 test("no test file is left out of npm test", async () => {
@@ -214,8 +215,12 @@ test("nothing reintroduces a literal homedir() into an fs call", async () => {
     "lib/file-access.ts",
     "lib/directory-browser.ts",
     "lib/skill-lock.ts",
+    "lib/session-storage.ts",
+    "lib/cloud-chat-store.ts",
+    "lib/native-directory-dialog.ts",
     "app/api/cwd/validate/route.ts",
     "app/api/default-cwd/route.ts",
+    "app/api/skills/route.ts",
   ];
 
   for (const file of guarded) {

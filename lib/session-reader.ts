@@ -10,6 +10,11 @@ import type { SessionEntry as PiSessionEntry } from "@earendil-works/pi-coding-a
 import { normalizeToolCalls } from "./normalize";
 import { sessionPathKey } from "./session-path";
 import { scanAllSessions } from "./session-scan";
+import {
+  beginSessionStorageOperation,
+  materializeSessionInActiveRoot,
+  registerSessionStorageCacheInvalidator,
+} from "./session-storage";
 import { resolveProject, type ProjectInfo } from "./worktree";
 
 export { getAgentDir };
@@ -104,6 +109,16 @@ export function invalidateSessionListCache(): void {
   globalThis.__piSessionListCache = undefined;
 }
 
+export function invalidateAllSessionCaches(): void {
+  invalidateSessionListCache();
+  globalThis.__piSessionListPromise = undefined;
+  globalThis.__piSessionListPromiseGeneration = undefined;
+  globalThis.__piSessionPathCache?.clear();
+  globalThis.__piPathToSessionIdCache?.clear();
+}
+
+registerSessionStorageCacheInvalidator(invalidateAllSessionCaches);
+
 function getPathCache(): Map<string, string> {
   if (!globalThis.__piSessionPathCache) globalThis.__piSessionPathCache = new Map();
   return globalThis.__piSessionPathCache;
@@ -115,12 +130,20 @@ function getPathToIdCache(): Map<string, string> {
 }
 
 export async function resolveSessionPath(sessionId: string): Promise<string | null> {
-  const cached = getPathCache().get(sessionId);
-  if (cached) return cached;
-
-  // Cache miss: scan all sessions to populate cache, then retry
-  await listAllSessions();
-  return getPathCache().get(sessionId) ?? null;
+  const release = await beginSessionStorageOperation();
+  try {
+    // Always re-resolve by id after the migration gate. Cached paths can point
+    // at a backup root, and retained replicas must be promoted before mutation.
+    const filePath = materializeSessionInActiveRoot(sessionId);
+    if (filePath) {
+      cacheSessionPath(sessionId, filePath);
+      return filePath;
+    }
+    // New sessions may exist only in memory until the first flush.
+    return getPathCache().get(sessionId) ?? null;
+  } finally {
+    release();
+  }
 }
 
 export async function resolveSessionIdByPath(filePath: string): Promise<string | undefined> {

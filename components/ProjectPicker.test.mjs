@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { createJiti } from "jiti";
+import { readFile } from "node:fs/promises";
 
 const jiti = createJiti(import.meta.url, {
   jsx: { runtime: "automatic" },
@@ -67,4 +68,20 @@ test("no-project cwd resolution rejects invalid API responses", async (t) => {
     headers: { "Content-Type": "application/json" },
   });
   await assert.rejects(selectNoProjectCwd(), /unavailable/);
+});
+
+test("project-only panel mode can hide the no-project choice", async () => {
+  const source = await readFile(new URL("./ProjectPicker.tsx", import.meta.url), "utf8");
+  assert.match(source, /variant\?: "block" \| "inline" \| "panel"/);
+  assert.match(source, /showNoProjectOption = true/);
+  assert.match(source, /\{showNoProjectOption && \(/);
+  assert.match(source, /open=\{isPanel \|\| dropdownOpen\}/);
+});
+
+test("clicking the already-selected project can leave project conversation", async () => {
+  const source = await readFile(new URL("./ProjectPicker.tsx", import.meta.url), "utf8");
+  assert.match(source, /onDeselectProject\?: \(\) => void/);
+  assert.match(source, /canLeaveProject = isSelected && Boolean\(onDeselectProject\)/);
+  assert.match(source, /if \(canLeaveProject\) \{\s*onDeselectProject\?\.\(\);/);
+  assert.match(source, /sidebar\.leaveProjectChat/);
 });

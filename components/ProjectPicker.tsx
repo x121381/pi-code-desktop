@@ -14,9 +14,12 @@ interface ProjectPickerProps {
   homeDir: string;
   onSelectCwd: (cwd: string) => void;
   onSelectNoProject?: (cwd: string) => void;
+  /** Clicking the already-selected project leaves project conversation. */
+  onDeselectProject?: () => void;
   noProjectMode?: boolean;
   /** "block" fills its container (sidebar empty state); "inline" is a compact toolbar trigger. */
-  variant?: "block" | "inline";
+  variant?: "block" | "inline" | "panel";
+  showNoProjectOption?: boolean;
   disabled?: boolean;
 }
 
@@ -76,8 +79,8 @@ export async function selectProjectDirectoryNative(selectedCwd: string | null, h
 }
 
 /** Resolve the app-owned cwd used for chats that do not have a project. */
-export async function selectNoProjectCwd(): Promise<string> {
-  const res = await fetch("/api/no-project-cwd");
+export async function selectNoProjectCwd(signal?: AbortSignal): Promise<string> {
+  const res = await fetch("/api/no-project-cwd", { signal });
   const data = await res.json().catch(() => ({})) as { cwd?: string; error?: string };
   if (!res.ok || data.error || !data.cwd) {
     throw new Error(data.error ?? `HTTP ${res.status}`);
@@ -85,7 +88,7 @@ export async function selectNoProjectCwd(): Promise<string> {
   return data.cwd;
 }
 
-export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, homeDir, onSelectCwd, onSelectNoProject, noProjectMode = false, variant = "block", disabled }: ProjectPickerProps) {
+export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, homeDir, onSelectCwd, onSelectNoProject, onDeselectProject, noProjectMode = false, variant = "block", showNoProjectOption = true, disabled }: ProjectPickerProps) {
   const { t } = useI18n();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownRect, setDropdownRect] = useState<{ top: number; left: number; width: number } | null>(null);
@@ -209,8 +212,16 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
   const visibleProjects = selectVisibleProjects(recentProjects, selectedProject, projectFilter);
 
   const isInline = variant === "inline";
+  const isPanel = variant === "panel";
 
-  const panelStyle = isInline && dropdownRect
+  const panelStyle = isPanel
+    ? {
+        position: "relative" as const,
+        width: "100%",
+        background: "var(--bg)",
+        overflow: "hidden",
+      }
+    : isInline && dropdownRect
     ? {
         position: "fixed" as const,
         bottom: window.innerHeight - dropdownRect.top + 6,
@@ -240,7 +251,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
 
   return (
     <div ref={dropdownRef} style={{ position: "relative", width: isInline ? undefined : "100%" }}>
-      <button
+      {!isPanel && <button
         type="button"
         className={isInline ? "native-toolbar-button" : "sidebar-header-row"}
         disabled={disabled}
@@ -309,9 +320,9 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
             </svg>
           </>
         )}
-      </button>
+      </button>}
 
-      <AnimatedDropdown className="native-popover" open={dropdownOpen} style={panelStyle}>
+      <AnimatedDropdown className={isPanel ? "" : "native-popover"} open={isPanel || dropdownOpen} style={panelStyle}>
         {showProjectFilter && (
           <div style={{ padding: "6px 8px", borderBottom: "1px solid var(--border)" }}>
             <input
@@ -342,11 +353,20 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
           </div>
         )}
         <div style={{ maxHeight: "min(50vh, 380px)", overflowY: "auto" }}>
-          {visibleProjects.map((project, index) => (
+          {visibleProjects.map((project, index) => {
+            const isSelected = project === selectedProject && !noProjectMode;
+            const canLeaveProject = isSelected && Boolean(onDeselectProject);
+            return (
             <button
               key={project}
               className="project-picker-option"
+              aria-pressed={isSelected}
               onClick={() => {
+                if (canLeaveProject) {
+                  onDeselectProject?.();
+                  closeDropdown();
+                  return;
+                }
                 onSelectCwd(project);
                 closeDropdown();
               }}
@@ -359,7 +379,7 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
                 background: "none",
                 border: "none",
                 borderBottom: index < visibleProjects.length - 1 ? "1px solid var(--border)" : "none",
-                color: project === selectedProject ? "var(--text)" : "var(--text-muted)",
+                color: isSelected ? "var(--text)" : "var(--text-muted)",
                 cursor: "pointer",
                 textAlign: "left",
                 fontSize: 11,
@@ -368,22 +388,25 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
               }}
-              title={project}
+              title={canLeaveProject ? t("sidebar.leaveProjectChat") : project}
             >
-              {project === selectedProject && (
+              {isSelected && (
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                   <polyline points="1.5 5 4 7.5 8.5 2.5" />
                 </svg>
               )}
-              {project !== selectedProject && <span style={{ width: 10, flexShrink: 0 }} />}
+              {!isSelected && <span style={{ width: 10, flexShrink: 0 }} />}
               <PathLabel text={displayCwd(project, homeDir)} style={{ flex: 1 }} />
             </button>
-          ))}
+            );
+          })}
           {visibleProjects.length === 0 && trimmedFilter && (
             <div style={{ padding: "8px 10px", fontSize: 11, color: "var(--text-dim)" }}>{t("sidebar.noMatchingProjects")}</div>
           )}
         </div>
 
+        {showNoProjectOption && (
+          <>
         {/* Chat without picking a folder: project-scoped tools (Skills/Plugins
             project scope, file explorer, git) stay off for this session. */}
         <button
@@ -412,6 +435,8 @@ export function ProjectPicker({ recentProjects, selectedCwd, selectedProject, ho
           </svg>
           <span>{t("sidebar.continueWithoutProject")}</span>
         </button>
+          </>
+        )}
 
         {/* Default cwd shortcut */}
         {!customPathOpen && (

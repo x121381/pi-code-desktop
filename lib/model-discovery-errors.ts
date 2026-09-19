@@ -9,6 +9,7 @@ const ERROR_KEYS: Record<string, string> = {
   UPSTREAM_REDIRECT_BLOCKED: "models.discoveryErrorRedirectBlocked",
   UPSTREAM_TOO_MANY_REDIRECTS: "models.discoveryErrorTooManyRedirects",
   UPSTREAM_CHALLENGE: "models.discoveryErrorChallenge",
+  UPSTREAM_HTML_RESPONSE: "models.discoveryErrorHtmlResponse",
   UPSTREAM_NOT_JSON: "models.discoveryErrorNotJson",
   UPSTREAM_INVALID_JSON: "models.discoveryErrorInvalidJson",
   UPSTREAM_RESPONSE_TOO_LARGE: "models.discoveryErrorResponseTooLarge",

@@ -20,6 +20,7 @@ export type ModelDiscoveryErrorCode =
   | "UPSTREAM_REDIRECT_BLOCKED"
   | "UPSTREAM_TOO_MANY_REDIRECTS"
   | "UPSTREAM_CHALLENGE"
+  | "UPSTREAM_HTML_RESPONSE"
   | "UPSTREAM_NOT_JSON"
   | "UPSTREAM_INVALID_JSON"
   | "UPSTREAM_RESPONSE_TOO_LARGE";
@@ -32,7 +33,8 @@ const DISCOVERY_ERROR_MESSAGES: Record<ModelDiscoveryErrorCode, string> = {
   UPSTREAM_TIMEOUT: "Upstream model request timed out",
   UPSTREAM_REDIRECT_BLOCKED: "Upstream redirect was blocked",
   UPSTREAM_TOO_MANY_REDIRECTS: "Upstream returned too many redirects",
-  UPSTREAM_CHALLENGE: "Upstream returned an HTML security challenge",
+  UPSTREAM_CHALLENGE: "Upstream returned a security challenge",
+  UPSTREAM_HTML_RESPONSE: "Upstream returned an HTML page instead of JSON",
   UPSTREAM_NOT_JSON: "Upstream model response was not JSON",
   UPSTREAM_INVALID_JSON: "Upstream model response contained invalid JSON",
   UPSTREAM_RESPONSE_TOO_LARGE: "Upstream model response was too large",
@@ -166,6 +168,8 @@ export function buildModelsListUrl(baseUrl: string, api: string): URL {
     throw new TypeError("Base URL must use HTTP(S) without credentials");
   }
   const trimmedPath = url.pathname.replace(/\/+$/, "").replace(ENDPOINT_SUFFIX, "");
+  url.hash = "";
+  url.pathname = trimmedPath || "/";
 
   if (!/\/models$/i.test(trimmedPath)) {
     let path = trimmedPath;
@@ -191,15 +195,17 @@ function isJsonMediaType(response: Response): boolean {
     || Boolean(mediaType?.startsWith("application/") && mediaType.endsWith("+json"));
 }
 
-function isHtmlOrChallenge(response: Response): boolean {
+function isHtmlMediaType(response: Response): boolean {
   const mediaType = response.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase();
-  return mediaType === "text/html"
-    || mediaType === "application/xhtml+xml"
-    || response.headers.get("cf-mitigated")?.toLowerCase() === "challenge";
+  return mediaType === "text/html" || mediaType === "application/xhtml+xml";
+}
+
+function isExplicitChallenge(response: Response): boolean {
+  return response.headers.get("cf-mitigated")?.toLowerCase() === "challenge";
 }
 
 function errorForStatus(response: Response): ModelDiscoveryError {
-  if (isHtmlOrChallenge(response)) return new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+  if (isExplicitChallenge(response)) return new ModelDiscoveryError("UPSTREAM_CHALLENGE");
   if (response.status === 401 || response.status === 403) {
     return new ModelDiscoveryError("UPSTREAM_AUTH_FAILED");
   }
@@ -303,9 +309,13 @@ export async function fetchDiscoveryJson(
         await cancelBody(response);
         throw error;
       }
-      if (isHtmlOrChallenge(response)) {
+      if (isExplicitChallenge(response)) {
         await cancelBody(response);
         throw new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+      }
+      if (isHtmlMediaType(response)) {
+        await cancelBody(response);
+        throw new ModelDiscoveryError("UPSTREAM_HTML_RESPONSE");
       }
       if (!isJsonMediaType(response)) {
         await cancelBody(response);
@@ -315,7 +325,7 @@ export async function fetchDiscoveryJson(
       const bytes = await readResponseBytes(response, options.maxBytes);
       const text = new TextDecoder().decode(bytes);
       if (/^\s*(?:<!doctype\s+html|<html\b)/i.test(text)) {
-        throw new ModelDiscoveryError("UPSTREAM_CHALLENGE");
+        throw new ModelDiscoveryError("UPSTREAM_HTML_RESPONSE");
       }
       try {
         return { payload: JSON.parse(text) as unknown, bytesRead: bytes.byteLength };

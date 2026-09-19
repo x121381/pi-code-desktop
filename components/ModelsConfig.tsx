@@ -159,7 +159,7 @@ type ModelDiscoveryState =
   | { phase: "idle" }
   | { phase: "loading" }
   | { phase: "success"; models: DiscoveredModel[]; endpoint: string }
-  | { phase: "error"; message: string };
+  | { phase: "error"; message: string; endpoint?: string };
 
 type ModelCatalogState =
   | { phase: "idle" }
@@ -361,7 +361,11 @@ function ProviderDetail({ name, provider, onChange, onRename, onDelete, onAddMod
       };
       if (requestId !== discoveryRequestIdRef.current) return;
       if (!res.ok || data.error || !data.models) {
-        setDiscoveryState({ phase: "error", message: t(modelDiscoveryErrorKey(data.code)) });
+        setDiscoveryState({
+          phase: "error",
+          message: t(modelDiscoveryErrorKey(data.code)),
+          endpoint: data.endpoint,
+        });
         return;
       }
       setDiscoveryState({ phase: "success", models: data.models, endpoint: data.endpoint ?? provider.baseUrl });
@@ -464,7 +468,12 @@ function ProviderDetail({ name, provider, onChange, onRename, onDelete, onAddMod
 
         {discoveryState.phase === "error" && (
           <div style={{ padding: "7px 9px", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 5, color: "#ef4444", fontSize: 11, lineHeight: 1.4 }}>
-            {discoveryState.message}
+            <div>{discoveryState.message}</div>
+            {discoveryState.endpoint && (
+              <div title={discoveryState.endpoint} style={{ marginTop: 4, color: "var(--text-dim)", fontFamily: "var(--font-mono)", overflowWrap: "anywhere" }}>
+                {t("models.discoveryRequestedEndpoint", { endpoint: discoveryState.endpoint })}
+              </div>
+            )}
           </div>
         )}
 

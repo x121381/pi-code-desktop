@@ -20,7 +20,7 @@ use tauri::menu::{Menu, MenuItem};
 #[cfg(not(target_os = "linux"))]
 use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use hmac::{Hmac, Mac};
-use portable_pty::{native_pty_system, Child as PtyChild, CommandBuilder, MasterPty, PtySize};
+use portable_pty::{native_pty_system, Child as PtyChild, CommandBuilder, MasterPty, PtySize, PtySystem};
 use sha2::Sha256;
 use tauri::{
     webview::{Color, NewWindowResponse},
@@ -212,8 +212,7 @@ fn terminal_write(sessions: tauri::State<'_, TerminalSessions>, id: String, data
 fn terminal_resize(sessions: tauri::State<'_, TerminalSessions>, id: String, rows: u16, cols: u16) -> Result<(), String> {
     let session = sessions.0.lock().map_err(|_| "terminal state poisoned")?
         .get(&id).cloned().ok_or_else(|| "Terminal session not found".to_string())?;
-    let master = session.master.lock().map_err(|_| "terminal master poisoned")?;
-    master
+    session.master.lock().map_err(|_| "terminal master poisoned")?
         .resize(PtySize { rows: rows.clamp(1, 500), cols: cols.clamp(1, 500), pixel_width: 0, pixel_height: 0 })
         .map_err(|error| error.to_string())
 }

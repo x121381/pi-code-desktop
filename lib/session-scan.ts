@@ -1,8 +1,11 @@
-import { getAgentDir } from "@earendil-works/pi-coding-agent";
-import { createReadStream, existsSync } from "fs";
-import { readdir, stat } from "fs/promises";
+import { createReadStream } from "fs";
+import { stat } from "fs/promises";
 import { createInterface } from "readline";
-import { join } from "path";
+import {
+  collectPhysicalSessionRecords,
+  getAuthoritativePhysicalSessions,
+  registerSessionStorageCacheInvalidator,
+} from "./session-storage";
 
 /**
  * Incremental replacement for SessionManager.listAll().
@@ -48,6 +51,12 @@ function getScanCache(): Map<string, ScanCacheEntry> {
 export function invalidateScannedSession(filePath: string): void {
   getScanCache().delete(filePath);
 }
+
+export function invalidateAllScannedSessions(): void {
+  getScanCache().clear();
+}
+
+registerSessionStorageCacheInvalidator(invalidateAllScannedSessions);
 
 function parseSessionEntryLine(line: string): Record<string, unknown> | null {
   if (!line.trim()) return null;
@@ -144,26 +153,7 @@ async function buildScannedSessionInfo(filePath: string): Promise<ScannedSession
 
 const MAX_CONCURRENT_SCANS = 10;
 
-export async function scanAllSessions(): Promise<ScannedSessionInfo[]> {
-  const sessionsDir = join(getAgentDir(), "sessions");
-  if (!existsSync(sessionsDir)) return [];
-
-  let files: string[];
-  try {
-    const dirEntries = await readdir(sessionsDir, { withFileTypes: true });
-    const dirs = dirEntries.filter((e) => e.isDirectory()).map((e) => join(sessionsDir, e.name));
-    const perDir = await Promise.all(dirs.map(async (dir) => {
-      try {
-        return (await readdir(dir)).filter((f) => f.endsWith(".jsonl")).map((f) => join(dir, f));
-      } catch {
-        return [];
-      }
-    }));
-    files = perDir.flat();
-  } catch {
-    return [];
-  }
-
+async function scanSessionFiles(files: string[]): Promise<ScannedSessionInfo[]> {
   const cache = getScanCache();
   const liveFiles = new Set(files);
   for (const cachedPath of cache.keys()) {
@@ -193,7 +183,20 @@ export async function scanAllSessions(): Promise<ScannedSessionInfo[]> {
   };
   await Promise.all(Array.from({ length: Math.min(MAX_CONCURRENT_SCANS, files.length) }, worker));
 
-  const sessions = results.filter((info): info is ScannedSessionInfo => info !== null);
-  sessions.sort((a, b) => b.modified.getTime() - a.modified.getTime());
+  return results.filter((info): info is ScannedSessionInfo => info !== null);
+}
+
+/** Scan every physical session file across active and retained roots. */
+export async function scanSessionFilesAcrossRoots(): Promise<ScannedSessionInfo[]> {
+  return scanSessionFiles(collectPhysicalSessionRecords().map((record) => record.path));
+}
+
+export async function scanAllSessions(): Promise<ScannedSessionInfo[]> {
+  const sessions = await scanSessionFiles(
+    getAuthoritativePhysicalSessions().map((record) => record.path),
+  );
+  sessions.sort((a, b) => (
+    b.modified.getTime() - a.modified.getTime() || a.path.localeCompare(b.path)
+  ));
   return sessions;
 }

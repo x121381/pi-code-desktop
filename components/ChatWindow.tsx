@@ -40,6 +40,8 @@ interface Props {
   onSelectProject?: () => void;
   projectOptions?: string[];
   onProjectChange?: (projectRoot: string) => void;
+  onLeaveProject?: () => void;
+  noProjectMode?: boolean;
   onOpenFile?: (filePath: string) => void;
   /** Fired after non-image drops are copied into the session cwd (so the explorer can refresh). */
   onProjectFilesImported?: () => void;
@@ -221,7 +223,7 @@ function ProcessDetailsGroup({ messageCount, toolCallCount, children, t }: { mes
   );
 }
 
-export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreated, onSessionForked, modelsRefreshKey, chatInputRef, onBranchDataChange, onSystemPromptChange, onSessionStatsChange, onSessionStatsPanelOpen, onContextUsageChange, onSelectProject, projectOptions, onProjectChange, onOpenFile, onProjectFilesImported, onOpenModelsConfig }: Props) {
+export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreated, onSessionForked, modelsRefreshKey, chatInputRef, onBranchDataChange, onSystemPromptChange, onSessionStatsChange, onSessionStatsPanelOpen, onContextUsageChange, onSelectProject, projectOptions, onProjectChange, onLeaveProject, noProjectMode, onOpenFile, onProjectFilesImported, onOpenModelsConfig }: Props) {
   const { t } = useI18n();
   const { soundEnabled, onSoundToggle, playDoneSound, unlockAudio } = useAudio();
   // Wrap onAgentEnd to play the completion sound. This is more reliable than
@@ -866,6 +868,8 @@ export function ChatWindow({ session, newSessionCwd, onAgentEnd, onSessionCreate
       onSelectProject={onSelectProject}
       projectOptions={projectOptions}
       onProjectChange={onProjectChange}
+      onLeaveProject={onLeaveProject}
+      noProjectMode={noProjectMode}
       onSessionStatsPanelOpen={onSessionStatsPanelOpen}
       contextUsage={contextUsage}
       sessionStats={sessionStats}

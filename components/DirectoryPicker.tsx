@@ -88,6 +88,17 @@ export function DirectoryPicker({ onCancel, onSelect, busy = false, error }: Pro
     void navigateTo();
   }, [navigateTo]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || busy) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      onCancel();
+    };
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [busy, onCancel]);
+
   const handlePathSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const candidate = pathInput.trim();
@@ -109,9 +120,13 @@ export function DirectoryPicker({ onCancel, onSelect, busy = false, error }: Pro
         if (event.target === event.currentTarget && !busy) onCancel();
       }}
       onKeyDown={(event) => {
-        if (event.key === "Escape" && !busy) onCancel();
+        if (event.key === "Escape" && !busy) {
+          event.preventDefault();
+          event.stopPropagation();
+          onCancel();
+        }
       }}
-      style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.35)" }}
+      style={{ position: "fixed", inset: 0, zIndex: 1300, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.35)" }}
     >
       <div className="directory-picker-panel" style={{ width: 520, maxWidth: "calc(100vw - 16px)", height: "min(620px, calc(100dvh - 16px))", maxHeight: "calc(100dvh - 16px)", display: "flex", flexDirection: "column", overflow: "hidden", background: "var(--bg)", border: "1px solid var(--border)", borderRadius: 10, boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, padding: "12px 18px", borderBottom: "1px solid var(--border)" }}>

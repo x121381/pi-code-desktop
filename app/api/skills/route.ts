@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { homedir } from "os";
 import path from "path";
 import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { loadSkillsWithInstallInfo } from "@/lib/skills-service";
+import { userHome } from "@/lib/user-home";
 import { getAllowedFileRoots, isExistingFilePathAllowed } from "@/lib/file-access";
 import { setSkillModelInvocationDisabled } from "@/lib/skill-frontmatter";
 
@@ -41,7 +41,7 @@ export async function PATCH(req: Request) {
     // the agent's skills dir; isExistingFilePathAllowed resolves the symlink, so
     // the real target sits outside getAgentDir(). Allow the global skills root
     // too (the SDK always treats ~/.agents/skills as trusted).
-    const globalSkillsDir = path.join(homedir(), ".agents", "skills");
+    const globalSkillsDir = path.join(userHome(), ".agents", "skills");
     if (existsSync(globalSkillsDir)) allowedRoots.add(globalSkillsDir);
     if (!isExistingFilePathAllowed(filePath, allowedRoots)) {
       return NextResponse.json({ error: "Access denied" }, { status: 403 });

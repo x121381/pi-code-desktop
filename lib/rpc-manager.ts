@@ -8,7 +8,7 @@ import { validateAgentImages } from "./image-attachments";
 import { invalidateModelsCache } from "./models-cache";
 import { resolveVisibleModels, selectInitialModelScope } from "./model-scope";
 import { extractTextContent } from "./session-scan";
-import { cacheSessionPath, invalidateSessionListCache } from "./session-reader";
+import { cacheSessionPath, invalidateSessionListCache, readSessionHeader } from "./session-reader";
 import { getProjectTrustStatus, projectTrustReloadOptions } from "./project-trust";
 import { persistExplicitStartupPreferences } from "./startup-preferences";
 import type { InlineExtension, SlashCommandInfo, ToolCallEvent } from "@earendil-works/pi-coding-agent";
@@ -17,6 +17,11 @@ import type { AgentSessionLike, ExtensionUiContextLike, ToolInfo } from "./pi-ty
 import type { ExtensionUiRequest, ExtensionUiResponse, ExtensionWidgetItem } from "./types";
 import { createHeadlessCustomUiTui, DEFAULT_CUSTOM_UI_COLUMNS } from "./custom-ui-terminal";
 import { getToolNamesForPermissionMode, type PermissionMode } from "./tool-presets";
+import {
+  beginSessionStorageOperation,
+  getSessionDirForCwd,
+  materializeSessionInActiveRoot,
+} from "./session-storage";
 
 // ============================================================================
 // Types
@@ -1361,6 +1366,21 @@ export async function destroyRpcSessionsForCwd(cwd: string): Promise<number> {
   return sessions.length;
 }
 
+/** Drain starts and shut down all live sessions before changing storage roots. */
+export async function shutdownAllRpcSessionsForMigration(): Promise<number> {
+  const starts = [...getLocks().values()];
+  if (starts.length > 0) await Promise.allSettled(starts);
+
+  const sessions = [...getRegistry().values()];
+  await Promise.all(sessions.map(async (session) => {
+    if (session.isRunning()) {
+      try { await session.send({ type: "abort" }); } catch { /* continue shutdown */ }
+    }
+    await session.shutdown();
+  }));
+  return sessions.length;
+}
+
 /**
  * Rows for live sessions the caller does not already know about from disk.
  * Callers pass the ids they scanned so an already-flushed session is never
@@ -1453,12 +1473,29 @@ export async function startRpcSession(
   const inflight = locks.get(sessionId);
   if (inflight) return inflight;
 
+  const releaseStorageOperation = await beginSessionStorageOperation();
+  const existingAfterGate = registry.get(sessionId);
+  if (existingAfterGate?.isAlive()) {
+    releaseStorageOperation();
+    return { session: existingAfterGate, realSessionId: sessionId };
+  }
+
   let sessionManager: SessionManager;
-  if (sessionFile) {
-    sessionManager = SessionManager.open(sessionFile, undefined);
-  } else {
-    if (!cwd) throw new Error("cwd is required for a new session");
-    sessionManager = SessionManager.create(cwd, undefined);
+  try {
+    if (sessionFile) {
+      const currentSessionFile = materializeSessionInActiveRoot(sessionId);
+      if (!currentSessionFile) throw new Error(`Session not found after storage migration: ${sessionId}`);
+      sessionFile = currentSessionFile;
+      const storedCwd = readSessionHeader(sessionFile)?.cwd;
+      const activeSessionDir = storedCwd ? getSessionDirForCwd(storedCwd) : undefined;
+      sessionManager = SessionManager.open(sessionFile, activeSessionDir);
+    } else {
+      if (!cwd) throw new Error("cwd is required for a new session");
+      sessionManager = SessionManager.create(cwd, getSessionDirForCwd(cwd));
+    }
+  } catch (error) {
+    releaseStorageOperation();
+    throw error;
   }
   const sessionCwd = sessionManager.getCwd();
   const finishStartingSession = trackStartingSession(sessionCwd);
@@ -1558,12 +1595,18 @@ export async function startRpcSession(
     const realSessionFile = inner.sessionFile as string | undefined;
     if (realSessionFile) cacheSessionPath(realSessionId, realSessionFile);
 
-    wrapper.onDestroy(() => registry.delete(realSessionId));
+    wrapper.onDestroy(() => {
+      registry.delete(realSessionId);
+      releaseStorageOperation();
+    });
     registry.set(realSessionId, wrapper);
     wrapper.beginExtensionBinding({ forceEmptySystemPrompt: toolNames?.length === 0 });
 
     return { session: wrapper, realSessionId };
-  })().finally(() => {
+  })().catch((error) => {
+    releaseStorageOperation();
+    throw error;
+  }).finally(() => {
     locks.delete(sessionId);
     finishStartingSession();
   });

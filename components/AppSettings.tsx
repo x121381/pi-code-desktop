@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import type { AppComponentReleaseInfo, AppUpdatesResponse } from "@/lib/app-update-types";
 import {
   APP_DISTRIBUTION_NAME,
@@ -18,11 +19,19 @@ import {
   isTauriDesktop,
   type DesktopUpgradeProgress,
 } from "@/lib/desktop-updater";
-import { handleExternalLinkClick, openPathNative, quitAppNative, setCloseQuitsNative } from "@/lib/desktop-native";
+import {
+  handleExternalLinkClick,
+  openPathNative,
+  quitAppNative,
+  selectDirectoryNative,
+  setCloseQuitsNative,
+} from "@/lib/desktop-native";
 import { useI18n } from "@/hooks/useI18n";
-import { SYSTEM_LOCALE } from "@/lib/i18n/types";
+import { SYSTEM_LOCALE, type LocalePreference } from "@/lib/i18n/types";
 import { useTheme } from "@/hooks/useTheme";
 import { useDiffViewMode } from "@/hooks/useDiffViewMode";
+import { CloudAccountPanel } from "./CloudAccountPanel";
+import type { CloudDestination } from "@/lib/cloud-chat-store";
 
 const sectionCardStyle: CSSProperties = {
   padding: "13px 14px",
@@ -42,6 +51,161 @@ const sectionHintStyle: CSSProperties = {
   fontSize: 11,
   lineHeight: 1.5,
 };
+
+type SessionStorageState = {
+  version: 1;
+  activeRoot: string;
+  defaultRoot: string;
+  source: "environment" | "config" | "default";
+  readOnly: boolean;
+  environmentVariable?: "PI_CODING_AGENT_SESSION_DIR";
+  roots: Array<{
+    path: string;
+    kind: "active" | "historical" | "backup";
+    writable: boolean;
+  }>;
+};
+
+type SessionStorageMigration = {
+  sourceRoot: string;
+  targetRoot: string;
+  backupRoot: string;
+  copiedSessions: number;
+  reusedSessions: number;
+};
+
+function LanguageSelect({
+  preference,
+  supportedLocales,
+  t,
+  setLocale,
+  onOpenChange,
+}: {
+  preference: LocalePreference;
+  supportedLocales: Array<{ id: string; label: string }>;
+  t: (key: string) => string;
+  setLocale: (locale: LocalePreference) => void;
+  onOpenChange?: (open: boolean) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const setMenuOpen = useCallback((next: boolean) => {
+    setOpen(next);
+    onOpenChange?.(next);
+  }, [onOpenChange]);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuRect, setMenuRect] = useState<{ top: number; left: number; width: number } | null>(null);
+  const options = [
+    { id: SYSTEM_LOCALE, label: t("appSettings.languageSystem") },
+    ...supportedLocales.map((plugin) => ({ id: plugin.id, label: plugin.label })),
+  ];
+  const selected = options.find((option) => option.id === preference) ?? options[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (triggerRef.current?.contains(target) || menuRef.current?.contains(target)) return;
+      setMenuOpen(false);
+    };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      setMenuOpen(false);
+      triggerRef.current?.focus();
+    };
+    document.addEventListener("mousedown", close);
+    window.addEventListener("keydown", handleKey, true);
+    return () => {
+      document.removeEventListener("mousedown", close);
+      window.removeEventListener("keydown", handleKey, true);
+    };
+  }, [open, setMenuOpen]);
+
+  return (
+    <div className="native-field" style={{ marginTop: 10, maxWidth: 280, position: "relative" }}>
+      <span className="native-field-label">{t("appSettings.languageSection")}</span>
+      <button
+        ref={triggerRef}
+        type="button"
+        className="native-input"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={t("appSettings.languageSection")}
+        onClick={() => {
+          const rect = triggerRef.current?.getBoundingClientRect();
+          if (rect) setMenuRect({ top: rect.bottom + 6, left: rect.left, width: Math.max(rect.width, 220) });
+          setMenuOpen(!open);
+        }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 8,
+          textAlign: "left",
+          cursor: "pointer",
+        }}
+      >
+        <span style={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{selected.label}</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+          <polyline points="2 3.5 5 6.5 8 3.5" />
+        </svg>
+      </button>
+      {open && menuRect && createPortal(
+        <div
+          ref={menuRef}
+          className="native-popover"
+          role="listbox"
+          aria-label={t("appSettings.languageSection")}
+          style={{
+            position: "fixed",
+            top: menuRect.top,
+            left: menuRect.left,
+            width: menuRect.width,
+            zIndex: 1400,
+            maxHeight: 280,
+            overflowY: "auto",
+            padding: 5,
+          }}
+        >
+          {options.map((option) => {
+            const active = option.id === preference;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                role="option"
+                aria-selected={active}
+                onClick={() => {
+                  setLocale(option.id as LocalePreference);
+                  setMenuOpen(false);
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  padding: "7px 9px",
+                  border: 0,
+                  borderRadius: 6,
+                  background: active ? "var(--bg-selected)" : "transparent",
+                  color: active ? "var(--text)" : "var(--text-muted)",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  fontSize: 12,
+                }}
+              >
+                <span style={{ flex: 1 }}>{option.label}</span>
+                {active && <span style={{ color: "var(--accent)" }}>✓</span>}
+              </button>
+            );
+          })}
+        </div>,
+        document.body,
+      )}
+    </div>
+  );
+}
 
 function ChoiceButton({
   active,
@@ -222,6 +386,17 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
   const [notifyOnComplete, setNotifyOnComplete] = useState(() => getPrefBool(APP_PREF_KEYS.notifyOnComplete, true));
   const [customCssBusy, setCustomCssBusy] = useState(false);
   const [customCssError, setCustomCssError] = useState<string | null>(null);
+  const [sessionStorage, setSessionStorage] = useState<SessionStorageState | null>(null);
+  const [sessionStorageLoading, setSessionStorageLoading] = useState(true);
+  const [sessionStorageTarget, setSessionStorageTarget] = useState<string | null>(null);
+  const [sessionStorageBusy, setSessionStorageBusy] = useState(false);
+  const [sessionStorageError, setSessionStorageError] = useState<string | null>(null);
+  const [sessionStorageMigration, setSessionStorageMigration] = useState<SessionStorageMigration | null>(null);
+  const [cloudDestination, setCloudDestination] = useState<CloudDestination>("github");
+  const [settingsSection, setSettingsSection] = useState<"language" | "storage" | "cloud" | "appearance" | "desktop">("language");
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const dialogRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const openCustomCss = async () => {
     setCustomCssBusy(true);
@@ -239,6 +414,86 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
       setCustomCssBusy(false);
     }
   };
+
+  const migrateSessionStorage = async () => {
+    const targetRoot = sessionStorageTarget?.trim();
+    if (!targetRoot || sessionStorageBusy) return;
+
+    setSessionStorageBusy(true);
+    setSessionStorageError(null);
+    setSessionStorageMigration(null);
+    try {
+      const response = await fetch("/api/session-storage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetRoot }),
+      });
+      const data = await response.json().catch(() => ({})) as {
+        error?: string;
+        code?: string;
+        storage?: SessionStorageState;
+        migration?: SessionStorageMigration;
+      };
+      if (!response.ok || !data.storage || !data.migration) {
+        throw new Error(data.code || `HTTP_${response.status}`);
+      }
+      setSessionStorage(data.storage);
+      setSessionStorageMigration(data.migration);
+      setSessionStorageTarget(null);
+    } catch (error) {
+      const code = error instanceof Error ? error.message : String(error);
+      setSessionStorageError(`${t("appSettings.sessionStorageError")} (${code})`);
+    } finally {
+      setSessionStorageBusy(false);
+    }
+  };
+
+  const chooseSessionStorage = async () => {
+    if (!sessionStorage || sessionStorage.readOnly || sessionStorageBusy) return;
+    setSessionStorageError(null);
+    try {
+      const path = await selectDirectoryNative({
+        defaultPath: sessionStorage.activeRoot,
+        title: t("appSettings.sessionStorageSelectTitle"),
+      });
+      if (path && path !== sessionStorage.activeRoot) setSessionStorageTarget(path);
+    } catch (error) {
+      console.error("Failed to select session storage directory:", error);
+      setSessionStorageError(t("appSettings.sessionStorageError"));
+    }
+  };
+
+  const openSessionStorage = async () => {
+    if (!sessionStorage || sessionStorageBusy) return;
+    setSessionStorageError(null);
+    try {
+      await openPathNative(sessionStorage.activeRoot);
+    } catch (error) {
+      console.error("Failed to open session storage directory:", error);
+      setSessionStorageError(t("appSettings.sessionStorageError"));
+    }
+  };
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/session-storage", { cache: "no-store", signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<SessionStorageState>;
+      })
+      .then((data) => {
+        setSessionStorage(data);
+        setSessionStorageError(null);
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setSessionStorageError(t("appSettings.sessionStorageError"));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setSessionStorageLoading(false);
+      });
+    return () => controller.abort();
+  }, [t]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -263,12 +518,50 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
   }, []);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !upgradeProgress) onClose();
+    previousFocusRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const frame = requestAnimationFrame(() => {
+      dialogRef.current?.querySelector<HTMLElement>(
+        "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [href], [tabindex]:not([tabindex='-1'])",
+      )?.focus();
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      previousFocusRef.current?.focus();
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose, upgradeProgress]);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !upgradeProgress && !sessionStorageBusy && !languageMenuOpen) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(
+        "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [href], [tabindex]:not([tabindex='-1'])",
+      ) ?? []);
+      if (focusable.length === 0) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [languageMenuOpen, onClose, sessionStorageBusy, upgradeProgress]);
 
   const appRelease = useMemo(
     () => components.find((component) => component.project === "pi-code-desktop"),
@@ -342,7 +635,7 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
       className="native-modal-backdrop"
       role="presentation"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !upgradeProgress) onClose();
+        if (event.target === event.currentTarget && !upgradeProgress && !sessionStorageBusy) onClose();
       }}
       style={{
         position: "fixed",
@@ -356,12 +649,14 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
       }}
     >
       <section
+        ref={dialogRef}
         className="native-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="app-settings-title"
+        tabIndex={-1}
         style={{
-          width: "min(620px, 100%)",
+          width: "min(820px, 100%)",
           maxHeight: "min(720px, calc(100vh - 36px))",
           display: "flex",
           flexDirection: "column",
@@ -426,38 +721,184 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
             className="native-modal-close"
             type="button"
             onClick={onClose}
-            disabled={Boolean(upgradeProgress)}
+            disabled={Boolean(upgradeProgress) || sessionStorageBusy}
             aria-label={t("appSettings.close")}
             title={t("appSettings.close")}
-            style={{ padding: "1px 5px", border: 0, background: "transparent", color: "var(--text-muted)", cursor: upgradeProgress ? "default" : "pointer", fontSize: 21, lineHeight: 1, opacity: upgradeProgress ? 0.35 : 1 }}
+            style={{
+              padding: "1px 5px",
+              border: 0,
+              background: "transparent",
+              color: "var(--text-muted)",
+              cursor: upgradeProgress || sessionStorageBusy ? "default" : "pointer",
+              fontSize: 21,
+              lineHeight: 1,
+              opacity: upgradeProgress || sessionStorageBusy ? 0.35 : 1,
+            }}
           >
             ×
           </button>
         </header>
 
-        <div style={{ overflowY: "auto", padding: "18px 22px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="settings-layout">
+          <nav className="settings-nav" aria-label={t("appSettings.navLabel")}>
+            {([
+              ["language", "appSettings.languageSection"],
+              ["storage", "appSettings.sessionStorageSection"],
+              ["cloud", "appSettings.cloudSection"],
+              ["appearance", "appSettings.appearanceSection"],
+              ...(desktop ? [["desktop", "appSettings.desktopSection"] as const] : []),
+            ] as const).map(([id, key]) => (
+              <button
+                key={id}
+                type="button"
+                className={`settings-nav-item${settingsSection === id ? " is-active" : ""}`}
+                aria-current={settingsSection === id ? "page" : undefined}
+                onClick={() => setSettingsSection(id)}
+              >
+                {t(key)}
+              </button>
+            ))}
+          </nav>
+          <div style={{ overflowY: "auto", padding: "18px 22px 20px", display: "flex", flexDirection: "column", gap: 12, minWidth: 0, flex: 1 }}>
+          {settingsSection === "language" && (
           <div className="native-settings-card" style={sectionCardStyle}>
             <div style={sectionTitleStyle}>{t("appSettings.languageSection")}</div>
             <div style={sectionHintStyle}>{t("appSettings.languageHint")}</div>
-            <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <ChoiceButton
-                active={preference === SYSTEM_LOCALE}
-                onClick={() => setLocale(SYSTEM_LOCALE)}
-              >
-                {t("appSettings.languageSystem")}
-              </ChoiceButton>
-              {supportedLocales.map((plugin) => (
-                <ChoiceButton
-                  key={plugin.id}
-                  active={preference === plugin.id}
-                  onClick={() => setLocale(plugin.id)}
-                >
-                  {plugin.label}
-                </ChoiceButton>
-              ))}
+            <LanguageSelect
+              preference={preference}
+              supportedLocales={supportedLocales}
+              t={t}
+              setLocale={setLocale}
+              onOpenChange={setLanguageMenuOpen}
+            />
+          </div>
+          )}
+
+          {settingsSection === "storage" && (
+          <div className="native-settings-card" style={sectionCardStyle}>
+            <div style={sectionTitleStyle}>{t("appSettings.sessionStorageSection")}</div>
+            <div style={sectionHintStyle}>{t("appSettings.sessionStorageHint")}</div>
+            <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 9 }}>
+              <label className="native-field">
+                <span className="native-field-label">{t("appSettings.sessionStorageCurrent")}</span>
+                <input
+                  className="native-input"
+                  type="text"
+                  value={sessionStorageTarget ?? sessionStorage?.activeRoot ?? ""}
+                  readOnly
+                  disabled={sessionStorageLoading || sessionStorageBusy}
+                  spellCheck={false}
+                  style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}
+                />
+              </label>
+              {sessionStorage && (
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{ color: "var(--text-dim)", fontSize: 11 }}>
+                    {sessionStorage.source === "environment"
+                      ? t("appSettings.sessionStorageManaged")
+                      : sessionStorage.source === "default"
+                        ? t("appSettings.sessionStorageDefault")
+                        : t("appSettings.sessionStorageCustom")}
+                  </span>
+                  <button
+                    type="button"
+                    className="native-button"
+                    disabled={sessionStorage.readOnly || sessionStorageBusy}
+                    onClick={() => void chooseSessionStorage()}
+                  >
+                    {t("appSettings.sessionStorageChoose")}
+                  </button>
+                  {desktop && (
+                    <button
+                      type="button"
+                      className="native-button"
+                      disabled={sessionStorageBusy}
+                      onClick={() => void openSessionStorage()}
+                    >
+                      {t("appSettings.sessionStorageOpen")}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className="native-button"
+                    disabled={
+                      sessionStorage.readOnly
+                      || sessionStorageBusy
+                      || sessionStorage.activeRoot === sessionStorage.defaultRoot
+                    }
+                    onClick={() => {
+                      setSessionStorageTarget(sessionStorage.defaultRoot);
+                      setSessionStorageError(null);
+                      setSessionStorageMigration(null);
+                    }}
+                  >
+                    {t("appSettings.sessionStorageRestoreDefault")}
+                  </button>
+                </div>
+              )}
+              {sessionStorageTarget?.trim()
+                && sessionStorage
+                && sessionStorageTarget.trim() !== sessionStorage.activeRoot && (
+                  <div
+                    className="native-inline-alert"
+                    role="region"
+                    aria-labelledby="session-storage-confirm-title"
+                    aria-live="polite"
+                  >
+                    <strong id="session-storage-confirm-title" style={{ display: "block", marginBottom: 4 }}>
+                      {t("appSettings.sessionStorageConfirmTitle")}
+                    </strong>
+                    <div>{t("appSettings.sessionStorageConfirmBody", { path: sessionStorageTarget.trim() })}</div>
+                    <div style={{ marginTop: 9, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <button
+                        type="button"
+                        className="native-button native-button-primary"
+                        disabled={sessionStorageBusy}
+                        onClick={() => void migrateSessionStorage()}
+                      >
+                        {sessionStorageBusy
+                          ? t("appSettings.sessionStorageMigrating")
+                          : t("appSettings.sessionStorageConfirm")}
+                      </button>
+                      <button
+                        type="button"
+                        className="native-button"
+                        disabled={sessionStorageBusy}
+                        onClick={() => setSessionStorageTarget(null)}
+                      >
+                        {t("appSettings.sessionStorageCancel")}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              {sessionStorageMigration && (
+                <div className="native-inline-alert is-success" role="status">
+                  {t("appSettings.sessionStorageSuccess")}
+                </div>
+              )}
+              {sessionStorageError && (
+                <div className="native-inline-alert is-error" role="alert">
+                  {sessionStorageError}
+                </div>
+              )}
             </div>
           </div>
+          )}
 
+          {settingsSection === "cloud" && (
+          <div className="native-settings-card" style={sectionCardStyle}>
+            <div style={sectionTitleStyle}>{t("appSettings.cloudSection")}</div>
+            <div style={sectionHintStyle}>{t("appSettings.cloudHint")}</div>
+            <div style={{ marginTop: 10 }}>
+              <CloudAccountPanel
+                destination={cloudDestination}
+                onDestinationChange={setCloudDestination}
+              />
+            </div>
+          </div>
+          )}
+
+          {settingsSection === "appearance" && (
           <div className="native-settings-card" style={sectionCardStyle}>
             <div style={sectionTitleStyle}>{t("appSettings.appearanceSection")}</div>
             <div style={sectionHintStyle}>{t("appSettings.appearanceHint")}</div>
@@ -506,8 +947,9 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
               </div>
             </div>
           </div>
+          )}
 
-          {desktop && (
+          {desktop && settingsSection === "desktop" && (
             <div className="native-settings-card" style={sectionCardStyle}>
               <div style={sectionTitleStyle}>{t("appSettings.desktopSection")}</div>
               <div style={sectionHintStyle}>{t("appSettings.desktopHint")}</div>
@@ -560,6 +1002,7 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
               </div>
             </div>
           )}
+          </div>
         </div>
       </section>
     </div>

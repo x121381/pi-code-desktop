@@ -22,6 +22,11 @@ export type SelectSavePathOptions = {
   filters?: DesktopDialogFilter[];
 };
 
+export type SelectDirectoryOptions = {
+  defaultPath?: string;
+  title?: string;
+};
+
 export type TerminalSize = { rows: number; cols: number };
 
 export async function createTerminal(cwd: string, size: TerminalSize): Promise<string> {
@@ -158,19 +163,41 @@ async function readResponseBytesWithinLimit(
   return bytes;
 }
 
-/** Native folder-selection dialog (desktop shell only). Resolves null when cancelled. */
-export async function selectDirectoryNative(defaultPath?: string): Promise<string | null> {
-  if (!isTauriDesktop()) {
-    throw new Error("Native directory selection is only available in the desktop app.");
+/** Native folder-selection dialog. Resolves null when cancelled. */
+export async function selectDirectoryNative(
+  defaultPathOrOptions?: string | SelectDirectoryOptions,
+): Promise<string | null> {
+  const options = typeof defaultPathOrOptions === "string"
+    ? { defaultPath: defaultPathOrOptions }
+    : (defaultPathOrOptions ?? {});
+  if (isTauriDesktop()) {
+    const { open } = await import("@tauri-apps/plugin-dialog");
+    const selection = await open({
+      directory: true,
+      multiple: false,
+      defaultPath: options.defaultPath,
+      title: options.title ?? "Select project folder",
+    });
+    return typeof selection === "string" ? selection : null;
   }
-  const { open } = await import("@tauri-apps/plugin-dialog");
-  const selection = await open({
-    directory: true,
-    multiple: false,
-    defaultPath,
-    title: "Select project folder",
+
+  const response = await fetch("/api/native-directory", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      defaultPath: options.defaultPath,
+      title: options.title ?? "Select project folder",
+    }),
   });
-  return typeof selection === "string" ? selection : null;
+  const data = await response.json().catch(() => ({})) as {
+    path?: string | null;
+    cancelled?: boolean;
+    error?: string;
+  };
+  if (!response.ok) {
+    throw new Error(data.error || `HTTP ${response.status}`);
+  }
+  return typeof data.path === "string" && data.path ? data.path : null;
 }
 
 /** Native file-selection dialog. Resolves [] when cancelled. */

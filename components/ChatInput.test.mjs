@@ -149,6 +149,15 @@ test("does not restore a historical message over a pending image attachment", ()
   assert.equal(canRestoreUserMessage("draft", 0, 0), false);
 });
 
+test("composer project menu can leave the selected project", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const source = await readFile(new URL("./ChatInput.tsx", import.meta.url), "utf8");
+  assert.match(source, /onLeaveProject\?: \(\) => void/);
+  assert.match(source, /canLeaveProject = Boolean\(onLeaveProject\) && !noProjectMode && Boolean\(projectPath\)/);
+  assert.match(source, /if \(isCurrent && canLeaveProject\) \{\s*onLeaveProject\?\.\(\);/);
+  assert.match(source, /sidebar\.normalChat/);
+});
+
 test("renders compact errors above the input as a wrapping alert", () => {
   const error = "Compaction failed: OpenAI API error (403): <html>request forbidden</html>";
   const html = renderToStaticMarkup(
