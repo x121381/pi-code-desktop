@@ -1,3 +1,4 @@
+globalThis.__ZCODE_VITE_ENV__ = globalThis.__ZCODE_VITE_ENV__ || { MODE: "production", DEV: false, PROD: true, BASE_URL: "/" };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { sessionCreateTelemetrySchema } from "@zcode/shared";
 /* eslint-disable max-lines -- Web 远程控制启动、错误页和 web 平台桥接暂时集中在入口编排。 */
@@ -28,7 +29,7 @@ import { showWebRemoteControlVersionNotice } from "./webRemoteControlVersionNoti
 import { resolveWebRemoteControlRoutePath } from "./webRemoteControlRoute.js";
 import { registerWebRemoteControlWorkspaceBridgeServices, } from "./webRemoteControlWorkspaceBridgeSession.js";
 import { markWebRemoteControlBridgeTaskRead, markWebRemoteControlTaskRead, } from "./webRemoteControlTaskRead.js";
-const viteEnv = import.meta.env ?? {};
+const viteEnv = globalThis.__ZCODE_VITE_ENV__ ?? {};
 function logWebRemoteControlTaskReadFailure(error, context) {
     console.warn("[web-remote-control] 标记手机端 task 已读失败", {
         error: error instanceof Error ? error.message : String(error),

@@ -155,6 +155,17 @@ export function createPiServices(cwd = "~") {
       workspaceKey: params.workspaceIdentity?.trim() || params.workspacePath,
     }),
   };
+  // Task service: unknown methods resolve to empty async results; dynamic
+  // workspace events return no-op subscriptions (task list is empty for now).
+  const __taskServiceProxy = new Proxy({}, {
+    get(_target, prop) {
+      if (typeof prop === "string" && prop.startsWith("onDynamic")) {
+        return () => () => ({ dispose() {} });
+      }
+      return async () => undefined;
+    },
+  });
+  (services as Record<string, unknown>).zcodeTaskService = __taskServiceProxy;
   return services;
 }
 

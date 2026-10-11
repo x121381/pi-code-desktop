@@ -56,7 +56,7 @@ export function useRemoteConnectionForm({ open, isWindowsDesktop, preferredKind,
     const applyingSshAliasRef = useRef(false);
     const dockerOptionsActiveLoadIdRef = useRef(0);
     const dockerOptionsInFlightLoadIdRef = useRef(null);
-    const isLocalDevelopmentRuntime = platform.isLocalDevelopmentRuntime === true || import.meta.env.DEV === true;
+    const isLocalDevelopmentRuntime = platform.isLocalDevelopmentRuntime === true || globalThis.__ZCODE_VITE_ENV__.DEV === true;
     const availableKinds = useMemo(() => buildAvailableKinds({ isWindowsDesktop, isLocalDevelopmentRuntime }), [isLocalDevelopmentRuntime, isWindowsDesktop]);
     useEffect(() => {
         if (availableKinds.includes(kind)) {

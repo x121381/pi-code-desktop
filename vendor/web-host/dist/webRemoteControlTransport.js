@@ -113,7 +113,7 @@ export class WebRemoteControlTerminalTransport {
     staleWaitingRecoveryTimer;
     reconnectTimer;
     desktopOfflineFailureTimer;
-    traceRelayMessages = import.meta.env.DEV;
+    traceRelayMessages = globalThis.__ZCODE_VITE_ENV__.DEV;
     payloadSerializer = new WebRemoteControlRelayPayloadSerializer();
     constructor(options) {
         this.options = options;

@@ -1,6 +1,6 @@
 import { buildRuntimeZCodeEndpointUrls, ZCODE_ENV, } from "@zcode/shared";
 function readRendererImportMetaEnv() {
-    return (import.meta.env ??
+    return (globalThis.__ZCODE_VITE_ENV__ ??
         {});
 }
 export function createRendererZCodeEndpointEnv(env = readRendererImportMetaEnv()) {

@@ -1,5 +1,5 @@
 function readE2EStoreBridgeImportMetaEnv() {
-    return (import.meta.env ??
+    return (globalThis.__ZCODE_VITE_ENV__ ??
         {});
 }
 export function shouldExposeE2EStoreBridge(env = readE2EStoreBridgeImportMetaEnv()) {

@@ -36,7 +36,7 @@ export function createWebZaiOAuthConfig(env = {}) {
         allowDevReturnToRedirect: env.VITE_WEB_REMOTE_ALLOW_DEV_RETURN_TO === "true",
     };
 }
-const env = (import.meta.env ??
+const env = (globalThis.__ZCODE_VITE_ENV__ ??
     {});
 export const WEB_ZAI_OAUTH_CONFIG = createWebZaiOAuthConfig(env);
 export function resolveWebAuthDevReturnTo(config, surface = "remote") {

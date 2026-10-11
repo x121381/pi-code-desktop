@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppErrorBoundary, Root, ZCodeIntlProvider } from "@zcode/ui";
 import { createPiPlatform, createPiServices } from "@/lib/zcode-bridge/pi-services";
 
@@ -12,6 +12,24 @@ import { createPiPlatform, createPiServices } from "@/lib/zcode-bridge/pi-servic
 export function ZCodeRootPage() {
   const services = useMemo(() => createPiServices(), []);
   const platform = useMemo(() => createPiPlatform(), []);
+  const [workspacePath, setWorkspacePath] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetch("/api/no-project-cwd")
+      .then((res) => res.json() as Promise<{ cwd?: string }>)
+      .then((data) => {
+        if (!cancelled && data.cwd) setWorkspacePath(data.cwd);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!workspacePath) {
+    return null;
+  }
 
   return (
     <AppErrorBoundary>
@@ -26,6 +44,7 @@ export function ZCodeRootPage() {
           supportsEmbeddedBrowser={false}
           allowRemoteWorkspace={false}
           preferDirectoryBrowser
+          initialWorkspaceAbsPath={workspacePath}
         />
       </ZCodeIntlProvider>
     </AppErrorBoundary>

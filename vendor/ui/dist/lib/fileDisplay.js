@@ -10,8 +10,8 @@ export function setDefaultFileDisplayBasePath(basePath) {
 }
 function resolveMaterialIconBasePath() {
     const baseUrl = typeof import.meta !== "undefined" &&
-        typeof import.meta.env?.BASE_URL === "string"
-        ? import.meta.env.BASE_URL
+        typeof globalThis.__ZCODE_VITE_ENV__?.BASE_URL === "string"
+        ? globalThis.__ZCODE_VITE_ENV__.BASE_URL
         : "/";
     // web 端 public 资源挂在根路径下，desktop 端则使用 file:// + base="./"。
     // 之前把图标路径写死成 /material-icons，Electron 会把它解析到磁盘根目录，导致 file icon 全部 404。

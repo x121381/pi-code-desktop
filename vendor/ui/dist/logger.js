@@ -1,7 +1,7 @@
 import { formatLogPrefix } from "@zcode/shared";
 function isRendererProductionBuild() {
-    const viteProduction = (import.meta.env ?? {}).PROD === true;
-    // Vitest 的 import.meta.env.PROD 在 transform 阶段固化，NODE_ENV fallback 让生产分支
+    const viteProduction = (globalThis.__ZCODE_VITE_ENV__ ?? {}).PROD === true;
+    // Vitest 的 globalThis.__ZCODE_VITE_ENV__.PROD 在 transform 阶段固化，NODE_ENV fallback 让生产分支
     // 可被单测验证；实际 renderer build 仍以 Vite 的 PROD 标记为准。
     return (viteProduction || (typeof process !== "undefined" && process.env.NODE_ENV === "production"));
 }

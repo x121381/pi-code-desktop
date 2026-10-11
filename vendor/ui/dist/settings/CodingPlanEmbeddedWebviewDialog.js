@@ -14,7 +14,7 @@ import { normalizeThemePreference, resolveTheme } from "../useTheme.js";
 import { buildCodingPlanEmbeddedWebviewUrl, buildCodingPlanEmbeddedReportContext, createCodingPlanAuthInjectionScript, createCodingPlanCredentialClearScript, createCodingPlanLangInjectionScript, createCodingPlanScrollbarHideScript, getCodingPlanCredentialKeys, isTrustedCodingPlanEmbeddedWebviewUrl, resolveCodingPlanEmbeddedOrigin, resolveCodingPlanWebsiteProvider, CODING_PLAN_WEBVIEW_OVERRIDE_ENV_KEY, } from "../settings/model-provider-section/codingPlanEmbeddedWebview.js";
 import { CodingPlanWebviewChannels, ZCODE_ENV, ZCODE_VERSION, } from "@zcode/shared";
 function readCodingPlanWebviewImportMetaEnv() {
-    return (import.meta.env ??
+    return (globalThis.__ZCODE_VITE_ENV__ ??
         {});
 }
 export function CodingPlanEmbeddedWebviewDialog({ credentialService, onOpenChange, open, providerId, funnelContext, audience, teamPlanKey, onPurchaseComplete, onOpenResult, }) {

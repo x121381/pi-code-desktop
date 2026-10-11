@@ -25,7 +25,7 @@ export function RewardsWebview({ onClose }) {
     const theme = (themePreference === "system" ? systemDark : resolveTheme(themePreference) === "dark")
         ? "zai-dark"
         : "zai-light";
-    const env = import.meta.env;
+    const env = globalThis.__ZCODE_VITE_ENV__;
     const policy = { dev: env.DEV, e2e: env.VITE_ZCODE_E2E_STORE_BRIDGE === "1" };
     const [url] = useState(() => buildRewardsUrl(resolveRewardsOrigin({
         ...policy,

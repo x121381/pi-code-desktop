@@ -8,6 +8,7 @@ import {
   conversationSnapshotSchema,
   topicWireFrameCandidateSchema,
 } from "@zcode/shared/zcode-protocol-v4";
+import { zcodeSessionStateSnapshotSchema } from "@zcode/shared";
 import { forgeMinimal, forgeValidated } from "./v4-forge";
 import { Emitter } from "@zcode/rpc";
 
@@ -148,6 +149,26 @@ function wireFrame(
   });
 }
 
+
+function forgedSessionSnapshot(sessionId: string, workspacePath?: string) {
+  const snapshot = forgeMinimal(
+    zcodeSessionStateSnapshotSchema as unknown as Parameters<typeof forgeMinimal>[0],
+    0,
+  ) as Record<string, unknown>;
+  const now = Date.now();
+  const session = (snapshot.session ?? {}) as Record<string, unknown>;
+  session.sessionId = sessionId || ('pi-' + now.toString(36));
+  session.workspace = { path: workspacePath ?? "~" };
+  session.sessionKind = 'task';
+  session.title = '新任务';
+  session.mode = 'continuous';
+  session.status = 'idle';
+  session.createdAt = now;
+  session.updatedAt = now;
+  snapshot.session = session;
+  return snapshot;
+}
+
 export function createPiAgentService(options: PiAgentServiceOptions) {
   const frameEmitter = new Emitter<WireCandidate>();
   const subscriptions = new Map<
@@ -258,6 +279,27 @@ export function createPiAgentService(options: PiAgentServiceOptions) {
       };
     },
     disposeAll() {},
+    async createSession(params: { workspacePath?: string; [key: string]: unknown }) {
+      const workspacePath = (params.workspacePath as string) || options.cwd;
+      const res = await fetch("/api/agent/new", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cwd: workspacePath, type: "ensure_session" }),
+      });
+      if (!res.ok) throw new Error("createSession failed: HTTP " + res.status);
+      const created = (await res.json()) as { sessionId: string; cwd?: string };
+      return forgedSessionSnapshot(created.sessionId, created.cwd ?? workspacePath);
+    },
+    async resumeSession(params: { sessionId?: string; [key: string]: unknown }) {
+      const sessionId = String(params.sessionId ?? "");
+      return forgedSessionSnapshot(sessionId, params.workspacePath as string | undefined);
+    },
+    async readSession(params: { sessionId?: string; [key: string]: unknown }) {
+      return this.resumeSession(params);
+    },
+    async listSessions() {
+      return [] as unknown[];
+    },
     async helloConversationV4() {
       return {
         kind: "hello" as const,
@@ -279,7 +321,16 @@ export function createPiAgentService(options: PiAgentServiceOptions) {
     async initializeConversationV4() {
       return undefined;
     },
-    onDynamicConversationFrame: frameEmitter.event,
+    // Plain Event<T> style: called directly with a listener, returns IDisposable.
+    onAgentRuntimeRestarted: () => ({ dispose() {} }),
+    onDynamicLocalTtftFacts(_scope?: unknown) {
+      return () => ({ dispose() {} });
+    },
+    onDynamicConversationFrame(_workspace?: unknown) {
+      // ProxyChannel dynamic-event convention: called with a scope arg, returns
+      // the Event the UI subscribes to.
+      return frameEmitter.event;
+    },
     async subscribeConversationV4(params: { sessionId: string }) {
       const sessionId = params.sessionId;
       const topic = `conversation/${sessionId}`;

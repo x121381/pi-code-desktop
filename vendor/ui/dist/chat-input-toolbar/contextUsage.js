@@ -601,7 +601,7 @@ export function ChatContextUsage({ codingPlanUsageRemaining, startPlanBalance, t
     }, [intl, numberFormatter, renderableTaskUsage]);
     const cacheHitRateLabel = useMemo(() => {
         return formatContextCacheHitRateLabel(renderableTaskUsage?.cache?.hitRate, locale, {
-            showBelowThreshold: import.meta.env.DEV,
+            showBelowThreshold: globalThis.__ZCODE_VITE_ENV__.DEV,
         });
     }, [locale, renderableTaskUsage]);
     const breakdownSegments = useMemo(() => buildContextUsageBreakdownSegments(renderableTaskUsage?.breakdown), [renderableTaskUsage?.breakdown]);

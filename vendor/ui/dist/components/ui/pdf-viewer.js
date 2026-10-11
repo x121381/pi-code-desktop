@@ -16,7 +16,7 @@ const RANGE_CHUNK_BYTES = 256 * 1024;
 // ReportLab 的 STSong-Light 等 Type0 字体只声明预定义 CMap，PDF 内并未嵌入
 // 字符映射；浏览器原生 PDF 预览自带该资源，而 PDF.js 必须显式传入 cMapUrl。
 // 使用 Vite base 解析，Desktop 的 file:// 与 Web/手机远控的子路径部署都读取各自静态资源。
-const DOCUMENT_OPTIONS = createPdfJsDocumentOptions(typeof import.meta.env?.BASE_URL === "string" ? import.meta.env.BASE_URL : "./", globalThis.location?.href ?? "http://localhost/");
+const DOCUMENT_OPTIONS = createPdfJsDocumentOptions(typeof globalThis.__ZCODE_VITE_ENV__?.BASE_URL === "string" ? globalThis.__ZCODE_VITE_ENV__.BASE_URL : "./", globalThis.location?.href ?? "http://localhost/");
 // range 模式关闭整档预取与流式加载，保持“只拉需要的页”；模块级常量保证引用稳定，
 // 避免 react-pdf 因 options 引用变化重新加载文档。
 const RANGE_DOCUMENT_OPTIONS = {

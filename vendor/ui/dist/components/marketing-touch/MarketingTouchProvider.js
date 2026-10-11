@@ -252,7 +252,7 @@ export function MarketingTouchProvider({ children, desktop, }) {
             },
         });
         poller = createMarketingTouchPoller({
-            intervalMs: resolveMarketingTouchPollIntervalMs(import.meta.env.PROD, ZCODE_ENV),
+            intervalMs: resolveMarketingTouchPollIntervalMs(globalThis.__ZCODE_VITE_ENV__.PROD, ZCODE_ENV),
             query: async () => {
                 await controller.refresh();
                 await controller.showPending();

@@ -1,6 +1,6 @@
 import { DEFAULT_ZCODE_ENDPOINT_ORIGIN, ZCODE_VERSION, buildHelpAppConfigUrl, createHelpAppConfigReader, resolveHelpAppConfig, } from "@zcode/shared";
 import localDefaultAppConfig from "./defaultAppConfig";
-const viteEnv = import.meta.env ?? {};
+const viteEnv = globalThis.__ZCODE_VITE_ENV__ ?? {};
 const readHelpConfig = createHelpAppConfigReader({
     fetchImpl: (input, init) => fetch(input, init),
 });
