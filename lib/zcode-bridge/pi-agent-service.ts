@@ -250,6 +250,14 @@ export function createPiAgentService(options: PiAgentServiceOptions) {
   };
 
   return {
+    async initialize(params: { workspacePath: string; workspaceIdentity?: string }) {
+      // Pi's agent runtime is always available in this host.
+      return {
+        available: true as const,
+        workspaceKey: params.workspaceIdentity?.trim() || params.workspacePath,
+      };
+    },
+    disposeAll() {},
     async helloConversationV4() {
       return {
         kind: "hello" as const,

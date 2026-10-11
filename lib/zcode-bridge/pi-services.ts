@@ -110,6 +110,51 @@ export function createPiServices(cwd = "~") {
   (services as Record<string, unknown>).terminalService = createPiTerminalService();
   const agent = createPiAgentService({ cwd });
   (services as Record<string, unknown>).zcodeAgentService = agent as unknown as IZCodeAgentService;
+  // Skip ZCode's first-run login screen: report a configured provider family so
+  // the startup login-entry guard treats the workspace as ready. Pi's own model
+  // configuration (already automatic) stands in for ZCode's account login.
+  // Report a signed-in local user so Root's login-entry guard closes and the
+  // workspace renders directly (Pi holds its own auth in ~/.pi/agent).
+  const oauthService = services.oauthService as {
+    restoreCachedSessionState: () => Promise<unknown>;
+    restoreCachedSession: () => Promise<unknown>;
+    [key: string]: unknown;
+  };
+  oauthService.restoreCachedSessionState = async () => ({
+    status: 'authenticated',
+    userInfo: { id: 'pi-local', username: 'pi', displayName: 'Pi Code' },
+  });
+  oauthService.restoreCachedSession = async () => null;
+  const settingsService = services.settingService as {
+    get: () => Promise<Record<string, unknown>>;
+    update: (patch: Record<string, unknown>) => Promise<void>;
+    [key: string]: unknown;
+  };
+  const originalSettingsGet = settingsService.get.bind(settingsService);
+  settingsService.get = async () => ({
+    ...(await originalSettingsGet()),
+    providerFamilyDomain: "pi",
+  });
+  // Never re-show the occupation onboarding wizard: Pi hosts configure this
+  // on first run already.
+  (services as Record<string, unknown>).onboardingRecordService = {
+    appendRecord: async () => {},
+    shouldOnboard: async () => false,
+    dismissOnboarding: async () => {},
+    claimAnonymousRecord: async () => {},
+    syncSettingsFromRecord: async () => null,
+    getLatestEntry: async () => null,
+    updateRecordPreferences: async () => {},
+    getRecords: async () => null,
+    clearRecords: async () => {},
+  };
+  (services as Record<string, unknown>).zcodeSessionService = {
+    ...(services as Record<string, unknown>).zcodeSessionService,
+    initializeWorkspace: async (params: { workspacePath: string; workspaceIdentity?: string }) => ({
+      available: true as const,
+      workspaceKey: params.workspaceIdentity?.trim() || params.workspacePath,
+    }),
+  };
   return services;
 }
 
