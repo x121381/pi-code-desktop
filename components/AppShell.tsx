@@ -22,7 +22,6 @@ const AppSettings = dynamic(() => import("./AppSettings").then((m) => m.AppSetti
 const CloudChatDialog = dynamic(() => import("./CloudChatDialog").then((m) => m.CloudChatDialog), { ssr: false });
 const TerminalPanel = dynamic(() => import("./TerminalPanel").then((m) => m.TerminalPanel), { ssr: false });
 const AutoSetupPanel = dynamic(() => import("./models/AutoSetupPanel").then((m) => m.AutoSetupPanel), { ssr: false });
-const TerminalPane = dynamic(() => import("./terminal/TerminalPane").then((m) => m.TerminalPane), { ssr: false });
 import { SessionStatsPanel } from "./SessionStatsPanel";
 import { ProjectTrustDialog } from "./ProjectTrustDialog";
 import { BranchNavigator } from "./BranchNavigator";
