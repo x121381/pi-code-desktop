@@ -174,6 +174,7 @@ export const enLocale: LocalePlugin = {
     "sidebar.noProjectHint": "Chat without picking a folder. Project-only tools stay off.",
     "contextPanel.tabOpen": "Open",
     "contextPanel.tabFiles": "Files",
+    "contextPanel.panelViews": "Panel view",
     "contextPanel.tabSearch": "Search",
     "contextPanel.tabBrowser": "Browser",
     "contextPanel.tabDiff": "Diff",

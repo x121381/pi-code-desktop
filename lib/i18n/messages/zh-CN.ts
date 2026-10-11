@@ -174,6 +174,7 @@ export const zhCNLocale: LocalePlugin = {
     "sidebar.noProjectHint": "无需选择文件夹即可对话，仅项目相关功能不可用。",
     "contextPanel.tabOpen": "打开",
     "contextPanel.tabFiles": "文件",
+    "contextPanel.panelViews": "面板视图",
     "contextPanel.tabSearch": "搜索",
     "contextPanel.tabBrowser": "浏览器",
     "contextPanel.tabDiff": "Diff",
