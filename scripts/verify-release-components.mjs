@@ -13,7 +13,10 @@ const local = await readLocalComponentVersions();
 const remote = await readRemoteComponentVersions();
 const pins = JSON.parse(await readFile(join(rootDir, "scripts", "release-component-pins.json"), "utf8"));
 const problems = [];
-if (compareVersions(local.pi, remote.pi.version) !== 0) {
+if (
+  compareVersions(local.pi, remote.pi.version) !== 0
+  && !isReleasePinValid(pins.pi, local.pi)
+) {
   problems.push(`pi is ${local.pi}; latest Release is ${remote.pi.version}`);
 }
 if (
