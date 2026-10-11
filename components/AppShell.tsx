@@ -21,6 +21,7 @@ const PluginsConfig = dynamic(() => import("./PluginsConfig").then((m) => m.Plug
 const AppSettings = dynamic(() => import("./AppSettings").then((m) => m.AppSettings), { ssr: false });
 const CloudChatDialog = dynamic(() => import("./CloudChatDialog").then((m) => m.CloudChatDialog), { ssr: false });
 const TerminalPanel = dynamic(() => import("./TerminalPanel").then((m) => m.TerminalPanel), { ssr: false });
+const AutoSetupPanel = dynamic(() => import("./models/AutoSetupPanel").then((m) => m.AutoSetupPanel), { ssr: false });
 import { SessionStatsPanel } from "./SessionStatsPanel";
 import { ProjectTrustDialog } from "./ProjectTrustDialog";
 import { BranchNavigator } from "./BranchNavigator";
@@ -2319,6 +2320,12 @@ export function AppShell() {
         }}
       />
     )}
+    <AutoSetupPanel
+      defaultOpen
+      onClose={() => { /* dismissal is tracked inside the panel */ }}
+      onOpenAdvanced={() => setModelsConfigOpen(true)}
+      onModelsChanged={() => setModelsRefreshKey((key) => key + 1)}
+    />
     <UpdateReminder onOpenSettings={() => setAppSettingsOpen(true)} />
     </>
   );
