@@ -374,7 +374,7 @@ function VersionChip({
 
 export function AppSettings({ onClose }: { onClose: () => void }) {
   const { t, preference, setLocale, supportedLocales } = useI18n();
-  const { theme, setTheme } = useTheme();
+  const { themeMode, setTheme } = useTheme();
   const { mode: diffViewMode, setMode: setDiffViewMode } = useDiffViewMode();
   const desktop = isTauriDesktop();
   const [components, setComponents] = useState<AppComponentReleaseInfo[]>([]);
@@ -903,10 +903,13 @@ export function AppSettings({ onClose }: { onClose: () => void }) {
             <div style={sectionTitleStyle}>{t("appSettings.appearanceSection")}</div>
             <div style={sectionHintStyle}>{t("appSettings.appearanceHint")}</div>
             <div style={{ marginTop: 10, display: "flex", gap: 8 }}>
-              <ChoiceButton active={theme === "light"} onClick={() => setTheme("light")}>
+              <ChoiceButton active={themeMode === "system"} onClick={() => setTheme("system")}>
+                {t("appSettings.themeSystem")}
+              </ChoiceButton>
+              <ChoiceButton active={themeMode === "light"} onClick={() => setTheme("light")}>
                 {t("appSettings.themeLight")}
               </ChoiceButton>
-              <ChoiceButton active={theme === "dark"} onClick={() => setTheme("dark")}>
+              <ChoiceButton active={themeMode === "dark"} onClick={() => setTheme("dark")}>
                 {t("appSettings.themeDark")}
               </ChoiceButton>
             </div>

@@ -4,7 +4,9 @@ import { useCallback, useSyncExternalStore } from "react";
 import { APP_PREF_KEYS, getPref, setPref } from "@/lib/app-prefs";
 import { isTauriDesktop } from "@/lib/desktop-updater";
 
-type Theme = "light" | "dark";
+/** "system" follows the OS appearance; light/dark pin an explicit choice. */
+export type ThemeMode = "light" | "dark" | "system";
+export type ResolvedTheme = "light" | "dark";
 
 const listeners = new Set<() => void>();
 
@@ -15,30 +17,34 @@ function subscribe(cb: () => void): () => void {
   };
 }
 
-function getSnapshot(): Theme {
+function systemTheme(): ResolvedTheme {
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function storedMode(): ThemeMode | null {
+  const t = getPref(APP_PREF_KEYS.theme);
+  return t === "dark" || t === "light" || t === "system" ? t : null;
+}
+
+function resolveMode(mode: ThemeMode): ResolvedTheme {
+  return mode === "system" ? systemTheme() : mode;
+}
+
+function getSnapshot(): ResolvedTheme {
   if (typeof document === "undefined") return "light";
   return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
-function getServerSnapshot(): Theme {
+function getServerSnapshot(): ResolvedTheme {
   return "light";
 }
 
-function storedTheme(): Theme | null {
-  const t = getPref(APP_PREF_KEYS.theme);
-  return t === "dark" || t === "light" ? t : null;
-}
-
-function systemTheme(): Theme {
-  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-function paintThemeClass(next: Theme) {
+function paintThemeClass(next: ResolvedTheme) {
   document.documentElement.classList.toggle("dark", next === "dark");
   document.documentElement.style.colorScheme = next;
 }
 
-async function persistNativeTheme(theme: Theme): Promise<void> {
+async function persistNativeTheme(theme: ResolvedTheme): Promise<void> {
   if (!isTauriDesktop()) return;
   try {
     const { invoke } = await import("@tauri-apps/api/core");
@@ -52,12 +58,12 @@ function notify() {
   listeners.forEach((cb) => cb());
 }
 
-function applyTheme(next: Theme, animate: boolean) {
+function applyResolved(resolved: ResolvedTheme, animate: boolean, then?: () => void) {
   const apply = () => {
-    paintThemeClass(next);
-    setPref(APP_PREF_KEYS.theme, next);
-    void persistNativeTheme(next);
+    paintThemeClass(resolved);
+    void persistNativeTheme(resolved);
     notify();
+    then?.();
   };
 
   if (!animate) {
@@ -92,20 +98,21 @@ function applyTheme(next: Theme, animate: boolean) {
 // hydration never briefly inherits the OS appearance after the blocking
 // layout script. Also mirror an explicit choice into the desktop store.
 if (typeof window !== "undefined") {
-  const stored = storedTheme();
-  paintThemeClass(stored ?? systemTheme());
-  if (stored) {
+  const stored = storedMode();
+  const initial = resolveMode(stored ?? "system");
+  paintThemeClass(initial);
+  if (stored && stored !== "system") {
     // Defer IPC until after the current turn so __TAURI_INTERNALS__ is ready.
     queueMicrotask(() => {
-      void persistNativeTheme(stored);
+      void persistNativeTheme(initial);
     });
   }
 
-  // Follow the OS appearance until the user picks a theme explicitly
-  // (toggleTheme / setTheme persists the choice, which stops the auto-follow).
+  // "system" (and no stored choice) follows the OS appearance live; an explicit
+  // light/dark pin stops the auto-follow.
   const media = window.matchMedia?.("(prefers-color-scheme: dark)");
   media?.addEventListener?.("change", (event) => {
-    if (storedTheme() !== null) return;
+    if (storedMode() === "light" || storedMode() === "dark") return;
     paintThemeClass(event.matches ? "dark" : "light");
     notify();
   });
@@ -115,19 +122,15 @@ export function useTheme() {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggleTheme = useCallback(() => {
-    applyTheme(getSnapshot() === "dark" ? "light" : "dark", true);
+    applyResolved(getSnapshot() === "dark" ? "light" : "dark", true, () => {
+      setPref(APP_PREF_KEYS.theme, getSnapshot());
+    });
   }, []);
 
-  const setTheme = useCallback((next: Theme) => {
-    // Always persist — clicking the already-active choice should still pin the
-    // preference so a later OS dark-mode change cannot steal it back.
-    if (getSnapshot() === next) {
-      setPref(APP_PREF_KEYS.theme, next);
-      void persistNativeTheme(next);
-      return;
-    }
-    applyTheme(next, true);
+  const setTheme = useCallback((next: ThemeMode) => {
+    setPref(APP_PREF_KEYS.theme, next);
+    applyResolved(resolveMode(next), true);
   }, []);
 
-  return { theme, toggleTheme, setTheme, isDark: theme === "dark" };
+  return { theme, themeMode: storedMode() ?? "system", toggleTheme, setTheme, isDark: theme === "dark" };
 }

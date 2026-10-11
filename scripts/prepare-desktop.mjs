@@ -67,6 +67,19 @@ async function assembleServer() {
     await cp(source, destination, { recursive: true, force: true });
   }
 
+  // node-pty is a native module: its JS entry requires a platform-specific
+  // prebuilt package (@lydell/node-pty-<platform>-<arch>) that sits outside
+  // the traced import graph. Copy every installed platform package verbatim —
+  // the wrong-platform ones are inert and tiny.
+  for (const entry of await readdir(join(rootDir, "node_modules", "@lydell"), { withFileTypes: true })) {
+    if (!entry.isDirectory() || !entry.name.startsWith("node-pty")) continue;
+    await cp(
+      join(rootDir, "node_modules", "@lydell", entry.name),
+      join(serverResourcesDir, "node_modules", "@lydell", entry.name),
+      { recursive: true, force: true },
+    );
+  }
+
   await copyFile(
     join(rootDir, "desktop", "server-launcher.cjs"),
     join(serverResourcesDir, "desktop-server.cjs"),

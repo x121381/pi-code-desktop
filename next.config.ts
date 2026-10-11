@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
     "@earendil-works/pi-agent-core",
     "@earendil-works/pi-ai",
     "@earendil-works/pi-tui",
+    "@lydell/node-pty",
   ],
   experimental: {
     optimizePackageImports: ["@lobehub/icons", "react-syntax-highlighter"],

@@ -1,0 +1,329 @@
+/*
+ * ZCode (zai) theme layer — ported from zai-org/ZCode `packages/ui/src/styles.css`
+ * (Apache-2.0). Defines the zai-light / zai-dark palettes as the app's canonical
+ * light/dark themes, and remaps the legacy `--bg/--text/--accent` variables onto
+ * them so components not yet migrated to the new tokens re-skin automatically.
+ * This file must be imported AFTER globals.css so these definitions win.
+ */
+
+:root {
+  /* ---- zai-light core surfaces ---- */
+  --color-background: #f8f8f8;
+  --color-background-alt: rgba(248, 248, 248, 0.7);
+  --color-background-win-alt: #ececee;
+  --color-brand: #000000;
+  --color-accent: #ebf4ff;
+  --color-border: rgba(13, 13, 13, 0.1);
+  --color-border-hover: rgba(13, 13, 13, 0.15);
+  --color-hover: rgba(13, 13, 13, 0.05);
+  --color-selected: rgba(13, 13, 13, 0.05);
+  --color-header: #ffffff;
+  --color-panel: #ffffff;
+  --color-sidebar: #f0f0f0;
+  --color-surface: rgba(13, 13, 13, 0.03);
+  --color-surface-hover: rgba(13, 13, 13, 0.05);
+  --color-card: #ffffff;
+  --color-card-selected: #ffffff;
+  --color-card-border: var(--color-border);
+  --color-popover: #ffffff;
+  --color-popover-foreground: #262626;
+  --color-popover-header: #f8f8f8;
+  --color-popover-border: var(--color-border);
+  --color-input: #ffffff;
+  --color-input-focused: #ffffff;
+  --color-input-border: var(--color-border);
+  --color-input-border-hover: var(--color-border-hover);
+  --color-input-border-focused: var(--color-border-hover);
+  --color-tab: #f0f0f0;
+  --color-tab-active: #ffffff;
+  --color-tab-border: var(--color-border);
+  --color-menu: #ffffff;
+  --color-menu-hover: #f0f0f0;
+  --color-primary: #000000;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #e6e6e6;
+  --color-foreground: #262626;
+  --color-foreground-subtle: rgba(13, 13, 13, 0.62);
+  --color-foreground-subtlest: rgba(13, 13, 13, 0.4);
+  --color-foreground-inverse: #ffffff;
+  --color-tag: #e6e6e6;
+  --color-tooltip: #f0f0f0;
+  --color-tooltip-foreground: #0d0d0d;
+  --color-tooltip-tag: #e6e6e6;
+  --color-tooltip-tag-foreground: #5c5c5c;
+
+  /* ---- zai-light status ---- */
+  --color-success: #1e8a3e;
+  --color-success-foreground: #ffffff;
+  --color-destructive: #e03131;
+  --color-destructive-foreground: #ffffff;
+  --color-warning: #e07b00;
+  --color-warning-foreground: #ffffff;
+  --color-diff-added: #1e8a3e;
+  --color-diff-added-foreground: #ffffff;
+  --color-diff-removed: #e03131;
+  --color-diff-removed-foreground: #ffffff;
+
+  /* ---- zai-light git ---- */
+  --color-git-modified: #e07b00;
+  --color-git-added: #1e8a3e;
+  --color-git-deleted: #e03131;
+  --color-git-renamed: #0b7fff;
+  --color-git-untracked: #1e8a3e;
+  --color-git-ignored: rgba(13, 13, 13, 0.4);
+
+  /* ---- zai-light terminal (full ANSI set) ---- */
+  --color-terminal-bg: #f8f8f8;
+  --color-terminal-fg: #262626;
+  --color-terminal-cursor: #0d0d0d;
+  --color-terminal-cursor-accent: #f8f8f8;
+  --color-terminal-selection: rgba(11, 127, 255, 0.22);
+  --color-terminal-selection-inactive: rgba(13, 13, 13, 0.1);
+  --color-terminal-black: #5c5c5c;
+  --color-terminal-red: #e03131;
+  --color-terminal-green: #1e8a3e;
+  --color-terminal-yellow: #e07b00;
+  --color-terminal-blue: #0b7fff;
+  --color-terminal-magenta: #9e77ed;
+  --color-terminal-cyan: #0aa7a7;
+  --color-terminal-white: #adadad;
+  --color-terminal-bright-black: #888888;
+  --color-terminal-bright-red: #e03131;
+  --color-terminal-bright-green: #1e8a3e;
+  --color-terminal-bright-yellow: #e07b00;
+  --color-terminal-bright-blue: #0066dd;
+  --color-terminal-bright-magenta: #9e77ed;
+  --color-terminal-bright-cyan: #0aa7a7;
+  --color-terminal-bright-white: #0d0d0d;
+
+  /* ---- zai-light node accents ---- */
+  --color-file-node: rgba(26, 112, 184, 0.1);
+  --color-file-node-hover: rgba(26, 112, 184, 0.16);
+  --color-file-node-foreground: #1a70b8;
+  --color-skill-node: rgba(116, 83, 176, 0.1);
+  --color-skill-node-hover: rgba(116, 83, 176, 0.16);
+  --color-skill-node-foreground: #7453b0;
+  --color-command-node: rgba(86, 98, 112, 0.1);
+  --color-command-node-hover: rgba(86, 98, 112, 0.16);
+  --color-command-node-foreground: #566270;
+  --color-session-node: rgba(20, 128, 122, 0.1);
+  --color-session-node-hover: rgba(20, 128, 122, 0.16);
+  --color-session-node-foreground: #14807a;
+  --color-plugin-node: rgba(184, 122, 26, 0.1);
+  --color-plugin-node-hover: rgba(184, 122, 26, 0.16);
+  --color-plugin-node-foreground: #b87a1a;
+
+  /* ---- zai-light trajectory (per-role chat accents) ---- */
+  --color-trajectory-user: #2563eb;
+  --color-trajectory-assistant: #0f766e;
+  --color-trajectory-reasoning: #7c3aed;
+  --color-trajectory-tool-call: #d97706;
+  --color-trajectory-tool-result: #0284c7;
+
+  /* ---- zai-light interaction ---- */
+  --color-interaction-ask-surface: #ebf4ff;
+  --color-interaction-ask-foreground: #0066dd;
+  --color-interaction-ask-fill: rgba(70, 191, 114, 0.2);
+  --color-interaction-confirmation-surface: #eaf7ee;
+  --color-interaction-confirmation-foreground: #166b32;
+  --color-find-highlight: #fff4eb;
+  --color-find-highlight-active: #ffb26b;
+
+  /* ---- zai-light CJK-safe monospace stack ---- */
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", monospace;
+
+  /* ---- legacy variable remap (existing components) ---- */
+  --bg: #f8f8f8;
+  --bg-panel: #f0f0f0;
+  --bg-hover: rgba(13, 13, 13, 0.05);
+  --bg-selected: rgba(13, 13, 13, 0.08);
+  --border: rgba(13, 13, 13, 0.1);
+  --text: #262626;
+  --text-muted: rgba(13, 13, 13, 0.62);
+  --text-dim: rgba(13, 13, 13, 0.42);
+  --accent: #000000;
+  --accent-hover: #262626;
+  --accent-contrast: #ffffff;
+  --user-bg: rgba(11, 127, 255, 0.07);
+  --assistant-bg: #ffffff;
+  --tool-bg: rgba(13, 13, 13, 0.03);
+  --bg-subtle: rgba(13, 13, 13, 0.03);
+  --success: #1e8a3e;
+  --danger: #e03131;
+  --warning: #e07b00;
+}
+
+html.dark {
+  /* ---- zai-dark core surfaces ---- */
+  --color-background: #161616;
+  --color-background-alt: rgba(43, 43, 43, 0.6);
+  --color-background-win-alt: #2b2b2b;
+  --color-brand: #ffffff;
+  --color-accent: #001d3d;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-hover: rgba(255, 255, 255, 0.05);
+  --color-selected: rgba(255, 255, 255, 0.1);
+  --color-header: #202020;
+  --color-panel: #202020;
+  --color-sidebar: #161616;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-hover: rgba(255, 255, 255, 0.1);
+  --color-card: #2b2b2b;
+  --color-card-selected: #2b2b2b;
+  --color-card-border: var(--color-border);
+  --color-popover: #2b2b2b;
+  --color-popover-foreground: #d4d4d4;
+  --color-popover-header: #202020;
+  --color-popover-border: var(--color-border);
+  --color-input: #2b2b2b;
+  --color-input-focused: #2b2b2b;
+  --color-input-border: var(--color-border);
+  --color-input-border-hover: var(--color-border-hover);
+  --color-input-border-focused: var(--color-border-hover);
+  --color-tab: #202020;
+  --color-tab-active: #161616;
+  --color-tab-border: var(--color-border);
+  --color-menu: #2b2b2b;
+  --color-menu-hover: #363636;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #000000;
+  --color-secondary: #363636;
+  --color-foreground: #d4d4d4;
+  --color-foreground-subtle: rgba(212, 212, 212, 0.62);
+  --color-foreground-subtlest: rgba(212, 212, 212, 0.4);
+  --color-foreground-inverse: #000000;
+  --color-tag: #363636;
+  --color-tooltip: #2b2b2b;
+  --color-tooltip-foreground: #f8f8f8;
+  --color-tooltip-tag: #363636;
+  --color-tooltip-tag-foreground: #adadad;
+
+  /* ---- zai-dark status ---- */
+  --color-success: #46bf72;
+  --color-success-foreground: #000000;
+  --color-destructive: #ff5c5c;
+  --color-destructive-foreground: #ffffff;
+  --color-warning: #ff8a30;
+  --color-warning-foreground: #000000;
+  --color-diff-added: #46bf72;
+  --color-diff-added-foreground: #000000;
+  --color-diff-removed: #ff5c5c;
+  --color-diff-removed-foreground: #000000;
+
+  /* ---- zai-dark git ---- */
+  --color-git-modified: #ff8a30;
+  --color-git-added: #46bf72;
+  --color-git-deleted: #ff5c5c;
+  --color-git-renamed: #4099ff;
+  --color-git-untracked: #46bf72;
+  --color-git-ignored: rgba(212, 212, 212, 0.4);
+
+  /* ---- zai-dark terminal (full ANSI set) ---- */
+  --color-terminal-bg: #161616;
+  --color-terminal-fg: #d4d4d4;
+  --color-terminal-cursor: #f8f8f8;
+  --color-terminal-cursor-accent: #161616;
+  --color-terminal-selection: rgba(64, 153, 255, 0.28);
+  --color-terminal-selection-inactive: rgba(255, 255, 255, 0.1);
+  --color-terminal-black: #363636;
+  --color-terminal-red: #ff5c5c;
+  --color-terminal-green: #46bf72;
+  --color-terminal-yellow: #ff8a30;
+  --color-terminal-blue: #4099ff;
+  --color-terminal-magenta: #7b5ce5;
+  --color-terminal-cyan: #42c8c8;
+  --color-terminal-white: #adadad;
+  --color-terminal-bright-black: #747474;
+  --color-terminal-bright-red: #ff9999;
+  --color-terminal-bright-green: #87d9a4;
+  --color-terminal-bright-yellow: #ffb26b;
+  --color-terminal-bright-blue: #80beff;
+  --color-terminal-bright-magenta: #a888f2;
+  --color-terminal-bright-cyan: #8ee5e5;
+  --color-terminal-bright-white: #f8f8f8;
+
+  /* ---- zai-dark node accents ---- */
+  --color-file-node: rgba(112, 174, 224, 0.16);
+  --color-file-node-hover: rgba(112, 174, 224, 0.22);
+  --color-file-node-foreground: #8fc5ef;
+  --color-skill-node: rgba(166, 137, 218, 0.16);
+  --color-skill-node-hover: rgba(166, 137, 218, 0.22);
+  --color-skill-node-foreground: #bda5e6;
+  --color-command-node: rgba(154, 166, 180, 0.14);
+  --color-command-node-hover: rgba(154, 166, 180, 0.2);
+  --color-command-node-foreground: #b5c0cc;
+  --color-session-node: rgba(104, 196, 188, 0.16);
+  --color-session-node-hover: rgba(104, 196, 188, 0.22);
+  --color-session-node-foreground: #93d8d2;
+  --color-plugin-node: rgba(224, 174, 112, 0.16);
+  --color-plugin-node-hover: rgba(224, 174, 112, 0.22);
+  --color-plugin-node-foreground: #efc58f;
+
+  /* ---- zai-dark trajectory (per-role chat accents) ---- */
+  --color-trajectory-user: #60a5fa;
+  --color-trajectory-assistant: #2dd4bf;
+  --color-trajectory-reasoning: #a78bfa;
+  --color-trajectory-tool-call: #f59e0b;
+  --color-trajectory-tool-result: #38bdf8;
+
+  /* ---- zai-dark interaction ---- */
+  --color-interaction-ask-surface: #001d3d;
+  --color-interaction-ask-foreground: #80beff;
+  --color-interaction-ask-fill: rgba(70, 191, 114, 0.24);
+  --color-interaction-confirmation-surface: rgba(70, 191, 114, 0.16);
+  --color-interaction-confirmation-foreground: #87d9a4;
+  --color-find-highlight: #542500;
+  --color-find-highlight-active: #ff8a30;
+
+  /* ---- legacy variable remap (existing components) ---- */
+  --bg: #161616;
+  --bg-panel: #202020;
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-selected: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #d4d4d4;
+  --text-muted: rgba(255, 255, 255, 0.62);
+  --text-dim: rgba(255, 255, 255, 0.4);
+  --accent: #ffffff;
+  --accent-hover: #f0f0f0;
+  --accent-contrast: #000000;
+  --user-bg: rgba(64, 153, 255, 0.1);
+  --assistant-bg: #161616;
+  --tool-bg: rgba(255, 255, 255, 0.05);
+  --bg-subtle: rgba(255, 255, 255, 0.05);
+  --success: #46bf72;
+  --danger: #ff5c5c;
+  --warning: #ff8a30;
+}
+
+/* ZCode global scrollbar treatment: transparent track + rounded thumb, uniform
+ * across panels, dropdowns and code areas in both themes. */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 32px;
+  min-width: 32px;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+  background: var(--color-border);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
