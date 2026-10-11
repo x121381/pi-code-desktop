@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { homedir } from "os";
 import { existsSync } from "fs";
+import { userHome } from "@/lib/user-home";
 import { getAllowedFileRoots, isExistingFilePathAllowed } from "@/lib/file-access";
 import { isApiRequestAllowed } from "@/lib/request-security";
 import {
@@ -22,11 +22,11 @@ export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({})) as { cwd?: string; cols?: number; rows?: number };
     const allowedRoots = await getAllowedFileRoots();
-    let cwd = typeof body.cwd === "string" && body.cwd ? body.cwd : homedir();
+    let cwd = typeof body.cwd === "string" && body.cwd ? body.cwd : userHome();
     if (!existsSync(cwd) || !isExistingFilePathAllowed(cwd, allowedRoots)) {
       // Fall back to home rather than failing: the terminal is a general
       // surface and the server's home dir is always an allowed root.
-      cwd = homedir();
+      cwd = userHome();
     }
 
     const session = await createTerminalSession({
