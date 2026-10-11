@@ -1,4 +1,4 @@
-import { spawn, type IPty } from "@lydell/node-pty";
+import type { IPty } from "@lydell/node-pty";
 
 /**
  * Server-side registry of interactive PTY sessions backing the embedded
@@ -45,16 +45,19 @@ export function terminalSessionsForCwd(cwd: string): TerminalSession[] {
   return [...sessions.values()].filter((session) => session.cwd === cwd);
 }
 
-export function createTerminalSession(options: {
+export async function createTerminalSession(options: {
   cwd: string;
   cols?: number;
   rows?: number;
-}): TerminalSession {
-  // Lazy require: a missing/broken native binary should only fail terminal
-  // creation, never the whole server module graph.
+}): Promise<TerminalSession> {
+  // Lazy dynamic import: a missing/broken native binary should only fail
+  // terminal creation, never the whole server module graph.
   let pty: IPty;
   try {
-    const nodePty = require("@lydell/node-pty") as typeof import("@lydell/node-pty");
+    const mod = (await import("@lydell/node-pty")) as unknown as {
+      default?: typeof import("@lydell/node-pty");
+    } & typeof import("@lydell/node-pty");
+    const nodePty = mod.default ?? mod;
     const shell = defaultShell();
     pty = nodePty.spawn(shell, defaultArgs(shell), {
       cwd: options.cwd,

@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       cwd = homedir();
     }
 
-    const session = createTerminalSession({
+    const session = await createTerminalSession({
       cwd,
       cols: typeof body.cols === "number" ? body.cols : undefined,
       rows: typeof body.rows === "number" ? body.rows : undefined,

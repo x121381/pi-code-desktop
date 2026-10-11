@@ -1630,3 +1630,9 @@ span.linenumber {
   color: var(--color-foreground);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
+
+/* ---- Chat polish (zai style): rounded message cards ---- */
+.message-user,
+.message-assistant {
+  border-radius: 12px;
+}
