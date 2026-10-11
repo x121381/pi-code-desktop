@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "appVersion": "0.1.5",
+  "appVersion": "0.2.0",
   "components": [
     {
       "id": "pi-code-desktop",
       "repository": "x121381/pi-code-desktop",
-      "version": "0.1.5"
+      "version": "0.2.0"
     },
     {
       "id": "pi",

@@ -149,6 +149,46 @@ jobs:
             - 对话、文件树和预览可拖到左 / 右 / 下停靠，并记住布局。
             - 会话存储位置可更改，复制并校验后生效；原目录保留为备份。
             - 123、百度、阿里网盘仍显示为不可用图标，直到有可用的第三方 OAuth 应用。
+            ## Pi Code Desktop 0.2.0
+
+            Major UI redesign adopting the ZCode design language, plus an embedded
+            terminal and zero-entry model setup.
+
+            **Changes**
+            - New zai theme (light/dark/system): the full ZCode color system —
+              surfaces, borders, terminal ANSI palette, Git status colors — now
+              powers the entire app; every component re-skins automatically.
+            - Embedded interactive terminal (right panel, Files/Terminal switch):
+              xterm.js frontend with a node-pty backend (SSE output, batched
+              input, resize). Degrades gracefully if the pty backend is
+              unavailable on a platform.
+            - Automatic model setup: on first run a sign-in panel lists OAuth
+              providers (Anthropic, ChatGPT, Copilot, ...). Signing in makes
+              models appear automatically — no API keys, base URLs, or model IDs
+              to fill in. Manual configuration remains under Advanced.
+            - Theme mode is now System / Light / Dark (follows the OS when
+              System is chosen).
+            - Rounded chat cards and ZCode-style visual polish.
+            - Apache-2.0 attribution: theme tokens ported from zai-org/ZCode.
+
+            ---
+
+            ## Pi Code Desktop 0.2.0
+
+            采用 ZCode 设计语言的界面大改版，附带内嵌终端与零手填模型配置。
+
+            **变更**
+            - 全新 zai 主题（浅色/深色/跟随系统）：完整移植 ZCode 配色系统——
+              表面、边框、终端 ANSI 色板、Git 状态色——全应用自动换肤。
+            - 内嵌交互式终端（右侧面板，文件/终端切换）：xterm.js 前端 +
+              node-pty 后端（SSE 输出、批量输入、自适应尺寸）。平台不支持
+              pty 时优雅降级。
+            - 模型自动获取：首次运行显示登录面板，列出 OAuth 服务商
+              （Anthropic、ChatGPT、Copilot 等）。登录后模型自动出现——
+              无需填写 API Key、Base URL 或模型 ID。手动配置保留在高级入口。
+            - 主题模式改为 跟随系统 / 浅色 / 深色。
+            - 圆角聊天卡片与 ZCode 风格视觉打磨。
+            - Apache-2.0 署名：主题令牌移植自 zai-org/ZCode。
           # Every platform appends to the same draft. The manifest job publishes
           # it only after the complete matrix succeeds.
           releaseDraft: true
