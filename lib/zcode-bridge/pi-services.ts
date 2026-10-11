@@ -149,7 +149,7 @@ export function createPiServices(cwd = "~") {
     clearRecords: async () => {},
   };
   (services as Record<string, unknown>).zcodeSessionService = {
-    ...(services as Record<string, unknown>).zcodeSessionService,
+    ...((services as Record<string, unknown>).zcodeSessionService as Record<string, unknown>),
     initializeWorkspace: async (params: { workspacePath: string; workspaceIdentity?: string }) => ({
       available: true as const,
       workspaceKey: params.workspaceIdentity?.trim() || params.workspacePath,
