@@ -2,7 +2,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import * as React from "react";
 import { cva } from "class-variance-authority";
 import { Tabs as TabsPrimitive } from "radix-ui";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 function Tabs({ className, orientation = "horizontal", ...props }) {
     return (_jsx(TabsPrimitive.Root, { "data-slot": "tabs", "data-orientation": orientation, className: cn("group/tabs flex data-horizontal:flex-col", className), ...props }));
 }

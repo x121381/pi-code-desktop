@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatCompactTokenNumber } from "@/lib/tokenNumberFormat.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatCompactTokenNumber } from "../../lib/tokenNumberFormat.js";
 export function StartPlanCard({ preview, actions, }) {
     const { intl, locale } = useZCodeIntl();
     const entitlementSummary = resolveStartPlanEntitlementSummary(preview, intl, locale);

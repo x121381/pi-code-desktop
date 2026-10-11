@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { parseMarketingTouchResponse } from "@zcode/shared";
-import { readApiJson } from "#src/providers/api/apiJson.js";
+import { readApiJson } from "../providers/api/apiJson.js";
 const localeSchema = z.enum(["zh-CN", "en-US"]);
 // 序号属于本次服务进程启动，不能随组件、账号或服务实例重建而归零。
 let bootRequestSeq = 0;

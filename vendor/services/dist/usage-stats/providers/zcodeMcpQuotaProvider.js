@@ -8,8 +8,8 @@
  */
 import { z } from "zod";
 import { MCP_USAGE_QUOTA_LIMIT_TYPE, buildRuntimeZCodeApiUrl, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { buildOfficialMcpAuthHeaders, } from "#src/official-mcp/officialMcpCredentials.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
+import { buildOfficialMcpAuthHeaders, } from "../../official-mcp/officialMcpCredentials.js";
 const MCP_USAGE_PATH = "/api/v1/mcp/usage";
 const REQUEST_TIMEOUT_MS = 15_000;
 const log = createServiceLogger("usage-stats");

@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { browserGlobalNoticeStore, } from "@/global-notice/globalNoticeStore.js";
-import { HighspeedShareNoticeCard } from "@/highspeed/HighspeedShareNoticeCard.js";
+import { browserGlobalNoticeStore, } from "../global-notice/globalNoticeStore.js";
+import { HighspeedShareNoticeCard } from "../highspeed/HighspeedShareNoticeCard.js";
 const subscribeNoop = () => () => undefined;
 const getNullSnapshot = () => null;
 export function GlobalNoticeSurface({ store = browserGlobalNoticeStore, } = {}) {

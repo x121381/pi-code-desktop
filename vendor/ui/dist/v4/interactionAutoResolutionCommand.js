@@ -1,6 +1,6 @@
-import { logger } from "@/logger.js";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { pendingCommandRegistry } from "@/v4/pendingCommandRegistry.js";
+import { logger } from "../logger.js";
+import { createCommandEnvelope } from "../v4/commandFactory.js";
+import { pendingCommandRegistry } from "../v4/pendingCommandRegistry.js";
 /** AskUserQuestion 弹窗和侧栏胶囊共用同一条幂等暂停命令。 */
 export async function sendInteractionAutoResolutionSnooze(params) {
     const envelope = createCommandEnvelope({

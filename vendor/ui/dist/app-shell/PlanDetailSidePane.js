@@ -1,12 +1,12 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useEffect, useMemo, useState } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/lib/codePreviewSettings.js";
-import { extractPlanToolCallContent } from "@/lib/planToolCall.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { useV4Conversation, V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
+import { MessageResponse } from "../components/ai-elements/message.js";
+import { DEFAULT_CODE_PREVIEW_SETTINGS } from "../lib/codePreviewSettings.js";
+import { extractPlanToolCallContent } from "../lib/planToolCall.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { useV4Conversation, V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
 const PlanDetailContent = memo(function PlanDetailContent({ tab, onOpenBrowserUrl, onOpenCodeViewer, onOpenFileLink, }) {
     const { layer } = useV4Conversation();
     const [lease, setLease] = useState(null);

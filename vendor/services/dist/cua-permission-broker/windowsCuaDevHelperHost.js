@@ -1,7 +1,7 @@
 /* eslint-disable max-lines -- Windows two-phase transport lifecycle must remain one linearized state machine. */
 import { randomBytes } from "node:crypto";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { ADDON_ENV, WindowsCuaChildLifecycle, asError, defaultChildProcess, defaultHealthProbe, defaultSocketPathFactory, isExactHealthPid, parseReadyMessage, } from "#src/cua-permission-broker/windowsCuaHelperHostSupport.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { ADDON_ENV, WindowsCuaChildLifecycle, asError, defaultChildProcess, defaultHealthProbe, defaultSocketPathFactory, isExactHealthPid, parseReadyMessage, } from "../cua-permission-broker/windowsCuaHelperHostSupport.js";
 /** authority 铸造兜底：config-provenance 随机数，与 node.ts 懒分支 spawn 同口径。 */
 const mintRandomAuthority = () => randomBytes(16).toString("hex");
 const DEFAULT_STARTUP_TIMEOUT_MS = 30_000;

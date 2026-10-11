@@ -1,4 +1,4 @@
-import { ZCodeStorageStartupGate } from "#src/zcode-agent/zcodeStorageStartupGate.js";
+import { ZCodeStorageStartupGate } from "../zcode-agent/zcodeStorageStartupGate.js";
 import { Emitter } from "@zcode/rpc";
 export const DEFAULT_ZCODE_PROTOCOL_REQUEST_TIMEOUT_MS = 3 * 60_000;
 class ZCodeProtocolClientError extends Error {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
+import { useServices } from "../hooks/useServices.js";
 const REFRESH_INTERVAL_MS = 1000;
 const EMPTY_DEBUG = { rounds: [], networkEntries: [], cache: null };
 export function useSessionDebug({ workspacePath, workspaceIdentity, taskId, enabled = true, }) {

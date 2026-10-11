@@ -1,9 +1,9 @@
-import { buildStartPlanEntitlementOptions } from "@/lib/startPlanEntitlementOptions.js";
+import { buildStartPlanEntitlementOptions } from "../../lib/startPlanEntitlementOptions.js";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { getModelProviderFamilySpec, } from "@zcode/shared";
-import { useUsageEntitlement, } from "@/hooks/useUsageEntitlement.js";
-import { buildUsageEntitlementCacheKey } from "@/lib/usageEntitlementCache.js";
-import { resolveAccountProviderInspectionAccess } from "@/lib/accountProviderAccess.js";
+import { useUsageEntitlement, } from "../../hooks/useUsageEntitlement.js";
+import { buildUsageEntitlementCacheKey } from "../../lib/usageEntitlementCache.js";
+import { resolveAccountProviderInspectionAccess } from "../../lib/accountProviderAccess.js";
 export function resolveCodingPlanProviderFingerprintAutoRefresh({ loading, providerFingerprint, skippedProviderFingerprint, suppressAutoRefresh, }) {
     if (loading || !providerFingerprint) {
         return { shouldRefresh: false, skippedProviderFingerprint };

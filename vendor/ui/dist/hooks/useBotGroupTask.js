@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { isFeishuBotProvider } from "@zcode/shared";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 export function useBotGroupTask(taskId, workspacePath, workspaceIdentity) {
     const { botsService, broadcastService } = useServices();
     const [context, setContext] = useState(null);

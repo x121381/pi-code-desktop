@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ChevronDownIcon, ChevronRightIcon, MessageCirclePlus } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, } from "@/components/ui/context-menu.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger, } from "../components/ui/context-menu.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
 import { CRON_DEFAULT_GROUP_ID, OFF_PEAK_DEFAULT_GROUP_ID } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getTaskGroupDisplayTitle } from "@/workspace-grouped-tasks/group-title.js";
-import { TASK_GROUP_COLORS, TaskGroupColorDot, TaskGroupColorMark, } from "@/workspace-grouped-tasks/shared.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getTaskGroupDisplayTitle } from "../workspace-grouped-tasks/group-title.js";
+import { TASK_GROUP_COLORS, TaskGroupColorDot, TaskGroupColorMark, } from "../workspace-grouped-tasks/shared.js";
 export function StickyGroupHeader({ node, collapsed, tooltipsDisabled, onCreateTask, onToggleCollapsed, onUpdateGroupColor, onUngroupGroup, }) {
     const { intl } = useZCodeIntl();
     const taskCount = node.tasks.length;

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useBotPrivateDeliveryRetry } from "@/hooks/useBotPrivateDeliveryRetry.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useBotPrivateDeliveryRetry } from "../hooks/useBotPrivateDeliveryRetry.js";
 export function PrivateDeliveryRetry({ botId, deliveryId }) {
     const { intl } = useZCodeIntl();
     const { state, retry } = useBotPrivateDeliveryRetry(botId, deliveryId);

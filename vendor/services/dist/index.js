@@ -12,8 +12,8 @@ export { createConversationTelemetryService, } from "./conversation-telemetry/co
 // File service — IFileService is both a type (interface) and value (descriptor)
 export { IFileService } from "./file/file.js";
 export { IMediaPreviewService } from "./media-preview/mediaPreview.js";
-export { ICloudContentService } from "#src/cloud-content/cloudContent.js";
-export { IMarketingTouchService } from "#src/marketing-touch/marketingTouch.js";
+export { ICloudContentService } from "./cloud-content/cloudContent.js";
+export { IMarketingTouchService } from "./marketing-touch/marketingTouch.js";
 // Git service — IGitService is both a type (interface) and value (descriptor)
 export { IGitService } from "./git/git.js";
 export { IGitCheckpointService } from "./git/gitCheckpoint.js";

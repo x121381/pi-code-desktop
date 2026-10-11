@@ -1,14 +1,14 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { FlaskConical } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { CodeBlock, CodeBlockHeader, CodeBlockCopyButton, } from "@/components/ai-elements/code-block.js";
-import { useNowTicker } from "@/components/workflow-graph/use-now-ticker.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { WorkflowDiagnosticsSection } from "@/ToolCallBlocks/renderers/workflow-diagnostics.js";
-import { snippetResponse, snippetValue, } from "@/ToolCallBlocks/renderers/workflow-snippet-presentation.js";
+import { CodeBlock, CodeBlockHeader, CodeBlockCopyButton, } from "../../components/ai-elements/code-block.js";
+import { useNowTicker } from "../../components/workflow-graph/use-now-ticker.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { WorkflowDiagnosticsSection } from "../../ToolCallBlocks/renderers/workflow-diagnostics.js";
+import { snippetResponse, snippetValue, } from "../../ToolCallBlocks/renderers/workflow-snippet-presentation.js";
 const ICON = _jsx(FlaskConical, { className: "size-4 shrink-0 text-foreground-subtle" });
 /** 三态摘要不放结果预览，展开内容按执行状态排序。 */
 export function EvalWorkflowSnippetToolCallBlock(context) {

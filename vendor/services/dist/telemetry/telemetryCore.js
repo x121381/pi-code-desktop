@@ -4,7 +4,7 @@ import { mkdir, open, readFile, stat, unlink, writeFile } from "node:fs/promises
 import { createHash } from "node:crypto";
 import { version } from "node:os";
 import { dirname, join } from "node:path";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { getAppConfigDir } from "../paths.js";
 const REPORT_ENDPOINT = ZCODE_TELEMETRY_REPORT_ENDPOINT;
 function sessionCreateEventId(userId, sessionId) {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { PPTX_ELEMENT_REFERENCE_ADD_TO_CHAT_EVENT, addPptxElementReference, getPptxElementReferenceWorkspaceKey, isPptxElementReferenceInWorkspaceScope, isPptxElementReferenceAddToChatEvent, } from "@/lib/pptxElementReference.js";
+import { PPTX_ELEMENT_REFERENCE_ADD_TO_CHAT_EVENT, addPptxElementReference, getPptxElementReferenceWorkspaceKey, isPptxElementReferenceInWorkspaceScope, isPptxElementReferenceAddToChatEvent, } from "../../lib/pptxElementReference.js";
 export function usePptxElementReferences(options) {
     const { workspacePath, workspaceIdentity, remoteSessionId, listenAddToChatEvents = true, scopeId = null, } = options;
     const [references, setReferences] = useState([]);

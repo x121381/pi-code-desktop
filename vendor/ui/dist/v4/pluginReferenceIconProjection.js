@@ -1,4 +1,4 @@
-import { resolvePluginIconSource } from "@/lib/pluginIconSource.js";
+import { resolvePluginIconSource } from "../lib/pluginIconSource.js";
 export function isSessionPluginCatalogReady(projectionStatus, sessionId, snapshotSessionId) {
     return Boolean(projectionStatus === "live" && sessionId && snapshotSessionId === sessionId);
 }

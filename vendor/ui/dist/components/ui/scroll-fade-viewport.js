@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 const SCROLL_MASK_CLASS_BY_STATE = {
     none: "",
     top: "[mask-image:linear-gradient(to_bottom,transparent_0,black_24px,black_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0,black_24px,black_100%)]",

@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { formatWorkspaceContextPath } from "@/WorkspaceHeaderSections/workspaceContextPathFormat.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { formatWorkspaceContextPath } from "../WorkspaceHeaderSections/workspaceContextPathFormat.js";
 export function WorkspaceContextPath({ workspacePath, workspaceIdentity, remoteSessionId, }) {
     const { systemService } = useWorkspaceServices(workspacePath, remoteSessionId, workspaceIdentity);
     const [home, setHome] = useState(null);

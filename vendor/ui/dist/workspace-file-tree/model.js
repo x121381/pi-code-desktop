@@ -1,5 +1,5 @@
-import { getPathLeaf } from "@/lib/path.js";
-import { inferImageMediaType, inferMediaPreview } from "@/lib/codeViewer.js";
+import { getPathLeaf } from "../lib/path.js";
+import { inferImageMediaType, inferMediaPreview } from "../lib/codeViewer.js";
 const WORKSPACE_FILE_GIT_STATUS_PRIORITY = {
     ignored: 0,
     modified: 1,

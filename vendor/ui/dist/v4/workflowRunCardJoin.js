@@ -1,7 +1,7 @@
 import { workflowRunStepCounts } from "@zcode/shared/zcode-protocol-v4";
 import { ZCODE_WORKFLOWS_FOR_RUN_MAX_CANDIDATES, } from "@zcode/shared";
-import { readWorkflowHoleTarget } from "@/ToolCallBlocks/renderers/createWorkflowHoleInput.js";
-import { isFillWorkflowHoleToolCall } from "@/lib/workflowToolNames.js";
+import { readWorkflowHoleTarget } from "../ToolCallBlocks/renderers/createWorkflowHoleInput.js";
+import { isFillWorkflowHoleToolCall } from "../lib/workflowToolNames.js";
 /**
  * 工具卡 → dwf run 的联接（docs/dynamic-workflow/presentation.md「The tool row」）。
  *

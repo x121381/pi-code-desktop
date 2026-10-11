@@ -2,15 +2,15 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- Hook 表单集中维护 runner 类型、Scope 与高级兼容字段。 */
 import { useCallback, useState } from "react";
 import { ChevronRight, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { Label } from "@/components/ui/label.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsFormTextarea } from "@/settings/SettingsFormTextarea.js";
-import { SettingsFormActions } from "@/settings/SettingsFormActions.js";
-import { PluginScopeMenu, getPluginWorkspaceKey } from "@/settings/PluginScopeMenu.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { Label } from "../components/ui/label.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsFormTextarea } from "../settings/SettingsFormTextarea.js";
+import { SettingsFormActions } from "../settings/SettingsFormActions.js";
+import { PluginScopeMenu, getPluginWorkspaceKey } from "../settings/PluginScopeMenu.js";
 const HOOK_EVENTS = [
     "SessionStart",
     "UserPromptSubmit",

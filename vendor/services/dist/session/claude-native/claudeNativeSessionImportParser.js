@@ -1,8 +1,8 @@
 /* oxlint-disable eslint(max-lines) -- Claude 原生日志解析需要集中维护用户轮次、assistant 自愈和 system warning 归因，拆分会让同一日志语义分散。 */
 import { stat } from "node:fs/promises";
-import { readJsonLinesFile } from "#src/session/claude-native/sessionHistoryJsonl.js";
-import { deriveSessionTitle } from "#src/session/sessionTitle.js";
-import { isObjectRecord, readTrimmedString, } from "#src/session/claude-native/jsonLineRecord.js";
+import { readJsonLinesFile } from "../../session/claude-native/sessionHistoryJsonl.js";
+import { deriveSessionTitle } from "../../session/sessionTitle.js";
+import { isObjectRecord, readTrimmedString, } from "../../session/claude-native/jsonLineRecord.js";
 const IDE_OPENED_FILE_TAG_RE = /<ide_opened_file>[\s\S]*?<\/ide_opened_file>/gi;
 const COMMAND_TAG_BLOCK_RE = /<(?:local-command|command)-[^>]+>[\s\S]*?<\/(?:local-command|command)-[^>]+>/gi;
 const COMMAND_DIAGNOSTIC_TAG_RE = /<\/?(?:local-command|command)-[^>]+>/gi;

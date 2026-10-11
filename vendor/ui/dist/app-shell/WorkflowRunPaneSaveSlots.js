@@ -7,12 +7,12 @@ import { jsx as _jsx } from "react/jsx-runtime";
 // 这里只造宿主描述，不直接调用槽位 hook：控制器要查 agent，没有服务上下文的宿主不该挂它。
 // 从 WorkflowRunSidePane.tsx 拆出（max-lines 400 行门）。
 import { useCallback, useMemo } from "react";
-import { WorkflowRunSaveSlotsBoundary, } from "@/components/workflow-timeline/WorkflowRunSaveControls.js";
-import { logger } from "@/logger.js";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { buildWorkflowSaveCandidatesByRunId } from "@/v4/workflowRunCardJoin.js";
-import { useDynamicWorkflowAvailability } from "@/hooks/useDynamicWorkflowAvailability.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { WorkflowRunSaveSlotsBoundary, } from "../components/workflow-timeline/WorkflowRunSaveControls.js";
+import { logger } from "../logger.js";
+import { createCommandEnvelope } from "../v4/commandFactory.js";
+import { buildWorkflowSaveCandidatesByRunId } from "../v4/workflowRunCardJoin.js";
+import { useDynamicWorkflowAvailability } from "../hooks/useDynamicWorkflowAvailability.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 /** 侧板状态头的两个槽位：造宿主描述，再经服务边界挂控制器（没有服务上下文时交出 null）。 */
 export function WorkflowRunPaneSaveSlots({ children, ...params }) {
     const host = useWorkflowRunPaneSaveHost(params);

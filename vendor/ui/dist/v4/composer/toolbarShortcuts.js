@@ -12,9 +12,9 @@
  * 默认键位保持既有行为，零变化。
  */
 import { useEffect, useRef } from "react";
-import { isShortcutRecordingActive, matchesShortcutBinding, } from "@/shortcuts/bindings.js";
-import { useEffectiveShortcutBindings } from "@/shortcuts/useShortcutBindings.js";
-import { logger } from "@/logger.js";
+import { isShortcutRecordingActive, matchesShortcutBinding, } from "../../shortcuts/bindings.js";
+import { useEffectiveShortcutBindings } from "../../shortcuts/useShortcutBindings.js";
+import { logger } from "../../logger.js";
 /** 旧 chatInputControlShortcuts.getChatToolbarShortcutKey 原样恢复。 */
 export function getChatToolbarShortcutKey(category) {
     switch (category) {

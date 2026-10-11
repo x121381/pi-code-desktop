@@ -1,20 +1,20 @@
 /* eslint-disable max-lines -- 远端 workspace 历史目前需要在一个 hook 内同时收口恢复、重连、持久化和清理流程，先保留同文件协作边界，避免为过 lint 临时拆分后引入状态回归。*/
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buildSshRemoteHostKey, createUuid, stripRemoteTargetSecrets } from "@zcode/shared";
-import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, getRemoteWorkspaceSession, unregisterRemoteWorkspaceSession, } from "@/store/remoteWorkspaceSessionStore.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { refreshRemotePinnedTasksForSession } from "@/store/remotePinnedTaskStore.js";
-import { refreshRemoteTimelineTasksForSession } from "@/store/remoteTimelineTaskStore.js";
-import { toast } from "@/components/ui/toast.js";
-import { buildRemoteWorkspaceIdentity, buildRemoteWorkspaceSessionMutation, buildWorkspaceSessionKey, createRemoteTargetFromSnapshot, getRemoteWorkspaceSessionEntries, removeRemoteWorkspaceSessionEntries, } from "@/lib/remoteWorkspaceHistory.js";
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { buildRemoteWorkspacePersistPatch, restorePersistedRemoteWorkspaceSessions, } from "@/root/remoteWorkspaceSessionPersistence.js";
-import { useReconnectingRemoteWorkspaceLogs } from "@/root/useReconnectingRemoteWorkspaceLogs.js";
-import { reconnectRemoteWorkspaceHistoryEntry, } from "@/root/reconnectRemoteWorkspaceHistoryEntry.js";
-import { useRemoteConnectionEntryVisibility } from "@/hooks/useRemoteConnectionEntryVisibility.js";
-import { markRemoteWorkspaceRunningTasksFailed } from "@/lib/remoteWorkspaceSessionRuntime.js";
+import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, getRemoteWorkspaceSession, unregisterRemoteWorkspaceSession, } from "../store/remoteWorkspaceSessionStore.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { refreshRemotePinnedTasksForSession } from "../store/remotePinnedTaskStore.js";
+import { refreshRemoteTimelineTasksForSession } from "../store/remoteTimelineTaskStore.js";
+import { toast } from "../components/ui/toast.js";
+import { buildRemoteWorkspaceIdentity, buildRemoteWorkspaceSessionMutation, buildWorkspaceSessionKey, createRemoteTargetFromSnapshot, getRemoteWorkspaceSessionEntries, removeRemoteWorkspaceSessionEntries, } from "../lib/remoteWorkspaceHistory.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { buildRemoteWorkspacePersistPatch, restorePersistedRemoteWorkspaceSessions, } from "../root/remoteWorkspaceSessionPersistence.js";
+import { useReconnectingRemoteWorkspaceLogs } from "../root/useReconnectingRemoteWorkspaceLogs.js";
+import { reconnectRemoteWorkspaceHistoryEntry, } from "../root/reconnectRemoteWorkspaceHistoryEntry.js";
+import { useRemoteConnectionEntryVisibility } from "../hooks/useRemoteConnectionEntryVisibility.js";
+import { markRemoteWorkspaceRunningTasksFailed } from "../lib/remoteWorkspaceSessionRuntime.js";
 export { reconnectRemoteWorkspaceHistoryEntry };
 export async function bindRemoteWorkspaceContextAndGetSession(params) {
     if (!getRemoteWorkspaceSession(params.sessionId)) {

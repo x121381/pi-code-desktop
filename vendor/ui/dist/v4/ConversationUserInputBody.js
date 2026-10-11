@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export const COLLAPSED_USER_INPUT_CONTENT_MAX_HEIGHT_PX = 120;
 const USER_INPUT_CONTENT_OVERFLOW_TOLERANCE_PX = 1;
 export function isUserInputContentOverflowing(scrollHeight) {

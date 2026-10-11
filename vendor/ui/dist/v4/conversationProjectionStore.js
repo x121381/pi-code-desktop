@@ -6,9 +6,9 @@
 //   3. base 与状态同生共死——断档时状态未被污染，携当前水位重订阅，由服务端裁决 resume/snapshot。
 // 除 optimistic overlay（pending 命令展示）外，本 store 不产生任何 conversation 事实。
 import { applyConversationDeltas, isDeterministicContentFault, parseConversationTopic, PROTOCOL_V4_LIMITS, SUBSCRIPTION_CONTENT_REJECTED, } from "@zcode/shared/zcode-protocol-v4";
-import { logger } from "@/logger.js";
-import { ConversationRowPool } from "@/v4/conversationRowSharing.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { logger } from "../logger.js";
+import { ConversationRowPool } from "../v4/conversationRowSharing.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 /**
  * runtime 换代打断 subscribe 后的退避节奏。
  *

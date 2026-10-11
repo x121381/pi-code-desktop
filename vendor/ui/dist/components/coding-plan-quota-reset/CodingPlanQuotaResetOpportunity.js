@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { GiftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { CodingPlanQuotaResetDialog, formatCodingPlanQuotaResetCountdown, } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetDialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { CodingPlanQuotaResetDialog, formatCodingPlanQuotaResetCountdown, } from "../../components/coding-plan-quota-reset/CodingPlanQuotaResetDialog.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 function getRemainingSeconds(expiresAt) {
     if (expiresAt == null) {
         return 0;

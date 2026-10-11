@@ -1,6 +1,6 @@
 import { constants } from "node:fs";
 import { lstat, open } from "node:fs/promises";
-import { PROJECT_MEMORY_FILE_CHANGED_ERROR_CODE, PROJECT_MEMORY_PREVIEW_LIMIT_EXCEEDED_ERROR_CODE, } from "#src/memory/memory.js";
+import { PROJECT_MEMORY_FILE_CHANGED_ERROR_CODE, PROJECT_MEMORY_PREVIEW_LIMIT_EXCEEDED_ERROR_CODE, } from "../memory/memory.js";
 const PROJECT_MEMORY_PREVIEW_MAX_BYTES = 5 * 1024 * 1024;
 export async function readProjectMemoryFileFromStableHandle(params) {
     const preOpenStat = await lstat(params.filePath, { bigint: true });

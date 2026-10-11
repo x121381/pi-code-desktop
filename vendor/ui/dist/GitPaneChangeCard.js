@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
 import { ChevronDownIcon, CopyIcon, FolderOpenIcon, ListTreeIcon } from "lucide-react";
-import { DiffViewer } from "@/components/ui/diff-viewer.js";
-import { cn } from "@/components/lib/utils.js";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger, } from "@/components/ui/context-menu.js";
-import { getDiffFallbackMessageId, getGitPaneDiffPreviewPlan } from "@/GitPane/helpers.js";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { LightweightDiffPreview } from "@/components/ui/lightweight-diff-preview.js";
+import { DiffViewer } from "./components/ui/diff-viewer.js";
+import { cn } from "./components/lib/utils.js";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuTrigger, } from "./components/ui/context-menu.js";
+import { getDiffFallbackMessageId, getGitPaneDiffPreviewPlan } from "./GitPane/helpers.js";
+import { FileDisplayInline } from "./lib/fileDisplay.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { LightweightDiffPreview } from "./components/ui/lightweight-diff-preview.js";
 export function GitPaneChangeCard({ change, contextMenuLabels, diffState, isDiffLoading, isExpanded, canRevealInFileManager, codePreviewSettings, resolvedTheme, onCopyAbsolutePath, onCopyRelativePath, onOpenChange, onRevealInFileManager, onRevealInFileTree, }) {
     const { intl } = useZCodeIntl();
     const diffPreviewPlan = useMemo(() => getGitPaneDiffPreviewPlan(diffState), [diffState]);

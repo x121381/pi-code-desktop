@@ -1,11 +1,11 @@
-import { logger } from "@/logger.js";
-import { invalidateDeferredDraftSessionForSkillChange } from "@/lib/zcodeDraftSkillInvalidation.js";
-import { refreshSharedSkillStoreForWorkspace } from "@/lib/skillStoreRefresh.js";
-import { mergeSlashCommandsAfterCommandRefresh } from "@/settings/pluginSlashCommandRefresh.js";
-import { useCommandsStore } from "@/store/commandsStore.js";
-import { useMcpStore } from "@/store/mcpStore.js";
-import { usePluginManagementStore } from "@/store/pluginManagementStore.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { logger } from "../logger.js";
+import { invalidateDeferredDraftSessionForSkillChange } from "../lib/zcodeDraftSkillInvalidation.js";
+import { refreshSharedSkillStoreForWorkspace } from "../lib/skillStoreRefresh.js";
+import { mergeSlashCommandsAfterCommandRefresh } from "../settings/pluginSlashCommandRefresh.js";
+import { useCommandsStore } from "../store/commandsStore.js";
+import { useMcpStore } from "../store/mcpStore.js";
+import { usePluginManagementStore } from "../store/pluginManagementStore.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
 function toMessage(error) {
     return error instanceof Error ? error.message : String(error);
 }

@@ -1,17 +1,17 @@
 /* oxlint-disable eslint(max-lines) -- 平台事件和分享导入共用同一生命周期。 */
 import { useEffect, useRef, useState } from "react";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { logger } from "@/logger.js";
-import { seedImportedSessionDraft } from "@/v4/composer/newTaskDraft.js";
-import { dismissToast, toast, updateToast } from "@/components/ui/toast.js";
-import { matchesPrimaryShortcut } from "@/lib/keyboardShortcuts.js";
-import { isShortcutRecordingActive } from "@/shortcuts/bindings.js";
-import { isRendererReloadNavigation } from "@/lib/rendererNavigation.js";
-import { buildConnectedRemoteWorkspaceSessionTargets, buildWebRemoteControlWorkspaceTargets, shouldPublishCompleteWorkspaceSnapshot, } from "@/root/rootPlatformWorkspaceSync.js";
-import { useOptionalBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { createShareImportIntent, isShareImportIntentSame, resolveShareImportFailurePresentation, } from "@/root/shareImportIntent.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { logger } from "../logger.js";
+import { seedImportedSessionDraft } from "../v4/composer/newTaskDraft.js";
+import { dismissToast, toast, updateToast } from "../components/ui/toast.js";
+import { matchesPrimaryShortcut } from "../lib/keyboardShortcuts.js";
+import { isShortcutRecordingActive } from "../shortcuts/bindings.js";
+import { isRendererReloadNavigation } from "../lib/rendererNavigation.js";
+import { buildConnectedRemoteWorkspaceSessionTargets, buildWebRemoteControlWorkspaceTargets, shouldPublishCompleteWorkspaceSnapshot, } from "../root/rootPlatformWorkspaceSync.js";
+import { useOptionalBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { createShareImportIntent, isShareImportIntentSame, resolveShareImportFailurePresentation, } from "../root/shareImportIntent.js";
 export function useRootPlatformEffects({ initialWorkspaceAbsPath, initialWorkspaceIdentity, initialWorkspacePurpose, initialTaskId, canBootstrapInitialWorkspace = true, addTab, setIsBootstrappingInitialWorkspace, platform, activateTabByPath, startDraftInWorkspace, startNewTaskFromActiveWorkspace, openWorkspace, openWorkspacePath, setWorkspaceActionError, allowOpenWorkspace = true, isDesktop, locale, tabs, activeWorkspacePath, activeWorkspaceIdentity, reconnectingRemoteWorkspaceKeys = [], remoteWorkspaceErrorByWorkspaceKey = {}, totalUnreadTaskCount, webRemoteControlFeatureEnabled = false, webRemoteControlSessionActive = false, hasCompletedFullTabRestore = true, intl, isRestoringOAuthSession, }) {
     const didBootstrapInitialWorkspaceRef = useRef(false);
     const baseServices = useOptionalBaseWorkspaceServices();

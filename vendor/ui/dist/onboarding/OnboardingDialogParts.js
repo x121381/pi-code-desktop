@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { CheckIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const WIZARD_STEPS = [
     { key: "session", index: 1, titleId: "onboarding.step.session" },
     { key: "skills-import", index: 2, titleId: "onboarding.step.skillsImport" },

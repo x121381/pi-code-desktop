@@ -1,4 +1,4 @@
-import { FeedbackBugIcon, FeedbackIdeaIcon, FeedbackPerformanceIcon, FeedbackQuestionIcon, } from "@/feedback/feedbackIcons.js";
+import { FeedbackBugIcon, FeedbackIdeaIcon, FeedbackPerformanceIcon, FeedbackQuestionIcon, } from "../feedback/feedbackIcons.js";
 export const FEEDBACK_TYPE_META = [
     {
         value: "bug",

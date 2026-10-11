@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useCodingPlanEntryGate } from "@/settings/CodingPlanEntryButton.js";
+import { useCodingPlanEntryGate } from "../settings/CodingPlanEntryButton.js";
 /* New task 页闲时任务入口（Figma ⚫️ Z.ai - Zcode / node 5488-3978；spec §5「模板」/ D30-4 第二入口）。
    引导横幅「Use free run Idle-time task」+ Client Scenes 模板卡（预填创建表单，Customize=空白）。
    灰度未命中不渲染（D31）；横幅可关闭（本会话内，D28「关闭后下次登录/重启再开」→ session 级）。
@@ -8,20 +8,20 @@ import { useCodingPlanEntryGate } from "@/settings/CodingPlanEntryButton.js";
    业务逻辑（灰度、Coding Plan 判定、Upgrade Toast、草稿预填、埋点）保持不变。 */
 import { BUILTIN_MODEL_PROVIDER_IDS } from "@zcode/shared";
 import { Megaphone, Moon, X } from "lucide-react";
-import { ClientSceneLucideIcon } from "@/components/ClientSceneLucideIcon.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
-import { toast } from "@/components/ui/toast.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { useOffPeakEligibility } from "@/hooks/useOffPeakEligibility.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { logger } from "@/logger.js";
-import { createIdleTimeCodingPlanFunnelContext, resolveCodingPlanEntryPlanStateFromProviderSettings, } from "@/lib/codingPlanFunnelTelemetry.js";
-import { appendLocalCustomizeTemplate, materializeOffPeakTemplateDraft, resolveOffPeakTemplateText, } from "@/settings/automationTemplateCatalog.js";
-import { useAutomationTemplates } from "@/settings/useAutomationTemplates.js";
-import { useOptionalCodingPlanUpgradeDialog } from "@/settings/CodingPlanUpgradeDialogProvider.js";
-import { useOffPeakTaskStore } from "@/store/offPeakTaskStore.js";
+import { ClientSceneLucideIcon } from "../components/ClientSceneLucideIcon.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "../components/ui/tooltip.js";
+import { toast } from "../components/ui/toast.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useProviderSettingsView } from "../hooks/useProviderSettingsView.js";
+import { useOffPeakEligibility } from "../hooks/useOffPeakEligibility.js";
+import { useServices } from "../hooks/useServices.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { logger } from "../logger.js";
+import { createIdleTimeCodingPlanFunnelContext, resolveCodingPlanEntryPlanStateFromProviderSettings, } from "../lib/codingPlanFunnelTelemetry.js";
+import { appendLocalCustomizeTemplate, materializeOffPeakTemplateDraft, resolveOffPeakTemplateText, } from "../settings/automationTemplateCatalog.js";
+import { useAutomationTemplates } from "../settings/useAutomationTemplates.js";
+import { useOptionalCodingPlanUpgradeDialog } from "../settings/CodingPlanUpgradeDialogProvider.js";
+import { useOffPeakTaskStore } from "../store/offPeakTaskStore.js";
 import { useMemo } from "react";
 export function OffPeakNewTaskEntry({ onOpenAutomations }) {
     const { intl, locale } = useZCodeIntl();

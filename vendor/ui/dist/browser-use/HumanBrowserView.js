@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef } from "react";
 import { DEFAULT_AGENT_BROWSER_VIEWPORT, DEFAULT_EMBEDDED_BROWSER_VIEWPORT_PREFERENCE, } from "@zcode/shared";
-import { UnifiedBrowserView } from "@/browser-use/UnifiedBrowserView.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { logger } from "@/logger.js";
+import { UnifiedBrowserView } from "../browser-use/UnifiedBrowserView.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { logger } from "../logger.js";
 const HUMAN_BROWSER_VIEWPORT_PREFERENCE_WRITE_DELAY_MS = 200;
 function clonePreference(preference) {
     return {

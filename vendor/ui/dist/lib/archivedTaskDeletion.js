@@ -1,5 +1,5 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { logger } from "@/logger.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { logger } from "../logger.js";
 export async function collectArchivedTaskDeletion(workspaces) {
     const unique = new Map(workspaces.map((workspace) => [
         buildTaskWorkspaceKey(workspace.workspacePath, workspace.workspaceIdentity),

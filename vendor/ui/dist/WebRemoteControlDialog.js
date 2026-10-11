@@ -3,16 +3,16 @@ import { memo, useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
 import { resolveWebRemoteControlWorkspaceKey } from "@zcode/shared";
 import { Bot as BotIcon, CopyIcon, LoaderCircle, MonitorSmartphone, RefreshCw, Smartphone, Unplug, XIcon, } from "lucide-react";
-import { BotsDialog } from "@/BotsDialog.js";
-import { ProviderIcon } from "@/BotsDialog/shared.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { toast } from "@/components/ui/toast.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { getBotProviderRegionTagLabelId } from "@/botsUi.js";
+import { BotsDialog } from "./BotsDialog.js";
+import { ProviderIcon } from "./BotsDialog/shared.js";
+import { Button } from "./components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
+import { toast } from "./components/ui/toast.js";
+import { useConfirmDialog } from "./hooks/useConfirmDialog.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { logger } from "./logger.js";
+import { getBotProviderRegionTagLabelId } from "./botsUi.js";
 const REMOTE_CONTROL_BOT_ENTRIES = [
     { provider: "weixin" },
     { provider: "feishu" },

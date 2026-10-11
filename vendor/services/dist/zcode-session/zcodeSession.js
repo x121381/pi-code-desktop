@@ -1,4 +1,4 @@
 import { ServiceChannels } from "@zcode/shared";
-import { createServiceDescriptor } from "#src/descriptors.js";
+import { createServiceDescriptor } from "../descriptors.js";
 export const IZCodeSessionService = createServiceDescriptor(ServiceChannels.ZCodeSession);
 //# sourceMappingURL=zcodeSession.js.map

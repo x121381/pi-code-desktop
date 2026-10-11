@@ -1,7 +1,7 @@
 import {} from "@zcode/shared";
-import { getChatErrorMessage } from "@/lib/chatPrepareError.js";
-import { logger } from "@/logger.js";
-import { zcodeWorkspacePresentationToConfigOptions } from "@/lib/zcodeSessionProjection.js";
+import { getChatErrorMessage } from "../lib/chatPrepareError.js";
+import { logger } from "../logger.js";
+import { zcodeWorkspacePresentationToConfigOptions } from "../lib/zcodeSessionProjection.js";
 export async function prepareWorkspaceWithZCodeSessionService(params) {
     const startedAt = Date.now();
     logger.info("[zcode-workspace-presentation] workspace prepare start", {

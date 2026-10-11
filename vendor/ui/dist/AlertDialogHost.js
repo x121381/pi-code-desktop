@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback } from "react";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, } from "@/components/ui/alert-dialog.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useAlertDialogStore } from "@/store/alertDialogStore.js";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, } from "./components/ui/alert-dialog.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useAlertDialogStore } from "./store/alertDialogStore.js";
 export function AlertDialogHost() {
     const { intl } = useZCodeIntl();
     const pendingRequest = useAlertDialogStore((state) => state.pendingRequest);

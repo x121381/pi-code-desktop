@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { cloneElement, isValidElement, useCallback, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
-import { isAppleKeyboardPlatform } from "@/lib/keyboardShortcuts.js";
+import { cn } from "./components/lib/utils.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "./components/ui/tooltip.js";
+import { isAppleKeyboardPlatform } from "./lib/keyboardShortcuts.js";
 const shortcutKbdBaseClassName = "rounded-md h-4 inline-flex items-center bg-tooltip-tag px-1.5 text-ui-xs font-medium text-tooltip-tag-foreground";
 function setRef(ref, value) {
     if (!ref) {

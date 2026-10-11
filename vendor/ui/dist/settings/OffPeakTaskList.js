@@ -6,12 +6,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState, } from "react";
 import { CircleCheck, Loader2, TriangleAlert } from "lucide-react";
 import { TID_OFFPEAK_ACTION_CONTINUE, TID_OFFPEAK_ACTION_DELETE, TID_OFFPEAK_ACTION_PAUSE, TID_OFFPEAK_CARD, TID_OFFPEAK_CARD_SESSION, TID_OFFPEAK_CARD_MENU, } from "@zcode/shared";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { AutomationCancelActionIcon, AutomationContinueIcon, AutomationExternalLinkIcon, AutomationIdleTimeIcon, AutomationInfoIcon, AutomationMoreHorizontalIcon, AutomationPauseActionIcon, AutomationPausedIcon, AutomationTrashIcon, } from "@/settings/AutomationDesignPrimitives.js";
-import { resolveFailedOffPeakQueueFooter, resolveOffPeakStatusFooter, shouldShowOffPeakModelSelectionIssue, } from "@/settings/offPeakUiPresentation.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { AutomationCancelActionIcon, AutomationContinueIcon, AutomationExternalLinkIcon, AutomationIdleTimeIcon, AutomationInfoIcon, AutomationMoreHorizontalIcon, AutomationPauseActionIcon, AutomationPausedIcon, AutomationTrashIcon, } from "../settings/AutomationDesignPrimitives.js";
+import { resolveFailedOffPeakQueueFooter, resolveOffPeakStatusFooter, shouldShowOffPeakModelSelectionIssue, } from "../settings/offPeakUiPresentation.js";
 // 按状态分组会让任务在运行和终态切换时跳位，破坏用户对已有卡片位置的预期；
 // 列表只按不可变的创建时间倒序，状态变化不再影响顺序。
 export function sortOffPeakTasksByCreatedAt(tasks) {

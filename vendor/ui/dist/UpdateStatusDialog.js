@@ -1,10 +1,10 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { CalendarDays } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Checkbox } from "@/components/ui/checkbox.js";
-import { Progress } from "@/components/ui/progress.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
+import { Checkbox } from "./components/ui/checkbox.js";
+import { Progress } from "./components/ui/progress.js";
 const macosDockIconUrl = new URL("../../../public/icon_512@2x.png", import.meta.url).href;
 export function UpdateStatusDialog({ displayVersion, edgeToEdge = false, intl, isUpdateActionPending, autoDownloadAndInstallUpdates, onAutoDownloadAndInstallUpdatesChange, onCancelDownload, onDownloadUpdate, onOpenChange, onRestartUpdate, onSkipUpdate, open, phase, progressLabel, progressValue, releaseDateLabel, showOverlay = true, skippableVersion, }) {
     const isBeforeDownload = phase === "before-download";

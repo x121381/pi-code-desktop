@@ -1,8 +1,8 @@
 import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 import { useContext } from "react";
-import { BotGroupMemberNamesContext } from "@/v4/BotGroupMemberNamesContext.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { BotGroupMemberNamesContext } from "../v4/BotGroupMemberNamesContext.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function BotGroupSourceLabel({ source }) {
     const { intl } = useZCodeIntl();
     const members = useContext(BotGroupMemberNamesContext);

@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getContainingDirectoryPath } from "@/lib/path.js";
-import { logger } from "@/logger.js";
+import { toast } from "../components/ui/toast.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getContainingDirectoryPath } from "../lib/path.js";
+import { logger } from "../logger.js";
 function resolveFileManagerOpenPath(target) {
     if (target.kind === "directory") {
         return target.path;

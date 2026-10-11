@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { UpdateStatusDialogController } from "@/UpdateStatusDialogController.js";
-import { UpdateReleaseNotesTooltip } from "@/UpdateReleaseNotesTooltip.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { Button } from "./components/ui/button.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { UpdateStatusDialogController } from "./UpdateStatusDialogController.js";
+import { UpdateReleaseNotesTooltip } from "./UpdateReleaseNotesTooltip.js";
 import { ArrowDownToLine, LoaderCircle } from "lucide-react";
-import { formatUpdateReleaseDate, getLocalizedUpdateReleaseNotes } from "@/updateReleaseNotes.js";
-import { resolveUpdateButtonResponsiveClasses } from "@/updateStatusButtonLayout.js";
-import { deriveUpdateStatusViewModel } from "@/updateStatusModel.js";
+import { formatUpdateReleaseDate, getLocalizedUpdateReleaseNotes } from "./updateReleaseNotes.js";
+import { resolveUpdateButtonResponsiveClasses } from "./updateStatusButtonLayout.js";
+import { deriveUpdateStatusViewModel } from "./updateStatusModel.js";
 export function UpdateStatusButton({ platform, version, updateState, isMacDesktop = false, isWindowsDesktop = false, className, }) {
     const { intl, locale } = useZCodeIntl();
     const [dialogOpen, setDialogOpen] = useState(false);

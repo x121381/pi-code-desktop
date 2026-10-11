@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
+import { useServices } from "../hooks/useServices.js";
 export function useBotPrivateDeliveryRetry(botId, deliveryId) {
     const { botsService } = useServices();
     const [state, setState] = useState("idle");

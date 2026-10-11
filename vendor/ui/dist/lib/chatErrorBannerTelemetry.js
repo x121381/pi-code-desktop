@@ -1,7 +1,7 @@
 import { resolveTelemetryModelId, resolveTelemetryProviderScope, } from "@zcode/shared";
-import { logger } from "@/logger.js";
-import { getProviderBusinessErrorUiAction, isProviderBusinessErrorCode, resolveRequestVerificationBusinessCode, } from "@/lib/providerBusinessError.js";
-import { resolveTelemetryAttribution } from "@/lib/chatErrorAttribution.js";
+import { logger } from "../logger.js";
+import { getProviderBusinessErrorUiAction, isProviderBusinessErrorCode, resolveRequestVerificationBusinessCode, } from "../lib/providerBusinessError.js";
+import { resolveTelemetryAttribution } from "../lib/chatErrorAttribution.js";
 export const CHAT_ERROR_BANNER_ARMS_EVENT_NAME = "chat_error_banner";
 export const CHAT_ERROR_BANNER_ARMS_GROUP = "ui_error";
 const CHAT_ERROR_BANNER_MESSAGE_LIMIT = 500;

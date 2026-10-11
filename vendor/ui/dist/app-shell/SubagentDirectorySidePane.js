@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useEffect, useMemo, useState } from "react";
 import { BanIcon, CheckCircle2Icon, CircleAlertIcon, CircleDashedIcon, LoaderCircleIcon, PauseCircleIcon, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useSessionSubagents } from "@/hooks/useSessionSubagents.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatTaskRelativeTime } from "@/lib/taskListItemPresentation.js";
-import { V4PaneConversationProvider, useV4Conversation, } from "@/v4/V4ConversationContext.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
+import { Button } from "../components/ui/button.js";
+import { useSessionSubagents } from "../hooks/useSessionSubagents.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatTaskRelativeTime } from "../lib/taskListItemPresentation.js";
+import { V4PaneConversationProvider, useV4Conversation, } from "../v4/V4ConversationContext.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
 const EMPTY_RUNNING = [];
 export function buildSubagentDirectoryOpenRequest(tab, item) {
     return {

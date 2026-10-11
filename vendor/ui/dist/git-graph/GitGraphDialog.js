@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { toast } from "@/components/ui/toast.js";
-import { GitGraphPane } from "@/git-graph/GitGraphPane.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { toast } from "../components/ui/toast.js";
+import { GitGraphPane } from "../git-graph/GitGraphPane.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
 import { AlertCircleIcon, LoaderIcon, XIcon } from "lucide-react";
 const GIT_GRAPH_PAGE_SIZE = 50;
 export function GitGraphDialog({ open, workspacePath, onOpenChange }) {

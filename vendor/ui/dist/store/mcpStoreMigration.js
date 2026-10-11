@@ -1,6 +1,6 @@
-import { logger } from "@/logger.js";
-import { fetchNativeMcpServers, persistCliMcpToUserDirectory, } from "@/store/mcpStoreDesktop.js";
-import { clearLegacyCommonMcpServers, readLegacyCommonMcpServers, } from "@/store/mcpStoreHelpers.js";
+import { logger } from "../logger.js";
+import { fetchNativeMcpServers, persistCliMcpToUserDirectory, } from "../store/mcpStoreDesktop.js";
+import { clearLegacyCommonMcpServers, readLegacyCommonMcpServers, } from "../store/mcpStoreHelpers.js";
 function isZCodeAgentUserServer(server) {
     return (server.source === "zcodeagentmcp" &&
         server.scope === "user" &&

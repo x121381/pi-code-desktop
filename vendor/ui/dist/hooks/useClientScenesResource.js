@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useSWR, { useSWRConfig } from "swr";
-import { createClientScenesVisibilityRecovery } from "@/hooks/clientScenesVisibilityRecovery.js";
+import { createClientScenesVisibilityRecovery } from "../hooks/clientScenesVisibilityRecovery.js";
 const CLIENT_SCENES_RESOURCE_KEY = "client-scenes";
 export const CLIENT_SCENES_DEDUPING_INTERVAL_MS = 10 * 60 * 1000;
 const EMPTY_SCENES = [];

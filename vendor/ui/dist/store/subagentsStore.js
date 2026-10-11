@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { normalizeAgentProviderToZCodeAgent, ZCODE_AGENT_PROVIDER, } from "@zcode/shared";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
-import { logger } from "@/logger.js";
-import { getSubagentsContextKey, useSubagentsContextStore } from "@/store/subagentsContextStore.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
+import { logger } from "../logger.js";
+import { getSubagentsContextKey, useSubagentsContextStore } from "../store/subagentsContextStore.js";
 const inFlightAgentLoads = new Map();
 let latestAgentLoadRequestId = 0;
 function getAgentLoadKey(workspacePath, provider, workspaceIdentity) {

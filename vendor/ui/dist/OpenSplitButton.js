@@ -1,17 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ChevronDownIcon, CopyIcon, ExternalLinkIcon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { toast } from "@/components/ui/toast.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useFileContextActions } from "@/hooks/useFileContextActions.js";
-import { useWorkspaceOpenInEditorTarget } from "@/hooks/useWorkspaceOpenInEditorTarget.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { persistLastSelectedEditorId, readLastSelectedEditorId } from "@/lib/editorPreference.js";
-import { getWorkspaceFileRelativePath } from "@/workspace-file-tree/model.js";
-import { resolveWorkspaceEditorSelection } from "@/lib/workspaceEditorSelection.js";
-import { logger } from "@/logger.js";
+import { Button } from "./components/ui/button.js";
+import { toast } from "./components/ui/toast.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useFileContextActions } from "./hooks/useFileContextActions.js";
+import { useWorkspaceOpenInEditorTarget } from "./hooks/useWorkspaceOpenInEditorTarget.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { persistLastSelectedEditorId, readLastSelectedEditorId } from "./lib/editorPreference.js";
+import { getWorkspaceFileRelativePath } from "./workspace-file-tree/model.js";
+import { resolveWorkspaceEditorSelection } from "./lib/workspaceEditorSelection.js";
+import { logger } from "./logger.js";
 export function OpenSplitButton({ target, onOpenBrowserUrl, onOpenFileLink, onOpenCodeViewer, hideOpenWithMenu = false, stopPropagation = false, }) {
     const { intl } = useZCodeIntl();
     const platform = usePlatform();

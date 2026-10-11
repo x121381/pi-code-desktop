@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { PluginScopeMenu } from "@/settings/PluginScopeMenu.js";
-import { SettingsFormTextarea } from "@/settings/SettingsFormTextarea.js";
-import { SettingsFormActions } from "@/settings/SettingsFormActions.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { PluginScopeMenu } from "../settings/PluginScopeMenu.js";
+import { SettingsFormTextarea } from "../settings/SettingsFormTextarea.js";
+import { SettingsFormActions } from "../settings/SettingsFormActions.js";
 import { ChevronDown, ChevronUpIcon as ChevronUp, Trash2 } from "lucide-react";
 import { EMPTY_FORM, formToJsonDraft, jsonDraftToForm, serverToForm, } from "./mcpSettingsShared.js";
 function McpFormFieldLabel({ children }) {

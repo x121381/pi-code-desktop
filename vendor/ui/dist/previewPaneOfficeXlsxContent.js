@@ -1,11 +1,11 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef } from "react";
 import { XlsxViewer, setWasmSource } from "@extend-ai/react-xlsx";
-import xlsxWasmUrl from "@extend-ai/react-xlsx/duke_sheets_wasm_bg.wasm?url";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { installDocumentLinkSafety } from "@/lib/officeFilePreview.js";
-import { logger } from "@/logger.js";
+const xlsxWasmUrl = "/zcode-ui-assets/wasm/extend-ai-react-xlsx-duke_sheets_wasm_bg.wasm";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { installDocumentLinkSafety } from "./lib/officeFilePreview.js";
+import { logger } from "./logger.js";
 setWasmSource(xlsxWasmUrl);
 function getNextSheetTabIndex({ currentIndex, key, tabCount, }) {
     if (tabCount < 1) {

@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { DYNAMIC_WORKFLOW_MODES, isDynamicWorkflowOffered, normalizeDynamicWorkflowMode, TID_SETTINGS_DYNAMIC_WORKFLOW_MODE_ITEM, TID_SETTINGS_DYNAMIC_WORKFLOW_MODE_TRIGGER, testId, } from "@zcode/shared";
-import { DynamicWorkflowAlwaysOnIcon, DynamicWorkflowOffIcon, DynamicWorkflowOnCommandIcon, } from "@/components/icons/dynamicWorkflowModeIcons.js";
-import { Select, SelectContent, SelectRichItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { toast } from "@/components/ui/toast.js";
-import { useDynamicWorkflowAvailability } from "@/hooks/useDynamicWorkflowAvailability.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { SettingsRow } from "@/settings/SettingsPageParts.js";
+import { DynamicWorkflowAlwaysOnIcon, DynamicWorkflowOffIcon, DynamicWorkflowOnCommandIcon, } from "../components/icons/dynamicWorkflowModeIcons.js";
+import { Select, SelectContent, SelectRichItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { toast } from "../components/ui/toast.js";
+import { useDynamicWorkflowAvailability } from "../hooks/useDynamicWorkflowAvailability.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { SettingsRow } from "../settings/SettingsPageParts.js";
 const MODE_ICONS = {
     disabled: DynamicWorkflowOffIcon,
     onDemand: DynamicWorkflowOnCommandIcon,

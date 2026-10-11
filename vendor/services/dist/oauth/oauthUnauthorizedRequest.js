@@ -1,6 +1,6 @@
 import { BIGMODEL_PROVIDER_ID, ZAI_PROVIDER_ID, buildBigModelApiUrl, buildRuntimeZaiBusinessUrl, } from "@zcode/shared";
-import { resolveBigModelUserinfoUrl } from "#src/oauth/providers/bigmodelProviderConfig.js";
-import { resolveZaiUserinfoUrl } from "#src/oauth/providers/zaiProviderConfig.js";
+import { resolveBigModelUserinfoUrl } from "../oauth/providers/bigmodelProviderConfig.js";
+import { resolveZaiUserinfoUrl } from "../oauth/providers/zaiProviderConfig.js";
 function tryResolveHttpUrl(resolve) {
     try {
         const url = new URL(resolve());

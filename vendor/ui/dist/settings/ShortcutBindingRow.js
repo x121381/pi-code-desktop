@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Keyboard, Pencil, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Kbd, KbdGroup } from "@/components/ui/kbd.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatShortcutBindingLabelParts } from "@/shortcuts/label.js";
+import { Button } from "../components/ui/button.js";
+import { Kbd, KbdGroup } from "../components/ui/kbd.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatShortcutBindingLabelParts } from "../shortcuts/label.js";
 /**
  * 快捷键设置页的命令行：左列命令名跨全部绑定垂直居中，右列是该命令的
  * 绑定列表——每条一行：逐键键帽 + 铅笔（点击即替换该条录制）；录制态内嵌在对应

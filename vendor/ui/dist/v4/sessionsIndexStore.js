@@ -5,7 +5,7 @@
 import { isDeterministicContentFault, PROTOCOL_V4_LIMITS, SUBSCRIPTION_CONTENT_REJECTED, } from "@zcode/shared/zcode-protocol-v4";
 import { isZCodeFileLockTimeoutError } from "@zcode/shared";
 import { ZCODE_AGENT_RUNTIME_UNAVAILABLE_CODE } from "@zcode/services";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const EMPTY_SESSIONS_INDEX_STATE = {
     workspaceId: null,
     logEpoch: null,

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Loader2Icon, Undo2Icon } from "lucide-react";
 import { TID_V4_EDIT_WORKSPACE_CONFLICT_CONVERSATION_ONLY, TID_V4_EDIT_WORKSPACE_CONFLICT_DIALOG, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 function formatReason(reason, intl) {
     const fallbackReasonKey = "chat.changeSummary.rewindDialog.reason.unsupportedCheckpoint";
     const keyByReason = {

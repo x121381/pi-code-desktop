@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 async function unsubscribeIgnoringFailure(transport, subscriptionId) {
     try {
         await transport.unsubscribe(subscriptionId);

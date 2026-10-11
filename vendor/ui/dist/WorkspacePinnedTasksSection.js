@@ -1,23 +1,23 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- pinned 列表现在同时承载本地查询、远端主动注入结果和任务操作分发，先集中保持交互一致。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu.js";
-import { useGlobalTaskList } from "@/hooks/useGlobalTaskList.js";
-import { useLocalWorkspaceScopes } from "@/hooks/useLocalWorkspaceScopes.js";
-import { useBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { compareZCodeTaskListItems } from "@/lib/taskListOrdering.js";
-import { resolveTaskFileTreeTargetFromTabs } from "@/lib/taskFileTreeTarget.js";
-import { MemoTaskItem, TaskListItemContextMenuContent } from "@/TaskListItem.js";
-import { TaskRenameDialog } from "@/TaskRenameDialog.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { applyTaskQueryCacheMutation } from "@/store/taskQueryCacheStore.js";
-import { TaskListRemoteSyncHint } from "@/TaskListRemoteSyncHint.js";
-import { useRemotePinnedTaskStore } from "@/store/remotePinnedTaskStore.js";
-import { useRemoteTimelineTaskStore } from "@/store/remoteTimelineTaskStore.js";
-import { getRemoteWorkspaceServicesForIdentity, useRemoteWorkspaceSessionStore, } from "@/store/remoteWorkspaceSessionStore.js";
+import { toast } from "./components/ui/toast.js";
+import { ContextMenu, ContextMenuTrigger } from "./components/ui/context-menu.js";
+import { useGlobalTaskList } from "./hooks/useGlobalTaskList.js";
+import { useLocalWorkspaceScopes } from "./hooks/useLocalWorkspaceScopes.js";
+import { useBaseWorkspaceServices } from "./hooks/useWorkspaceServices.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { buildTaskWorkspaceKey } from "./lib/taskQueryCache.js";
+import { compareZCodeTaskListItems } from "./lib/taskListOrdering.js";
+import { resolveTaskFileTreeTargetFromTabs } from "./lib/taskFileTreeTarget.js";
+import { MemoTaskItem, TaskListItemContextMenuContent } from "./TaskListItem.js";
+import { TaskRenameDialog } from "./TaskRenameDialog.js";
+import { useZCodeSessionStore } from "./store/zcodeSessionStore.js";
+import { applyTaskQueryCacheMutation } from "./store/taskQueryCacheStore.js";
+import { TaskListRemoteSyncHint } from "./TaskListRemoteSyncHint.js";
+import { useRemotePinnedTaskStore } from "./store/remotePinnedTaskStore.js";
+import { useRemoteTimelineTaskStore } from "./store/remoteTimelineTaskStore.js";
+import { getRemoteWorkspaceServicesForIdentity, useRemoteWorkspaceSessionStore, } from "./store/remoteWorkspaceSessionStore.js";
 function buildPinnedItemKey(workspacePath, taskId, workspaceIdentity) {
     return `${buildTaskWorkspaceKey(workspacePath, workspaceIdentity)}:${taskId}`;
 }

@@ -2,13 +2,13 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo } from "react";
 import { Ban, CircleCheck, Loader2, TriangleAlert } from "lucide-react";
 import { TID_WORKFLOW_CARD, TID_WORKFLOW_CARD_MENU, TID_WORKFLOW_CARD_RUN, TID_WORKFLOW_ACTION_DELETE, TID_WORKFLOW_ACTION_MOVE, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { AutomationMoreHorizontalIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "@/settings/AutomationDesignPrimitives.js";
-import { formatRelativeToNow } from "@/settings/automationFormat.js";
-import { savedWorkflowRunBadgeKind } from "@/settings/saved-workflows/savedWorkflowRunHistory.js";
+import { Button } from "../../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../../components/ui/dropdown-menu.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { AutomationMoreHorizontalIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "../../settings/AutomationDesignPrimitives.js";
+import { formatRelativeToNow } from "../../settings/automationFormat.js";
+import { savedWorkflowRunBadgeKind } from "../../settings/saved-workflows/savedWorkflowRunHistory.js";
 const MAX_ARG_CHIPS = 3;
 /** 卡片「上次运行」徽标：四态 + 尚未运行。沿用定时任务卡的徽标形状（rounded-lg，20px 图标槽）。 */
 export function SavedWorkflowLastRunBadge({ run, now, }) {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 /** 只持有当前页面投影；请求合并与 TTL 统一归 Host 配置服务管理。 */
 export function usePluginStoreOrder(enabled = true) {
     const { clientConfigService: service } = useServices();

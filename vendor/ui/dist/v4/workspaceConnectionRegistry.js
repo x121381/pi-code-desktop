@@ -1,8 +1,8 @@
-import { createAgentConversationTransport } from "@/v4/agentConversationTransport.js";
-import { remoteAgentServiceGeneration } from "@/lib/remoteAgentServiceGeneration.js";
-import { ReplaceableConversationTransport } from "@/v4/replaceableConversationTransport.js";
-import { SessionDataLayer } from "@/v4/sessionDataLayer.js";
-import { logger } from "@/logger.js";
+import { createAgentConversationTransport } from "../v4/agentConversationTransport.js";
+import { remoteAgentServiceGeneration } from "../lib/remoteAgentServiceGeneration.js";
+import { ReplaceableConversationTransport } from "../v4/replaceableConversationTransport.js";
+import { SessionDataLayer } from "../v4/sessionDataLayer.js";
+import { logger } from "../logger.js";
 const registry = new Map();
 /** 本机 endpoint 的保留键（与 sessionsIndexRegistry / task list shardKey 口径一致）。 */
 export const LOCAL_WORKSPACE_CONNECTION_ENDPOINT = "__base__";

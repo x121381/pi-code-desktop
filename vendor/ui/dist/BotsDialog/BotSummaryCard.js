@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Clock3, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsGroupCard, SettingsRow, } from "@/settings/SettingsPageParts.js";
-import { getBotReplyGranularitiesForProvider, getBotReplyGranularityEntryForProvider, } from "@/botsUi.js";
-import { cn } from "@/components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsGroupCard, SettingsRow, } from "../settings/SettingsPageParts.js";
+import { getBotReplyGranularitiesForProvider, getBotReplyGranularityEntryForProvider, } from "../botsUi.js";
+import { cn } from "../components/lib/utils.js";
 import { ProviderIcon, runtimeDot, runtimeText } from "./shared.js";
 export function BotSummaryCard({ bot, runtime, selectedBotDisplayName, selectedBotName, fallbackBotName, renaming, onStartRename, onCommitNameDraft, onNameDraftChange, onNameCompositionEnd, onNameCompositionStart, onNameInputKeyDown, onPatchBot, }) {
     const { intl } = useZCodeIntl();

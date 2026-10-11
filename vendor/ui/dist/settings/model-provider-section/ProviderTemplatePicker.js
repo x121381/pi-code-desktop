@@ -2,10 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowLeftIcon, ChevronRightIcon, PlusIcon } from "lucide-react";
 import { resolveProviderTemplateName } from "@zcode/provider";
 import { TID_MODEL_PROVIDER_TEMPLATE_BACK_BUTTON, TID_MODEL_PROVIDER_TEMPLATE_ITEM, TID_MODEL_PROVIDER_TEMPLATE_PICKER, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
 import { ProviderLogo } from "./ProviderLogo.js";
 import { useProviderDetailFeedback } from "./ProviderDetailFeedback.js";
 export function ProviderTemplatePicker({ templates, onBack, onCreateFromTemplate, onCreateCustom, creating, }) {

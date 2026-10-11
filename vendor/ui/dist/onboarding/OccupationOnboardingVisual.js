@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { OnboardingMeshBackground } from "@/onboarding/OnboardingMeshBackground.js";
+import { OnboardingMeshBackground } from "../onboarding/OnboardingMeshBackground.js";
 import { useEffect, useState } from "react";
-import { logger } from "@/logger.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { resolveWorkspaceShellPanelRadiusPx } from "@/app-shell/workspaceShellWindowChrome.js";
-import { ZCodeStartupLogoBadge } from "@/root/RootStartupLoading.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { cn } from "@/components/lib/utils.js";
-import { useResolvedThemeHeroPalette } from "@/openWorkspacePageThemeHero.js";
-import "@/onboarding/onboardingLogoSweep.css";
+import { logger } from "../logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { resolveWorkspaceShellPanelRadiusPx } from "../app-shell/workspaceShellWindowChrome.js";
+import { ZCodeStartupLogoBadge } from "../root/RootStartupLoading.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { useResolvedThemeHeroPalette } from "../openWorkspacePageThemeHero.js";
+import "../onboarding/onboardingLogoSweep.css";
 export function OccupationOnboardingVisual({ isMacDesktop, isWindowsDesktop, }) {
     const platform = usePlatform();
     const [macOSMajorVersion, setMacOSMajorVersion] = useState(null);

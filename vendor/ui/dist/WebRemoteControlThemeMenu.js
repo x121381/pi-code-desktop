@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Palette } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useZCodeStore } from "./store/StoreProvider.js";
 const MOBILE_THEME_OPTIONS = [
     "system",
     "zai-dark",

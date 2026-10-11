@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { HostResponseTypes, hostBotRemoteWorkspaceConnectionStatusResultMessageSchema, hostBotRemoteWorkspaceRuntimePortMessageSchema, hostBotRemoteWorkspaceReconnectResultMessageSchema, } from "@zcode/shared";
 import {} from "../session/zcodeTaskService.js";
 import {} from "../zcode-agent/zcodeAgent.js";
-import { createRemoteRuntimeServicesFromPort, } from "#src/bots/botRemoteRuntimeServices.js";
+import { createRemoteRuntimeServicesFromPort, } from "../bots/botRemoteRuntimeServices.js";
 export function createBotRemoteWorkspaceService(params) {
     const parentPort = params.parentPort;
     if (!parentPort) {

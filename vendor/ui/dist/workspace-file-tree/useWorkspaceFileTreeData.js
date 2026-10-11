@@ -1,14 +1,14 @@
 /* eslint-disable max-lines -- 文件树数据 hook 需要集中维护目录加载、watcher 刷新和 Git 状态竞态。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { logger } from "@/logger.js";
-import { WORKSPACE_FILE_TREE_WATCH_BULK_REFRESH_THRESHOLD, WORKSPACE_FILE_TREE_WATCH_DEBOUNCE_MS, WORKSPACE_FILE_TREE_WATCH_REFRESH_CONCURRENCY, WORKSPACE_FILE_TREE_REFRESH_DIRECTORY_TIMEOUT_MS, WORKSPACE_FILE_TREE_REFRESH_GIT_TIMEOUT_MS, } from "@/workspace-file-tree/constants.js";
-import { replaceSetValue, toError } from "@/workspace-file-tree/helpers.js";
-import { buildWorkspaceFileIgnoredPathSet, getWorkspaceFileDirectoryChildDepth, getWorkspaceFileParentDirectory, isWorkspaceFileTreeAutoFlattenableDirectory, isWorkspaceFilePathInside, } from "@/workspace-file-tree/model.js";
-import { loadWorkspaceFileTreeGitStatus } from "@/workspace-file-tree/gitStatus.js";
-import { useWorkspaceFileTreeWatchers } from "@/workspace-file-tree/useWorkspaceFileTreeWatchers.js";
-import { getWorkspaceFileTreeRefreshDirectoryPaths } from "@/workspace-file-tree/refreshDirectories.js";
-import { useWorkspaceFileTreeRows } from "@/workspace-file-tree/useWorkspaceFileTreeRows.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { logger } from "../logger.js";
+import { WORKSPACE_FILE_TREE_WATCH_BULK_REFRESH_THRESHOLD, WORKSPACE_FILE_TREE_WATCH_DEBOUNCE_MS, WORKSPACE_FILE_TREE_WATCH_REFRESH_CONCURRENCY, WORKSPACE_FILE_TREE_REFRESH_DIRECTORY_TIMEOUT_MS, WORKSPACE_FILE_TREE_REFRESH_GIT_TIMEOUT_MS, } from "../workspace-file-tree/constants.js";
+import { replaceSetValue, toError } from "../workspace-file-tree/helpers.js";
+import { buildWorkspaceFileIgnoredPathSet, getWorkspaceFileDirectoryChildDepth, getWorkspaceFileParentDirectory, isWorkspaceFileTreeAutoFlattenableDirectory, isWorkspaceFilePathInside, } from "../workspace-file-tree/model.js";
+import { loadWorkspaceFileTreeGitStatus } from "../workspace-file-tree/gitStatus.js";
+import { useWorkspaceFileTreeWatchers } from "../workspace-file-tree/useWorkspaceFileTreeWatchers.js";
+import { getWorkspaceFileTreeRefreshDirectoryPaths } from "../workspace-file-tree/refreshDirectories.js";
+import { useWorkspaceFileTreeRows } from "../workspace-file-tree/useWorkspaceFileTreeRows.js";
 function createWorkspaceFileTreeTimeoutError(label, timeoutMs) {
     return new Error(`${label} timed out after ${timeoutMs}ms`);
 }

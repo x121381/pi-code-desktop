@@ -1,5 +1,5 @@
-import { getPathLeaf } from "@/lib/path.js";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { getPathLeaf } from "../lib/path.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 export function resolveTaskFileTreeTarget(task, tab) {
     // 旧本地 task 没有 workspaceIdentity，key 会回退到 workspacePath；如果同路径
     // 远程 tab 也缺 identity，仅按 key 会误带远程 session。匹配前必须先保证本地/远程类型一致。

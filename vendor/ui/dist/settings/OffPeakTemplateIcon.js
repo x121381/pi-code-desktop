@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Activity, List, ListChecks, SlidersHorizontal } from "lucide-react";
-import { ClientSceneLucideIcon } from "@/components/ClientSceneLucideIcon.js";
+import { ClientSceneLucideIcon } from "../components/ClientSceneLucideIcon.js";
 const OFF_PEAK_TEMPLATE_ICONS = {
     standupGitSummary: List,
     ciFlakyReport: Activity,

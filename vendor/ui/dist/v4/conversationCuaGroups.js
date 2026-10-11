@@ -1,4 +1,4 @@
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
 const OFFICIAL_CUA_TOOL_PREFIXES = [
     "mcp__computer-use__",
     "mcp__plugin_zcode-cua_computer-use__",

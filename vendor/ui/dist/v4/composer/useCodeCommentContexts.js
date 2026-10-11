@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { CODE_COMMENT_ADD_TO_CHAT_EVENT, CODE_COMMENT_REMOVE_FROM_CHAT_EVENT, getCodeCommentWorkspaceKey, isCodeCommentAddToChatEvent, isCodeCommentPayload, isCodeCommentRemoveFromChatEvent, isCodeCommentRemovePayload, } from "@/lib/codeCommentContext.js";
+import { CODE_COMMENT_ADD_TO_CHAT_EVENT, CODE_COMMENT_REMOVE_FROM_CHAT_EVENT, getCodeCommentWorkspaceKey, isCodeCommentAddToChatEvent, isCodeCommentPayload, isCodeCommentRemoveFromChatEvent, isCodeCommentRemovePayload, } from "../../lib/codeCommentContext.js";
 function createCodeCommentAttachmentId() {
     if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
         return crypto.randomUUID();

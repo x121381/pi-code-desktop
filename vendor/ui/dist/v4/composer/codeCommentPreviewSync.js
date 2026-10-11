@@ -1,6 +1,6 @@
-import { CODE_COMMENT_REMOVE_BROADCAST_CHANNEL, markCodeCommentRemoved, } from "@/lib/codeCommentContext.js";
-import { logger } from "@/logger.js";
-import { useCodeCommentPreviewStore } from "@/store/codeCommentPreviewStore.js";
+import { CODE_COMMENT_REMOVE_BROADCAST_CHANNEL, markCodeCommentRemoved, } from "../../lib/codeCommentContext.js";
+import { logger } from "../../logger.js";
+import { useCodeCommentPreviewStore } from "../../store/codeCommentPreviewStore.js";
 export function removeCodeCommentPreview(attachment, port) {
     const payload = {
         id: attachment.id,

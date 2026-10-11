@@ -1,8 +1,8 @@
 /* eslint-disable max-lines -- Coding Plan 登录、订阅与 Start/Coding 互斥校验需要集中维护，拆散会让系统禁用原因更难追踪。 */
 import { ApiError, BIGMODEL_PROVIDER_ID, buildBigModelApiUrl, buildRuntimeZaiBusinessUrl, resolveBigModelApiOrigin, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import {} from "#src/bigmodel/teamPlanApiKey.js";
-import { fetchPersonalCodingPlanEntitlement, fetchTeamCodingPlanEntitlement, } from "#src/bigmodel/codingPlanEntitlement.js";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import {} from "../bigmodel/teamPlanApiKey.js";
+import { fetchPersonalCodingPlanEntitlement, fetchTeamCodingPlanEntitlement, } from "../bigmodel/codingPlanEntitlement.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { readApiJson } from "../providers/api/apiJson.js";
 import { resolveBigModelStartPlanZcodeJwt } from "./bigmodelStartPlanZcodeJwt.js";
 import { buildZaiStartPlanBalanceUrl, fetchZaiStartPlanBalanceEnvelope, resolveZaiStartPlanBalanceModelIds, } from "./zaiStartPlanBilling.js";

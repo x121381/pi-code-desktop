@@ -1,4 +1,4 @@
-import { hasRunningZCodeTimeline } from "@/lib/zcodeTimelineRuntime.js";
+import { hasRunningZCodeTimeline } from "../lib/zcodeTimelineRuntime.js";
 export function shouldMarkMainActiveFromStreamMirrorOps(ops) {
     if (ops.length === 0) {
         return true;

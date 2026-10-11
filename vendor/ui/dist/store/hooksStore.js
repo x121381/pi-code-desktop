@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getWorkspaceKey } from "@/lib/workspaceKey.js";
+import { getWorkspaceKey } from "../lib/workspaceKey.js";
 const inflightLoads = new Map();
 // store 是单例，切换 workspace 后先发起的加载可能后到。任何异步结果写回 store 之前
 // 都要比对发起时的 target key，否则旧 workspace 的 hooks 会覆盖当前投影，并被后续写操作落盘

@@ -2,9 +2,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FolderOpen, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { isDataBaseDirForbiddenWindowsInstallDirError, TID_SETTINGS_DATA_BASE_DIR_BROWSE, TID_SETTINGS_DATA_BASE_DIR_INPUT, TID_SETTINGS_DATA_BASE_DIR_SAVE, TID_SETTINGS_DATA_BASE_DIR_STATUS, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function DataBaseDirControl({ dataBaseDir, defaultHomeDir, onDataBaseDirChange, onSelectDataBaseDir, }) {
     const { intl } = useZCodeIntl();
     const effectiveDir = dataBaseDir || defaultHomeDir;

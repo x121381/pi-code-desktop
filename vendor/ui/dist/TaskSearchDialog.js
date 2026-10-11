@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut, } from "@/components/ui/command.js";
-import { useGlobalTaskList } from "@/hooks/useGlobalTaskList.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { formatCommandShortcutLabel, matchesPrimaryShortcut } from "@/lib/keyboardShortcuts.js";
-import { formatTaskRelativeTime } from "@/lib/taskListItemPresentation.js";
-import { HighlightedMatchText } from "@/quickpick/HighlightedMatchText.js";
-import { quickPickCommandClassName, quickPickDialogClassName, quickPickInputClassName, quickPickItemClassName, quickPickListClassName, quickPickMetadataClassName, quickPickShortcutPillClassName, } from "@/quickpick/quickPickStyles.js";
+import { Button } from "./components/ui/button.js";
+import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut, } from "./components/ui/command.js";
+import { useGlobalTaskList } from "./hooks/useGlobalTaskList.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { logger } from "./logger.js";
+import { formatCommandShortcutLabel, matchesPrimaryShortcut } from "./lib/keyboardShortcuts.js";
+import { formatTaskRelativeTime } from "./lib/taskListItemPresentation.js";
+import { HighlightedMatchText } from "./quickpick/HighlightedMatchText.js";
+import { quickPickCommandClassName, quickPickDialogClassName, quickPickInputClassName, quickPickItemClassName, quickPickListClassName, quickPickMetadataClassName, quickPickShortcutPillClassName, } from "./quickpick/quickPickStyles.js";
 const TASK_SEARCH_RESULT_LIMIT = 9;
 const TASK_SEARCH_GROUP_COLLAPSED_SNIPPET_LIMIT = 3;
 function getTaskTitle(task, untitledLabel) {

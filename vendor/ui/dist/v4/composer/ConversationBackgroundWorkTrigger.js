@@ -2,9 +2,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
 import { ActivityIcon, BotIcon, SquareTerminalIcon, Workflow } from "lucide-react";
 import { TID_V4_COMPOSER_BACKGROUND_WORK_TRIGGER } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function getComposerBackgroundWorkCounts(backgroundWorks, runningSubagentCount = 0) {
     let bashCount = 0;
     let workflowCount = 0;

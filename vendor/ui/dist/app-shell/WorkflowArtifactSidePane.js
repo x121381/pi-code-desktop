@@ -2,20 +2,20 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { TID_WORKFLOW_ARTIFACT_PANE } from "@zcode/shared";
 import { ChevronLeftIcon, ChevronRightIcon, CopyIcon, FolderOpenIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, artifactOpenAsFileName, canRevealArtifactInWorkspace, isArtifactPresetKind, isTextArtifactContentType, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { ArtifactOpenAsFileButton, useCanOpenArtifactAsFile, } from "@/app-shell/workflow-artifacts/ArtifactOpenAsFileButton.js";
-import { WorkflowArtifactBody } from "@/app-shell/workflow-artifacts/WorkflowArtifactBody.js";
-import { artifactPresetFieldPaths } from "@/app-shell/workflow-artifacts/presets/spec.js";
-import { useWorkflowRunArtifactBytes } from "@/hooks/useWorkflowRunArtifactBytes.js";
-import { useWorkflowRunArtifactData } from "@/hooks/useWorkflowRunArtifactData.js";
-import { useWorkflowRunArtifacts, } from "@/hooks/useWorkflowRunArtifacts.js";
-import { joinFilePath } from "@/lib/path.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { useV4Conversation, V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, artifactOpenAsFileName, canRevealArtifactInWorkspace, isArtifactPresetKind, isTextArtifactContentType, } from "../app-shell/workflow-artifacts/artifactPresentation.js";
+import { ArtifactOpenAsFileButton, useCanOpenArtifactAsFile, } from "../app-shell/workflow-artifacts/ArtifactOpenAsFileButton.js";
+import { WorkflowArtifactBody } from "../app-shell/workflow-artifacts/WorkflowArtifactBody.js";
+import { artifactPresetFieldPaths } from "../app-shell/workflow-artifacts/presets/spec.js";
+import { useWorkflowRunArtifactBytes } from "../hooks/useWorkflowRunArtifactBytes.js";
+import { useWorkflowRunArtifactData } from "../hooks/useWorkflowRunArtifactData.js";
+import { useWorkflowRunArtifacts, } from "../hooks/useWorkflowRunArtifacts.js";
+import { joinFilePath } from "../lib/path.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
+import { resolveTheme } from "../useTheme.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { useV4Conversation, V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
 /**
  * 稳定引用的空摘要列表：`artifacts` 键在零产物时**缺席**，坍缩成一个每帧新造的 `[]`
  * 会让合并 hook 的依赖每帧都变，于是每帧重查一次 journal。

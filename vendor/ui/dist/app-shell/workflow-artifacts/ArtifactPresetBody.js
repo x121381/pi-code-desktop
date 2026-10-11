@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { ArtifactBoard, ArtifactChart, ArtifactMetrics, ArtifactTable, parseArtifactPresetSpec, } from "@/app-shell/workflow-artifacts/presets/index.js";
-import { isArtifactPresetKind } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
+import { ArtifactBoard, ArtifactChart, ArtifactMetrics, ArtifactTable, parseArtifactPresetSpec, } from "../../app-shell/workflow-artifacts/presets/index.js";
+import { isArtifactPresetKind } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
 /**
  * 预置看板的正文。
  *

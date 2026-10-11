@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Pen } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workflowRunQuestionWaitedLabel } from "@/app-shell/workflowRunQuestions.js";
+import { ToolLayout } from "../ToolCallBlocks/ToolLayout.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { workflowRunQuestionWaitedLabel } from "../app-shell/workflowRunQuestions.js";
 export function holeRowState(holes, siteId) {
     if (holes === undefined)
         return "left";

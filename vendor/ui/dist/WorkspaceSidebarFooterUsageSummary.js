@@ -1,28 +1,28 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { useCodingPlanEntryGate } from "@/settings/CodingPlanEntryButton.js";
+import { useCodingPlanEntryGate } from "./settings/CodingPlanEntryButton.js";
 /* eslint-disable max-lines -- footer 套餐徽标、升级入口与 entitlement 探测共用同一份
    provider 选择与 family 过滤上下文，拆文件会让 zai/bigmodel 对称性难以追踪。 */
 import { useEffect, useMemo } from "react";
 import { BUILTIN_MODEL_PROVIDER_IDS, normalizeProviderFamilyDomain, resolveModelProviderFamilyIdByProviderId, TID_SIDEBAR_CODING_PLAN_USAGE_BUTTON, } from "@zcode/shared";
 import { BarChart3Icon, RocketIcon } from "lucide-react";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu.js";
-import { resolveCodingPlanUsageRemainingState, } from "@/CodingPlanUsageRemainingPanel.js";
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { useUsageEntitlement } from "@/hooks/useUsageEntitlement.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { resolveEntitledAccountProviderAccess, resolveEntitledAccountProviderAccessFingerprint, } from "@/lib/accountProviderAccess.js";
-import { buildUsageEntitlementCacheKey } from "@/lib/usageEntitlementCache.js";
-import { isMaxCodingPlanSnapshot, resolveSidebarCodingPlanUpgradeFallbackProviderId, } from "@/lib/sidebarCodingPlanUpgrade.js";
-import { createCodingPlanFunnelContext, resolveCodingPlanEntryPlanState, } from "@/lib/codingPlanFunnelTelemetry.js";
-import {} from "@/lib/sidebarUsageCodingPlanProviderPreference.js";
-import { useEnterpriseCodingPlanProducts } from "@/settings/model-provider-section/useEnterpriseCodingPlanProducts.js";
-import { buildCodingPlanUsageSources, resolveSidebarCurrentCodingPlanUsageSource, } from "@/lib/codingPlanUsageSources.js";
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { parseCustomProviderIdFromSupplierKey } from "@/lib/modelConfigSync.js";
-import { setPendingSettingsUsageIntent } from "@/lib/settingsNavigation.js";
-import { resolveSidebarFooterPlanBadgeLabel, resolveSidebarFooterProfilePlanBadge, } from "@/WorkspaceSidebarFooterPlanBadgeHelpers.js";
-export { resolveSidebarFooterPlanBadgeLabel, resolveSidebarFooterProfilePlanBadge, } from "@/WorkspaceSidebarFooterPlanBadgeHelpers.js";
+import { DropdownMenuItem, DropdownMenuSeparator } from "./components/ui/dropdown-menu.js";
+import { resolveCodingPlanUsageRemainingState, } from "./CodingPlanUsageRemainingPanel.js";
+import { useProviderSettingsView } from "./hooks/useProviderSettingsView.js";
+import { useUsageEntitlement } from "./hooks/useUsageEntitlement.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useSettings } from "./hooks/useSettingService.js";
+import { resolveEntitledAccountProviderAccess, resolveEntitledAccountProviderAccessFingerprint, } from "./lib/accountProviderAccess.js";
+import { buildUsageEntitlementCacheKey } from "./lib/usageEntitlementCache.js";
+import { isMaxCodingPlanSnapshot, resolveSidebarCodingPlanUpgradeFallbackProviderId, } from "./lib/sidebarCodingPlanUpgrade.js";
+import { createCodingPlanFunnelContext, resolveCodingPlanEntryPlanState, } from "./lib/codingPlanFunnelTelemetry.js";
+import {} from "./lib/sidebarUsageCodingPlanProviderPreference.js";
+import { useEnterpriseCodingPlanProducts } from "./settings/model-provider-section/useEnterpriseCodingPlanProducts.js";
+import { buildCodingPlanUsageSources, resolveSidebarCurrentCodingPlanUsageSource, } from "./lib/codingPlanUsageSources.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "./store/zcodeSessionStore.js";
+import { parseCustomProviderIdFromSupplierKey } from "./lib/modelConfigSync.js";
+import { setPendingSettingsUsageIntent } from "./lib/settingsNavigation.js";
+import { resolveSidebarFooterPlanBadgeLabel, resolveSidebarFooterProfilePlanBadge, } from "./WorkspaceSidebarFooterPlanBadgeHelpers.js";
+export { resolveSidebarFooterPlanBadgeLabel, resolveSidebarFooterProfilePlanBadge, } from "./WorkspaceSidebarFooterPlanBadgeHelpers.js";
 const TID_SIDEBAR_CODING_PLAN_UPGRADE_BUTTON = "sidebar-coding-plan-upgrade-button";
 export function WorkspaceSidebarFooterUsageSummary({ enabled, onUsageClick, onUpgradeClick, workspaceIdentity, workspacePath, }) {
     const state = useWorkspaceSidebarFooterUsageSummaryState({

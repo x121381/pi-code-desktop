@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { BROWSER_SCREENSHOT_SURFACE_PREPARE_TIMEOUT_MS, } from "@zcode/shared";
-import { safeWebviewCall } from "@/embeddedBrowserHelpers.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { safeWebviewCall } from "../embeddedBrowserHelpers.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 function roundViewport(width, height) {
     const viewport = { width: Math.round(width), height: Math.round(height) };
     return viewport.width > 0 && viewport.height > 0 ? viewport : null;

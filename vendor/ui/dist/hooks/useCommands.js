@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { useCommandsStore } from "@/store/commandsStore.js";
+import { useCommandsStore } from "../store/commandsStore.js";
 export function useCommands(options) {
     const { commandsService, workspacePath, workspaceIdentity, enabled = true } = options;
     const commands = useCommandsStore((state) => state.commands);

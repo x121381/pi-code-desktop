@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { InfoIcon } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog.js";
+import { Alert, AlertDescription } from "../../components/ui/alert.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../components/ui/dialog.js";
 export function MarketingFailureDialog({ message, title, acknowledge, onClose, }) {
     return (_jsx(Dialog, { open: true, onOpenChange: (open) => {
             if (!open)

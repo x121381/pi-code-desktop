@@ -1,9 +1,9 @@
-import { resolveMarkdownFileLink, } from "@/lib/markdownFileLink.js";
+import { resolveMarkdownFileLink, } from "../lib/markdownFileLink.js";
 import { extractConversationPreviewFileReferences } from "@zcode/shared";
-import { decodeFilePathUriEscapes, joinFilePath } from "@/lib/path.js";
+import { decodeFilePathUriEscapes, joinFilePath } from "../lib/path.js";
 import { MEDIA_PREVIEW_FORMATS } from "@zcode/shared";
-import { extractZCodeFileCitationDirectives, resolveZCodeFileCitationPreviewKind, } from "@/lib/zcodeFileCitation.js";
-import { isBalancedAssistantPathQuotePair, isAssistantPathQuoteCharacter, stripBalancedAssistantPathQuotes, } from "@/lib/assistantPathQuotes.js";
+import { extractZCodeFileCitationDirectives, resolveZCodeFileCitationPreviewKind, } from "../lib/zcodeFileCitation.js";
+import { isBalancedAssistantPathQuotePair, isAssistantPathQuoteCharacter, stripBalancedAssistantPathQuotes, } from "../lib/assistantPathQuotes.js";
 // 新增文件类型只需登记扩展名和展示文案；正文抽取、卡片排序和批量校验复用同一路径。
 const ASSISTANT_PREVIEW_FILE_TYPES = [
     { extensions: [".md"], kind: "markdown", subtitleId: "chat.previewCards.markdown" },

@@ -5,9 +5,9 @@
 // 「面板跟着工作流走」——新 run 一进投影，就把这个 tab 原地换成新 run 的 tab（同一个位置、同一个名字，
 // 不展开已收起的侧栏）。等的是投影里出现新 run 这一事实，不是一个超时。
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useWorkflowRunSettingsPopoverState, } from "@/components/workflow-timeline/WorkflowRunSettingsPopover.js";
-import { isWorkflowRunConfigurable, workflowSessionModelOf, } from "@/components/workflow-timeline/workflowRunSettings.js";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
+import { useWorkflowRunSettingsPopoverState, } from "../components/workflow-timeline/WorkflowRunSettingsPopover.js";
+import { isWorkflowRunConfigurable, workflowSessionModelOf, } from "../components/workflow-timeline/workflowRunSettings.js";
+import { createCommandEnvelope } from "../v4/commandFactory.js";
 /** run tab 的 workspace 作用域：打开别的 tab（actor、脚本、产物、后继）时原样带上。 */
 export function workflowRunTabScope(tab) {
     return {

@@ -6,7 +6,7 @@ import { arch, platform, release, type as osType } from "node:os";
 import { FeedbackHttpClient, FeedbackUploadCanceledError } from "./feedbackHttpClient.js";
 import { cleanupLogArchive, prepareCompactLogArchive } from "./compactLogArchive.js";
 import { getFeedbackAttachmentDir } from "../paths.js";
-import { FeedbackLocalTicketStore } from "#src/feedback/feedbackLocalTicketStore.js";
+import { FeedbackLocalTicketStore } from "../feedback/feedbackLocalTicketStore.js";
 const ZCODE_JWT_TOKEN_KEY = "zcodejwttoken";
 function resolveApiBaseUrl(explicit) {
     return (explicit?.trim() ||

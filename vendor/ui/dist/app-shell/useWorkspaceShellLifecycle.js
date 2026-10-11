@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { logger } from "@/logger.js";
-import { getWorkspaceDisplayedTaskState, getWorkspaceInitState, useZCodeSessionStore, } from "@/store/zcodeSessionStore.js";
+import { logger } from "../logger.js";
+import { getWorkspaceDisplayedTaskState, getWorkspaceInitState, useZCodeSessionStore, } from "../store/zcodeSessionStore.js";
 export function useWorkspaceShellLifecycle({ workspaceAbsPath, workspaceIdentity, services, setBrowserNavigationRequest, setTestMessages, }) {
     const previousWorkspaceAbsPathRef = useRef(workspaceAbsPath);
     useEffect(() => {

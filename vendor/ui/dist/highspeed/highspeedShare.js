@@ -1,4 +1,4 @@
-import { calculateHighspeedSavedDurationMs } from "@/highspeed/highspeedSavedTime.js";
+import { calculateHighspeedSavedDurationMs } from "../highspeed/highspeedSavedTime.js";
 export const HIGHSPEED_NOTICE_DISMISS_COOLDOWN_MS = 24 * 60 * 60_000;
 export const HIGHSPEED_NOTICE_AUTO_CLOSE_MS = 24 * 60 * 60_000;
 export const MIN_HIGHSPEED_SHARE_SPEEDUP = 1.2;

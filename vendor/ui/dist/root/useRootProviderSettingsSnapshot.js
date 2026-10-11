@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { connectProviderSettingsSnapshot } from "@/lib/providerSettingsSnapshot.js";
-import { logger } from "@/logger.js";
+import { connectProviderSettingsSnapshot } from "../lib/providerSettingsSnapshot.js";
+import { logger } from "../logger.js";
 export function useRootProviderSettingsSnapshot(services) {
     useEffect(() => {
         const service = services.providerSettingsService;

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ArrowUpRightIcon, CircleCheckIcon, CircleHelpIcon, CircleXIcon, LoaderCircleIcon, TerminalIcon, } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { WorkflowAgentFace, agentColor } from "@/components/workflow-timeline/WorkflowAgentFace.js";
-export { agentColor, avatarColor } from "@/components/workflow-timeline/WorkflowAgentFace.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { WorkflowAgentFace, agentColor } from "../../components/workflow-timeline/WorkflowAgentFace.js";
+export { agentColor, avatarColor } from "../../components/workflow-timeline/WorkflowAgentFace.js";
 /**
  * 子代理药丸：带色头像 +
  * 名字 + 右侧状态标记。卡片的站下与侧栏的行都是它——同一个特性只有一枚药丸。

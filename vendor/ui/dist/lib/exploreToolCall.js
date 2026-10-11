@@ -1,4 +1,4 @@
-import { resolveToolCallIdentity } from "@/lib/toolIdentity.js";
+import { resolveToolCallIdentity } from "../lib/toolIdentity.js";
 function isPlainRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }

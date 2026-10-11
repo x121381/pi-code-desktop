@@ -6,7 +6,7 @@
  */
 import { useState, useEffect, useCallback } from "react";
 import { useServices } from "./useServices.js";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /**
  * 带文件系统监视的目录读取 hook
  *

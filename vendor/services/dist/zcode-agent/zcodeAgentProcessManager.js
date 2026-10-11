@@ -1,5 +1,5 @@
-import { localRuntimeNetworkCapture } from "#src/zcode-agent/localRuntimeNetworkCapture.js";
-import { resolveZCodeAgentSpawnCwd } from "#src/zcode-agent/zcodeAgentSpawnCwd.js";
+import { localRuntimeNetworkCapture } from "../zcode-agent/localRuntimeNetworkCapture.js";
+import { resolveZCodeAgentSpawnCwd } from "../zcode-agent/zcodeAgentSpawnCwd.js";
 /* eslint-disable max-lines -- zcodeAgentProcessManager 集中维护 agent 子进程启动、复用、超时回收和 runtime identity，拆分会扩大进程生命周期状态同步面 */
 import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
@@ -11,8 +11,8 @@ import { getAppConfigDir } from "../paths.js";
 import { parseZCodeProcessDiagnostic, ZCODE_AGENT_LIFECYCLE_LOG_MARKER, ZCODE_PROCESS_DIAGNOSTIC_NAME_MAX_CHARS, ZCODE_PROCESS_DIAGNOSTIC_MESSAGE_MAX_CHARS, ZCODE_PROCESS_DIAGNOSTIC_STACK_MAX_CHARS, } from "@zcode/shared/process-diagnostic";
 import { ZCODE_AGENT_RUNTIME, ZCODE_AGENT_PROVIDER, ZCODE_RUNTIME_ENV_KEY, resolveWorkspaceKey, resolveZCodeRuntimeEnv, sanitizeZCodeRuntimeEnv, } from "@zcode/shared";
 import { findZCodeAgentRuntimeBinary, findZCodeAgentRuntimeNodeBundle, } from "../runtime-tools/providerRuntimeResolver.js";
-import { isEffectiveDevelopmentNodeEnv } from "#src/runtime-tools/nodeEnv.js";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { isEffectiveDevelopmentNodeEnv } from "../runtime-tools/nodeEnv.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { ZCodeProtocolClient } from "./zcodeProtocolClient.js";
 import { ZCodeStdioTransport } from "./zcodeStdioTransport.js";
 import { readZCodeStdioTapDevState } from "./zcodeStdioTapDevConfig.js";

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronLeft, FolderOpen, Loader2 } from "lucide-react";
 import { STORAGE_MORE_ENTRIES_PATH, TID_RESOURCE_MANAGER_STORAGE_CATEGORY_CLEAN, TID_RESOURCE_MANAGER_STORAGE_DETAIL, TID_RESOURCE_MANAGER_STORAGE_DETAIL_BACK, TID_RESOURCE_MANAGER_STORAGE_DETAIL_ENTRY, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatBytes } from "@/resource-manager/resourceUsageView.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatBytes } from "../../resource-manager/resourceUsageView.js";
 import { STORAGE_CATEGORY_ICONS, joinStoragePath, storageCategoryDescriptionId, storageCategoryTitleId, } from "./storageCategoryPresentation.js";
 export function StorageCategoryDetail({ categoryId, roots, cleaning, disabled, onBack, onClean, onReveal, }) {
     const { intl } = useZCodeIntl();

@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { PlusIcon, XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { TECHNICAL_INPUT_ATTRIBUTES } from "@/lib/technicalInputAttributes.js";
-import { modelEditorControlStyle } from "@/settings/model-provider-section/modelEditorControlStyle.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { TECHNICAL_INPUT_ATTRIBUTES } from "../../lib/technicalInputAttributes.js";
+import { modelEditorControlStyle } from "../../settings/model-provider-section/modelEditorControlStyle.js";
 export function ProviderModelReasoningLevelEditor({ values, overridden, addLabel, deleteLabel, onChange, }) {
     const [editingIndex, setEditingIndex] = useState(null);
     const [editingValue, setEditingValue] = useState("");

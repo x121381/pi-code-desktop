@@ -1,6 +1,6 @@
 import { isZCodeAgentProvider, resolveModelProviderFamilySpecByProviderId, zcodeProviderAccountAccessSchema, } from "@zcode/shared";
-import { decodeCustomModelValue, encodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
-import { shouldShowModelVisionBadge } from "@/lib/modelVisionBadge.js";
+import { decodeCustomModelValue, encodeCustomModelValue } from "../lib/zcodeCustomModelValue.js";
+import { shouldShowModelVisionBadge } from "../lib/modelVisionBadge.js";
 function supportsRegistryApiFormat(selectedProvider, apiFormat) {
     if (!apiFormat)
         return false;

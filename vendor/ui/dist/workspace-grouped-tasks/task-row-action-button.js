@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { Button } from "../components/ui/button.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
 function TaskRowActionButton({ label, children, className, onClick, showTooltip = false, disabledReason, testId, }) {
     const button = (_jsx(Button, { type: "button", variant: "ghost", size: "icon-sm", className: className, disabled: Boolean(disabledReason), "data-testid": testId, onMouseDown: (event) => {
             event.preventDefault();

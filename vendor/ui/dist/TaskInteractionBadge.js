@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "./components/lib/utils.js";
 export function isAskUserQuestionInteraction(interaction) {
     if (!interaction || interaction.kind !== "userInput")
         return false;

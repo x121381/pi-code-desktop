@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { useOffPeakTaskStore } from "@/store/offPeakTaskStore.js";
+import { useServices } from "../hooks/useServices.js";
+import { useOffPeakTaskStore } from "../store/offPeakTaskStore.js";
 /** 两个闲时入口共享初始化/连接/Registry 通知边界，不在组件中另存资格。 */
 export function useOffPeakEligibility(settings, registryRevision) {
     const { offPeakTaskService, codingPlanSubscriptionService } = useServices();

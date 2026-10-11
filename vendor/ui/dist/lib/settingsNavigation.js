@@ -1,5 +1,5 @@
 /* eslint-disable max-lines -- 设置导航意图集中管理 sessionStorage、事件桥接和解析校验，拆分会让一次性意图消费顺序更难保证。 */
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 const SETTINGS_SECTION_INTENT_KEY = "zcode-settings-section-intent", SETTINGS_USAGE_TAB_INTENT_KEY = "zcode-settings-usage-tab-intent", SETTINGS_PLUGIN_TAB_INTENT_KEY = "zcode-settings-plugin-tab-intent", SETTINGS_PLUGIN_ORIGIN_INTENT_KEY = "zcode-settings-plugin-origin-intent", SETTINGS_PLUGIN_SCOPE_KEY_INTENT_KEY = "zcode-settings-plugin-scope-key-intent";
 const SETTINGS_MODEL_PROVIDER_ID_INTENT_KEY = "zcode-settings-model-provider-id-intent";
 const SETTINGS_SECTION_INTENT_EVENT = "zcode:settings-section-intent", SETTINGS_LAST_SECTION_STORAGE_KEY = "zcode-settings-last-section";

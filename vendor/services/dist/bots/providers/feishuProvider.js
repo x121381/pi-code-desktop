@@ -1,13 +1,13 @@
-import { getUnavailableReplyFallback } from "#src/bots/groupReply.js";
-import { createGroupMemberDirectory, } from "#src/bots/providers/groupMemberDirectory.js";
+import { getUnavailableReplyFallback } from "../../bots/groupReply.js";
+import { createGroupMemberDirectory, } from "../../bots/providers/groupMemberDirectory.js";
 import { channelContentPartsSchema, channelContentText, botGroupCardSchema } from "@zcode/shared";
-import { isFeishuBotSender, isGroupControlCard, readGroupConversationCardText, readGroupCardText, readGroupMessage, readGroupMentionText, } from "#src/bots/providers/feishuGroupMessages.js";
+import { isFeishuBotSender, isGroupControlCard, readGroupConversationCardText, readGroupCardText, readGroupMessage, readGroupMentionText, } from "../../bots/providers/feishuGroupMessages.js";
 /* eslint-disable max-lines -- Feishu provider 集中承载鉴权、消息解析、卡片发送和 reaction typing 适配，后续按能力拆分。 */
 import { botTopicMessageSchema } from "@zcode/shared";
-import { readTopicHistory, TopicHistoryPermissionError } from "#src/bots/topicHistory.js";
+import { readTopicHistory, TopicHistoryPermissionError } from "../../bots/topicHistory.js";
 import { formatBotMessage } from "../messages.js";
-import { fetchBotProviderJson } from "#src/bots/providers/providerRequest.js";
-import { createGroupInputReactionUpdater } from "#src/bots/providers/groupInputReaction.js";
+import { fetchBotProviderJson } from "../../bots/providers/providerRequest.js";
+import { createGroupInputReactionUpdater } from "../../bots/providers/groupInputReaction.js";
 const FEISHU_APP_ID_PATTERN = /^cli_[0-9a-fA-F]{16}$/;
 const FEISHU_WEBSOCKET_START_TIMEOUT_MS = 20_000;
 const FEISHU_WEBSOCKET_READY_POLL_MS = 100;

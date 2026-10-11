@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { getAppConfigDir } from "#src/paths.js";
-import { isEffectiveDevelopmentNodeEnv } from "#src/runtime-tools/nodeEnv.js";
+import { getAppConfigDir } from "../paths.js";
+import { isEffectiveDevelopmentNodeEnv } from "../runtime-tools/nodeEnv.js";
 export function isZCodeStdioTapDevVisible() {
     return isEffectiveDevelopmentNodeEnv();
 }

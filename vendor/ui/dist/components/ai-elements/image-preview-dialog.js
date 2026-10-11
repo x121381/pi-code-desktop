@@ -2,13 +2,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ArrowLeftIcon, ArrowRightIcon, DownloadIcon, MinusIcon, PlusIcon, XIcon, } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog.js";
-import { toast } from "@/components/ui/toast.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogClose, DialogContent, DialogTitle } from "../../components/ui/dialog.js";
+import { toast } from "../../components/ui/toast.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
 const defaultPreviewOffset = { x: 0, y: 0 };
 const MAX_DOWNLOAD_BYTES = 50 * 1024 * 1024;
 const imageExtensionByMediaType = {

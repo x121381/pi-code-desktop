@@ -3,8 +3,8 @@
 // 变更后一律 `bypass` 刷新（skillStore 的同一条教训：复用 in-flight Promise 会拿到旧扫描）。
 import { create } from "zustand";
 import { resolveWorkspaceKey, } from "@zcode/shared";
-import { logger } from "@/logger.js";
-import { useWorkflowRunSavedStore } from "@/store/workflowRunSavedStore.js";
+import { logger } from "../logger.js";
+import { useWorkflowRunSavedStore } from "../store/workflowRunSavedStore.js";
 /** 一页里最多拉多少条 run 来算「上次运行」；一个项目的活跃工作流很少超过这个数。 */
 const SAVED_WORKFLOW_RUNS_PAGE = 50;
 const EMPTY_SAVED_WORKFLOW_STATE = {

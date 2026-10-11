@@ -2,12 +2,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines */
 import { useCallback, useEffect, useMemo, useRef, useState, } from "react";
 import { CheckIcon, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Info } from "lucide-react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { InteractionRequestOriginBadge } from "@/InteractionRequestOriginBadge.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
+import { Badge } from "./components/ui/badge.js";
+import { Button } from "./components/ui/button.js";
+import { cn } from "./components/lib/utils.js";
+import { Textarea } from "./components/ui/textarea.js";
+import { InteractionRequestOriginBadge } from "./InteractionRequestOriginBadge.js";
+import { isImeComposingKeyEvent } from "./lib/imeComposition.js";
 import { useZCodeIntl } from "./i18n/IntlProvider.js";
 const ELICITATION_FINAL_MINUTE_MS = 60_000;
 const PLAN_APPROVAL_APPROVE_VALUE = "approve";

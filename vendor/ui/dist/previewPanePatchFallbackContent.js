@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { DiffViewer } from "@/components/ui/diff-viewer.js";
-import { HighlightedLightweightDiffPreview } from "@/components/ui/highlighted-lightweight-diff-preview.js";
-import { inferCodeLanguage } from "@/lib/codeViewer.js";
-import { getPlainTextPatchFallbackLines } from "@/lib/patchDiffPreview.js";
+import { DiffViewer } from "./components/ui/diff-viewer.js";
+import { HighlightedLightweightDiffPreview } from "./components/ui/highlighted-lightweight-diff-preview.js";
+import { inferCodeLanguage } from "./lib/codeViewer.js";
+import { getPlainTextPatchFallbackLines } from "./lib/patchDiffPreview.js";
 export function PatchFallbackContent({ patch, codePreviewSettings, resolvedTheme, sourcePath, sourceTitle, }) {
     const plainTextFallbackLines = useMemo(() => getPlainTextPatchFallbackLines(patch), [patch]);
     const highlightPath = sourcePath ?? sourceTitle;

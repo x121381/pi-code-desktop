@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlarmClock, GiftIcon, XIcon } from "lucide-react";
-import { formatCodingPlanQuotaResetCountdown } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetDialog.js";
-import { Button } from "@/components/ui/button.js";
+import { formatCodingPlanQuotaResetCountdown } from "../components/coding-plan-quota-reset/CodingPlanQuotaResetDialog.js";
+import { Button } from "../components/ui/button.js";
 export const CONTEXT_QUOTA_RESET_URGENT_SECONDS = 180;
 export function createContextQuotaResetOpportunityDismissalStore() {
     let snapshot = {

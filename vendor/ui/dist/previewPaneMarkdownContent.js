@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo, useRef } from "react";
-import { MarkdownSelectionTooltip } from "@/v4/MarkdownSelectionTooltip.js";
-import { MessageResponse } from "@/components/ai-elements/message.js";
+import { MarkdownSelectionTooltip } from "./v4/MarkdownSelectionTooltip.js";
+import { MessageResponse } from "./components/ai-elements/message.js";
 export function MarkdownPreviewContent({ content, sourceKey, sourceTitle, sourcePath, selectionTarget, workspacePath, theme, codePreviewSettings, onOpenBrowserUrl, }) {
     const rootRef = useRef(null);
     const selectionScope = useMemo(() => ({}), [content, sourceKey, sourcePath, selectionTarget?.workspaceKey, selectionTarget?.sessionId]);

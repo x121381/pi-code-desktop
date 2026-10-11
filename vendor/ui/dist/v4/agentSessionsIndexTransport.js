@@ -1,9 +1,9 @@
 import { sessionsIndexTopicFrameSchema, TopicWireFrameAssembler, } from "@zcode/shared/zcode-protocol-v4";
 import { sessionsIndexTopic } from "@zcode/shared/zcode-protocol-v4";
-import { logger } from "@/logger.js";
-import { ensureAgentV4ConnectionHandshake } from "@/v4/agentV4ConnectionHandshake.js";
-import { createAckActivationBarrier } from "@/v4/ackActivationBarrier.js";
-import { createTopicWireDecoder } from "@/v4/topicWireDecoder.js";
+import { logger } from "../logger.js";
+import { ensureAgentV4ConnectionHandshake } from "../v4/agentV4ConnectionHandshake.js";
+import { createAckActivationBarrier } from "../v4/ackActivationBarrier.js";
+import { createTopicWireDecoder } from "../v4/topicWireDecoder.js";
 /** 一条 host 连接（= 一个 workspace）上的 sessions-index 传输面。 */
 export function createAgentSessionsIndexTransport(agentService, target) {
     const workspace = {

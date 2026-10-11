@@ -1,8 +1,8 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { SearchIcon } from "lucide-react";
 import { useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { ToolLayout } from "../ToolLayout.js";
 const SEARCH_TOOL_ICON = _jsx(SearchIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 function isPlainRecord(value) {

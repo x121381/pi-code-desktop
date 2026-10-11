@@ -1,4 +1,4 @@
-import { buildTaskEntityKey } from "@/lib/taskQueryCache.js";
+import { buildTaskEntityKey } from "../lib/taskQueryCache.js";
 export function taskNavigationTargetExists(params) {
     if (params.visibleTasks.some((task) => task.taskId === params.entry.taskId)) {
         return true;

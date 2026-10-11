@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { BookOpenTextIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
 const READ_SESSION_CONTEXT_TOOL_ICON = (_jsx(BookOpenTextIcon, { className: "size-4 shrink-0 text-foreground-subtle" }));
 function isPlainRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);

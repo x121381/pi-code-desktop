@@ -1,8 +1,8 @@
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
 import { LoaderIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function ChatLoading({ loading, size = "default", className, ...props }) {
     const { intl } = useZCodeIntl();
     if (!loading) {

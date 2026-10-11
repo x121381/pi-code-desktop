@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
-import zaiLogoUrl from "@/assets/provider-icons/logo-zai.svg";
+import { cn } from "./components/lib/utils.js";
+import zaiLogoUrl from "./assets/provider-icons/logo-zai.svg";
 export function WindowsTopLeftLogo({ className, imageClassName, }) {
     return (_jsx("div", { className: cn(
         // Workspace 的左侧工具组从 1px 面板边框之后开始，Settings 旧标题层却从窗口 0 点开始，

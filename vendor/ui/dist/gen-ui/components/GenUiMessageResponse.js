@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createElement as _createElement } from "react";
 import { memo, useMemo } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { projectGenUiReferences } from "../domain/references.js";
 import { GenUiCard } from "./GenUiCard.js";
 export const GenUiMessageResponse = memo(function GenUiMessageResponse({ completed, messageKey, ...props }) {

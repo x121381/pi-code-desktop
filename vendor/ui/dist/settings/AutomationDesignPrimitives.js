@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TID_AUTOMATION_CREATE_MANUALLY, TID_AUTOMATION_CREATE_MENU, } from "@zcode/shared";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { AutomationSwitchToggle } from "@/settings/AutomationSwitchToggle.js";
-import { AutomationChevronDownIcon, AutomationInfoIcon, } from "@/settings/AutomationIcons.js";
-import { Button } from "@/components/ui/button.js";
-import { SettingsSegmentedTabs } from "@/settings/SettingsSegmentedTabs.js";
-export { AutomationAddScheduleIcon, AutomationCancelActionIcon, AutomationChevronDownIcon, AutomationClockIcon, AutomationContinueIcon, AutomationEditActionIcon, AutomationExternalLinkIcon, AutomationIdleTimeIcon, AutomationInfoIcon, AutomationMoreHorizontalIcon, AutomationPauseActionIcon, AutomationPausedIcon, AutomationRefreshIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "@/settings/AutomationIcons.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { AutomationSwitchToggle } from "../settings/AutomationSwitchToggle.js";
+import { AutomationChevronDownIcon, AutomationInfoIcon, } from "../settings/AutomationIcons.js";
+import { Button } from "../components/ui/button.js";
+import { SettingsSegmentedTabs } from "../settings/SettingsSegmentedTabs.js";
+export { AutomationAddScheduleIcon, AutomationCancelActionIcon, AutomationChevronDownIcon, AutomationClockIcon, AutomationContinueIcon, AutomationEditActionIcon, AutomationExternalLinkIcon, AutomationIdleTimeIcon, AutomationInfoIcon, AutomationMoreHorizontalIcon, AutomationPauseActionIcon, AutomationPausedIcon, AutomationRefreshIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "../settings/AutomationIcons.js";
 /** 设置页返回入口仅高亮图标与文本，保留点击热区但不显示 hover/focus 背景。 */
 export const AUTOMATION_BACK_TRIGGER_CLASSNAME = "-m-1 inline-flex w-fit max-w-full min-w-0 items-center gap-1 bg-transparent p-1 text-ui-base leading-5 text-foreground-subtle transition-colors hover:text-foreground active:text-foreground focus-visible:text-foreground focus-visible:outline-none";
 // 修复原因：space-y 给行内 label 添加 margin 时会受字体行盒影响，实际视觉间距小于设计稿的 6px。

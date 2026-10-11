@@ -1,6 +1,6 @@
-import { buildGitBranchCommitPreviewFiles, getPrimaryGitBranchIssue, getGitBranchCommitTotals, isGitBranchCommitAssistIssue, selectGitBranchAffectedFiles, } from "@/git-branch-switcher/display.js";
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
+import { buildGitBranchCommitPreviewFiles, getPrimaryGitBranchIssue, getGitBranchCommitTotals, isGitBranchCommitAssistIssue, selectGitBranchAffectedFiles, } from "../git-branch-switcher/display.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
 export function formatGitBranchIssuePathList(locale, paths) {
     if (paths.length === 0) {
         return "";

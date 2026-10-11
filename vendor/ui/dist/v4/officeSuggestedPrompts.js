@@ -1,6 +1,6 @@
-import finderIcon from "@/onboarding/assets/finder.png";
-import terminalIcon from "@/onboarding/assets/terminal.png";
-import feishuIcon from "@/onboarding/assets/feishu.png";
+import finderIcon from "../onboarding/assets/finder.png";
+import terminalIcon from "../onboarding/assets/terminal.png";
+import feishuIcon from "../onboarding/assets/feishu.png";
 export const officeSuggestedPrompts = [
     {
         id: "official-0",

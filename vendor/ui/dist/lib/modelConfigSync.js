@@ -1,5 +1,5 @@
 import { CUSTOM_SUPPLIER_KEY_PREFIX, GHOST_SUPPLIER_KEY_PREFIX, buildNativeSupplierKey, resolveSupplierKeyFromModelDisplayValue, } from "@zcode/shared";
-import { decodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
+import { decodeCustomModelValue } from "../lib/zcodeCustomModelValue.js";
 export function parseCustomProviderIdFromSupplierKey(supplierKey) {
     const normalizedSupplierKey = supplierKey.trim();
     if (normalizedSupplierKey.startsWith(CUSTOM_SUPPLIER_KEY_PREFIX)) {

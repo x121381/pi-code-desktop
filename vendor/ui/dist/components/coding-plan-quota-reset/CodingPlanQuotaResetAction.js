@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { CheckIcon, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { burstCodingPlanQuotaResetConfetti } from "@/lib/codingPlanQuotaResetConfetti.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { burstCodingPlanQuotaResetConfetti } from "../../lib/codingPlanQuotaResetConfetti.js";
 const MANUAL_RESET_SUCCESS_DISPLAY_MS = 600;
 export function LocalizedCodingPlanQuotaResetAction({ completedAt, processing, onOpenDialog, onReset, autoCelebrateCompletedAt, onAutoCelebrated, resetType = "FIVE_HOUR", }) {
     const { intl, locale } = useZCodeIntl();

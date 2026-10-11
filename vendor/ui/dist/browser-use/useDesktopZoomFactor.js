@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
+import { usePlatform } from "../hooks/usePlatform.js";
 const DESKTOP_ZOOM_FACTOR_STEP = 1.1;
 const DESKTOP_ZOOM_MIN_LEVEL = -3;
 const DESKTOP_ZOOM_MAX_LEVEL = 5;

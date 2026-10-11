@@ -2,9 +2,9 @@
 // 侧栏/任务列表消费本 hook 拿会话摘要列表，替代 zustand 任务态（08-phasing M5 步骤 2）；
 // 多个列表消费者共享同一 workspace 订阅时改走 sessionsIndexRegistry（引用计数复用 store）。
 import { useEffect, useMemo, useSyncExternalStore } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { createAgentSessionsIndexTransport } from "@/v4/agentSessionsIndexTransport.js";
-import { SessionsIndexStore, } from "@/v4/sessionsIndexStore.js";
+import { useServices } from "../hooks/useServices.js";
+import { createAgentSessionsIndexTransport } from "../v4/agentSessionsIndexTransport.js";
+import { SessionsIndexStore, } from "../v4/sessionsIndexStore.js";
 /**
  * 订阅某 workspace 的 sessions-index，返回会话摘要列表（默认按 lastActivityAt 降序）。
  * 生命周期：workspace 变化时重建 store + 重连；卸载时 close（退订 + 解监听）。

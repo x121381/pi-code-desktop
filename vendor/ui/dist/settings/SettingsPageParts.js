@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { Card, CardContent } from "@/components/ui/card.js";
-import { CODE_PREVIEW_THEME_OPTIONS, SETTINGS_PREVIEW_CODE } from "@/lib/codePreviewPreferences.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { cn } from "@/components/lib/utils.js";
+import { CodeBlock } from "../components/ai-elements/code-block.js";
+import { Card, CardContent } from "../components/ui/card.js";
+import { CODE_PREVIEW_THEME_OPTIONS, SETTINGS_PREVIEW_CODE } from "../lib/codePreviewPreferences.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { cn } from "../components/lib/utils.js";
 /**
  * Settings 与同级管理页在窗口框架内共享同一内容列。
  * Automations 曾在 shell 与页面内各自居中、加 padding，导致它与 Skills 等

@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useCallback, useState } from "react";
 import { TID_V4_WORKSPACE_HOOK_PENDING_BANNER, TID_V4_WORKSPACE_HOOK_PENDING_DISMISS, TID_V4_WORKSPACE_HOOK_PENDING_REVIEW, } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { setPendingSettingsSectionIntent } from "@/lib/settingsNavigation.js";
-import { logger } from "@/logger.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
-import { useOptionalTabStore } from "@/store/TabStoreProvider.js";
-import { findWorkspaceHookCommandBinding, useWorkspaceHookReviewStore, } from "@/store/workspaceHookReviewStore.js";
-import { sendWorkspaceHookCommand } from "@/settings/workspaceHookReviewCommands.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { setPendingSettingsSectionIntent } from "../lib/settingsNavigation.js";
+import { logger } from "../logger.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
+import { useOptionalTabStore } from "../store/TabStoreProvider.js";
+import { findWorkspaceHookCommandBinding, useWorkspaceHookReviewStore, } from "../store/workspaceHookReviewStore.js";
+import { sendWorkspaceHookCommand } from "../settings/workspaceHookReviewCommands.js";
 /**
  * 软门禁 dismiss store：轻量模块级 Map。
  * 幂等 key = sessionId + bundleDigest；bundle 变化后提示条重新出现。

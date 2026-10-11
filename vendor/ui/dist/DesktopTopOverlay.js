@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "./components/lib/utils.js";
 import { ArrowLeftIcon, ArrowRightIcon, MessageCirclePlus, PanelLeftClose, PanelLeftOpen, } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { UpdateStatusButton } from "@/UpdateStatusButton.js";
-import { DesktopTopOverlayActionButton } from "@/DesktopTopOverlayActionButton.js";
-import { createWindowsCaptionControlsStyle, WINDOWS_CAPTION_CONTROLS_RIGHT_INSET_VAR, } from "@/windowCaptionControls.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { UpdateStatusButton } from "./UpdateStatusButton.js";
+import { DesktopTopOverlayActionButton } from "./DesktopTopOverlayActionButton.js";
+import { createWindowsCaptionControlsStyle, WINDOWS_CAPTION_CONTROLS_RIGHT_INSET_VAR, } from "./windowCaptionControls.js";
 export function DesktopTopOverlay({ workspaceAbsPath: _workspaceAbsPath, isMacDesktop, isMacFullscreen, isWindowsDesktop, isDesktop, macWindowControlsLeftPaddingPx, windowsWindowControlsRightPaddingPx, isSidebarVisible, updateReadyVersion, updateState, toggleSidebarShortcutLabel, newTaskShortcutLabel, goBackShortcutLabel, goForwardShortcutLabel, canTaskNavBack, canTaskNavForward, canGoBack: _canGoBack, canGoForward: _canGoForward, showNewTaskButton, appLogoUrl, platform, onToggleSidebar, onCreateTask, onGoBack, onGoForward, hideTaskNavigationButtons = false, newTaskDisabledReason, }) {
     const { intl } = useZCodeIntl();
     const SidebarToggleIcon = isSidebarVisible ? PanelLeftClose : PanelLeftOpen;

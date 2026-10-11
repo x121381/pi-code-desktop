@@ -12,7 +12,7 @@
 // 结构：生命周期收敛在纯控制器 startDraftSessionPrewarm（可单测，无 React 依赖），
 // useDraftSessionPrewarm 只做 effect 接线与 owner-scoped binding 暴露。
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 /** 预热生命周期纯控制器：创建 → onReady 上抛 → dispose 决策清理。 */
 export function startDraftSessionPrewarm(params) {
     const { workspaceKey, dispatchCommand, onReady, onSettled, resolveInitialConfig, } = params;

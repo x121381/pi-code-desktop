@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { logger } from "@/logger.js";
-import { resolveTheme } from "@/useTheme.js";
+import { logger } from "../logger.js";
+import { resolveTheme } from "../useTheme.js";
 export function useDesktopNativeThemeSync({ enabled, isDesktop, platform, theme, }) {
     useEffect(() => {
         if (!enabled || !isDesktop) {

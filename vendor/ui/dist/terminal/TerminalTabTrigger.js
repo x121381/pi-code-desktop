@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { X } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { TabsTrigger } from "@/components/ui/tabs.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { TabsTrigger } from "../components/ui/tabs.js";
 export function TerminalTabTrigger({ session, title, closeLabel, isActive, onClose, }) {
     return (_jsx(TabsTrigger, { value: session.id, asChild: true, children: _jsxs("div", { "data-active": isActive ? "" : undefined, "data-state": isActive ? "active" : "inactive", className: cn("group relative inline-flex !h-7 w-auto max-w-36 min-w-0 flex-none shrink-0 cursor-default items-center justify-start gap-1 overflow-hidden whitespace-nowrap rounded-lg border !border-transparent !bg-transparent pl-2 pr-1 text-ui-base font-medium text-foreground-subtle transition-all", "hover:text-foreground", !isActive && "hover:!bg-hover", "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring", "data-active:!bg-selected data-active:text-foreground"), children: [_jsx("span", { "data-terminal-tab-content": "", className: "flex min-w-0 flex-1 overflow-hidden whitespace-nowrap [mask-image:linear-gradient(to_right,black_calc(100%-0.5rem),transparent)]", children: _jsx("span", { className: "shrink-0 whitespace-nowrap", children: title }) }), _jsx(Button, { type: "button", variant: "ghost", size: "icon-xs", "aria-label": closeLabel, className: cn("shrink-0 rounded-md", !isActive &&
                         "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"), onPointerDown: (event) => {

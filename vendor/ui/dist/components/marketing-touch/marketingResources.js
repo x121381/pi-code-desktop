@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 export async function prepareMarketingImage(asset, service) {
     const src = await service.readPublishedMedia({ asset, kind: "image" });
     const img = new Image();

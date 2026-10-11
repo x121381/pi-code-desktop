@@ -1,4 +1,4 @@
-import { canVisualizeCronInAutomationEditor } from "@/settings/automationFormat.js";
+import { canVisualizeCronInAutomationEditor } from "../settings/automationFormat.js";
 const CUSTOMIZE_TEMPLATE_MESSAGE_IDS = {
     title: "offPeak.newTask.template.customize.title",
     description: "offPeak.newTask.template.customize.description",

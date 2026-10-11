@@ -1,5 +1,5 @@
-import { decodeFilePathUriEscapes, isAbsoluteFilePath, joinFilePath } from "@/lib/path.js";
-import { stripBalancedAssistantPathQuotes } from "@/lib/assistantPathQuotes.js";
+import { decodeFilePathUriEscapes, isAbsoluteFilePath, joinFilePath } from "../lib/path.js";
+import { stripBalancedAssistantPathQuotes } from "../lib/assistantPathQuotes.js";
 const LINE_AND_COLUMN_SUFFIX_RE = /^(?<path>.+):(?<line>\d+):(?<column>\d+)$/;
 const LINE_SUFFIX_RE = /^(?<path>.+):(?<line>\d+)$/;
 const HASH_LINE_SUFFIX_RE = /^(?<path>.+)#L(?<line>\d+)(?:-L?\d+)?$/i;

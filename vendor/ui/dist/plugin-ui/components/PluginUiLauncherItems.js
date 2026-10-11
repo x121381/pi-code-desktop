@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { PuzzleIcon } from "lucide-react";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolvePluginUiSurfaceTitle, usePluginUiSurfaces, } from "@/plugin-ui/adapters/usePluginUiSurfaces.js";
+import { DropdownMenuItem } from "../../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { resolvePluginUiSurfaceTitle, usePluginUiSurfaces, } from "../../plugin-ui/adapters/usePluginUiSurfaces.js";
 export function buildPluginUiLauncherItemId(pluginId, surfaceId) {
     return `plugin-ui:${pluginId}/${surfaceId}`;
 }

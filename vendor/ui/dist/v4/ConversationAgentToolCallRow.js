@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { TID_V4_ROW, TID_V4_SUBAGENT_OPEN_SIDE_PANE, testId } from "@zcode/shared";
-import { ToolCallBlock } from "@/ToolCallBlocks.js";
-import { getAgentPrimaryText } from "@/ToolCallBlocks/renderers/agentHelpers.js";
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { ToolCallBlock } from "../ToolCallBlocks.js";
+import { getAgentPrimaryText } from "../ToolCallBlocks/renderers/agentHelpers.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 export function openSubagentSessionFromSummary({ backgrounded: _backgrounded = false, childSessionId, context, subagentType, title, }) {
     const parentSessionId = context.sessionId;
     const onOpenSubagentSession = context.onOpenSubagentSession;

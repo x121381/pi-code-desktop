@@ -7,9 +7,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  * - 全尺寸：`workflow-artifact` tab 里的网格，值更大、带单位。
  */
 import { memo, useMemo } from "react";
-import { applyArtifactItems, } from "@/app-shell/workflow-artifacts/presets/apply.js";
-import { PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "@/app-shell/workflow-artifacts/presets/parts.js";
-import { cn } from "@/components/lib/utils.js";
+import { applyArtifactItems, } from "../../../app-shell/workflow-artifacts/presets/apply.js";
+import { PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "../../../app-shell/workflow-artifacts/presets/parts.js";
+import { cn } from "../../../components/lib/utils.js";
 /** 还没有值的瓦片。用破折号而不是 0——「没测到」和「测出来是 0」不是一回事。 */
 const EMPTY_VALUE = "—";
 function MetricTile({ tile, compact }) {

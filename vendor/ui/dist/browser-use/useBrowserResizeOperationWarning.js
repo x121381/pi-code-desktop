@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useBrowserUseOperationActive } from "@/browser-use/useBrowserUseOperationActive.js";
-import { logger } from "@/logger.js";
+import { useBrowserUseOperationActive } from "../browser-use/useBrowserUseOperationActive.js";
+import { logger } from "../logger.js";
 const RESIZE_WARNING_DURATION_MS = 3_000;
 const AGENT_LAYOUT_SETTLE_MIN_DURATION_MS = 300;
 const AGENT_LAYOUT_SETTLE_QUIET_DURATION_MS = 100;

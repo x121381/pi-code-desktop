@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { CUA_TOOL_ICON } from "@/ToolCallBlocks/renderers/cuaIcon.js";
+import { cn } from "../../components/lib/utils.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { CUA_TOOL_ICON } from "../../ToolCallBlocks/renderers/cuaIcon.js";
 export function CuaAppSummaryIcon({ bundleId, fallback, iconRequest, name, className, }) {
     const platform = useOptionalPlatform();
     const [iconDataUrl, setIconDataUrl] = useState(null);

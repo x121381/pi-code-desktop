@@ -6,17 +6,17 @@
  */
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { isRemoteWorkspaceIdentity, ZCODE_CUA_OFFICIAL_PLUGIN_ID } from "@zcode/shared";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { useCuaPermissionStatus } from "@/hooks/useCuaPermissionStatus.js";
-import { resolveCuaComposerEntryView, } from "@/lib/cuaComposerEntryState.js";
-import { supportsLocalMacCuaPermissionOnboarding, supportsLocalWindowsCuaEntry, } from "@/lib/cuaPlatform.js";
-import { setPendingSettingsSectionIntent } from "@/lib/settingsNavigation.js";
-import { usePluginManagementStore } from "@/store/pluginManagementStore.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { getVisibleTaskMetas, getWorkspaceState } from "@/store/zcodeSessionStoreSelectors.js";
-import { useOptionalTabStore } from "@/store/TabStoreProvider.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useServices } from "../hooks/useServices.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { useCuaPermissionStatus } from "../hooks/useCuaPermissionStatus.js";
+import { resolveCuaComposerEntryView, } from "../lib/cuaComposerEntryState.js";
+import { supportsLocalMacCuaPermissionOnboarding, supportsLocalWindowsCuaEntry, } from "../lib/cuaPlatform.js";
+import { setPendingSettingsSectionIntent } from "../lib/settingsNavigation.js";
+import { usePluginManagementStore } from "../store/pluginManagementStore.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { getVisibleTaskMetas, getWorkspaceState } from "../store/zcodeSessionStoreSelectors.js";
+import { useOptionalTabStore } from "../store/TabStoreProvider.js";
 /** 与 zcodeSessionStoreTaskSlice 的 isRunningStatus 同口径。 */
 const RUNNING_TASK_STATUSES = new Set(["creating", "restoring", "streaming"]);
 export function useCuaComposerEntry({ workspacePath, workspaceIdentity, remoteSessionId, isWebRemoteControl = false, currentSessionBusy = false, }) {

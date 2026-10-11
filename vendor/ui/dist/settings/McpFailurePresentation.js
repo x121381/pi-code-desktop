@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { InfoIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function resolveMcpFailureMessageId(failureKind) {
     return `settings.mcp.failure.${failureKind ?? "connection_failed"}`;
 }

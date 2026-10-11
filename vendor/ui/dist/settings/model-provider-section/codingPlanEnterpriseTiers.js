@@ -1,4 +1,4 @@
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function formatEnterpriseTier(tier, options = "en-US") {
     const normalized = tier.trim();
     if (!normalized) {

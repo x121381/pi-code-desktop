@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { MessageCircleQuestionIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workflowRunQuestionWaitedLabel } from "@/app-shell/workflowRunQuestions.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { workflowRunQuestionWaitedLabel } from "../app-shell/workflowRunQuestions.js";
 /**
  * 一条升级问题：挂在提问者那一行下面。
  *

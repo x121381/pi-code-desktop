@@ -1,4 +1,4 @@
-import { isTaskListRowActive } from "@/v4/taskListRowActivity.js";
+import { isTaskListRowActive } from "../v4/taskListRowActivity.js";
 function compareTaskListItemsByTime(left, right, sortBy) {
     if (sortBy === "created") {
         if (right.createdAt !== left.createdAt) {

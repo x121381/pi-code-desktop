@@ -5,10 +5,10 @@ import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 // 从 WorkflowAskSettingsLines.tsx 拆出（max-lines 门）：两句共用的类名与「· 原为 X ↺」尾巴、上界那一句、
 // 以及块缺席（旧 agent）时的纯文本条件行。状态都在 WorkflowAskSettings 里，这里的组件只收烹熟的值。
 import { MinusIcon, PlusIcon, Undo2Icon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, } from "@/components/ui/input-group.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, } from "../../components/ui/input-group.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { clampWorkflowRunSettingsBound } from "./workflowRunSettings.js";
 /** 句中的值画成一枚芯片：平时是一小块 surface，悬停才出边框与输入底色（composer 模型触发器的语汇）。 */
 export const WORKFLOW_ASK_CHIP_CLASS_NAME = "h-6 min-w-0 max-w-[260px] gap-1 rounded-md border border-transparent bg-surface pl-[7px] pr-1 text-ui-sm text-foreground hover:border-border-hover hover:bg-input focus-visible:border-input-border-focused data-[state=open]:border-border-hover data-[state=open]:bg-input [&_svg]:size-3";

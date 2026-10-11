@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { usePluginStore } from "@/store/pluginStore.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { usePluginStore } from "../store/pluginStore.js";
 export function usePlugins(workspacePath, workspaceIdentity) {
     const { pluginsService } = useWorkspaceServices(workspacePath, undefined, workspaceIdentity);
     const storeWorkspacePath = usePluginStore((state) => state.workspacePath);

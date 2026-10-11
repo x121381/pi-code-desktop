@@ -1,4 +1,4 @@
-import { getRecommendedPromptPool } from "@/v4/featureSuggestedPrompts.js";
+import { getRecommendedPromptPool } from "../v4/featureSuggestedPrompts.js";
 const panes = new Map();
 const listeners = new Set();
 let revision = 0;

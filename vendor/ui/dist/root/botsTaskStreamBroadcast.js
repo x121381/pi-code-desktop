@@ -1,6 +1,6 @@
 import { BOT_TASK_STREAM_BROADCAST_CHANNEL, } from "@zcode/shared";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 function isZCodeStreamEvent(value) {
     if (typeof value !== "object" || value === null) {
         return false;

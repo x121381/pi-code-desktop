@@ -1,4 +1,4 @@
-import { applyComposerPermissionGrant } from "@/v4/composer/composerPermissionGrant.js";
+import { applyComposerPermissionGrant } from "../../v4/composer/composerPermissionGrant.js";
 /* eslint-disable max-lines -- Composer 草稿 owner 同时收口选择、正文与提交生命周期，保持单一状态边界。 */
 // Composer 的模式/模型选择与正文使用同一 scope 草稿；Session 只提供一次初始化种子。
 // 菜单点击立即保存 Renderer 意图，Prewarm 与 Submission 只消费它，不反向覆盖。
@@ -7,19 +7,19 @@ import { applyComposerPermissionGrant } from "@/v4/composer/composerPermissionGr
 // 统一来自目标 Host ModelSelectionView。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ZCODE_AGENT_PROVIDER, resolveExecutionState } from "@zcode/shared";
-import { applyComposerPlanTransition } from "@/v4/composer/composerPlanTransition.js";
+import { applyComposerPlanTransition } from "../../v4/composer/composerPlanTransition.js";
 import { completeNewModelSelection } from "@zcode/provider";
-import { useModelSelectionServiceView, } from "@/hooks/useModelSelectionView.js";
+import { useModelSelectionServiceView, } from "../../hooks/useModelSelectionView.js";
 import { submissionModeSchema } from "@zcode/shared/zcode-protocol-v4";
-import { prepareWorkspaceWithZCodeSessionService } from "@/hooks/useWorkspacePrepare.js";
-import { useZCodeSessionService } from "@/hooks/useZCodeSessionService.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { parseModelPickerValue } from "@/lib/zcodeSessionProjection.js";
-import { initializeNewTaskDraft } from "@/v4/composer/newTaskDraft.js";
-import { clearV4ComposerDraft, persistV4ComposerDraft, readV4ComposerDraft, V4_DRAFT_SCOPE_ROOT, } from "@/v4/composer/composerDraftStore.js";
-import { resolveAppFollowupMode } from "@/v4/composer/followupModeSettings.js";
-import { logger } from "@/logger.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { prepareWorkspaceWithZCodeSessionService } from "../../hooks/useWorkspacePrepare.js";
+import { useZCodeSessionService } from "../../hooks/useZCodeSessionService.js";
+import { useSettings } from "../../hooks/useSettingService.js";
+import { parseModelPickerValue } from "../../lib/zcodeSessionProjection.js";
+import { initializeNewTaskDraft } from "../../v4/composer/newTaskDraft.js";
+import { clearV4ComposerDraft, persistV4ComposerDraft, readV4ComposerDraft, V4_DRAFT_SCOPE_ROOT, } from "../../v4/composer/composerDraftStore.js";
+import { resolveAppFollowupMode } from "../../v4/composer/followupModeSettings.js";
+import { logger } from "../../logger.js";
+import { useZCodeSessionStore } from "../../store/zcodeSessionStore.js";
 /** 目录水合单飞（per workspaceKey）：draft、已有 session 和严格模式双挂载共享一次 RPC。 */
 const workspaceCatalogHydrationFlights = new Map();
 export function applyDraftModelSelection(current, model) {

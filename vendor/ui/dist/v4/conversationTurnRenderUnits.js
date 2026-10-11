@@ -1,7 +1,7 @@
-import { isWorkflowLaunchUserInputRow, resolveWorkflowLaunchMeta, } from "@/v4/workflowLaunchTurn.js";
-import { buildConversationTurnWorkSegments, resolveConversationTurnWorkDurationMs, resolveConversationTurnWorkStatus, } from "@/v4/conversationTurnWorkSegments.js";
-import { markHighspeedOutputFooterUnits } from "@/highspeed/highspeedOutputFooter.js";
-export { resolveNextHighspeedExpiryMs } from "@/highspeed/highspeedConversationRows.js";
+import { isWorkflowLaunchUserInputRow, resolveWorkflowLaunchMeta, } from "../v4/workflowLaunchTurn.js";
+import { buildConversationTurnWorkSegments, resolveConversationTurnWorkDurationMs, resolveConversationTurnWorkStatus, } from "../v4/conversationTurnWorkSegments.js";
+import { markHighspeedOutputFooterUnits } from "../highspeed/highspeedOutputFooter.js";
+export { resolveNextHighspeedExpiryMs } from "../highspeed/highspeedConversationRows.js";
 function isAssistantTextRow(row) {
     return row.kind === "assistantText";
 }

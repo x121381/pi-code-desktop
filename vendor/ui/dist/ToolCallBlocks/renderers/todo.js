@@ -2,10 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { ArrowRightIcon, CircleCheckIcon, CircleIcon, ListTodoIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { extractPlanStepsFromToolInput, extractPlanStepsFromToolOutput } from "@zcode/shared";
-import { ToolCallBody } from "@/ToolCallBlocks/ToolCallBody.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { cn } from "@/components/lib/utils.js";
+import { ToolCallBody } from "../../ToolCallBlocks/ToolCallBody.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
 import { ToolLayout } from "../ToolLayout.js";
 const TODO_TOOL_ICON = _jsx(ListTodoIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 const todoTextClasses = {

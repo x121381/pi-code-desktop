@@ -1,4 +1,4 @@
-import { workflowRunOverlay } from "@/components/workflow-graph/run-status.js";
+import { workflowRunOverlay } from "../../components/workflow-graph/run-status.js";
 // 原在 timeline-model.ts；dwf-recursive 与 dwf-pipeline-display 合并后那个文件到了 430 行（oxlint
 // max-lines 上限 400）。药丸的活动标签只读 display 与 run，不参与模型折叠，所以单独成文件。
 /** 一枚药丸「正在做什么」：优先正在跑的 step 的 label，其次最后一个已结算的，再次第一个。 */

@@ -1,4 +1,4 @@
-import { resolveWorkspaceStateKey } from "@/store/zcodeSessionStoreSelectors.js";
+import { resolveWorkspaceStateKey } from "../store/zcodeSessionStoreSelectors.js";
 // Bugfix: 保护窗口只覆盖“本地 setMode 刚发起后的并发回包”，窗口过长会吞掉后续真实 mode 变更。
 const PENDING_MODE_SWITCH_GUARD_TTL_MS = 3000;
 const pendingModeSwitchGuardByWorkspaceKey = new Map();

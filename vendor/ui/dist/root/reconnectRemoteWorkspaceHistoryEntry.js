@@ -1,10 +1,10 @@
 import { stripRemoteTargetSecrets } from "@zcode/shared";
-import { toast } from "@/components/ui/toast.js";
-import { buildRemoteWorkspaceSessionMutation, buildRemoteWorkspaceIdentity, createRemoteTargetFromSnapshot, resolveRemoteWorkspaceSessionIdentity, } from "@/lib/remoteWorkspaceHistory.js";
-import { logger } from "@/logger.js";
-import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, } from "@/store/remoteWorkspaceSessionStore.js";
-import { refreshRemotePinnedTasksForSession } from "@/store/remotePinnedTaskStore.js";
-import { refreshRemoteTimelineTasksForSession } from "@/store/remoteTimelineTaskStore.js";
+import { toast } from "../components/ui/toast.js";
+import { buildRemoteWorkspaceSessionMutation, buildRemoteWorkspaceIdentity, createRemoteTargetFromSnapshot, resolveRemoteWorkspaceSessionIdentity, } from "../lib/remoteWorkspaceHistory.js";
+import { logger } from "../logger.js";
+import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, } from "../store/remoteWorkspaceSessionStore.js";
+import { refreshRemotePinnedTasksForSession } from "../store/remotePinnedTaskStore.js";
+import { refreshRemoteTimelineTasksForSession } from "../store/remoteTimelineTaskStore.js";
 export async function reconnectRemoteWorkspaceHistoryEntry({ sessionEntry, activateTabByPath, setReconnectingRemoteWorkspaceKeys, loadCredential, connectRemoteWorkspaceTarget, resolveRemoteWorkspaceCanonicalPath, disposeRemoteWorkspaceSession, bindRemoteWorkspaceSessionContext, bindRemoteWorkspacePath, bindRemoteWorkspaceIdentity, upsertWorkspaceTab, commitRemoteWorkspaceSessionMutation, getRemoteSessions, logger, toast, shouldKeepReconnectedWorkspace, onWorkspaceActivated, options, }) {
     const activateWorkspaceAfterReconnect = options?.activateWorkspaceAfterReconnect ?? true;
     const showErrorToast = options?.showErrorToast ?? true;

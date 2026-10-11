@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Loader2Icon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatStartPlanBucketResetTime } from "@/lib/codingPlanQuotaPresentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatStartPlanBucketResetTime } from "../../lib/codingPlanQuotaPresentation.js";
 import { formatStartPlanExpireDate } from "./CodingPlanStatusMeta.js";
 import { formatQuotaModelDisplayName } from "./quotaModelDisplayName.js";
 export function StartPlanBalanceCard({ isChecking, limits, expireTime, embedded = false, }) {

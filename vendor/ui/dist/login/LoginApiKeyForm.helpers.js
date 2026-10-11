@@ -1,5 +1,5 @@
 import { BUILTIN_PROVIDER_TEMPLATE_IDS, } from "@zcode/shared";
-import { encodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
+import { encodeCustomModelValue } from "../lib/zcodeCustomModelValue.js";
 export function resolveLoginApiKeyDefaultProvider(locale) {
     return locale === "zh-CN" ? "bigmodel" : "zai";
 }

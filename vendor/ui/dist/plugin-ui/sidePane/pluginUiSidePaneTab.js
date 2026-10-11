@@ -1,4 +1,4 @@
-import { activateSidePaneTab } from "@/lib/workspaceSidePane.js";
+import { activateSidePaneTab } from "../../lib/workspaceSidePane.js";
 import { buildPluginUiSidePaneTabId, readPluginUiScopeRef } from "../contract.js";
 /**
  * 与 plan-detail 同构：按 workspaceKey + parentSessionId + 作用域派生稳定 id。

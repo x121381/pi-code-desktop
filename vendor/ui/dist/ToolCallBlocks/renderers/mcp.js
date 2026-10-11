@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronRightIcon, PlugIcon } from "lucide-react";
 import { useCallback } from "react";
-import { CodeBlock, CodeBlockActions, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle, CodeBlockWrapButton, } from "@/components/ai-elements/code-block.js";
-import { Button } from "@/components/ui/button.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolCallProgressIndicator, readToolCallProgress, } from "@/ToolCallBlocks/ToolCallProgressIndicator.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { CodeBlock, CodeBlockActions, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle, CodeBlockWrapButton, } from "../../components/ai-elements/code-block.js";
+import { Button } from "../../components/ui/button.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "../../components/ui/collapsible.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolCallProgressIndicator, readToolCallProgress, } from "../../ToolCallBlocks/ToolCallProgressIndicator.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 const MCP_TOOL_ICON = _jsx(PlugIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 const COMPACT_RESULT_MAX_LENGTH = 160;
 const COLLAPSIBLE_CODE_LAYOUT_STYLE = {

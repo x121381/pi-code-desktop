@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { buildGitAutoRefreshWatchPaths, parseGitAutoRefreshWatchPaths, shouldEnableGitAutoRefreshForWorkspace, stringifyGitAutoRefreshWatchPaths, } from "@/lib/gitAutoRefresh.js";
-import { logger } from "@/logger.js";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
+import { buildGitAutoRefreshWatchPaths, parseGitAutoRefreshWatchPaths, shouldEnableGitAutoRefreshForWorkspace, stringifyGitAutoRefreshWatchPaths, } from "../lib/gitAutoRefresh.js";
+import { logger } from "../logger.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
 // agent 批量写文件时，150ms watcher 防抖 + 350ms Git 防抖仍会把长批次拆成多轮
 // `git status`。这里把 Git 自动刷新延后到 1 分钟，降低大工作区里的重复 Git I/O。
 const GIT_AUTO_REFRESH_DEBOUNCE_MS = 60_000;

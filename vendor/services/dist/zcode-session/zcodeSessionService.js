@@ -1,10 +1,10 @@
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { createSessionTraceId, } from "@zcode/shared";
-import { formatModelPickerValue } from "#src/zcode-agent/zcodeConfigOptions.js";
-import { createZCodeSessionApiRetryRuntimeTracker } from "#src/zcode-session/zcodeSessionApiRetry.js";
-import { appendWorkspaceToFilesystemMcpServers } from "#src/session/mcpWorkspaceScope.js";
-import { repairEmptyImportedClaudeSessionSnapshot } from "#src/zcode-session/importedClaudeSessionRepair.js";
-import { createZCodeDeferredDraftRegistry } from "#src/zcode-session/zcodeSessionDraftRegistry.js";
+import { formatModelPickerValue } from "../zcode-agent/zcodeConfigOptions.js";
+import { createZCodeSessionApiRetryRuntimeTracker } from "../zcode-session/zcodeSessionApiRetry.js";
+import { appendWorkspaceToFilesystemMcpServers } from "../session/mcpWorkspaceScope.js";
+import { repairEmptyImportedClaudeSessionSnapshot } from "../zcode-session/importedClaudeSessionRepair.js";
+import { createZCodeDeferredDraftRegistry } from "../zcode-session/zcodeSessionDraftRegistry.js";
 const logger = createServiceLogger("zcode-session-service");
 export function createZCodeSessionService({ agentService, taskIndexSyncer, cuaProductMcpServerResolver, }) {
     const { withApiRetryRuntime } = createZCodeSessionApiRetryRuntimeTracker();

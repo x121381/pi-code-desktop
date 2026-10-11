@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ConversationTurnRow } from "@/v4/ConversationTurnRow.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ConversationTurnRow } from "../v4/ConversationTurnRow.js";
 function pendingGuideRow(item, turnId) {
     return {
         rowId: -(item.order.admissionSeq + 1),

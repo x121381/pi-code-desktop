@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlertCircle } from "lucide-react";
-import { formatFeedbackStatusLabel, STATUS_META } from "@/feedback/feedbackMeta.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { formatFeedbackStatusLabel, STATUS_META } from "../feedback/feedbackMeta.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function StatusIndicator({ status, withDot = true, children, className, }) {
     const meta = STATUS_META[status];
     const { intl } = useZCodeIntl();

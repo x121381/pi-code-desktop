@@ -1,22 +1,22 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- onboarding 弹窗集中编排欢迎页、会话迁移、外部导入和最终执行状态，拆开会增加跨步骤状态传递复杂度 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog.js";
-import { useClaudeSessionMigration } from "@/hooks/useClaudeSessionMigration.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { useSettingsSync } from "@/hooks/useSettingsSync.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { logger } from "@/logger.js";
-import { getOnboardingStepMessageKey, OnboardingWizardSidebar, OnboardingWizardFooter, OnboardingWizardHeader, } from "@/onboarding/OnboardingDialogParts.js";
-import { OnboardingExternalAgentImportStep, OnboardingMigrationStep, OnboardingSessionsStep, OnboardingWelcomeView, OnboardingFinishStep, } from "@/onboarding/OnboardingFlowParts.js";
-import { OnboardingAgentsFileStep } from "@/onboarding/OnboardingAgentsFileStep.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { shouldAutoScanOnboardingSessions, useOnboardingMigration, } from "@/onboarding/useOnboardingMigration.js";
-import { useOnboardingAgentsFileMigration } from "@/onboarding/useOnboardingAgentsFileMigration.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useExternalAgentImportCategoryState } from "@/settings/ExternalAgentImportDialog.js";
-export { shouldAutoScanOnboardingSessions } from "@/onboarding/useOnboardingMigration.js";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../components/ui/dialog.js";
+import { useClaudeSessionMigration } from "../hooks/useClaudeSessionMigration.js";
+import { useConfirmDialog } from "../hooks/useConfirmDialog.js";
+import { useSettingsSync } from "../hooks/useSettingsSync.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getPathLeaf } from "../lib/path.js";
+import { logger } from "../logger.js";
+import { getOnboardingStepMessageKey, OnboardingWizardSidebar, OnboardingWizardFooter, OnboardingWizardHeader, } from "../onboarding/OnboardingDialogParts.js";
+import { OnboardingExternalAgentImportStep, OnboardingMigrationStep, OnboardingSessionsStep, OnboardingWelcomeView, OnboardingFinishStep, } from "../onboarding/OnboardingFlowParts.js";
+import { OnboardingAgentsFileStep } from "../onboarding/OnboardingAgentsFileStep.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
+import { shouldAutoScanOnboardingSessions, useOnboardingMigration, } from "../onboarding/useOnboardingMigration.js";
+import { useOnboardingAgentsFileMigration } from "../onboarding/useOnboardingAgentsFileMigration.js";
+import { useServices } from "../hooks/useServices.js";
+import { useExternalAgentImportCategoryState } from "../settings/ExternalAgentImportDialog.js";
+export { shouldAutoScanOnboardingSessions } from "../onboarding/useOnboardingMigration.js";
 const ONBOARDING_STEP_ORDER = [
     "session",
     "skills-import",

@@ -1,5 +1,5 @@
 import { ApiError, DEFAULT_ZCODE_ENDPOINT_ORIGIN, normalizeZCodeEndpointOrigin, rewriteZCodeEndpointUrl, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
 import { buildZCodeSourceHeaders } from "../sourceHeaders.js";
 import { withRequestIdHeader } from "./requestIdHeaders.js";
 const log = createServiceLogger("node-api-client");

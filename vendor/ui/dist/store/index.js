@@ -5,15 +5,15 @@
  * 广播频道前缀 "state:" 表示状态同步类消息。
  */
 import { create } from "zustand";
-import { applyCodingPlanQuotaResetAutoPlayedBroadcast, createCodingPlanQuotaResetStoreActions, parseCodingPlanQuotaResetAutoPlayedBroadcastMessage, } from "@/store/codingPlanQuotaResetState.js";
-import { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/lib/codePreviewSettings.js";
-import { readSafeLocalStorage, writeSafeLocalStorage } from "@/lib/browserEnvironment.js";
-import { applyUiFontSizePx, loadUiFontSizePx, normalizeUiFontSizePx, UI_FONT_SIZE_STORAGE_KEY, } from "@/lib/uiFontSize.js";
-import { isTaskNotificationEnabled, isTaskNotificationSoundPreferenceEnabled, persistTaskNotificationEnabled, persistTaskNotificationSoundEnabled, } from "@/lib/taskNotificationPreferences.js";
+import { applyCodingPlanQuotaResetAutoPlayedBroadcast, createCodingPlanQuotaResetStoreActions, parseCodingPlanQuotaResetAutoPlayedBroadcastMessage, } from "../store/codingPlanQuotaResetState.js";
+import { DEFAULT_CODE_PREVIEW_SETTINGS } from "../lib/codePreviewSettings.js";
+import { readSafeLocalStorage, writeSafeLocalStorage } from "../lib/browserEnvironment.js";
+import { applyUiFontSizePx, loadUiFontSizePx, normalizeUiFontSizePx, UI_FONT_SIZE_STORAGE_KEY, } from "../lib/uiFontSize.js";
+import { isTaskNotificationEnabled, isTaskNotificationSoundPreferenceEnabled, persistTaskNotificationEnabled, persistTaskNotificationSoundEnabled, } from "../lib/taskNotificationPreferences.js";
 import { applyTheme, normalizeThemePreference, resolveTheme } from "../useTheme.js";
-import { INTERFACE_MODE_STORAGE_KEY, normalizeInterfaceMode, } from "@/lib/interfaceMode.js";
-import { logger } from "@/logger.js";
-export { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/lib/codePreviewSettings.js";
+import { INTERFACE_MODE_STORAGE_KEY, normalizeInterfaceMode, } from "../lib/interfaceMode.js";
+import { logger } from "../logger.js";
+export { DEFAULT_CODE_PREVIEW_SETTINGS } from "../lib/codePreviewSettings.js";
 const CODE_PREVIEW_SETTINGS_KEY = "zcode-code-preview-settings";
 const PERFORMANCE_MODE_STORAGE_KEY = "zcode-performance-mode";
 function loadCodePreviewSettings() {

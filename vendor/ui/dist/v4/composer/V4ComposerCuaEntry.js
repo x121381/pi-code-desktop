@@ -8,13 +8,13 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo } from "react";
 import { MonitorCogIcon } from "lucide-react";
 import { TID_V4_COMPOSER_CUA_ENTRY } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { supportsLocalMacCuaPermissionOnboarding, supportsLocalWindowsCuaEntry, } from "@/lib/cuaPlatform.js";
-import { useCuaComposerEntry, } from "@/hooks/useCuaComposerEntry.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { supportsLocalMacCuaPermissionOnboarding, supportsLocalWindowsCuaEntry, } from "../../lib/cuaPlatform.js";
+import { useCuaComposerEntry, } from "../../hooks/useCuaComposerEntry.js";
 /**
  * 平台门前置层：平台不支持（或宿主根本没提供 platform / services context）时连内层都不挂载。
  *

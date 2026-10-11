@@ -1,9 +1,9 @@
 import { $applyNodeReplacement, TextNode, } from "lexical";
-import { resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { getPromptMentionVariantClassName, PROMPT_MENTION_BASE_CLASS_NAME, } from "@/mentions/mentionChip.js";
-import { normalizePromptMentionDisplayLabel } from "@/mentions/promptMentionLabel.js";
-import { decoratePromptMention } from "@/mentions/nodes/promptMentionDecoration.js";
-export * from "@/mentions/nodes/mentionIconDom.js";
+import { resolveFileDisplayDescriptor } from "../../lib/fileDisplay.js";
+import { getPromptMentionVariantClassName, PROMPT_MENTION_BASE_CLASS_NAME, } from "../../mentions/mentionChip.js";
+import { normalizePromptMentionDisplayLabel } from "../../mentions/promptMentionLabel.js";
+import { decoratePromptMention } from "../../mentions/nodes/promptMentionDecoration.js";
+export * from "../../mentions/nodes/mentionIconDom.js";
 function displayLabel(payload) {
     const label = normalizePromptMentionDisplayLabel(payload.category, payload.label, payload.value);
     return payload.category === "files"

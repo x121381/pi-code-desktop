@@ -1,10 +1,10 @@
-import { buildStartPlanEntitlementOptions } from "@/lib/startPlanEntitlementOptions.js";
+import { buildStartPlanEntitlementOptions } from "../lib/startPlanEntitlementOptions.js";
 import { useCallback } from "react";
 import { getModelProviderFamilySpec, normalizeProviderFamilyDomain, resolvePlanIdentitySnapshot, } from "@zcode/shared";
-import { useUsageEntitlementWithService } from "@/hooks/useUsageEntitlement.js";
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { resolveEntitledAccountProviderAccessFingerprint } from "@/lib/accountProviderAccess.js";
-import { buildUsageEntitlementCacheKey, USAGE_ENTITLEMENT_CACHE_TTL_MS, } from "@/lib/usageEntitlementCache.js";
+import { useUsageEntitlementWithService } from "../hooks/useUsageEntitlement.js";
+import { useProviderSettingsView } from "../hooks/useProviderSettingsView.js";
+import { resolveEntitledAccountProviderAccessFingerprint } from "../lib/accountProviderAccess.js";
+import { buildUsageEntitlementCacheKey, USAGE_ENTITLEMENT_CACHE_TTL_MS, } from "../lib/usageEntitlementCache.js";
 export function usePlanIdentitySnapshot(providerFamilyDomain, connectionSelection, usageStatsService) {
     const normalizedDomain = normalizeProviderFamilyDomain(providerFamilyDomain);
     const providerSettingsRead = useProviderSettingsView();

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ImageIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../../components/ui/dialog.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function CuaScreenshotSection({ screenshot }) {
     const { intl } = useZCodeIntl();
     const metadata = [];

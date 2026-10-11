@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function toMessage(error) {
     return error instanceof Error ? error.message : String(error);
 }

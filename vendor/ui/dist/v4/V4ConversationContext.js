@@ -1,12 +1,12 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useEffect, useLayoutEffect, useMemo, } from "react";
-import { ServiceProvider } from "@/hooks/useServices.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { createAgentConversationTransport } from "@/v4/agentConversationTransport.js";
-import { SessionDataLayer } from "@/v4/sessionDataLayer.js";
-import { acquireWorkspaceConnection } from "@/v4/workspaceConnectionRegistry.js";
-import { ConversationTelemetryPaneAttachment } from "@/v4/telemetry/ConversationTelemetryAttachment.js";
+import { ServiceProvider } from "../hooks/useServices.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { createAgentConversationTransport } from "../v4/agentConversationTransport.js";
+import { SessionDataLayer } from "../v4/sessionDataLayer.js";
+import { acquireWorkspaceConnection } from "../v4/workspaceConnectionRegistry.js";
+import { ConversationTelemetryPaneAttachment } from "../v4/telemetry/ConversationTelemetryAttachment.js";
 // 导出 context 本体：静态回放视图用静态 transport 自己
 // 装配 value 后直接 Provider 注入，不经 V4ConversationProvider 的 workspace 解析链路。
 export const V4ConversationContext = createContext(null);

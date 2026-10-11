@@ -1,5 +1,5 @@
 import { errorAttributionSchema } from "@zcode/shared/zcode-protocol-v4";
-import { resolveRequestVerificationBusinessCode } from "@/lib/providerBusinessError.js";
+import { resolveRequestVerificationBusinessCode } from "../lib/providerBusinessError.js";
 const GENERIC_ZCODE_UI_ERROR_MESSAGES = new Set([
     "Internal error",
     "Turn execution failed",

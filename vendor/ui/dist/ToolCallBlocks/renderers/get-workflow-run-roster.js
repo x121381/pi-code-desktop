@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatWorkflowAge, formatWorkflowDuration, formatWorkflowTokenCount, } from "@/lib/workflowObservationFormat.js";
-import { SITUATION_BLOCK_CLASS, SITUATION_ROW_CLASS, } from "@/ToolCallBlocks/renderers/get-workflow-run-situation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatWorkflowAge, formatWorkflowDuration, formatWorkflowTokenCount, } from "../../lib/workflowObservationFormat.js";
+import { SITUATION_BLOCK_CLASS, SITUATION_ROW_CLASS, } from "../../ToolCallBlocks/renderers/get-workflow-run-situation.js";
 const I18N_PREFIX = "chat.toolCall.workflow.getRun.";
 /**
  * 相位词的语义色。词永远在场，颜色只是第二通道（DESIGN：状态不能只靠颜色）：

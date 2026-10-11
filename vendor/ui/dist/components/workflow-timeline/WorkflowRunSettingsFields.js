@@ -7,11 +7,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo, useRef, useState } from "react";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { ThoughtLevelCycleControl } from "@/chat-input-toolbar/ThoughtLevelCycleControl.js";
-import { cn } from "@/components/lib/utils.js";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, } from "@/components/ui/input-group.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MODEL_CONFIG_SELECT_BADGE_CLASS_NAME, ModelConfigSelect, } from "@/ModelConfigSelect.js";
+import { ThoughtLevelCycleControl } from "../../chat-input-toolbar/ThoughtLevelCycleControl.js";
+import { cn } from "../../components/lib/utils.js";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, } from "../../components/ui/input-group.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { MODEL_CONFIG_SELECT_BADGE_CLASS_NAME, ModelConfigSelect, } from "../../ModelConfigSelect.js";
 import { clampWorkflowRunSettingsBound } from "./workflowRunSettings.js";
 const MODEL_ITEM_NEVER_LOCKED = () => false;
 /** 字段标签：12px、次要色，控件上方 4px。 */

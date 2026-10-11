@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Activity, FileText, List, Target } from "lucide-react";
-import { ClientSceneLucideIcon } from "@/components/ClientSceneLucideIcon.js";
+import { ClientSceneLucideIcon } from "../components/ClientSceneLucideIcon.js";
 const TEMPLATE_ICONS = {
     target: Target,
     activity: Activity,

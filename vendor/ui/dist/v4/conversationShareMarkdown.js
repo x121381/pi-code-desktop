@@ -1,5 +1,5 @@
-import { findMarkdownCodeRanges, overlapsAssistantTextRanges, } from "@/lib/assistantDirectiveParser.js";
-import { extractZCodeFileCitationDirectives } from "@/lib/zcodeFileCitation.js";
+import { findMarkdownCodeRanges, overlapsAssistantTextRanges, } from "../lib/assistantDirectiveParser.js";
+import { extractZCodeFileCitationDirectives } from "../lib/zcodeFileCitation.js";
 function resolveCitationFileName(path) {
     const normalizedPath = path.trim().replaceAll("\\", "/");
     return normalizedPath.split("/").at(-1) ?? normalizedPath;

@@ -4,7 +4,7 @@
 // 弹层组件只管画与接线，这里是它的全部判断：哪些 run 能配、表单从哪儿起步、Apply 发什么、
 // 被拒的 ACK 说哪句话。纯函数、不碰 store，逐条可穷举。
 import { WORKFLOW_RUN_SETTINGS_REJECTED_FAULT_PREFIX, workflowRunSettingsRejectionReasonSchema, } from "@zcode/shared/zcode-protocol-v4";
-import { formatModelPickerValue, parseModelPickerValue } from "@/lib/zcodeSessionProjection.js";
+import { formatModelPickerValue, parseModelPickerValue } from "../../lib/zcodeSessionProjection.js";
 /**
  * 会话当前模型（「会话模型」那一项的名字从它来）：优先会话持久的稀疏选择，退回 UI effective 的
  * provider / model 投影；两者都读不出即缺席。

@@ -1,5 +1,5 @@
-import { runExportLogsAction } from "@/lib/exportLogsAction.js";
-import { ZCODE_PRODUCT_DOCS_URL } from "@/lib/productDocs.js";
+import { runExportLogsAction } from "../lib/exportLogsAction.js";
+import { ZCODE_PRODUCT_DOCS_URL } from "../lib/productDocs.js";
 export function createHelpMenuActionHandlers({ platform, intl, openSubmit, }) {
     return {
         openIssueReport: async () => {

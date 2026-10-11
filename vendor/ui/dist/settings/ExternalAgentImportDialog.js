@@ -2,16 +2,16 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- 外部 Agent 导入弹窗复用 skills/commands 的交互状态机，业务扫描与导入在服务层按类别分开 */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AlertCircleIcon, CheckIcon, ChevronDown, ChevronRight, Loader2Icon, MinusIcon, RefreshCw, XIcon, } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { Progress } from "@/components/ui/progress.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { Badge } from "../components/ui/badge.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { Progress } from "../components/ui/progress.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 function getSourceSelectionKey(agent, category, sourceScope) {
     return sourceScope ? `${agent}:${category}:${sourceScope}` : `${agent}:${category}`;
 }

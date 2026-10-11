@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { canRetryDatabaseStartup } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Button } from "@/components/ui/button.js";
-import { RootStartupLoading } from "@/root/RootStartupLoading.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { RootStartupLoading } from "../root/RootStartupLoading.js";
 export function GlobalDatabaseStartupLoading({ state, onRetry, onCopy, onExit, }) {
     const { intl } = useZCodeIntl();
     const [now, setNow] = useState(Date.now);

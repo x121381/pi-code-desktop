@@ -3,23 +3,23 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 import { useCallback, useRef, useState, } from "react";
 import { TID_MODEL_PROVIDER_ADD_MODEL_BUTTON, TID_MODEL_PROVIDER_BASE_URL_INPUT, TID_MODEL_PROVIDER_MODEL_DELETE_BUTTON, TID_MODEL_PROVIDER_MODEL_INPUT, TID_MODEL_PROVIDER_NAME_EDIT_BUTTON, TID_MODEL_PROVIDER_NAME_INPUT, testId, } from "@zcode/shared";
 import { InfoIcon, LockKeyholeIcon, Plus, Pencil, Trash2, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useServices } from "@/hooks/useServices.js";
-import { TECHNICAL_INPUT_ATTRIBUTES } from "@/lib/technicalInputAttributes.js";
+import { Button } from "../../components/ui/button.js";
+import { Input } from "../../components/ui/input.js";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, } from "../../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { useServices } from "../../hooks/useServices.js";
+import { TECHNICAL_INPUT_ATTRIBUTES } from "../../lib/technicalInputAttributes.js";
 import { ApiKeyInput } from "./ApiKeyInput.js";
 import { ModelRowInput } from "./ProviderFormControls.js";
 import { PresetProviderApiKeyBanner } from "./PresetProviderApiKeyBanner.js";
-import {} from "@/settings/model-provider-section/ProviderModelMetadata.js";
-import { ProviderModelMetadataDialog } from "@/settings/model-provider-section/ProviderModelMetadataDialog.js";
-import { PROVIDER_CONNECTION_API_FORMATS, ProviderApiFormatSelect, resolveProviderConnectionApiFormatDisplayLabel, } from "@/settings/model-provider-section/ProviderApiFormatSelect.js";
-import { SortableProviderModelList } from "@/settings/model-provider-section/SortableProviderModelList.js";
-import { useProviderModelDraft } from "@/settings/model-provider-section/useProviderModelDraft.js";
-import { ProviderLogo } from "@/settings/model-provider-section/ProviderLogo.js";
-export { resolveProviderConnectionApiFormatDisplayLabel, resolveProviderConnectionApiFormatOptions, } from "@/settings/model-provider-section/ProviderApiFormatSelect.js";
-export { formatModelContextWindowLabel } from "@/lib/tokenNumberFormat.js";
+import {} from "../../settings/model-provider-section/ProviderModelMetadata.js";
+import { ProviderModelMetadataDialog } from "../../settings/model-provider-section/ProviderModelMetadataDialog.js";
+import { PROVIDER_CONNECTION_API_FORMATS, ProviderApiFormatSelect, resolveProviderConnectionApiFormatDisplayLabel, } from "../../settings/model-provider-section/ProviderApiFormatSelect.js";
+import { SortableProviderModelList } from "../../settings/model-provider-section/SortableProviderModelList.js";
+import { useProviderModelDraft } from "../../settings/model-provider-section/useProviderModelDraft.js";
+import { ProviderLogo } from "../../settings/model-provider-section/ProviderLogo.js";
+export { resolveProviderConnectionApiFormatDisplayLabel, resolveProviderConnectionApiFormatOptions, } from "../../settings/model-provider-section/ProviderApiFormatSelect.js";
+export { formatModelContextWindowLabel } from "../../lib/tokenNumberFormat.js";
 export function resolveProviderApiFormatOptions(_provider) {
     return [...PROVIDER_CONNECTION_API_FORMATS];
 }

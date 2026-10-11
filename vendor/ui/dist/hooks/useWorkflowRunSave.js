@@ -9,9 +9,9 @@
 // 会话里），宿主各有各的发送路径。
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { resolveWorkspaceKey, } from "@zcode/shared";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { selectWorkflowRunSavedState, useWorkflowRunSavedStore, workflowRunSavedKey, } from "@/store/workflowRunSavedStore.js";
-import { useSavedWorkflowLauncher, } from "@/settings/saved-workflows/useSavedWorkflowLauncher.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { selectWorkflowRunSavedState, useWorkflowRunSavedStore, workflowRunSavedKey, } from "../store/workflowRunSavedStore.js";
+import { useSavedWorkflowLauncher, } from "../settings/saved-workflows/useSavedWorkflowLauncher.js";
 export function useWorkflowRunSave(host) {
     const { candidates, runId, onNavigateToRun } = host;
     const resolution = useWorkspaceServicesResolution(host.workspacePath, host.remoteSessionId ?? null, host.workspaceIdentity);

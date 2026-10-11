@@ -1,6 +1,6 @@
 import { resolveOAuthProviderIdByPreset } from "./utils.js";
-import { reportAppTelemetryEvent, resolvePresetModelProviderTelemetryLabel, } from "@/lib/appTelemetry.js";
-import { logger } from "@/logger.js";
+import { reportAppTelemetryEvent, resolvePresetModelProviderTelemetryLabel, } from "../../lib/appTelemetry.js";
+import { logger } from "../../logger.js";
 export async function startPresetSubscriptionLogin(params) {
     const oauthProviderId = resolveOAuthProviderIdByPreset(params.presetId);
     if (!oauthProviderId) {

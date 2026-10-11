@@ -1,5 +1,5 @@
 import { clearManualModelConfig } from "@zcode/provider";
-import { createProviderModelDraftValues, } from "@/settings/model-provider-section/ProviderModelMetadata.js";
+import { createProviderModelDraftValues, } from "../../settings/model-provider-section/ProviderModelMetadata.js";
 const CONFIG_VALUE_FIELDS = [
     "supportsJsonSchemaOutputValue",
     "supportsNativeWebSearchValue",

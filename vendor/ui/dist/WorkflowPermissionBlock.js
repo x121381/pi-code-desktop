@@ -1,23 +1,23 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronRightIcon } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { cn } from "@/components/lib/utils.js";
-import { buildWorkflowTimeline } from "@/components/workflow-timeline/timeline-model.js";
-import { workflowPhasesDetail } from "@/components/workflow-timeline/timeline-summary.js";
-import { WorkflowCardHeader } from "@/components/workflow-timeline/WorkflowCardChrome.js";
-import { WorkflowTimeline } from "@/components/workflow-timeline/WorkflowTimeline.js";
-import { formatWorkflowArgValue, isWorkflowAmendPredecessorLive, readWorkflowAdjustableSettings, readWorkflowAmendPredecessor, readWorkflowAmendScriptInherited, readWorkflowAmendTarget, readWorkflowMaxConcurrency, readWorkflowName, readWorkflowSaved, readWorkflowScript, readWorkflowSubagentModel, workflowScriptNamesModels, } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
-import { describeWorkflowSubagentModel, workflowSubagentModelText, workflowSubagentModelTooltip, } from "@/components/workflow-timeline/subagent-model-label.js";
-import { WorkflowAskSettings } from "@/components/workflow-timeline/WorkflowAskSettingsLines.js";
-import { WorkflowAskPlainSettings } from "@/components/workflow-timeline/WorkflowAskSettingsParts.js";
-import { useWorkflowSubagentModelProviderName } from "@/hooks/useWorkflowSubagentModelProviderName.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { isAmendWorkflowToolCall, isFillWorkflowHoleToolCall } from "@/lib/workflowToolNames.js";
-import { readWorkflowHoleTarget } from "@/ToolCallBlocks/renderers/createWorkflowHoleInput.js";
-import { narrowTimelineToFill } from "@/components/workflow-timeline/timeline-holes.js";
-import { WorkflowPermissionHoles } from "@/WorkflowPermissionHoles.js";
+import { CodeBlock } from "./components/ai-elements/code-block.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "./components/ui/collapsible.js";
+import { cn } from "./components/lib/utils.js";
+import { buildWorkflowTimeline } from "./components/workflow-timeline/timeline-model.js";
+import { workflowPhasesDetail } from "./components/workflow-timeline/timeline-summary.js";
+import { WorkflowCardHeader } from "./components/workflow-timeline/WorkflowCardChrome.js";
+import { WorkflowTimeline } from "./components/workflow-timeline/WorkflowTimeline.js";
+import { formatWorkflowArgValue, isWorkflowAmendPredecessorLive, readWorkflowAdjustableSettings, readWorkflowAmendPredecessor, readWorkflowAmendScriptInherited, readWorkflowAmendTarget, readWorkflowMaxConcurrency, readWorkflowName, readWorkflowSaved, readWorkflowScript, readWorkflowSubagentModel, workflowScriptNamesModels, } from "./ToolCallBlocks/renderers/createWorkflowInput.js";
+import { describeWorkflowSubagentModel, workflowSubagentModelText, workflowSubagentModelTooltip, } from "./components/workflow-timeline/subagent-model-label.js";
+import { WorkflowAskSettings } from "./components/workflow-timeline/WorkflowAskSettingsLines.js";
+import { WorkflowAskPlainSettings } from "./components/workflow-timeline/WorkflowAskSettingsParts.js";
+import { useWorkflowSubagentModelProviderName } from "./hooks/useWorkflowSubagentModelProviderName.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { isAmendWorkflowToolCall, isFillWorkflowHoleToolCall } from "./lib/workflowToolNames.js";
+import { readWorkflowHoleTarget } from "./ToolCallBlocks/renderers/createWorkflowHoleInput.js";
+import { narrowTimelineToFill } from "./components/workflow-timeline/timeline-holes.js";
+import { WorkflowPermissionHoles } from "./WorkflowPermissionHoles.js";
 /**
  * saved 来源徽标：这次运行的脚本来自项目里的一个文件，而不是模型现写的一段。
  *

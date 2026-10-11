@@ -1,5 +1,5 @@
 import { BUILTIN_MODEL_PROVIDER_IDS } from "@zcode/shared";
-import { buildSessionQuotaBannerDismissKey, buildSessionQuotaBannerState, } from "@/v4/sessionQuotaBannerState.js";
+import { buildSessionQuotaBannerDismissKey, buildSessionQuotaBannerState, } from "../v4/sessionQuotaBannerState.js";
 export function runQuotaParityStateAssertions() {
     const assertions = [];
     const providerId = BUILTIN_MODEL_PROVIDER_IDS.zaiStartPlan;
@@ -41,5 +41,5 @@ function assertState(condition, label, assertions) {
     }
     assertions.push(label);
 }
-export { runRequestVerificationParityAssertions } from "@/request-security-edition/parity.js";
+export { runRequestVerificationParityAssertions } from "../request-security-edition/parity.js";
 //# sourceMappingURL=conversationTelemetryParityStateE2E.js.map

@@ -2,7 +2,7 @@
  * useSystemService —— 系统服务 hooks
  */
 import { useState, useEffect, useCallback, useRef } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 import { useServices } from "./useServices.js";
 const DEFAULT_PROBE_TIMEOUT_MS = 800;
 const DEFAULT_PROBE_ATTEMPTS = 2;

@@ -1,18 +1,18 @@
 // 全局工作流组的状态与动作。抽成 hook 让组件文件守住
 // max-lines 400；载体是 `useServices().zcodeAgentService`，RPC 一律带 `{ scope: "global" }`。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { useSavedWorkflowsDirectoryWatch } from "@/settings/saved-workflows/useSavedWorkflowsDirectoryWatch.js";
-import { buildSavedWorkflowCreatePrompt, buildSavedWorkflowRevisePrompt, } from "@/settings/saved-workflows/savedWorkflowLaunchPrompt.js";
-import { useSavedWorkflowLauncher, } from "@/settings/saved-workflows/useSavedWorkflowLauncher.js";
-import { lastRunByWorkflowName } from "@/settings/saved-workflows/savedWorkflowRunHistory.js";
-import { GLOBAL_SAVED_WORKFLOW_TARGET, buildGlobalRunProjectResolver, findProjectByCwd, resolveGlobalActionTarget, } from "@/settings/saved-workflows/globalWorkflowGroupHelpers.js";
-import { useSavedWorkflowRunOpeners } from "@/settings/saved-workflows/useSavedWorkflowRunOpeners.js";
-import { selectSavedWorkflowState, useSavedWorkflowStore } from "@/store/savedWorkflowStore.js";
+import { toast } from "../../components/ui/toast.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { useConfirmDialog } from "../../hooks/useConfirmDialog.js";
+import { useServices } from "../../hooks/useServices.js";
+import { logger } from "../../logger.js";
+import { useSavedWorkflowsDirectoryWatch } from "../../settings/saved-workflows/useSavedWorkflowsDirectoryWatch.js";
+import { buildSavedWorkflowCreatePrompt, buildSavedWorkflowRevisePrompt, } from "../../settings/saved-workflows/savedWorkflowLaunchPrompt.js";
+import { useSavedWorkflowLauncher, } from "../../settings/saved-workflows/useSavedWorkflowLauncher.js";
+import { lastRunByWorkflowName } from "../../settings/saved-workflows/savedWorkflowRunHistory.js";
+import { GLOBAL_SAVED_WORKFLOW_TARGET, buildGlobalRunProjectResolver, findProjectByCwd, resolveGlobalActionTarget, } from "../../settings/saved-workflows/globalWorkflowGroupHelpers.js";
+import { useSavedWorkflowRunOpeners } from "../../settings/saved-workflows/useSavedWorkflowRunOpeners.js";
+import { selectSavedWorkflowState, useSavedWorkflowStore } from "../../store/savedWorkflowStore.js";
 export function useSavedWorkflowGlobalGroup({ refreshSeq, mode, onStateChange, onOpenDetail, onBack, onNavigateToLaunchedRun, onCreateViaChat, onOpenWorkflowRun, onOpenWorkflowArtifact, localProjects, activeProjectKey, onMoved, }) {
     const { intl, locale } = useZCodeIntl();
     const requestConfirmation = useConfirmDialog();

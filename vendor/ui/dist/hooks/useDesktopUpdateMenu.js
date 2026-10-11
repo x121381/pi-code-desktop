@@ -1,8 +1,8 @@
 import { DesktopCommandIds } from "@zcode/shared";
 import { useEffect, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { getUpdateMenuLabelId, getUpdateMenuLabelValues, shouldShowDesktopUpdateEntry, } from "@/lib/desktopUpdateMenu.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { getUpdateMenuLabelId, getUpdateMenuLabelValues, shouldShowDesktopUpdateEntry, } from "../lib/desktopUpdateMenu.js";
+import { logger } from "../logger.js";
 export function useDesktopUpdateMenu(isDesktop) {
     const platform = usePlatform();
     const visible = isDesktop && shouldShowDesktopUpdateEntry();

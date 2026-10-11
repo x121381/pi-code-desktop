@@ -2,29 +2,29 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 /* eslint-disable max-lines -- Hooks 页面聚合 Scope、插件投影、搜索与配置写入流程。 */
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { toast } from "@/components/ui/toast.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { useZCodeSessionService } from "@/hooks/useZCodeSessionService.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { invalidateDeferredDraftSessionForRuntimeChange } from "@/lib/zcodeDraftSkillInvalidation.js";
-import { useHooksStore } from "@/store/hooksStore.js";
-import { usePluginManagementStore } from "@/store/pluginManagementStore.js";
+import { Button } from "../components/ui/button.js";
+import { toast } from "../components/ui/toast.js";
+import { useConfirmDialog } from "../hooks/useConfirmDialog.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { useZCodeSessionService } from "../hooks/useZCodeSessionService.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { invalidateDeferredDraftSessionForRuntimeChange } from "../lib/zcodeDraftSkillInvalidation.js";
+import { useHooksStore } from "../store/hooksStore.js";
+import { usePluginManagementStore } from "../store/pluginManagementStore.js";
 import { HookForm } from "./HookForm.js";
-import { SettingsBreadcrumbReporter } from "@/settings/SettingsHeaderBreadcrumb.js";
-import { SettingsSearchInput } from "@/settings/SettingsSearchInput.js";
-import { SettingsResourceHeaderActions } from "@/settings/SettingsResourceHeaderActions.js";
-import { getWorkspaceKey } from "@/lib/workspaceKey.js";
+import { SettingsBreadcrumbReporter } from "../settings/SettingsHeaderBreadcrumb.js";
+import { SettingsSearchInput } from "../settings/SettingsSearchInput.js";
+import { SettingsResourceHeaderActions } from "../settings/SettingsResourceHeaderActions.js";
+import { getWorkspaceKey } from "../lib/workspaceKey.js";
 import { HooksList } from "./HooksList.js";
 import { useWorkspaceHookInlineTrust } from "./useWorkspaceHookInlineTrust.js";
-import { useWorkspaceHookReviewStore } from "@/store/workspaceHookReviewStore.js";
-import { PluginScopeMenu, getPluginWorkspaceKey, isPluginScopeWorkspaceConnected, } from "@/settings/PluginScopeMenu.js";
-import { PluginLoadingState, PluginSearchEmptyState } from "@/settings/PluginInstallEmptyState.js";
-import { resolvePluginDisplayName, resolveUniquePluginListingByName, } from "@/settings/pluginStoreListing.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { shouldShowWorkspaceHookTrustNotice, WorkspaceHookTrustNotice, } from "@/settings/WorkspaceHookTrustNotice.js";
+import { useWorkspaceHookReviewStore } from "../store/workspaceHookReviewStore.js";
+import { PluginScopeMenu, getPluginWorkspaceKey, isPluginScopeWorkspaceConnected, } from "../settings/PluginScopeMenu.js";
+import { PluginLoadingState, PluginSearchEmptyState } from "../settings/PluginInstallEmptyState.js";
+import { resolvePluginDisplayName, resolveUniquePluginListingByName, } from "../settings/pluginStoreListing.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { shouldShowWorkspaceHookTrustNotice, WorkspaceHookTrustNotice, } from "../settings/WorkspaceHookTrustNotice.js";
 function isEditableHook(hook) {
     // workspace-hook-trust：运行时 discovery 会下发 editable 标志（工作区 Hook 在
     // runtime 侧不可直接改配置），优先尊重；本地 Settings 发现路径无该标志时回退旧规则。

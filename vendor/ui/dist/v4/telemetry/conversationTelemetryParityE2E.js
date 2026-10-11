@@ -1,10 +1,10 @@
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { getConversationTelemetryParityScenario, } from "@/lib/conversationTelemetryParityScenarioDefinitions.js";
-import { runRequestVerificationParityAssertions, runQuotaParityStateAssertions, } from "@/lib/conversationTelemetryParityStateE2E.js";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
-import { resetMessageTelemetryForTest } from "@/lib/messageTelemetry.js";
-import { setUiPerfArmsReporter } from "@/lib/uiPerfArmsTelemetry.js";
-import { ConversationTelemetrySupervisor } from "@/v4/telemetry/conversationTelemetrySupervisor.js";
+import { reportAppTelemetryEvent } from "../../lib/appTelemetry.js";
+import { getConversationTelemetryParityScenario, } from "../../lib/conversationTelemetryParityScenarioDefinitions.js";
+import { runRequestVerificationParityAssertions, runQuotaParityStateAssertions, } from "../../lib/conversationTelemetryParityStateE2E.js";
+import { shouldExposeE2EStoreBridge } from "../../lib/e2eStoreBridge.js";
+import { resetMessageTelemetryForTest } from "../../lib/messageTelemetry.js";
+import { setUiPerfArmsReporter } from "../../lib/uiPerfArmsTelemetry.js";
+import { ConversationTelemetrySupervisor } from "../../v4/telemetry/conversationTelemetrySupervisor.js";
 export function installConversationTelemetryParityE2EBridge(input) {
     if (!input.isDesktop || !shouldExposeE2EStoreBridge()) {
         return () => undefined;

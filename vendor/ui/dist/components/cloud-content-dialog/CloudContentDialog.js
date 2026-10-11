@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { parseCloudDescriptionStyle } from "@/components/cloud-content-dialog/cloudDescriptionStyle.js";
-import { CloudDialogDescription, CloudFormattedTextContent, } from "@/components/cloud-content-dialog/CloudDialogDescription.js";
-import { CloudDialogHero } from "@/components/cloud-content-dialog/CloudDialogHero.js";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../components/ui/dialog.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { parseCloudDescriptionStyle } from "../../components/cloud-content-dialog/cloudDescriptionStyle.js";
+import { CloudDialogDescription, CloudFormattedTextContent, } from "../../components/cloud-content-dialog/CloudDialogDescription.js";
+import { CloudDialogHero } from "../../components/cloud-content-dialog/CloudDialogHero.js";
 function dispatch(action, handlers, actionId) {
     switch (action.type) {
         case "close":

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DEVELOPER_TOOLS_STORAGE_KEYS, readDeveloperToolsEnabled, } from "@/lib/developerToolsPreference.js";
+import { DEVELOPER_TOOLS_STORAGE_KEYS, readDeveloperToolsEnabled, } from "../lib/developerToolsPreference.js";
 const DEVELOPER_TOOLS_PREFERENCE_POLL_MS = 1_000;
 export function useDeveloperToolsVisibility() {
     const [enabled, setEnabled] = useState(readDeveloperToolsEnabled);

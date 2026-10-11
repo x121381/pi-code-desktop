@@ -1,11 +1,11 @@
 import { useState, useCallback, useMemo, useRef } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { useProviderSettingsServiceView } from "@/hooks/useProviderSettingsView.js";
-import { projectProviderSettingsViewToFormProviders, resolveProviderSettingsFormProviders, resolveProviderOrdering, } from "@/lib/providerSettingsFormProjection.js";
-import { persistProviderDisplayOrder } from "@/lib/providerDisplayOrderPersistence.js";
-import { persistPersonalProviderDeletion } from "@/lib/providerPersonalPersistence.js";
-import { persistPersonalProvider } from "@/lib/providerPersonalSave.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
+import { useProviderSettingsServiceView } from "../hooks/useProviderSettingsView.js";
+import { projectProviderSettingsViewToFormProviders, resolveProviderSettingsFormProviders, resolveProviderOrdering, } from "../lib/providerSettingsFormProjection.js";
+import { persistProviderDisplayOrder } from "../lib/providerDisplayOrderPersistence.js";
+import { persistPersonalProviderDeletion } from "../lib/providerPersonalPersistence.js";
+import { persistPersonalProvider } from "../lib/providerPersonalSave.js";
 export function useModelProviders(target) {
     const { providerSettingsService } = useServices();
     const providerSettingsRead = useProviderSettingsServiceView(providerSettingsService);

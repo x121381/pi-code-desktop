@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { resolveWebRemoteControlWorkspaceKey } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export function buildWebRemoteControlTaskRowKey(task) {
     return `${resolveWebRemoteControlWorkspaceKey(task)}:${task.taskId}`;
 }

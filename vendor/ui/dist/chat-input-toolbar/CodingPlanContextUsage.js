@@ -3,19 +3,19 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import {} from "@zcode/shared";
 import { Loader2 } from "lucide-react";
 import { useLayoutEffect, useMemo, useRef, useState, } from "react";
-import { resolveCodingPlanUsageRemainingState, } from "@/CodingPlanUsageRemainingPanel.js";
-import { cn } from "@/components/lib/utils.js";
-import { LocalizedCodingPlanQuotaResetAction } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetAction.js";
-import { CodingPlanUsageHeaderAction } from "@/chat-input-toolbar/CodingPlanUsageHeaderAction.js";
-import { CodingPlanUsageNotice } from "@/chat-input-toolbar/CodingPlanUsageNotice.js";
-import { CodingPlanQuotaResetOpportunity } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetOpportunity.js";
-import { buildCodingPlanQuotaResetDialogConfig } from "@/components/coding-plan-quota-reset/buildCodingPlanQuotaResetDialogConfig.js";
-import { useCodingPlanQuotaResetUi } from "@/hooks/useCodingPlanQuotaResetUi.js";
-import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, getQuotaRemainingPercentage, resolveMcpQuotaLimit, } from "@/lib/codingPlanQuotaPresentation.js";
-import { resolveCodingPlanQuotaResetActionCompletedAt, resolveCodingPlanQuotaResetLimit, } from "@/lib/codingPlanQuotaResetUi.js";
-import { getContextQuotaMeterGridClass } from "@/chat-input-toolbar/contextQuotaMeterGrid.js";
-import { resolveChatCodingPlanResetOpportunityBadge } from "@/chat-input-toolbar/codingPlanResetOpportunityBadge.js";
-import { ChatCodingPlanMcpUsageMeter } from "@/chat-input-toolbar/ChatCodingPlanMcpUsageMeter.js";
+import { resolveCodingPlanUsageRemainingState, } from "../CodingPlanUsageRemainingPanel.js";
+import { cn } from "../components/lib/utils.js";
+import { LocalizedCodingPlanQuotaResetAction } from "../components/coding-plan-quota-reset/CodingPlanQuotaResetAction.js";
+import { CodingPlanUsageHeaderAction } from "../chat-input-toolbar/CodingPlanUsageHeaderAction.js";
+import { CodingPlanUsageNotice } from "../chat-input-toolbar/CodingPlanUsageNotice.js";
+import { CodingPlanQuotaResetOpportunity } from "../components/coding-plan-quota-reset/CodingPlanQuotaResetOpportunity.js";
+import { buildCodingPlanQuotaResetDialogConfig } from "../components/coding-plan-quota-reset/buildCodingPlanQuotaResetDialogConfig.js";
+import { useCodingPlanQuotaResetUi } from "../hooks/useCodingPlanQuotaResetUi.js";
+import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, getQuotaRemainingPercentage, resolveMcpQuotaLimit, } from "../lib/codingPlanQuotaPresentation.js";
+import { resolveCodingPlanQuotaResetActionCompletedAt, resolveCodingPlanQuotaResetLimit, } from "../lib/codingPlanQuotaResetUi.js";
+import { getContextQuotaMeterGridClass } from "../chat-input-toolbar/contextQuotaMeterGrid.js";
+import { resolveChatCodingPlanResetOpportunityBadge } from "../chat-input-toolbar/codingPlanResetOpportunityBadge.js";
+import { ChatCodingPlanMcpUsageMeter } from "../chat-input-toolbar/ChatCodingPlanMcpUsageMeter.js";
 export function hasChatCodingPlanUsageRemaining(config) {
     return (Boolean(resolveCodingPlanUsageRemainingState(config)) ||
         // 按需刷新下首次打开可能还没有快照；仍需保留 Context trigger，

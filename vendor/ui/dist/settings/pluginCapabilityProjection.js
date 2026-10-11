@@ -1,6 +1,6 @@
-import { resolveManagedPluginDisplay, } from "@/settings/pluginStoreListing.js";
+import { resolveManagedPluginDisplay, } from "../settings/pluginStoreListing.js";
 import { compareDocumentPluginPriority, isPluginCommand, isUserCommand } from "@zcode/shared";
-import { pluginSearchMatches } from "@/settings/pluginSearch.js";
+import { pluginSearchMatches } from "../settings/pluginSearch.js";
 function canonicalPluginName(value) {
     return value.trim().toLocaleLowerCase();
 }

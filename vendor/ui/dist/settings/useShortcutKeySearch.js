@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { recordShortcutBinding } from "@/shortcuts/bindings.js";
+import { recordShortcutBinding } from "../shortcuts/bindings.js";
 /**
  * 设置页「按组合键搜索」状态机（VSCode 键盘快捷键同款）：
  * Escape 退出武装态；Backspace 清除已捕获组合；其余事件经内核录制器捕获

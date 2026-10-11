@@ -1,21 +1,21 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ElicitationDialog } from "@/ElicitationDialog.js";
-import { PermissionDialog } from "@/PermissionDialog.js";
-import { workflowSessionModelOf } from "@/components/workflow-timeline/workflowRunSettings.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { usePendingInteractionTaskNotifications } from "@/hooks/useTaskNotifications.js";
-import { logger } from "@/logger.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { useWorkspaceHookReviewStore } from "@/store/workspaceHookReviewStore.js";
-import { getTaskUiState, getWorkspaceState, useZCodeSessionStore, } from "@/store/zcodeSessionStore.js";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { pendingCommandRegistry } from "@/v4/pendingCommandRegistry.js";
-import { sendInteractionAutoResolutionSnooze } from "@/v4/interactionAutoResolutionCommand.js";
-import { pendingPermissionToLegacyRequest, pendingUserInputToElicitationRequest, pendingUserInputToViewModel, } from "@/v4/pendingInteractionAdapter.js";
-import { V4UserInputDialog } from "@/v4/V4UserInputDialog.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { ElicitationDialog } from "../ElicitationDialog.js";
+import { PermissionDialog } from "../PermissionDialog.js";
+import { workflowSessionModelOf } from "../components/workflow-timeline/workflowRunSettings.js";
+import { useOptionalPlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { usePendingInteractionTaskNotifications } from "../hooks/useTaskNotifications.js";
+import { logger } from "../logger.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
+import { useWorkspaceHookReviewStore } from "../store/workspaceHookReviewStore.js";
+import { getTaskUiState, getWorkspaceState, useZCodeSessionStore, } from "../store/zcodeSessionStore.js";
+import { createCommandEnvelope } from "../v4/commandFactory.js";
+import { pendingCommandRegistry } from "../v4/pendingCommandRegistry.js";
+import { sendInteractionAutoResolutionSnooze } from "../v4/interactionAutoResolutionCommand.js";
+import { pendingPermissionToLegacyRequest, pendingUserInputToElicitationRequest, pendingUserInputToViewModel, } from "../v4/pendingInteractionAdapter.js";
+import { V4UserInputDialog } from "../v4/V4UserInputDialog.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 export function getCurrentSessionInteractionSnapshot(sessionId, snapshot) {
     return snapshot?.sessionId === sessionId ? snapshot : null;
 }

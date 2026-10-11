@@ -3,21 +3,21 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createUuid } from "@zcode/shared";
 // 保活：side pane terminal 跨 workspace 会话上移到模块级 registry。
 // 关闭 terminal tab 时必须显式 release，杀掉 PTY，避免常驻 registry 造成孤儿进程。
-import { sidePaneTerminalSessionRegistry } from "@/terminal/sidePaneTerminalSessionRegistry.js";
-import { buildTaskSidePaneMemoryKey, getSidePaneCollapsedPreference, readTaskSidePaneMemoryState, saveTaskSidePaneCollapsedPreference, saveTaskSidePaneMemoryState, } from "@/lib/taskSidePaneMemory.js";
-import { closeSidePaneTab, closeSidePaneTabForParent, closeVisibleOtherSidePaneTabs, closeVisibleSidePaneTabs, closeGitSidePane, closeCodeViewerSidePane, openWhiteboardSidePane, openModelTrajectorySidePane, openTerminalSidePane, openSubagentSessionSidePane, openSubagentDirectorySidePane, openSelectionSideChatPane, openPlanDetailSidePane, openWorkflowRunSidePane, replaceWorkflowRunSidePane, openWorkflowRunDirectorySidePane, openWorkflowActorSessionSidePane, openWorkflowWorkspaceSidePane, openWorkflowArtifactSidePane, activateDeveloperToolsSidePane, openBrowserSidePane, openBrowserPermissionsSidePane, openOrActivateBrowserSidePaneByUrl, findBrowserSidePaneTabByUrl, applyBrowserUseSidePaneEvent, applyBrowserUseSidePaneVisibilityEvent, applyBrowserTabResidencyEvent, BROWSER_USE_OPERATION_INDICATOR_DURATION_MS, openCodeViewerSidePane, openCodeViewerSidePanes, activateGitSidePane, getActiveSidePaneTab, getVisibleSidePaneTabs, sidePaneOwnerKey, markBrowserUseSidePaneTabOperation, reorderSidePaneTab, resolveSidePaneScopeState, restoreSidePaneTab, setActiveSidePaneTab, syncSubagentSessionSidePaneTabs, toggleBrowserSidePane, toggleGitSidePane, updateBrowserSidePaneTab, stampSidePaneTabsOwnership, openBackgroundBashSidePane, } from "@/lib/workspaceSidePane.js";
-import { isSidePaneTabVisibleForParent } from "@/lib/workspaceSidePane.js";
-import { openPluginUiSidePane } from "@/plugin-ui/index.js";
-import { logger } from "@/logger.js";
-import { getPathLeaf, joinFilePath, toFileUrl } from "@/lib/path.js";
-import { shouldOpenWorkflowArtifactInBrowser } from "@/lib/workflowArtifactOpen.js";
-import { useWhiteboardStore } from "@/store/whiteboardStore.js";
-import { useModelTrajectoryOpenBridge } from "@/hooks/useModelTrajectoryOpenBridge.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { clearSelectionSideChat } from "@/lib/selectionSideChatRuntime.js";
-import { clearConversationSelectionReferenceScope } from "@/lib/conversationSelectionReference.js";
-import { subscribeTaskLifecycle } from "@/lib/taskLifecycleEvents.js";
+import { sidePaneTerminalSessionRegistry } from "../terminal/sidePaneTerminalSessionRegistry.js";
+import { buildTaskSidePaneMemoryKey, getSidePaneCollapsedPreference, readTaskSidePaneMemoryState, saveTaskSidePaneCollapsedPreference, saveTaskSidePaneMemoryState, } from "../lib/taskSidePaneMemory.js";
+import { closeSidePaneTab, closeSidePaneTabForParent, closeVisibleOtherSidePaneTabs, closeVisibleSidePaneTabs, closeGitSidePane, closeCodeViewerSidePane, openWhiteboardSidePane, openModelTrajectorySidePane, openTerminalSidePane, openSubagentSessionSidePane, openSubagentDirectorySidePane, openSelectionSideChatPane, openPlanDetailSidePane, openWorkflowRunSidePane, replaceWorkflowRunSidePane, openWorkflowRunDirectorySidePane, openWorkflowActorSessionSidePane, openWorkflowWorkspaceSidePane, openWorkflowArtifactSidePane, activateDeveloperToolsSidePane, openBrowserSidePane, openBrowserPermissionsSidePane, openOrActivateBrowserSidePaneByUrl, findBrowserSidePaneTabByUrl, applyBrowserUseSidePaneEvent, applyBrowserUseSidePaneVisibilityEvent, applyBrowserTabResidencyEvent, BROWSER_USE_OPERATION_INDICATOR_DURATION_MS, openCodeViewerSidePane, openCodeViewerSidePanes, activateGitSidePane, getActiveSidePaneTab, getVisibleSidePaneTabs, sidePaneOwnerKey, markBrowserUseSidePaneTabOperation, reorderSidePaneTab, resolveSidePaneScopeState, restoreSidePaneTab, setActiveSidePaneTab, syncSubagentSessionSidePaneTabs, toggleBrowserSidePane, toggleGitSidePane, updateBrowserSidePaneTab, stampSidePaneTabsOwnership, openBackgroundBashSidePane, } from "../lib/workspaceSidePane.js";
+import { isSidePaneTabVisibleForParent } from "../lib/workspaceSidePane.js";
+import { openPluginUiSidePane } from "../plugin-ui/index.js";
+import { logger } from "../logger.js";
+import { getPathLeaf, joinFilePath, toFileUrl } from "../lib/path.js";
+import { shouldOpenWorkflowArtifactInBrowser } from "../lib/workflowArtifactOpen.js";
+import { useWhiteboardStore } from "../store/whiteboardStore.js";
+import { useModelTrajectoryOpenBridge } from "../hooks/useModelTrajectoryOpenBridge.js";
+import { useServices } from "../hooks/useServices.js";
+import { useIsOfficeMode } from "../hooks/useInterfaceMode.js";
+import { clearSelectionSideChat } from "../lib/selectionSideChatRuntime.js";
+import { clearConversationSelectionReferenceScope } from "../lib/conversationSelectionReference.js";
+import { subscribeTaskLifecycle } from "../lib/taskLifecycleEvents.js";
 function isAgentOpenedBrowserPopup(payload) {
     // human webview 的 owner 使用 unclaimed-iab；legacy-iab 与 iab:<uuid> 都是 Agent
     // 控制上下文。sourceTabId 还可避免把普通外链/终端链接误判为模型 popup。

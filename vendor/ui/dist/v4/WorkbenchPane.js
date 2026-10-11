@@ -3,15 +3,15 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // 分屏叶子 pane：Focus 层外壳 + per-pane 数据面接线 + 恢复守卫。宿主 = V4WorkspaceChatArea。
 import { memo, useCallback, useEffect, useMemo, useRef, useState, } from "react";
 import { TID_V4_PANE_SHELL, testId } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { useServices } from "@/hooks/useServices.js";
-import { SessionPane } from "@/v4/SessionPane.js";
-import { V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
-import { paneWorkspaceKey, V4_PRIMARY_PANE_ID, } from "@/v4/paneLayoutStore.js";
-import { parseWorkbenchSessionDragPayload, resolveWorkbenchDropSide, } from "@/v4/workbenchDragDrop.js";
-import { registerWorkbenchPointerDropTarget } from "@/v4/workbenchPointerDragDrop.js";
-import { acquireSessionsIndex, releaseSessionsIndex, } from "@/v4/sessionsIndexRegistry.js";
-import { rectStyle } from "@/v4/workbenchLayout.js";
+import { cn } from "../components/lib/utils.js";
+import { useServices } from "../hooks/useServices.js";
+import { SessionPane } from "../v4/SessionPane.js";
+import { V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
+import { paneWorkspaceKey, V4_PRIMARY_PANE_ID, } from "../v4/paneLayoutStore.js";
+import { parseWorkbenchSessionDragPayload, resolveWorkbenchDropSide, } from "../v4/workbenchDragDrop.js";
+import { registerWorkbenchPointerDropTarget } from "../v4/workbenchPointerDragDrop.js";
+import { acquireSessionsIndex, releaseSessionsIndex, } from "../v4/sessionsIndexRegistry.js";
+import { rectStyle } from "../v4/workbenchLayout.js";
 const DROP_PREVIEW_STYLE = {
     backgroundColor: "color-mix(in oklab, var(--color-brand) 14%, transparent)",
     boxShadow: "inset 0 0 0 1px color-mix(in oklab, var(--color-brand) 34%, transparent)",

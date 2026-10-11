@@ -1,5 +1,5 @@
-import { getPluginWorkspaceKey } from "@/settings/PluginScopeMenu.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { getPluginWorkspaceKey } from "../settings/PluginScopeMenu.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 export function getCommandWorkspaceTabs(tabs) {
     const seen = new Set();
     return tabs.filter(isWorkspaceTab).filter((tab) => {

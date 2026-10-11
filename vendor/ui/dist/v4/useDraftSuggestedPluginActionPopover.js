@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const PLUGIN_ACTION_SUCCESS_DURATION_MS = 2_000;
 const PLUGIN_ACTION_ERROR_DURATION_MS = 3_000;
 export function useDraftSuggestedPluginActionPopover() {

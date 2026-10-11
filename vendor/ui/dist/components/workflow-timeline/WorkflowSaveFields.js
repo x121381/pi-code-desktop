@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { FolderIcon, GlobeIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsFormTextarea } from "@/settings/SettingsFormTextarea.js";
+import { Button } from "../../components/ui/button.js";
+import { Input } from "../../components/ui/input.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../components/ui/select.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { SettingsFormTextarea } from "../../settings/SettingsFormTextarea.js";
 import { SAVED_WORKFLOW_NAME_MAX_CHARS } from "./workflowRunSave.js";
 export function WorkflowSaveFields({ draft, failure, nameInvalid, nameRef, onDirectSave, pathPreview, saving, scopeLocked, shadowing, showDivider, submitDisabled, submitLabel, taken, update, }) {
     const { intl } = useZCodeIntl();

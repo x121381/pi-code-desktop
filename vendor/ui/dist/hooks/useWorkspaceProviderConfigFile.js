@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { shouldEnableWorkspaceRpc } from "@/lib/workspaceRpcAvailability.js";
-import { useZCodeTaskService } from "@/hooks/useZCodeTaskService.js";
-import { useRemoteWorkspaceSessionStore } from "@/store/remoteWorkspaceSessionStore.js";
-import { useResolvedRemoteWorkspaceSessionId } from "@/hooks/useResolvedRemoteWorkspaceSessionId.js";
+import { logger } from "../logger.js";
+import { shouldEnableWorkspaceRpc } from "../lib/workspaceRpcAvailability.js";
+import { useZCodeTaskService } from "../hooks/useZCodeTaskService.js";
+import { useRemoteWorkspaceSessionStore } from "../store/remoteWorkspaceSessionStore.js";
+import { useResolvedRemoteWorkspaceSessionId } from "../hooks/useResolvedRemoteWorkspaceSessionId.js";
 function getErrorMessage(error) {
     if (error instanceof Error) {
         return error.message || error.name || String(error);

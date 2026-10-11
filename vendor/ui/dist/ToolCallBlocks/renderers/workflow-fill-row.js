@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { draftTimeline, scanWorkflowDraft } from "@/components/workflow-timeline/draft-scan.js";
-import { narrowTimelineToFill } from "@/components/workflow-timeline/timeline-holes.js";
-import { buildWorkflowTimeline, } from "@/components/workflow-timeline/timeline-model.js";
-import { readWorkflowDisplay } from "@/ToolCallBlocks/renderers/createWorkflowDisplay.js";
-import { readWorkflowHoleTarget, } from "@/ToolCallBlocks/renderers/createWorkflowHoleInput.js";
-import { isFillWorkflowHoleToolCall } from "@/lib/workflowToolNames.js";
+import { draftTimeline, scanWorkflowDraft } from "../../components/workflow-timeline/draft-scan.js";
+import { narrowTimelineToFill } from "../../components/workflow-timeline/timeline-holes.js";
+import { buildWorkflowTimeline, } from "../../components/workflow-timeline/timeline-model.js";
+import { readWorkflowDisplay } from "../../ToolCallBlocks/renderers/createWorkflowDisplay.js";
+import { readWorkflowHoleTarget, } from "../../ToolCallBlocks/renderers/createWorkflowHoleInput.js";
+import { isFillWorkflowHoleToolCall } from "../../lib/workflowToolNames.js";
 /**
  * 留白补全行在 create-workflow 渲染器里的那几样（docs/dynamic-workflow/presentation.md「The fill row」）。
  * 从 create-workflow.tsx 拆出（max-lines 门）：同一个渲染器换留白词汇；主文本是留白的名字（来自 display

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { isAbsoluteFilePath } from "@/lib/path.js";
+import { useServices } from "../hooks/useServices.js";
+import { isAbsoluteFilePath } from "../lib/path.js";
 const workspaceHomePathCache = new Map();
 export function buildWorkspaceHomeCacheKey(params) {
     const workspaceKey = params.workspaceIdentity?.trim() || params.workspacePath;

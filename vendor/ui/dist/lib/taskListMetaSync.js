@@ -1,7 +1,7 @@
-import { getTaskMeta, resolveWorkspaceStateKey, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { mergeTaskMetaCandidates, mergeTaskWithOptimisticMeta, } from "@/lib/zcodeTaskMetaMerge.js";
-import { applyTaskQueryCacheMutation, removeTaskFromTaskQueryCaches, updateTaskQueryCacheTaskMetaPreservingMembership, upsertTaskQueryCacheTaskMeta, useTaskQueryCacheStore, } from "@/store/taskQueryCacheStore.js";
-import { buildTaskEntityKey, buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { getTaskMeta, resolveWorkspaceStateKey, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { mergeTaskMetaCandidates, mergeTaskWithOptimisticMeta, } from "../lib/zcodeTaskMetaMerge.js";
+import { applyTaskQueryCacheMutation, removeTaskFromTaskQueryCaches, updateTaskQueryCacheTaskMetaPreservingMembership, upsertTaskQueryCacheTaskMeta, useTaskQueryCacheStore, } from "../store/taskQueryCacheStore.js";
+import { buildTaskEntityKey, buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 const ABSENT_MEMBERSHIP = {
     pinned: true,
     archived: true,

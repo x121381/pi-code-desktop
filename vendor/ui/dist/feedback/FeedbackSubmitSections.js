@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { TID_FEEDBACK_LOGS_OPT_IN } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { Switch } from "@/components/ui/switch.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { cn } from "@/components/lib/utils.js";
-import { SubmitProgressView } from "@/feedback/FeedbackSubmitProgressView.js";
-import { rememberFeedbackContactInput } from "@/feedback/feedbackContactPreference.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { Switch } from "../components/ui/switch.js";
+import { Textarea } from "../components/ui/textarea.js";
+import { cn } from "../components/lib/utils.js";
+import { SubmitProgressView } from "../feedback/FeedbackSubmitProgressView.js";
+import { rememberFeedbackContactInput } from "../feedback/feedbackContactPreference.js";
 import { InboxIcon } from "lucide-react";
 export function DescriptionSection({ value, max, onChange, formatMessage, }) {
     return (_jsx(Section, { title: formatMessage("feedback.submit.simple.descriptionTitle"), right: _jsx(Counter, { value: value.length, max: max }), children: _jsx(Field, { children: _jsx(Textarea, { autoFocus: true, value: value, onChange: (event) => onChange(event.target.value), rows: 5, maxLength: max, placeholder: formatMessage("feedback.submit.simple.descriptionPlaceholder"), 

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Loader2 } from "lucide-react";
 import { TID_RESOURCE_MANAGER_STORAGE_CONFIRM_ACCEPT, TID_RESOURCE_MANAGER_STORAGE_CONFIRM_CANCEL, TID_RESOURCE_MANAGER_STORAGE_CONFIRM_DIALOG, } from "@zcode/shared";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, } from "@/components/ui/alert-dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatBytes } from "@/resource-manager/resourceUsageView.js";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, } from "../../components/ui/alert-dialog.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatBytes } from "../../resource-manager/resourceUsageView.js";
 import { storageCategoryTitleId } from "./storageCategoryPresentation.js";
 export function StorageCleanConfirmDialog({ target, pending, onCancel, onConfirm, }) {
     const { intl } = useZCodeIntl();

@@ -2,11 +2,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useMemo, useState } from "react";
 import { AnchorIcon, CircleSlash2Icon, CircleXIcon, ClockAlertIcon, LoaderCircleIcon, ShieldAlertIcon, } from "lucide-react";
 import { TID_V4_HOOK_DETAILS_CONTENT, TID_V4_HOOK_DETAILS_TRIGGER, testId } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 function buildHookDetailItems(rows) {
     const items = [];
     for (const row of rows) {

@@ -1,21 +1,21 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronRightIcon, CircleHelpIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { phaseDisplayName } from "@/components/workflow-graph/phase-name.js";
-import { ROSTER_PINS_PANE, pillInstanceKey, rosterMore, rosterRestCounts, rosterRoll, stationRosterOf, } from "@/components/workflow-timeline/roster-model.js";
-import { WorkflowAgentPill } from "@/components/workflow-timeline/WorkflowAgentPill.js";
-import { WorkflowMoreRow } from "@/components/workflow-timeline/WorkflowMoreRow.js";
-import { WorkflowRoll } from "@/components/workflow-timeline/WorkflowRoll.js";
-import { RosterMeter } from "@/components/workflow-timeline/WorkflowRosterParts.js";
-import { WorkflowRunQuestionRow } from "@/app-shell/WorkflowRunQuestionRow.js";
-import { AvatarCluster, Rounds, SpineJointRow, SpineLamp, SpinePieces, useWorkflowActorModelLabels, } from "@/app-shell/WorkflowRunSpineParts.js";
-import { phasePillRenderers } from "@/app-shell/WorkflowRunPhasePills.js";
-import { spineLayout } from "@/app-shell/workflowRunSpine.js";
-import { FillHeadingRow, HoleWaitingBody, SpineHoleLamp, } from "@/app-shell/WorkflowRunHoleParts.js";
-import { useSpineFillFrames } from "@/app-shell/WorkflowRunFillFrames.js";
-import { HoleFillMark } from "@/components/workflow-timeline/WorkflowHoleParts.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { phaseDisplayName } from "../components/workflow-graph/phase-name.js";
+import { ROSTER_PINS_PANE, pillInstanceKey, rosterMore, rosterRestCounts, rosterRoll, stationRosterOf, } from "../components/workflow-timeline/roster-model.js";
+import { WorkflowAgentPill } from "../components/workflow-timeline/WorkflowAgentPill.js";
+import { WorkflowMoreRow } from "../components/workflow-timeline/WorkflowMoreRow.js";
+import { WorkflowRoll } from "../components/workflow-timeline/WorkflowRoll.js";
+import { RosterMeter } from "../components/workflow-timeline/WorkflowRosterParts.js";
+import { WorkflowRunQuestionRow } from "../app-shell/WorkflowRunQuestionRow.js";
+import { AvatarCluster, Rounds, SpineJointRow, SpineLamp, SpinePieces, useWorkflowActorModelLabels, } from "../app-shell/WorkflowRunSpineParts.js";
+import { phasePillRenderers } from "../app-shell/WorkflowRunPhasePills.js";
+import { spineLayout } from "../app-shell/workflowRunSpine.js";
+import { FillHeadingRow, HoleWaitingBody, SpineHoleLamp, } from "../app-shell/WorkflowRunHoleParts.js";
+import { useSpineFillFrames } from "../app-shell/WorkflowRunFillFrames.js";
+import { HoleFillMark } from "../components/workflow-timeline/WorkflowHoleParts.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /**
  * 运行详情页的脊线：卡上的横向时间线在
  * 这里竖着读。一根轨道从上到下贴着左缘，阶段是轨道上的灯，轨道的墨迹随控制流经过而变深、在进入

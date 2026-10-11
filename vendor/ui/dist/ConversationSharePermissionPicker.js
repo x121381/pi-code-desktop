@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Fragment } from "react";
 import { Check, Globe, Info, Lock, UserRoundPen } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 const PERMISSION_OPTIONS = [
     {
         value: "private",

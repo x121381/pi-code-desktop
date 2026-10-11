@@ -1,5 +1,5 @@
-import { getProviderFormLabel } from "@/lib/providerSettingsFormTypes.js";
-import { logger } from "@/logger.js";
+import { getProviderFormLabel } from "../../lib/providerSettingsFormTypes.js";
+import { logger } from "../../logger.js";
 export async function confirmAndDeleteModelProvider({ provider, confirmDialog, intl, deleteProvider, }) {
     if (provider.config.group === "zai-family" || provider.config.group === "bigmodel-family") {
         return;

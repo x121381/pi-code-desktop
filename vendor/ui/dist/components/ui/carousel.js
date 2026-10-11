@@ -5,7 +5,7 @@ import useEmblaCarousel, {} from "embla-carousel-react";
 import { cn } from "../lib/utils.js";
 import { Button } from "./button.js";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 const CarouselContext = React.createContext(null);
 function useCarousel() {
     const context = React.useContext(CarouselContext);

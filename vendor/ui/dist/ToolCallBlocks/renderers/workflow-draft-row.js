@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { CodeBlock, CodeBlockHeader } from "@/components/ai-elements/code-block.js";
-import { cn } from "@/components/lib/utils.js";
-import { DRAFT_FEEDBACK_DOT } from "@/components/workflow-graph/run-status-presentation.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatWorkflowFeedbackTooltip, workflowDiagnosticLines, } from "@/ToolCallBlocks/renderers/createWorkflowDisplay.js";
-import { WorkflowDiagnosticsSection, workflowFeedbackLedeMessageId, } from "@/ToolCallBlocks/renderers/workflow-diagnostics.js";
+import { CodeBlock, CodeBlockHeader } from "../../components/ai-elements/code-block.js";
+import { cn } from "../../components/lib/utils.js";
+import { DRAFT_FEEDBACK_DOT } from "../../components/workflow-graph/run-status-presentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatWorkflowFeedbackTooltip, workflowDiagnosticLines, } from "../../ToolCallBlocks/renderers/createWorkflowDisplay.js";
+import { WorkflowDiagnosticsSection, workflowFeedbackLedeMessageId, } from "../../ToolCallBlocks/renderers/workflow-diagnostics.js";
 export function useWorkflowDraftRowSlots({ draft, compileErrors, inFlight, errorCount, diagnostics, saved, }) {
     const { intl } = useZCodeIntl();
     const ordinal = workflowDraftOrdinalShown(draft, { compileErrors, inFlight });

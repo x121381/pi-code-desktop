@@ -6,7 +6,7 @@
 // 只有同一 renderer reload 的首个 workspace 会恢复；app 冷启动和 workspace-only
 // 入口保持草稿，不消费上一次运行留下的 session 绑定。
 import { useEffect, useRef } from "react";
-import { isRendererReloadNavigation } from "@/lib/rendererNavigation.js";
+import { isRendererReloadNavigation } from "../lib/rendererNavigation.js";
 const STORAGE_PREFIX = "zcode-v4-last-session:v1:";
 function storageKey(workspaceKey) {
     return `${STORAGE_PREFIX}${workspaceKey}`;

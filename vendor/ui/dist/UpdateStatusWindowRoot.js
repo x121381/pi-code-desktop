@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ZCodeIntlProvider } from "@/i18n/IntlProvider.js";
-import { UpdateStatusDialogController } from "@/UpdateStatusDialogController.js";
-import { ConfirmDialogHost } from "@/ConfirmDialog.js";
+import { ZCodeIntlProvider } from "./i18n/IntlProvider.js";
+import { UpdateStatusDialogController } from "./UpdateStatusDialogController.js";
+import { ConfirmDialogHost } from "./ConfirmDialog.js";
 export function UpdateStatusWindowRoot({ platform, initialLocale, onRequestClose, }) {
     const [open, setOpen] = useState(true);
     const [locale, setLocale] = useState(initialLocale);

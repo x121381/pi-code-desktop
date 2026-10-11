@@ -1,4 +1,4 @@
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { shouldExposeE2EStoreBridge } from "./lib/e2eStoreBridge.js";
 import { useEffect } from "react";
 /**
  * 将 test actions 注册到 window.__testActions。

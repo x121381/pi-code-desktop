@@ -2,16 +2,16 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { compareDocumentPluginPriority, isPublicStoreMarketplaceId, resolvePluginDisplayName, sortPluginStoreEntries, } from "@zcode/shared";
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover.js";
-import { Command, CommandInput, CommandList, CommandEmpty, CommandItem, } from "@/components/ui/command.js";
-import { PluginIcon } from "@/components/PluginIcon.js";
-import { usePluginReferenceCatalog } from "@/hooks/usePluginReferenceCatalog.js";
-import { requestPluginStoreOpen } from "@/lib/pluginStoreNavigation.js";
-import { buildPluginMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { Button } from "@/components/ui/button.js";
-import { usePluginStoreOrder } from "@/hooks/usePluginStoreOrder.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Popover, PopoverContent, PopoverTrigger, } from "./components/ui/popover.js";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandItem, } from "./components/ui/command.js";
+import { PluginIcon } from "./components/PluginIcon.js";
+import { usePluginReferenceCatalog } from "./hooks/usePluginReferenceCatalog.js";
+import { requestPluginStoreOpen } from "./lib/pluginStoreNavigation.js";
+import { buildPluginMentionMarkdown } from "./mentions/mentionMarkdown.js";
+import { Button } from "./components/ui/button.js";
+import { usePluginStoreOrder } from "./hooks/usePluginStoreOrder.js";
+import { useIsOfficeMode } from "./hooks/useInterfaceMode.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 export function isWorkspacePluginReferenceable(entry) {
     return entry.enabled && entry.conflictingPluginIds.length === 0;
 }

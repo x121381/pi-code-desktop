@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getPathLeaf } from "@/lib/path.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { getPathLeaf } from "./lib/path.js";
 let navigationRequestSequence = 0;
 function displayTitle(card) {
     if (card.priority === undefined)

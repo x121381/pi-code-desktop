@@ -1,6 +1,6 @@
-import { useServices } from "@/hooks/useServices.js";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { useServices } from "../hooks/useServices.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 const zcodeTaskServiceProxyCache = new WeakMap();
 const snapshotInflightRequestsByService = new WeakMap();
 const snapshotCacheByService = new WeakMap();

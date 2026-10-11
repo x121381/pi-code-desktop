@@ -1,11 +1,11 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Plan, PlanAction, PlanContent, PlanDescription, PlanHeader, PlanTitle, } from "@/components/ai-elements/plan.js";
-import { QueueItem, QueueItemContent, QueueItemIndicator, QueueList, } from "@/components/ai-elements/queue.js";
+import { Button } from "./components/ui/button.js";
+import { Plan, PlanAction, PlanContent, PlanDescription, PlanHeader, PlanTitle, } from "./components/ai-elements/plan.js";
+import { QueueItem, QueueItemContent, QueueItemIndicator, QueueList, } from "./components/ai-elements/queue.js";
 import { ChevronsUpDownIcon, ListTodo, LoaderIcon, } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
 import { cn } from "./components/lib/utils.js";
 const todoStatusIndicatorClasses = {
     pending: "text-foreground-subtlest",

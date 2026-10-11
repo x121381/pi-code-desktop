@@ -1,10 +1,10 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { ToolInput, ToolOutput } from "@/components/ai-elements/tool.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { CodeBlock } from "../components/ai-elements/code-block.js";
+import { MessageResponse } from "../components/ai-elements/message.js";
+import { ToolInput, ToolOutput } from "../components/ai-elements/tool.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function ToolCallBody({ childToolList, displayModel, inlinePreviewOverride, toolCall, workspacePath, theme, codePreviewSettings, onOpenCodeViewer, onOpenFileLink, onOpenBrowserUrl, }) {
     const inlinePreview = inlinePreviewOverride ?? displayModel.inlinePreview;
     return (_jsx(_Fragment, { children: childToolList ?? (_jsxs(_Fragment, { children: [inlinePreview.type === "text" ? (_jsx(InlineCodeContent, { preview: inlinePreview.source, workspacePath: workspacePath, theme: theme, codePreviewSettings: codePreviewSettings, onOpenCodeViewer: onOpenCodeViewer, onOpenFileLink: onOpenFileLink, onOpenBrowserUrl: onOpenBrowserUrl })) : null, inlinePreview.type === "image" ? (_jsx(InlineImageContent, { preview: inlinePreview.source })) : null, displayModel.planResult ? (_jsx(InlinePlanResult, { plan: displayModel.planResult.plan, planFilePath: displayModel.planResult.planFilePath, workspacePath: workspacePath, theme: theme, codePreviewSettings: codePreviewSettings, onOpenCodeViewer: onOpenCodeViewer, onOpenFileLink: onOpenFileLink, onOpenBrowserUrl: onOpenBrowserUrl })) : null, displayModel.showInput && toolCall.input !== undefined ? (_jsx(ToolInput, { input: toolCall.input })) : null, displayModel.showOutput ? (_jsx(ToolOutput, { errorText: toolCall.error, output: toolCall.output })) : null, displayModel.showKind ? (_jsx("p", { className: "text-ui-base text-muted-foreground", children: toolCall.kind })) : null] })) }));

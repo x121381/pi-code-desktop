@@ -1,4 +1,4 @@
-import { FEEDBACK_STATUS_MESSAGE_IDS, formatFeedbackStatusLabel, } from "@/feedback/feedbackMeta.js";
+import { FEEDBACK_STATUS_MESSAGE_IDS, formatFeedbackStatusLabel, } from "../feedback/feedbackMeta.js";
 export function getUserFacingEventSummary(event, formatMessage) {
     const normalizedSummary = event.summary.trim();
     // Bugfix: 后端事件摘要会持久化为中文，切到英文后历史数据仍会原样透出。

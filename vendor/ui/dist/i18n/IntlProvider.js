@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { DEFAULT_LOCALE } from "@zcode/shared";
-import { readNavigatorLanguage, readSafeLocalStorage, writeSafeLocalStorage } from "@/lib/browserEnvironment.js";
+import { readNavigatorLanguage, readSafeLocalStorage, writeSafeLocalStorage } from "../lib/browserEnvironment.js";
 import zhCN from "./locales/zh-CN.js";
 import enUS from "./locales/en-US.js";
 /** 语言 → 翻译消息映射 */

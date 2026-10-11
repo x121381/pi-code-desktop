@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { ChannelMentionContent } from "@/v4/ChannelMentionContent.js";
-import { ConversationUserInputEpilogue } from "@/v4/ConversationUserInputEpilogue.js";
-import { ConversationUserInputBody } from "@/v4/ConversationUserInputBody.js";
-import { ConversationUserInputContent } from "@/v4/ConversationUserInputContent.js";
+import { ChannelMentionContent } from "../v4/ChannelMentionContent.js";
+import { ConversationUserInputEpilogue } from "../v4/ConversationUserInputEpilogue.js";
+import { ConversationUserInputBody } from "../v4/ConversationUserInputBody.js";
+import { ConversationUserInputContent } from "../v4/ConversationUserInputContent.js";
 /** 正式消息和准备态共用完整正文渲染；状态由消息来源行展示。 */
 export function ConversationUserInputBubble({ text, contentParts, rowId, attachments, contextAttachmentCount, epilogue, }) {
     if (!text.trim() && epilogue === undefined)

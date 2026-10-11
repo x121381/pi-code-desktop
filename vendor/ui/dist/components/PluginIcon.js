@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useState } from "react";
 import { Blocks } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { resolvePluginIconSource } from "@/lib/pluginIconSource.js";
+import { cn } from "../components/lib/utils.js";
+import { resolvePluginIconSource } from "../lib/pluginIconSource.js";
 /** Plugin 原始图标；支持官方内置图标与 HTTPS，缺失或失败时使用调用方兜底，默认回退 Blocks。 */
 export function PluginIcon({ src, pluginId, className, iconClassName, fallbackIcon, }) {
     const [imageFailed, setImageFailed] = useState(false);

@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { WorkflowSettingsChangeRow } from "@/components/workflow-timeline/WorkflowSettingsChangeRow.js";
+import { WorkflowSettingsChangeRow } from "../../components/workflow-timeline/WorkflowSettingsChangeRow.js";
 /**
  * 入参里那个数 → 设置轮那一块元数据。两者本来就是同一件事的两种记法（GUI 走轮元数据，工具走
  * 入参），映射到同一个形状之后措辞只剩一份实现。

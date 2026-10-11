@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { MoonIcon } from "lucide-react";
 import { TID_OFFPEAK_CREATE_CARD, TID_OFFPEAK_CREATE_OPEN } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 function normalizeToolName(value) {
     return typeof value === "string" ? value.toLowerCase().replace(/[^a-z0-9]/gu, "") : "";
 }

@@ -1,8 +1,8 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { PenIcon } from "lucide-react";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { framePath, legendGaps } from "./timeline-frames.js";
 import { HEAD_ROW, MARK_X, stationX } from "./timeline-geometry.js";
 /** 补全接进 run 之后框自己画一遍、头染警示色的时长（docs/dynamic-workflow/presentation.md「The stroke」）。 */

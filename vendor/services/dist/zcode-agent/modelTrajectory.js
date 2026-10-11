@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { readTrajectoryFileTail, resolveModelIODirs, sanitizeSessionSegment, } from "#src/zcode-agent/modelTrajectoryFileTail.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { readTrajectoryFileTail, resolveModelIODirs, sanitizeSessionSegment, } from "../zcode-agent/modelTrajectoryFileTail.js";
 // model-io 默认最多返回的调用条数（保留最近 N 条），避免长 session 把 UI 压垮。
 const DEFAULT_TRAJECTORY_LIMIT = 200;
 const SESSION_TITLE_PROMPT_PREFIX = "Generate a concise title for this coding session.";

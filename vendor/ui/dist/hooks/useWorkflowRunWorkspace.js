@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { logger } from "../logger.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 /**
  * 一个 workflow run 的脚本 transcript 清单。
  *

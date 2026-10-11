@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 export function useBotGroupMemberNames(context) {
     const { botsService } = useServices();
     const botId = context?.botId;

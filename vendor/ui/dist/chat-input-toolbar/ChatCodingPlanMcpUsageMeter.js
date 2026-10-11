@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { InfoIcon } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
 export function ChatCodingPlanMcpUsageMeter({ color, description, label, percentage, primaryQuotaCount, resetTime, value, }) {
     const boundedPercentage = Number.isFinite(percentage)
         ? Math.max(0, Math.min(100, percentage ?? 0))

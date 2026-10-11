@@ -1,7 +1,7 @@
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { buildPromptTelemetryExtraDetail } from "@/lib/messageTelemetry.js";
-import { encodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
-import { legacyTelemetryModelValue, legacyTelemetryProviderId, } from "@/lib/providerTelemetryIdentity.js";
+import { buildPromptTelemetryExtraDetail } from "../../lib/messageTelemetry.js";
+import { encodeCustomModelValue } from "../../lib/zcodeCustomModelValue.js";
+import { legacyTelemetryModelValue, legacyTelemetryProviderId, } from "../../lib/providerTelemetryIdentity.js";
 export function resolveLegacyConversationModelValue(params) {
     const configProvider = params.configProvider?.trim();
     const modelName = params.modelName?.trim();

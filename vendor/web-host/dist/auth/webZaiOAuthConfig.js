@@ -1,0 +1,52 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WEB_ZAI_OAUTH_CONFIG = void 0;
+exports.createWebZaiOAuthConfig = createWebZaiOAuthConfig;
+exports.resolveWebAuthDevReturnTo = resolveWebAuthDevReturnTo;
+const shared_1 = require("@zcode/shared");
+function normalizeZaiOAuthOrigin(value) {
+    return new URL(value.trim()).origin;
+}
+function buildZaiOAuthAuthorizeUrl(origin) {
+    return `${normalizeZaiOAuthOrigin(origin?.trim() || "https://chat.z.ai")}/api/oauth/authorize`;
+}
+/**
+ * BigModel 的授权入口。
+ *
+ * 必须跟随环境：测试环境写死 bigmodel.cn 会把测试账号带到生产授权页。构建期由
+ * vite.config 用 resolveBigModelApiOrigin 注入 VITE_BIGMODEL_OAUTH_ORIGIN；这里的
+ * resolveBigModelApiOrigin({}) 只是最后兜底（等价于生产 origin）。
+ */
+function buildBigModelAuthorizeUrl(origin) {
+    const trimmed = origin?.trim();
+    return `${trimmed ? new URL(trimmed).origin : (0, shared_1.resolveBigModelApiOrigin)({})}/login`;
+}
+function createWebZaiOAuthConfig(env = {}) {
+    const devOrigin = env.VITE_DEV_ORIGIN?.trim().replace(/\/$/, "");
+    const zcodeEndpointUrls = (0, shared_1.buildZCodeEndpointUrls)(env.VITE_ZCODE_BASE_URL?.trim() ||
+        env.VITE_ZCODE_ENDPOINT_ORIGIN?.trim() ||
+        shared_1.DEFAULT_ZCODE_ENDPOINT_ORIGIN);
+    return {
+        // ZAI 当前 OAuth 授权入口使用 /api/oauth 前缀，继续走 /auth/oauth 会打开旧入口。
+        authorizeUrl: buildZaiOAuthAuthorizeUrl(env.VITE_ZAI_OAUTH_ORIGIN),
+        tokenUrl: "/api/v1/oauth/token",
+        // client_id 会出现在授权 URL 中，属于公开配置；这里允许 VITE_ 注入，但不能放 secret/token。
+        clientId: env.VITE_ZAI_OAUTH_CLIENT_ID?.trim() || "client_P8X5CMWmlaRO9gyO-KSqtg",
+        bigmodelAuthorizeUrl: buildBigModelAuthorizeUrl(env.VITE_BIGMODEL_OAUTH_ORIGIN),
+        // BigModel 用 appId 而不是 client_id，且默认值就是桌面端在用的 "zcode"。
+        bigmodelAppId: env.VITE_BIGMODEL_OAUTH_APP_ID?.trim() || "zcode",
+        redirectUri: zcodeEndpointUrls.webRemoteCallbackUrl,
+        shareRedirectUri: zcodeEndpointUrls.webShareCallbackUrl,
+        ...(devOrigin ? { devOrigin } : {}),
+        allowDevReturnToRedirect: env.VITE_WEB_REMOTE_ALLOW_DEV_RETURN_TO === "true",
+    };
+}
+const env = (import.meta.env ??
+    {});
+exports.WEB_ZAI_OAUTH_CONFIG = createWebZaiOAuthConfig(env);
+function resolveWebAuthDevReturnTo(config, surface = "remote") {
+    return config.devOrigin
+        ? `${config.devOrigin}/${surface === "share" ? "share" : "web-remote"}/callback`
+        : undefined;
+}
+//# sourceMappingURL=webZaiOAuthConfig.js.map

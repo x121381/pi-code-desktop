@@ -1,4 +1,4 @@
-import { buildWorkspaceFileGitStatusByPath, isWorkspaceFileTreeGitStatusAvailable, } from "@/workspace-file-tree/model.js";
+import { buildWorkspaceFileGitStatusByPath, isWorkspaceFileTreeGitStatusAvailable, } from "../workspace-file-tree/model.js";
 export async function loadWorkspaceFileTreeGitStatus(params) {
     const gitRefresh = await params.gitService.refresh({
         workspacePath: params.workspacePath,

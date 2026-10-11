@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckIcon, FolderIcon, Loader2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Progress } from "@/components/ui/progress.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { UNLIMITED_SCAN_LIMIT_INPUT } from "@/hooks/useClaudeSessionMigration.js";
-import { SettingsSyncSelectionStep } from "@/settings-sync/SettingsSyncSelectionStep.js";
-import { Badge } from "@/components/ui/badge.js";
-import { ExternalAgentImportSelectionPanel, } from "@/settings/ExternalAgentImportDialog.js";
-export { OnboardingWelcomeView } from "@/onboarding/OnboardingWelcomeView.js";
+import { Button } from "../components/ui/button.js";
+import { Progress } from "../components/ui/progress.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { UNLIMITED_SCAN_LIMIT_INPUT } from "../hooks/useClaudeSessionMigration.js";
+import { SettingsSyncSelectionStep } from "../settings-sync/SettingsSyncSelectionStep.js";
+import { Badge } from "../components/ui/badge.js";
+import { ExternalAgentImportSelectionPanel, } from "../settings/ExternalAgentImportDialog.js";
+export { OnboardingWelcomeView } from "../onboarding/OnboardingWelcomeView.js";
 export function createInitialFinishExecutionState() {
     return {
         started: false,

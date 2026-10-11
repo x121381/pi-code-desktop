@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ClockIcon } from "lucide-react";
 import { TID_CRON_CREATE_CARD, TID_CRON_CREATE_OPEN } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { describeAutomationCardSchedule } from "@/settings/automationCardSchedule.js";
-import { FallbackToolCallBlock } from "@/ToolCallBlocks/renderers/fallback.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { describeAutomationCardSchedule } from "../../settings/automationCardSchedule.js";
+import { FallbackToolCallBlock } from "../../ToolCallBlocks/renderers/fallback.js";
 const SCHEDULE_RULE_UNITS = new Set([
     "minute",
     "hourly",

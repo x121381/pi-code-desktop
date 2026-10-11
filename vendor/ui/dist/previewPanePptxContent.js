@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { lazy, Suspense } from "react";
-const PptxPreviewViewer = lazy(() => import("@/components/ui/pptx-preview-viewer.js").then((module) => ({
+const PptxPreviewViewer = lazy(() => import("./components/ui/pptx-preview-viewer.js").then((module) => ({
     default: module.PptxPreviewViewer,
 })));
 export function PptxPreviewContent({ data, fileName, labels, onOpenBrowserUrl, referenceSource, referenceNavigation, referenceNavigationReady, }) {

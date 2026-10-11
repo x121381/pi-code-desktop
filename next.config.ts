@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
 
+
+  // ZCode bridge: '#src/*' package-imports emitted by the vendored web-host
+  // resolve to the compiled @zcode/services dist tree.
+  const zcodeBridgeAlias = {
+    '#src': './vendor/services/dist',
+    '#src/': './vendor/services/dist/',
+  };
+
 const isDesktopBuild = process.env.PI_WEB_DESKTOP_BUILD === "1";
 
 const nextConfig: NextConfig = {
+  turbopack: { resolveAlias: zcodeBridgeAlias },
+  webpack: (config) => { config.resolve.alias = { ...config.resolve.alias, ...zcodeBridgeAlias }; return config; },
   // Pin file tracing to this package for every build. Otherwise a parent
   // lockfile can make Next scan protected Windows profile directories.
   outputFileTracingRoot: __dirname,

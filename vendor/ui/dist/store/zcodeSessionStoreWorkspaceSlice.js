@@ -1,10 +1,10 @@
 /* eslint-disable max-lines -- workspace 级状态动作集中在同一 slice，先保持收口便于维护。 */
 import { buildNativeSupplierKey, normalizeAgentProviderToZCodeAgent, } from "@zcode/shared";
-import { persistLastSelectedAgentProvider } from "@/lib/zcodeProviderPreference.js";
-import { areConfigOptionsEquivalent } from "@/lib/configOptionsEquality.js";
-import { pushNavEntry } from "@/lib/taskNavigationHistory.js";
-import { resolveTaskRestorePreloadConfigOptions } from "@/lib/taskModelRecovery.js";
-import { getTaskMeta, getWorkspaceState, getWorkspaceInitState, updateWorkspaceState, } from "@/store/zcodeSessionStoreSelectors.js";
+import { persistLastSelectedAgentProvider } from "../lib/zcodeProviderPreference.js";
+import { areConfigOptionsEquivalent } from "../lib/configOptionsEquality.js";
+import { pushNavEntry } from "../lib/taskNavigationHistory.js";
+import { resolveTaskRestorePreloadConfigOptions } from "../lib/taskModelRecovery.js";
+import { getTaskMeta, getWorkspaceState, getWorkspaceInitState, updateWorkspaceState, } from "../store/zcodeSessionStoreSelectors.js";
 let groupedDraftSequence = 0;
 function createGroupedDraftId(createdAt) {
     groupedDraftSequence += 1;

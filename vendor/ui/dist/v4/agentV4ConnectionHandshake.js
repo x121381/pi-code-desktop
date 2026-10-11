@@ -1,5 +1,5 @@
 import { V4_WIRE_PROTOCOL_VERSION, helloMessageSchema, hostSupportsWorkflowRunDeltas, } from "@zcode/shared/zcode-protocol-v4";
-import { getV4ClientId } from "@/v4/commandFactory.js";
+import { getV4ClientId } from "../v4/commandFactory.js";
 const handshakes = new WeakMap();
 export function ensureAgentV4ConnectionHandshake(service) {
     const key = service;

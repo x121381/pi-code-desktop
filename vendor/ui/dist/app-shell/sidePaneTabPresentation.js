@@ -1,4 +1,4 @@
-import { getSidePaneTabTitle } from "@/app-shell/SidePaneTabTrigger.js";
+import { getSidePaneTabTitle } from "../app-shell/SidePaneTabTrigger.js";
 export function getSidePaneTabSearchHint(tab) {
     if (tab.type === "plan-detail") {
         return `${tab.parentSessionId} ${tab.toolCallId} plan ExitPlanMode`;

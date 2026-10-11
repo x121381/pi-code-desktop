@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useEffect, useRef, useState } from "react";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
+import { Collapsible, CollapsibleContent } from "../components/ui/collapsible.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
 import { CheckIcon, CopyIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
-import { ToolSummaryRow } from "@/ToolCallBlocks/ToolSummaryRow.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "../components/ui/tooltip.js";
+import { ToolSummaryRow } from "../ToolCallBlocks/ToolSummaryRow.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 const toolLayoutOpenState = new Map();
 // 内存诊断计数器：该表按 toolId 只增不减，先落日志。
 uiMemoryDiagnosticsRegistry.register("toolLayout", () => ({ openState: toolLayoutOpenState.size }));

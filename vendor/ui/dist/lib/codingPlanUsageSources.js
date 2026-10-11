@@ -1,6 +1,6 @@
 import { BUILTIN_MODEL_PROVIDER_IDS, getModelProviderFamilySpec, resolveModelProviderFamilySpecByProviderId, } from "@zcode/shared";
-import { resolveEnterpriseCodingPlanProductFamily, } from "@/settings/model-provider-section/enterpriseCodingPlanProducts.js";
-import { formatTeamPlanDisplayName } from "@/lib/teamPlanDisplayName.js";
+import { resolveEnterpriseCodingPlanProductFamily, } from "../settings/model-provider-section/enterpriseCodingPlanProducts.js";
+import { formatTeamPlanDisplayName } from "../lib/teamPlanDisplayName.js";
 export function buildPersonalCodingPlanUsageSource({ providerId, accountAccess, label, }) {
     const normalizedLabel = label?.trim();
     return {

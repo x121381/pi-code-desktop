@@ -1,9 +1,9 @@
-import { laneRefsById } from "@/components/workflow-graph/lane-name.js";
-import { collapseStatuses, liveParticipantView, participantStatus, participantsOfPhase, withImplicitPhase, } from "@/components/workflow-graph/participant-model.js";
-import { phaseBinder } from "@/components/workflow-graph/instance-phases.js";
-import { phaseMembers } from "@/components/workflow-graph/phase-model.js";
-import { workflowRunOverlay } from "@/components/workflow-graph/run-status.js";
-import { laneClassOf, } from "@/components/workflow-graph/types.js";
+import { laneRefsById } from "../../components/workflow-graph/lane-name.js";
+import { collapseStatuses, liveParticipantView, participantStatus, participantsOfPhase, withImplicitPhase, } from "../../components/workflow-graph/participant-model.js";
+import { phaseBinder } from "../../components/workflow-graph/instance-phases.js";
+import { phaseMembers } from "../../components/workflow-graph/phase-model.js";
+import { workflowRunOverlay } from "../../components/workflow-graph/run-status.js";
+import { laneClassOf, } from "../../components/workflow-graph/types.js";
 import { sharedTimelineModel } from "./timeline-cache.js";
 import { isCurrentPhase, phaseStreamIndexes, stageStatuses, stationStatus, streamInk, } from "./stage-lamps.js";
 import { holeTable, railTouchesHole, stationFillOf, tailStubOf, timelineHoleGraph, } from "./timeline-holes.js";

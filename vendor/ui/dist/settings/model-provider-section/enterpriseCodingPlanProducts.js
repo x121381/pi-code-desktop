@@ -1,4 +1,4 @@
-import { normalizeCodingPlanCardCopyItems, } from "@/settings/model-provider-section/codingPlanProductPresentation.js";
+import { normalizeCodingPlanCardCopyItems, } from "../../settings/model-provider-section/codingPlanProductPresentation.js";
 /** 旧商品缺少 family 时只在这一规范化边界解释为 BigModel。 */
 export function resolveEnterpriseCodingPlanProductFamily(product) {
     return product.family ?? "bigmodel";

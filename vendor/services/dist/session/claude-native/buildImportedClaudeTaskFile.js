@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { generateTraceId } from "@zcode/shared";
-import { deriveSessionTitle } from "#src/session/sessionTitle.js";
-import { DEFAULT_IMPORTED_CLAUDE_TASK_FILTER_PATHS, filterImportedClaudeTaskFilePaths, } from "#src/session/claude-native/importedClaudeTaskFileFilter.js";
+import { deriveSessionTitle } from "../../session/sessionTitle.js";
+import { DEFAULT_IMPORTED_CLAUDE_TASK_FILTER_PATHS, filterImportedClaudeTaskFilePaths, } from "../../session/claude-native/importedClaudeTaskFileFilter.js";
 export function buildImportedClaudeTaskId(workspacePath, sessionId) {
     const digest = createHash("sha256")
         .update(`claude:${workspacePath}:${sessionId}`)

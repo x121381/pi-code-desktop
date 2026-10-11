@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
-import { logger } from "@/logger.js";
-import { useZCodeTaskService } from "@/hooks/useZCodeTaskService.js";
-import { useTabStoreApi } from "@/store/TabStoreProvider.js";
-import { invalidateTaskQueryCacheByScopes } from "@/store/taskQueryCacheStore.js";
+import { logger } from "../logger.js";
+import { useZCodeTaskService } from "../hooks/useZCodeTaskService.js";
+import { useTabStoreApi } from "../store/TabStoreProvider.js";
+import { invalidateTaskQueryCacheByScopes } from "../store/taskQueryCacheStore.js";
 const DEFAULT_LIMIT = 100;
 const MAX_SCAN_LIMIT = 500;
 export const UNLIMITED_SCAN_LIMIT_INPUT = "unlimited";

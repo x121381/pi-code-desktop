@@ -1,11 +1,11 @@
 import { createElement as _createElement } from "react";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { WorkflowRunDigest } from "@/components/workflow-timeline/WorkflowRunDigest.js";
-import { WorkflowSettingsChangeRow } from "@/components/workflow-timeline/WorkflowSettingsChangeRow.js";
-import { isWorkflowRunConfigurable } from "@/components/workflow-timeline/workflowRunSettings.js";
-import { useWorkflowSubagentModelProviderName } from "@/hooks/useWorkflowSubagentModelProviderName.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveWorkflowRunOpenToolCallId } from "@/v4/workflowRunCardJoin.js";
+import { WorkflowRunDigest } from "../components/workflow-timeline/WorkflowRunDigest.js";
+import { WorkflowSettingsChangeRow } from "../components/workflow-timeline/WorkflowSettingsChangeRow.js";
+import { isWorkflowRunConfigurable } from "../components/workflow-timeline/workflowRunSettings.js";
+import { useWorkflowSubagentModelProviderName } from "../hooks/useWorkflowSubagentModelProviderName.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { resolveWorkflowRunOpenToolCallId } from "../v4/workflowRunCardJoin.js";
 /**
  * 轮尾摘要的落位：把解析出的摘要接上
  * 宿主回调。回调的存在即门控（不变式 7）：打开详情要 `onOpenWorkflowRun` + sessionId；Resume 要

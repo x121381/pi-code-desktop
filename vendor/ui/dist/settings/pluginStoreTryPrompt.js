@@ -1,5 +1,5 @@
-import { buildPluginMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { resolveItemDisplayName } from "@/settings/pluginStoreListing.js";
+import { buildPluginMentionMarkdown } from "../mentions/mentionMarkdown.js";
+import { resolveItemDisplayName } from "../settings/pluginStoreListing.js";
 export function buildPluginStoreTryMention({ item, locale, }) {
     const label = resolveItemDisplayName(item, locale);
     return {

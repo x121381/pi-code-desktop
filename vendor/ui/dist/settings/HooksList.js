@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Anchor, Download, ShieldCheck } from "lucide-react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { PluginInstallEmptyState } from "@/settings/PluginInstallEmptyState.js";
-import { PluginStoreAvatar } from "@/settings/PluginStoreAvatar.js";
-import { settingsResourceRowInteraction } from "@/settings/settingsResourceRowInteraction.js";
-import { requiresWorkspaceHookTrust } from "@/settings/WorkspaceHookTrustNotice.js";
+import { Badge } from "../components/ui/badge.js";
+import { Button } from "../components/ui/button.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { PluginInstallEmptyState } from "../settings/PluginInstallEmptyState.js";
+import { PluginStoreAvatar } from "../settings/PluginStoreAvatar.js";
+import { settingsResourceRowInteraction } from "../settings/settingsResourceRowInteraction.js";
+import { requiresWorkspaceHookTrust } from "../settings/WorkspaceHookTrustNotice.js";
 export function groupHookSections(editableHooks, compatibilityHooks, pluginHooks) {
     const sections = [];
     if (editableHooks.length > 0) {

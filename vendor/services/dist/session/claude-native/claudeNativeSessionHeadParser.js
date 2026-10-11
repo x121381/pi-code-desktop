@@ -1,5 +1,5 @@
-import { deriveSessionTitle } from "#src/session/sessionTitle.js";
-import { isObjectRecord, readTrimmedString, } from "#src/session/claude-native/jsonLineRecord.js";
+import { deriveSessionTitle } from "../../session/sessionTitle.js";
+import { isObjectRecord, readTrimmedString, } from "../../session/claude-native/jsonLineRecord.js";
 const IDE_OPENED_FILE_TAG_RE = /<ide_opened_file>[\s\S]*?<\/ide_opened_file>/gi;
 const COMMAND_TAG_BLOCK_RE = /<(?:local-command|command)-[^>]+>[\s\S]*?<\/(?:local-command|command)-[^>]+>/gi;
 function toTimestampMs(value) {

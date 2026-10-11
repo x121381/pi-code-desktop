@@ -1,15 +1,15 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState, } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command.js";
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover.js";
-import { cn } from "@/components/lib/utils.js";
-import { GitBranchCreateDialog, GitBranchSwitchAssistDialog, } from "@/git-branch-switcher/GitBranchDialogs.js";
-import { GitGraphDialog } from "@/git-graph/GitGraphDialog.js";
-import { useGitBranchSwitcher } from "@/hooks/useGitBranchSwitcher.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { matchesGitBranchSearch, resolveGitBranchTriggerLabel, } from "@/git-branch-switcher/display.js";
-import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "@/lib/pickerFocus.js";
+import { Button } from "./components/ui/button.js";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "./components/ui/command.js";
+import { Popover, PopoverContent, PopoverTrigger, } from "./components/ui/popover.js";
+import { cn } from "./components/lib/utils.js";
+import { GitBranchCreateDialog, GitBranchSwitchAssistDialog, } from "./git-branch-switcher/GitBranchDialogs.js";
+import { GitGraphDialog } from "./git-graph/GitGraphDialog.js";
+import { useGitBranchSwitcher } from "./hooks/useGitBranchSwitcher.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { matchesGitBranchSearch, resolveGitBranchTriggerLabel, } from "./git-branch-switcher/display.js";
+import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "./lib/pickerFocus.js";
 import { ChevronDownIcon, GitBranchIcon, GitGraph, LoaderIcon, PlusIcon, } from "lucide-react";
 export function GitBranchSwitcher({ workspacePath, gitSummary, dirtyFileCount, onRefreshGit, className, triggerClassName, popoverClassName, branchListClassName, markAsWorkspaceHeaderBranch = false, compactForRemoteControl = false, popoverSide = "top", avoidPopoverCollisions = true, showFooterActions = true, }) {
     const { intl, locale } = useZCodeIntl();

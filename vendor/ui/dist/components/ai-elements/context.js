@@ -13,7 +13,7 @@ import { cn } from "../lib/utils.js";
 import { Loader2 } from "lucide-react";
 import { createContext, useContext, useMemo } from "react";
 import { getUsage } from "tokenlens";
-import { formatCompactTokenNumber } from "@/lib/tokenNumberFormat.js";
+import { formatCompactTokenNumber } from "../../lib/tokenNumberFormat.js";
 const PERCENT_MAX = 100;
 const ICON_RADIUS = 10;
 const ICON_VIEWBOX = 24;

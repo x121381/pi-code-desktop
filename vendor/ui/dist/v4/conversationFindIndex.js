@@ -1,4 +1,4 @@
-import { projectAssistantCodeComments } from "@/lib/assistantCodeComment.js";
+import { projectAssistantCodeComments } from "../lib/assistantCodeComment.js";
 export function normalizeConversationFindQuery(query) {
     return query.trim().toLocaleLowerCase();
 }

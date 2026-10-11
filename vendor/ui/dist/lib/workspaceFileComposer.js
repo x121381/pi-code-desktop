@@ -1,4 +1,4 @@
-import { createWorkspaceFileComposerMention, } from "@/lib/workspaceFileDrag.js";
+import { createWorkspaceFileComposerMention, } from "../lib/workspaceFileDrag.js";
 export function appendWorkspaceFileMentionToComposer(params) {
     const mention = createWorkspaceFileComposerMention(params.payload, params.workspacePath, params.workspaceIdentity);
     const separator = params.currentMarkdown.length > 0 && !/\s$/.test(params.currentMarkdown) ? " " : "";

@@ -16,7 +16,7 @@
  * 请求 403。Off-Peak 仍走 API key 通道，这也是上面"逻辑等价但完全独立"的又一个理由。
  */
 import { OFFICIAL_MCP_AUTH_HEADER_NAMES, getModelProviderFamilySpec, zcodeProviderAccountAccessSchema, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 const log = createServiceLogger("official-mcp");
 const ZCODE_JWT_TOKEN_KEY = "zcodejwttoken";
 const ACTIVE_OAUTH_PROVIDER_KEY = "oauth:active_provider";

@@ -1,5 +1,5 @@
 import { BOT_MENU_COMMAND_ORDER } from "../commandOrder.js";
-import { fetchBotProvider, fetchBotProviderJson } from "#src/bots/providers/providerRequest.js";
+import { fetchBotProvider, fetchBotProviderJson } from "../../bots/providers/providerRequest.js";
 const TELEGRAM_ATTACHMENT_DOWNLOAD_TIMEOUT_MS = 30_000;
 const telegramCommandDescriptions = {
     bind: "Bind this chat",

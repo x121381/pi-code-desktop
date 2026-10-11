@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { JsonSlotEditor } from "@/settings/model-provider-section/ProviderModelMetadataFields.js";
-import { ProviderModelReasoningLevelEditor } from "@/settings/model-provider-section/ProviderModelReasoningLevelEditor.js";
-import { ModelConfigHelp } from "@/settings/model-provider-section/ModelConfigHelp.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { JsonSlotEditor } from "../../settings/model-provider-section/ProviderModelMetadataFields.js";
+import { ProviderModelReasoningLevelEditor } from "../../settings/model-provider-section/ProviderModelReasoningLevelEditor.js";
+import { ModelConfigHelp } from "../../settings/model-provider-section/ModelConfigHelp.js";
 export function ModelSettingsGroup({ group, children, }) {
     return (_jsx("section", { className: "space-y-4", "data-model-settings-group": group, children: children }));
 }

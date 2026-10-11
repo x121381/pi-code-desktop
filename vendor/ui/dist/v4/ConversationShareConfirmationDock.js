@@ -2,13 +2,13 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 /* oxlint-disable eslint(max-lines) -- 确认、发布进度和结构化失败详情必须共享同一 dock 状态与操作上下文。 */
 import { memo, useRef } from "react";
 import { Circle, CircleAlert, CircleCheck, CircleX, LoaderCircle, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ConversationSharePermissionPicker } from "@/ConversationSharePermissionPicker.js";
-import { DEFAULT_CONVERSATION_SHARE_ACCESS_MODE, } from "@/store/conversationShareSelectionStore.js";
-import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareIssueMessageId, resolveConversationShareWarningMessageId, } from "@/lib/conversationShareError.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ConversationSharePermissionPicker } from "../ConversationSharePermissionPicker.js";
+import { DEFAULT_CONVERSATION_SHARE_ACCESS_MODE, } from "../store/conversationShareSelectionStore.js";
+import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareIssueMessageId, resolveConversationShareWarningMessageId, } from "../lib/conversationShareError.js";
 const SHARE_PROGRESS_PHASES = [
     "collecting",
     "uploading",

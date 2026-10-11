@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CloudImage, CloudVideo, CloudLottie, } from "@/components/cloud-content-dialog/CloudDialogMediaHero.js";
+import { CloudImage, CloudVideo, CloudLottie, } from "../../components/cloud-content-dialog/CloudDialogMediaHero.js";
 export const CLOUD_HERO_MESSAGE_CHANNEL = "zcode-cloud-hero-v1";
 let nextCloudHeroInstanceId = 0;
 function isRecord(value) {

@@ -1,6 +1,6 @@
 import { deriveSessionWorkflowPhases, workflowRunStepCounts, } from "@zcode/shared/zcode-protocol-v4";
-import { extractPlanToolCallContent, getPlanDirectoryTitle } from "@/lib/planToolCall.js";
-import { workflowRunParallelPhaseLabel } from "@/lib/workflowRunLine.js";
+import { extractPlanToolCallContent, getPlanDirectoryTitle } from "../lib/planToolCall.js";
+import { workflowRunParallelPhaseLabel } from "../lib/workflowRunLine.js";
 /**
  * 面板行 → 打开意图。无 `toolCallId` 即 null（没有可开的详情页 tab）。名字只在真有时带上：
  * `title ≡ runId` 是未命名 run 的兜底样子（core 的 workflowTaskSubject 落到 taskId），把 runId

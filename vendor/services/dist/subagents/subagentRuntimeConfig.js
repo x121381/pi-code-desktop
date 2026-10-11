@@ -1,8 +1,8 @@
 import { readFile, readdir } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { parseAgentProfileFromMarkdown, resolveSubagentRuntimeProfiles, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { createSubagentConfigScope, } from "#src/subagents/subagentConfigScope.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { createSubagentConfigScope, } from "../subagents/subagentConfigScope.js";
 const logger = createServiceLogger("subagentRuntimeConfig");
 const INITIAL_LOAD_WAIT_MS = 5000;
 async function listDocuments(root) {

@@ -2,13 +2,13 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { LoaderIcon, MoreHorizontal, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { collectArchivedTaskDeletion, deleteArchivedTaskSelection, } from "@/lib/archivedTaskDeletion.js";
-import { logger } from "@/logger.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { useConfirmDialog } from "./hooks/useConfirmDialog.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { collectArchivedTaskDeletion, deleteArchivedTaskSelection, } from "./lib/archivedTaskDeletion.js";
+import { logger } from "./logger.js";
 export function DeleteAllArchivedTasksButton({ workspaces, count, disabled, actionsContainer, onDeleted, onRefresh, }) {
     const { intl } = useZCodeIntl();
     const confirmDialog = useConfirmDialog();

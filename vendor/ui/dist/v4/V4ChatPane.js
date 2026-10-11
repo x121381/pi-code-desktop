@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { V4ConversationProvider } from "@/v4/V4ConversationContext.js";
-import { SessionPane } from "@/v4/SessionPane.js";
+import { V4ConversationProvider } from "../v4/V4ConversationContext.js";
+import { SessionPane } from "../v4/SessionPane.js";
 /**
  * 竖切聊天区：替换 ChatView 的最小入口。
  * 外层按 workspace 包 V4ConversationProvider；单 pane paneId 固定 workspace-main。

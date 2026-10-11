@@ -1,6 +1,6 @@
-import { resolveAssistantRawFilePath, } from "@/lib/assistantFileReferences.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { extractZCodeFileCitations } from "@/lib/zcodeFileCitation.js";
+import { resolveAssistantRawFilePath, } from "../lib/assistantFileReferences.js";
+import { getPathLeaf } from "../lib/path.js";
+import { extractZCodeFileCitations } from "../lib/zcodeFileCitation.js";
 const SKIPPED_PARENT_TYPES = new Set(["code", "html", "image", "inlineCode", "link"]);
 function projectCitationTextNode(node, workspacePath, options) {
     const value = node.value ?? "";

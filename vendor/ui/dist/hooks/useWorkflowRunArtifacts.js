@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { orderArtifactsPrimaryFirst } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { logger } from "@/logger.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { orderArtifactsPrimaryFirst } from "../app-shell/workflow-artifacts/artifactPresentation.js";
+import { logger } from "../logger.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 /**
  * 能力缺席（CLI 没有 `listArtifacts` 那套宿主查询）与「这个 run 没有产物」必须能区分：
  * 前者要让预置卡说「读不到详情」，后者是整区缺席。判据与 `useWorkflowRunJournalSummaries`

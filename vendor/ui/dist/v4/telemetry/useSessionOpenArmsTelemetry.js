@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { createSessionTraceId } from "@zcode/shared";
-import { reportSessionOpenResult, reportSessionOpenStart, } from "@/lib/sessionOpenArmsTelemetry.js";
+import { reportSessionOpenResult, reportSessionOpenStart, } from "../../lib/sessionOpenArmsTelemetry.js";
 const SESSION_OPEN_TIMEOUT_MS = 30_000;
 function now() {
     return typeof performance !== "undefined" ? performance.now() : Date.now();

@@ -3,11 +3,11 @@
 // 有 pane 引用 → 订阅；归零 → 延迟退订（keep-warm，防拖拽/切 pane 抖动）。
 // 一个实例对应一条 host 连接；跨 workspace 分屏在 shell 层做
 // Map<workspaceKey, SessionDataLayer>，本层不感知 workspace。
-import { ConversationProjectionStore } from "@/v4/conversationProjectionStore.js";
-import { ConversationRowPool } from "@/v4/conversationRowSharing.js";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
-import { conversationTopic } from "@/v4/transport.js";
-import { logger } from "@/logger.js";
+import { ConversationProjectionStore } from "../v4/conversationProjectionStore.js";
+import { ConversationRowPool } from "../v4/conversationRowSharing.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
+import { conversationTopic } from "../v4/transport.js";
+import { logger } from "../logger.js";
 export const SESSION_DATA_LAYER_KEEP_WARM_MS = 30_000;
 export const E2E_SESSION_DATA_LAYER_KEEP_WARM_MS = 1_000;
 export function resolveSessionDataLayerKeepWarmMs(e2eStoreBridgeEnabled = shouldExposeE2EStoreBridge()) {

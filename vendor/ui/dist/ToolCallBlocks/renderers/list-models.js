@@ -2,12 +2,12 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { Cpu } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { getModelProviderFamilySpec, resolveModelProviderFamilyIdByProviderId, } from "@zcode/shared";
-import { thoughtLevelLabelId } from "@/chat-input-toolbar/thoughtLevelOptions.js";
-import { useWorkflowSubagentModelProviderName } from "@/hooks/useWorkflowSubagentModelProviderName.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { FallbackToolCallBlock } from "@/ToolCallBlocks/renderers/fallback.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { thoughtLevelLabelId } from "../../chat-input-toolbar/thoughtLevelOptions.js";
+import { useWorkflowSubagentModelProviderName } from "../../hooks/useWorkflowSubagentModelProviderName.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { FallbackToolCallBlock } from "../../ToolCallBlocks/renderers/fallback.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 import { ToolLayout } from "../ToolLayout.js";
 const LIST_MODELS_TOOL_ICON = _jsx(Cpu, { className: "size-4 shrink-0 text-foreground-subtle" });
 function isPlainRecord(value) {

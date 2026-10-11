@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { CircleHelp, Loader2 } from "lucide-react";
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { ThoughtLevelCycleControl } from "@/chat-input-toolbar/ThoughtLevelCycleControl.js";
+import { ThoughtLevelCycleControl } from "../chat-input-toolbar/ThoughtLevelCycleControl.js";
 export function SubagentReasoningField({ disabled, intl, labelVisibilityClassName, onValueCommit, state, }) {
     const triggerRef = useRef(null);
     const [open, setOpen] = useState(false);

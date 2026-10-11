@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { TID_WORKFLOW_MOVE_DIALOG, TID_WORKFLOW_MOVE_DIALOG_SUBMIT, TID_WORKFLOW_MOVE_DIALOG_TARGET, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { findAutomationWorkspaceOptionByKey, reconcileAutomationWorkspaceSelectionKey, resolveAutomationWorkspaceSelectionKey, } from "@/settings/automationWorkspaceOptions.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "../../components/ui/dialog.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../components/ui/select.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { findAutomationWorkspaceOptionByKey, reconcileAutomationWorkspaceSelectionKey, resolveAutomationWorkspaceSelectionKey, } from "../../settings/automationWorkspaceOptions.js";
 /**
  * 「移到项目」窗：全局工作流搬回某个本地项目。
  * 一个项目选择器 + 提交；没有本地项目时禁用提交并提示。结构 / 样式沿用实参窗。

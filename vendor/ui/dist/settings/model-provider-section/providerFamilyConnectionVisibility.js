@@ -1,9 +1,9 @@
 import { getModelProviderFamilySpec, isIndividualCodingPlanModelProviderId, isStartPlanModelProviderId, MODEL_PROVIDER_FAMILY_SPECS, resolveModelProviderFamilySpecByProviderId, } from "@zcode/shared";
-import { resolveMcpQuotaLimit } from "@/lib/codingPlanQuotaPresentation.js";
-import { resolveUsageEntitlementOutcome } from "@/lib/codingPlanProvider.js";
-import { formatTeamPlanDisplayName } from "@/lib/teamPlanDisplayName.js";
-import { resolveEnterpriseCodingPlanProductFamily, } from "@/settings/model-provider-section/enterpriseCodingPlanProducts.js";
-import {} from "@/settings/model-provider-section/constants.js";
+import { resolveMcpQuotaLimit } from "../../lib/codingPlanQuotaPresentation.js";
+import { resolveUsageEntitlementOutcome } from "../../lib/codingPlanProvider.js";
+import { formatTeamPlanDisplayName } from "../../lib/teamPlanDisplayName.js";
+import { resolveEnterpriseCodingPlanProductFamily, } from "../../settings/model-provider-section/enterpriseCodingPlanProducts.js";
+import {} from "../../settings/model-provider-section/constants.js";
 function createTeamPlanNavigationKey(family, input) {
     return ["team", family, input.productId, input.organizationId, input.projectId]
         .map(encodeURIComponent)

@@ -2,13 +2,13 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TID_CHAT_THOUGHT_LEVEL_SELECT_ITEM, TID_CHAT_THOUGHT_LEVEL_SELECT_TRIGGER, testId, } from "@zcode/shared";
 import { BrainIcon, ChevronDownIcon } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select.js";
-import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "@/lib/pickerFocus.js";
-import { getThoughtLevelLabel, isNoThoughtLevel, } from "@/chat-input-toolbar/thoughtLevelOptions.js";
-import { RollingToolbarLabel } from "@/chat-input-toolbar/RollingToolbarLabel.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../components/ui/select.js";
+import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "../lib/pickerFocus.js";
+import { getThoughtLevelLabel, isNoThoughtLevel, } from "../chat-input-toolbar/thoughtLevelOptions.js";
+import { RollingToolbarLabel } from "../chat-input-toolbar/RollingToolbarLabel.js";
 export function ThoughtLevelCycleControl({ disabled, disabledReason, composerCollapsePriority, interactionMode = "select", indicatorClassName, intl, labelVisibilityClassName = "hidden @xl/composer:inline-flex", option, provider, showInvalidCurrentValue = false, restoreFocusSelector = '[data-testid="chat-input"]', shortcutLabel, triggerClassName, triggerRef, open, onOpenChange, onCurrentValueCommit, onValueChange, }) {
     const composerTriggerClassName = composerCollapsePriority !== undefined
         ? "group/thought shrink-0 data-[composer-compact=icon]:size-7 data-[composer-compact=icon]:justify-center data-[composer-compact=icon]:gap-0 data-[composer-compact=icon]:p-0"

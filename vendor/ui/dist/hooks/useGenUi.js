@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useOptionalPlatform } from "./usePlatform.js";
 import { useOptionalBaseWorkspaceServices, useWorkspaceServicesResolution, } from "./useWorkspaceServices.js";
-import { acquireGenUiPage } from "@/gen-ui/host.js";
+import { acquireGenUiPage } from "../gen-ui/host.js";
 export function useGenUi(target, confirm, retry) {
     const platformService = useOptionalPlatform();
     const platform = platformService?.pluginSandbox;

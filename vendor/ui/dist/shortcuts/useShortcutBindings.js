@@ -6,7 +6,7 @@
  */
 import { useMemo } from "react";
 import {} from "@zcode/shared";
-import { useSettings } from "@/hooks/useSettingService.js";
+import { useSettings } from "../hooks/useSettingService.js";
 import { resolveEffectiveShortcutBindings } from "./bindings.js";
 import { formatShortcutBindingLabel } from "./label.js";
 /** 当前生效的快捷键表（默认 + 用户覆盖合并后的只读视图）。 */

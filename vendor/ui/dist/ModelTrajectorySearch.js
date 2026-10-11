@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { trajectoryToolCallInputs, trajectoryToolMetadata, trajectoryToolOutputs, } from "@/ModelTrajectoryToolPayload.js";
+import { trajectoryToolCallInputs, trajectoryToolMetadata, trajectoryToolOutputs, } from "./ModelTrajectoryToolPayload.js";
 export const TrajectorySearchRevealContext = createContext(null);
 export function buildTrajectorySearchIndex(items, query) {
     const normalizedQuery = normalizeTrajectorySearchText(query).text.trim();

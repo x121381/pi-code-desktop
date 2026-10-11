@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DEFAULT_BROWSER_VIEWPORT_ZOOM } from "@/browser-use/browserViewportZoom.js";
-import { DEFAULT_RESPONSIVE_BROWSER_VIEWPORT_SIZE } from "@/browser-use/ResponsiveBrowserViewport.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { DEFAULT_BROWSER_VIEWPORT_ZOOM } from "../browser-use/browserViewportZoom.js";
+import { DEFAULT_RESPONSIVE_BROWSER_VIEWPORT_SIZE } from "../browser-use/ResponsiveBrowserViewport.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 export function useResponsiveBrowserViewportControl({ browserKey, desktopZoomFactor, onAgentViewportChange, onViewportSynchronized, onViewportResize, initialHumanViewportPreference, onHumanViewportPreferenceChange, sessionId, }) {
     const platform = usePlatform();
     const initialResponsiveMode = initialHumanViewportPreference?.mode === "responsive";

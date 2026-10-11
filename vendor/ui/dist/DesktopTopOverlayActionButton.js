@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
 export function DesktopTopOverlayActionButton({ title, ariaLabel, children, shortcut, disabled, onClick, onMouseEnter, side = "bottom", buttonClassName, testId, }) {
     return (_jsx(ControlHintTooltip, { title: title, shortcut: shortcut, side: side, children: _jsx(Button, { type: "button", variant: "ghost", size: "icon-md", 
             // 基础 Button 默认 transition-all，缩放窗口时会把标题栏按钮的尺寸/位置变化也动画化，

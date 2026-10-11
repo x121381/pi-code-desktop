@@ -4,12 +4,12 @@
  */
 import { create } from "zustand";
 import { convertToZCodeAgentMcpServer } from "@zcode/shared";
-import { logger } from "@/logger.js";
-import { fetchNativeMcpServers, migrateLegacyCommonMcpFromDesktop, persistCliMcpToUserDirectory, } from "@/store/mcpStoreDesktop.js";
-import { importLegacyCommonServersToZCodeAgent, migrateStoredCommonMcpToZCodeAgent, } from "@/store/mcpStoreMigration.js";
-import { buildServerList, DEFAULT_MCP_CONFIG, getServerPriority, loadPersistedConfig, makeServerId, MCP_DELETED_PRELOAD_KEY, safeReadJson, safeWriteJson, } from "@/store/mcpStoreHelpers.js";
-import { isRemoteWorkspaceDisconnectedError } from "@/lib/remoteWorkspaceServiceError.js";
-import { mergeMcpServerStatusSnapshots } from "@/store/mcpStoreStatusList.js";
+import { logger } from "../logger.js";
+import { fetchNativeMcpServers, migrateLegacyCommonMcpFromDesktop, persistCliMcpToUserDirectory, } from "../store/mcpStoreDesktop.js";
+import { importLegacyCommonServersToZCodeAgent, migrateStoredCommonMcpToZCodeAgent, } from "../store/mcpStoreMigration.js";
+import { buildServerList, DEFAULT_MCP_CONFIG, getServerPriority, loadPersistedConfig, makeServerId, MCP_DELETED_PRELOAD_KEY, safeReadJson, safeWriteJson, } from "../store/mcpStoreHelpers.js";
+import { isRemoteWorkspaceDisconnectedError } from "../lib/remoteWorkspaceServiceError.js";
+import { mergeMcpServerStatusSnapshots } from "../store/mcpStoreStatusList.js";
 let mcpPlatformService = null;
 let mcpDirectoryService = null;
 export function setMcpStorePlatform(platform) {

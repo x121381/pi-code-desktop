@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckIcon, Loader2 } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 自动重置提示内容（纯展示），供 composer 额度入口的受控 tooltip 使用：
  * - processing：转圈 +「正在重置 5 小时/周额度…」

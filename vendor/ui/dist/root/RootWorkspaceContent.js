@@ -1,11 +1,11 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useEffect } from "react";
-import { App } from "@/App.js";
-import { ScopedErrorBoundary } from "@/ErrorBoundary.js";
-import { ServiceProvider } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { WorkspaceSettingsLayer } from "@/root/WorkspaceSettingsLayer.js";
-import { ConversationTelemetryWorkspaceAttachment } from "@/v4/telemetry/ConversationTelemetryAttachment.js";
+import { App } from "../App.js";
+import { ScopedErrorBoundary } from "../ErrorBoundary.js";
+import { ServiceProvider } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
+import { WorkspaceSettingsLayer } from "../root/WorkspaceSettingsLayer.js";
+import { ConversationTelemetryWorkspaceAttachment } from "../v4/telemetry/ConversationTelemetryAttachment.js";
 const StableWorkspaceApp = memo(App);
 export function RootWorkspaceContent({ workspaceScopedServices, baseFeedbackService, workspaceShellPath, workspaceIdentity, workspaceRemoteSessionId, activeWorkspacePath, isSettingsTabActive, handleConnectRemote, handleSelectRemoteProject, handleCancelRemoteProject, handleReconnectRemoteWorkspace, handleCreateTask, handleCreateConversationTask, handleResolveConversationWorkspace, handleOpenWorkspace, handleOpenFolderFromWorkspaceMenu, handleOpenRemoteWorkspace, handleCreateScratchWorkspace, remoteConnectionInProgress, remoteWorkspaceSessions, allowRemoteWorkspace, handleBackFromSettings, handleLogout, onLogin, user, reconnectingRemoteWorkspaceKeys, remoteWorkspaceErrorByWorkspaceKey, reconnectingRemoteWorkspaceLogsByWorkspaceKey, remoteConnectionLogs, allowOpenWorkspace, webRemoteControlWorkspaceSwitcher, initialWebRemoteControlMobileNavigationIntent, initialWebRemoteControlWorkspaceList, webRemoteControlTerminalTransportState, isDesktop, isMacDesktop, isWindowsDesktop, supportsEmbeddedBrowser, windowsWindowControlsRightPaddingPx, }) {
     const workspaceKey = workspaceIdentity?.trim() || workspaceShellPath;

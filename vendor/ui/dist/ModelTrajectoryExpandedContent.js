@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Maximize2Icon, Minimize2Icon } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { ContentPartView } from "@/ModelTrajectoryPaneDetails.js";
-import { trajectoryToolCallInputs, trajectoryToolHasError, trajectoryToolMetadata, trajectoryToolOutputs, } from "@/ModelTrajectoryToolPayload.js";
+import { Badge } from "./components/ui/badge.js";
+import { Button } from "./components/ui/button.js";
+import { cn } from "./components/lib/utils.js";
+import { ContentPartView } from "./ModelTrajectoryPaneDetails.js";
+import { trajectoryToolCallInputs, trajectoryToolHasError, trajectoryToolMetadata, trajectoryToolOutputs, } from "./ModelTrajectoryToolPayload.js";
 export function TrajectoryExpandedContent({ message, role, open, searchRevealed, intl, }) {
     const contentRef = useRef(null);
     const [isOverflowing, setIsOverflowing] = useState(false);

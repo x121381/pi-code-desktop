@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Save } from "lucide-react";
 import { useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { ToolLayout } from "../ToolLayout.js";
 const SAVE_WORKFLOW_TOOL_ICON = _jsx(Save, { className: "size-4 shrink-0 text-foreground-subtle" });
 /**

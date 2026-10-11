@@ -1,20 +1,20 @@
 /* eslint-disable max-lines -- Grouped 视图 hook 集中维护 optimistic overlay、排序保存和 ungroup 持久化，拆开会让同一份 view 状态在多个 hook 间漂移。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useLocalWorkspaceScopes } from "@/hooks/useLocalWorkspaceScopes.js";
-import { logger } from "@/logger.js";
-import { buildGroupedTaskViewFromSessions } from "@/lib/buildGroupedTaskViewFromSessions.js";
-import { mergeTaskListMembershipFields } from "@/v4/taskListRowActivity.js";
-import { fetchTaskListMembershipSets } from "@/lib/taskListMembershipSets.js";
-import { useTaskListMembershipVersion } from "@/v4/taskListMembershipVersion.js";
-import { useGlobalTaskList } from "@/hooks/useGlobalTaskList.js";
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { buildTaskEntityKey, buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { mergeTaskWithOptimisticMeta } from "@/lib/zcodeTaskMetaMerge.js";
-import { useWorkspaceTaskOptimisticOverlayByWorkspaceKey, } from "@/hooks/workspaceTaskListOptimisticOverlay.js";
-import { moveTaskToGroupStart } from "@/workspace-grouped-tasks/view.js";
-import { areStabilizedValuesEquivalent } from "@/v4/taskListItemStabilization.js";
-import { taskKey as groupedTaskKey } from "@/workspace-grouped-tasks/ids.js";
+import { useBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { useLocalWorkspaceScopes } from "../hooks/useLocalWorkspaceScopes.js";
+import { logger } from "../logger.js";
+import { buildGroupedTaskViewFromSessions } from "../lib/buildGroupedTaskViewFromSessions.js";
+import { mergeTaskListMembershipFields } from "../v4/taskListRowActivity.js";
+import { fetchTaskListMembershipSets } from "../lib/taskListMembershipSets.js";
+import { useTaskListMembershipVersion } from "../v4/taskListMembershipVersion.js";
+import { useGlobalTaskList } from "../hooks/useGlobalTaskList.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { buildTaskEntityKey, buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { mergeTaskWithOptimisticMeta } from "../lib/zcodeTaskMetaMerge.js";
+import { useWorkspaceTaskOptimisticOverlayByWorkspaceKey, } from "../hooks/workspaceTaskListOptimisticOverlay.js";
+import { moveTaskToGroupStart } from "../workspace-grouped-tasks/view.js";
+import { areStabilizedValuesEquivalent } from "../v4/taskListItemStabilization.js";
+import { taskKey as groupedTaskKey } from "../workspace-grouped-tasks/ids.js";
 function applyPromotedGroupPlacements(view, promotedDraftByTaskKey, optimisticTaskByKey) {
     let nextView = view;
     for (const [taskKey, promotedDraft] of promotedDraftByTaskKey) {

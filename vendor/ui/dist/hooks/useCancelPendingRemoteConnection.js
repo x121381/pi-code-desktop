@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 export function useCancelPendingRemoteConnection() {
     const platform = usePlatform();
     return useCallback(async (requestId) => {

@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect } from "react";
-import { SettingsPage } from "@/SettingsPage.js";
-import { ServiceProvider } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { SettingsPage } from "../SettingsPage.js";
+import { ServiceProvider } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 export function WorkspaceSettingsLayer({ workspaceScopedServices, isDesktop, isMacDesktop, isWindowsDesktop, isWebRemoteControl, windowsWindowControlsRightPaddingPx, captionWorkspacePath, onBack, onCreateTask, onOpenWorkspace, allowOpenWorkspace, onLogin, onLogout, user, }) {
     useEffect(() => {
         logger.info("[Root] settings layer mounted");

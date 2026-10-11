@@ -1,5 +1,5 @@
-import { isPlainRecord, readWorkflowAmendTarget, } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
-import { isAmendWorkflowToolCall, isCreateWorkflowToolCall } from "@/lib/workflowToolNames.js";
+import { isPlainRecord, readWorkflowAmendTarget, } from "../ToolCallBlocks/renderers/createWorkflowInput.js";
+import { isAmendWorkflowToolCall, isCreateWorkflowToolCall } from "../lib/workflowToolNames.js";
 /**
  * 工作流工具行 → 草稿位置（稿号与是否已被替代）的联接表，行窗口一遍建成
  *

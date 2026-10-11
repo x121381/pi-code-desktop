@@ -2,9 +2,9 @@
 // 模型与纯状态机在 paneLayoutTree.ts，持久化在 paneLayoutPersistence.ts——
 // 本文件只做 store 装配 + 持久化订阅，并 re-export 两者（消费面单一入口）。
 import { create } from "zustand";
-import { isRendererReloadNavigation } from "@/lib/rendererNavigation.js";
-import { persistPaneLayout, readPersistedPaneLayout, } from "@/v4/paneLayoutPersistence.js";
-import { bindPaneSession, closePane, confirmRestoredPaneSession, focusPane, INITIAL_PANE_LAYOUT, openSessionInNewPane, replacePaneBinding, setSplitNodeRatio, splitPaneAt, splitPaneAtSide, } from "@/v4/paneLayoutTree.js";
+import { isRendererReloadNavigation } from "../lib/rendererNavigation.js";
+import { persistPaneLayout, readPersistedPaneLayout, } from "../v4/paneLayoutPersistence.js";
+import { bindPaneSession, closePane, confirmRestoredPaneSession, focusPane, INITIAL_PANE_LAYOUT, openSessionInNewPane, replacePaneBinding, setSplitNodeRatio, splitPaneAt, splitPaneAtSide, } from "../v4/paneLayoutTree.js";
 const persistedPaneLayoutAtModuleLoad = readPersistedPaneLayout();
 const restoredPaneLayoutAtModuleLoad = isRendererReloadNavigation()
     ? persistedPaneLayoutAtModuleLoad
@@ -13,8 +13,8 @@ const restoredPaneLayoutAtModuleLoad = isRendererReloadNavigation()
 export function hadPersistedPaneLayoutAtModuleLoad() {
     return persistedPaneLayoutAtModuleLoad !== null;
 }
-export * from "@/v4/paneLayoutTree.js";
-export * from "@/v4/paneLayoutPersistence.js";
+export * from "../v4/paneLayoutTree.js";
+export * from "../v4/paneLayoutPersistence.js";
 /** 每窗口一份；action 引用稳定，可直接下发给 memo 组件。 */
 export const usePaneLayoutStore = create()((set) => ({
     // 只有同一 renderer reload 从 localStorage 恢复布局；app 冷启动从单 primary 草稿开始。

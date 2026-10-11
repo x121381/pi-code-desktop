@@ -11,9 +11,9 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/colla
 import { cn } from "../lib/utils.js";
 import { TID_CHAT_REASONING_CONTENT, TID_CHAT_REASONING_TRIGGER } from "@zcode/shared";
 import { BrainIcon, ChevronRightIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { QueuedSummaryContent } from "@/ToolCallBlocks/QueuedSummaryContent.js";
-import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "@/mentions/components/scrollMask.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { QueuedSummaryContent } from "../../ToolCallBlocks/QueuedSummaryContent.js";
+import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "../../mentions/components/scrollMask.js";
 import { createContext, memo, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
 const ReasoningContext = createContext(null);
 export const useReasoning = () => {

@@ -1,5 +1,5 @@
 import { redactTelemetryText, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /** ARMS 自定义事件名：React 错误边界捕获的渲染层异常 */
 export const REACT_ERROR_ARMS_EVENT_NAME = "perf_react_error";
 /** ARMS 业务分组 */

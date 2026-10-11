@@ -1,6 +1,6 @@
-import { requestVerificationErrorAttribution } from "@/request-security-edition/errors.js";
+import { requestVerificationErrorAttribution } from "../request-security-edition/errors.js";
 import { MEDIA_BUDGET_CURRENT_ATTACHMENT_TOO_LARGE_ERROR_CODE, MEDIA_BUDGET_CURRENT_IMAGE_TOO_LARGE_ERROR_CODE, MEDIA_BUDGET_CURRENT_VIDEO_TOO_LARGE_ERROR_CODE, } from "@zcode/shared";
-import { isGenericProviderInvalidRequestCode, isLocalModelValidationMessage, isQuotaMessage, resolveControlledUnknownMessageAttribution, resolveGenericProviderCodeAttribution, resolveKnownProviderCodeFailureReason, resolveLegacyProviderEnvelopeCode, resolveStableTransportCodeAttribution, resolveTrustedProviderCodeFailureReason, } from "@/lib/chatErrorAttributionEvidence.js";
+import { isGenericProviderInvalidRequestCode, isLocalModelValidationMessage, isQuotaMessage, resolveControlledUnknownMessageAttribution, resolveGenericProviderCodeAttribution, resolveKnownProviderCodeFailureReason, resolveLegacyProviderEnvelopeCode, resolveStableTransportCodeAttribution, resolveTrustedProviderCodeFailureReason, } from "../lib/chatErrorAttributionEvidence.js";
 const UNKNOWN_FAILURE_REASON = "unknown";
 const RATE_LIMIT_MESSAGE_PATTERN = /error[_ -]?rate[_ -]?limited|rate[_ -]?limit|too many requests|request higher limits|throttl/iu;
 const BALANCE_MESSAGE_PATTERN = /insufficient\s+(?:balance|funds|credit)|balance\s+(?:is\s+)?(?:insufficient|too\s+low)|余额不足|余额不够/iu;

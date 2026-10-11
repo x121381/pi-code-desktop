@@ -1,7 +1,7 @@
 import { getZCodeAgentModeSelectOptions, } from "@zcode/shared";
-import { buildRegistryModelSelectGroups, } from "@/lib/modelSelectionGroups.js";
-import { decodeCustomModelValue, encodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
-import { resolveV4ModelTriggerLabel } from "@/v4/composer/modelTriggerDisplay.js";
+import { buildRegistryModelSelectGroups, } from "../lib/modelSelectionGroups.js";
+import { decodeCustomModelValue, encodeCustomModelValue } from "../lib/zcodeCustomModelValue.js";
+import { resolveV4ModelTriggerLabel } from "../v4/composer/modelTriggerDisplay.js";
 // 定时任务表单必须是纯本地草稿，不能借用 workspace 默认配置写接口来获取选项；
 // 否则仅打开或取消编辑也会改掉当前项目和 draft session 的运行配置。
 /** 权限模式默认值：Ask before changes。 */

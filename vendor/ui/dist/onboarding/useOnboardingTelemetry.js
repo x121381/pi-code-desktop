@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
 const workDirections = {
     developer: "software_data_ai",
     independent: "entrepreneurship_freelance_opc",

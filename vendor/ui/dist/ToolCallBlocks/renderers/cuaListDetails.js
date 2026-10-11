@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AppWindow } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 function asRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value)
         ? value

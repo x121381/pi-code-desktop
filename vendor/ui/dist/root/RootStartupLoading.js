@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 export function RootStartupLoading({ label, children, busy = true }) {
     return (_jsxs("div", { 
         // Web 端全局 html/body/#root 为 Electron 透明背景让路，React 接管后会替换 HTML 启动壳。

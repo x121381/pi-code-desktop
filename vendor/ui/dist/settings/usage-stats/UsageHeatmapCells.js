@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { cn } from "../../components/lib/utils.js";
 const HEATMAP_LEVEL_STYLES = [
     "var(--color-usage-heatmap-0)",
     "var(--color-usage-heatmap-1)",

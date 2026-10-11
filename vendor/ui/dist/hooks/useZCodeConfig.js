@@ -5,10 +5,10 @@
  * v4 命令（switchModelConfig 等），本文件不含写路径 hooks。
  */
 import { useShallow } from "zustand/react/shallow";
-import { resolveTaskRestorePreloadConfigOptions } from "@/lib/taskModelRecovery.js";
-import { getTaskMeta, useZCodeSessionStore, selectWorkspaceZCodeState, } from "@/store/zcodeSessionStore.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { resolveTaskRestorePreloadConfigOptions } from "../lib/taskModelRecovery.js";
+import { getTaskMeta, useZCodeSessionStore, selectWorkspaceZCodeState, } from "../store/zcodeSessionStore.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 function useActiveWorkspaceIdentity(workspacePath) {
     return useTabStore((state) => {
         if (!state.activeTabId) {

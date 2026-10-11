@@ -1,5 +1,5 @@
 import { resolveModelProviderFamilyIdByProviderId, resolveProviderFamilyDomainFromOAuthProvider, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function inferProviderFamilyDomainFromSelection(providers) {
     const usableDomains = new Set();
     for (const provider of providers) {

@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { memo, useState } from "react";
 import { Bot, Cable, GoalIcon, MessagesSquare, ScrollText, SquareSlash, WandSparkles, } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
-import { isTrustedPluginIconSource } from "@/lib/pluginIconSource.js";
-import { usePluginReferenceIconProjection } from "@/v4/pluginReferenceIconContext.js";
-import { getPromptMentionVariantClassName, PROMPT_MENTION_BASE_CLASS_NAME, } from "@/mentions/mentionChip.js";
-import { formatSkillMentionDisplayLabel, parseMentionMarkdown, } from "@/mentions/mentionMarkdown.js";
-import { parseV4VisibleSlashCommand } from "@/v4/slashCommands.js";
+import { cn } from "../components/lib/utils.js";
+import { FileDisplayInline } from "../lib/fileDisplay.js";
+import { isTrustedPluginIconSource } from "../lib/pluginIconSource.js";
+import { usePluginReferenceIconProjection } from "../v4/pluginReferenceIconContext.js";
+import { getPromptMentionVariantClassName, PROMPT_MENTION_BASE_CLASS_NAME, } from "../mentions/mentionChip.js";
+import { formatSkillMentionDisplayLabel, parseMentionMarkdown, } from "../mentions/mentionMarkdown.js";
+import { parseV4VisibleSlashCommand } from "../v4/slashCommands.js";
 const GOAL_QUERY_TOKEN_PATTERN = /^(\s*)(\/(?:goal|target))(?=\s|$)([\s\S]*)$/i;
 const EMPTY_ATTACHMENTS = [];
 /**

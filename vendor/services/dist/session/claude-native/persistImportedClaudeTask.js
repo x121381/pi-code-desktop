@@ -1,7 +1,7 @@
 import { mkdir, rename, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import { getLegacyTaskSessionSnapshotPath } from "#src/paths.js";
-import { parseLegacyTaskSessionFile, } from "#src/session/legacyTaskSessionFile.js";
+import { getLegacyTaskSessionSnapshotPath } from "../../paths.js";
+import { parseLegacyTaskSessionFile, } from "../../session/legacyTaskSessionFile.js";
 const TASK_SEARCH_TEXT_MAX_CHARS = 200_000;
 export function buildSearchableTextFromMessages(messages) {
     const parts = [];

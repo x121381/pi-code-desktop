@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { RotateCcw, Workflow } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { RUN_STATUS_DOT, RUN_STATUS_TEXT, } from "@/components/workflow-graph/run-status-presentation.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { cn } from "../../components/lib/utils.js";
+import { RUN_STATUS_DOT, RUN_STATUS_TEXT, } from "../../components/workflow-graph/run-status-presentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 import { ToolLayout } from "../ToolLayout.js";
 import { WorkflowRunCompactCard } from "./workflow-run-compact-card.js";
 /** 紧凑 run 态卡的图标与 CreateWorkflow 同一枚（族内一致）；折叠态保留 RotateCcw 讲「恢复」。 */

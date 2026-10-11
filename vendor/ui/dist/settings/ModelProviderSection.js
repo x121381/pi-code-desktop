@@ -2,18 +2,18 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- Model Provider 设置页需要集中编排导航、表单和 OAuth 交互，后续整体拆分时再收敛。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "zustand";
-import { marketingNavigation, finishMarketingNavigation } from "@/lib/marketingNavigation.js";
-import { getProviderFormApiKey, } from "@/lib/providerSettingsFormTypes.js";
+import { marketingNavigation, finishMarketingNavigation } from "../lib/marketingNavigation.js";
+import { getProviderFormApiKey, } from "../lib/providerSettingsFormTypes.js";
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, DesktopCommandIds, isStartPlanModelProviderId, resolveModelProviderFamilyIdByProviderId, resolveModelProviderFamilySpecByProviderId, resolveProviderFamilyDomainFromOAuthProvider, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Button } from "@/components/ui/button.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { useModelProviders } from "@/hooks/useModelProviders.js";
-import { resolveEntitledAccountProviderAccess } from "@/lib/accountProviderAccess.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { logger } from "@/logger.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { useConfirmDialog } from "../hooks/useConfirmDialog.js";
+import { useModelProviders } from "../hooks/useModelProviders.js";
+import { resolveEntitledAccountProviderAccess } from "../lib/accountProviderAccess.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
+import { logger } from "../logger.js";
 import { PRESET_PROVIDER_SPECS, PRESET_SUBSCRIPTION_TIMEOUT_MS, BIGMODEL_REGISTRATION_URL, } from "./model-provider-section/constants.js";
 import { ModelProviderSectionDetail } from "./model-provider-section/Detail.js";
 import { ModelProviderSectionLayout } from "./model-provider-section/SectionLayout.js";
@@ -23,11 +23,11 @@ import { reportPresetSubscriptionSuccess } from "./model-provider-section/oauthA
 import { createCodingPlanProviderNodeKey, createCustomProviderNodeKey, createPresetProviderNodeKey, } from "./model-provider-section/utils.js";
 import { confirmAndDeleteModelProvider, refreshModelProviderSection, refreshProviderPanelAfterAuthChange as refreshModelProviderPanelAfterAuthChange, } from "./model-provider-section/modelProviderActions.js";
 import { useCodingPlanAccessRefresh, useCodingPlanEntitlements, } from "./model-provider-section/useCodingPlanEntitlements.js";
-import { sortModelProvidersForDisplay } from "@/lib/modelProviderOrdering.js";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { resolveLogoutProviderFamilyDomain } from "@/lib/providerFamilyDomainSettings.js";
-import { addPendingSettingsSectionListener, consumePendingSettingsModelProviderTarget, } from "@/lib/settingsNavigation.js";
-import { useEnterpriseCodingPlanProducts } from "@/settings/model-provider-section/useEnterpriseCodingPlanProducts.js";
+import { sortModelProvidersForDisplay } from "../lib/modelProviderOrdering.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { resolveLogoutProviderFamilyDomain } from "../lib/providerFamilyDomainSettings.js";
+import { addPendingSettingsSectionListener, consumePendingSettingsModelProviderTarget, } from "../lib/settingsNavigation.js";
+import { useEnterpriseCodingPlanProducts } from "../settings/model-provider-section/useEnterpriseCodingPlanProducts.js";
 export { fuzzyMatch, handleEndpointSuggestionPopoverOpenAutoFocus, resolveEndpointSuggestionOpenRequest, } from "./model-provider-section/utils.js";
 export function resolveCodingPlanProviderSyncAttemptKey({ activeOAuthProvider, oauthProviderId, providerId, }) {
     if (activeOAuthProvider !== oauthProviderId) {

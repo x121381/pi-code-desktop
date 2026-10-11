@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { CuaScreenshotSection } from "@/ToolCallBlocks/renderers/CuaScreenshotSection.js";
-import { CuaDetailListSection } from "@/ToolCallBlocks/renderers/cuaListDetails.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { CuaScreenshotSection } from "../../ToolCallBlocks/renderers/CuaScreenshotSection.js";
+import { CuaDetailListSection } from "../../ToolCallBlocks/renderers/cuaListDetails.js";
 function asRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value)
         ? value

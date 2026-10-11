@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { normalizeAgentProviderToZCodeAgent, ZCODE_AGENT_PROVIDER, } from "@zcode/shared";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
-import { logger } from "@/logger.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
+import { logger } from "../logger.js";
 const inFlightSkillLoads = new Map();
 function getSkillLoadKey(workspacePath, provider, workspaceIdentity) {
     return `${workspaceIdentity?.trim() || workspacePath}::${provider}`;

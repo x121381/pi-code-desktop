@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { dispatchWebElementContextAddToChat, isWebElementContextPayload, } from "@/lib/webElementContext.js";
-import { buildCancelWebElementPickerScript, buildWebElementPickerScript, } from "@/lib/webElementPickerScript.js";
+import { logger } from "../logger.js";
+import { dispatchWebElementContextAddToChat, isWebElementContextPayload, } from "../lib/webElementContext.js";
+import { buildCancelWebElementPickerScript, buildWebElementPickerScript, } from "../lib/webElementPickerScript.js";
 function isWebElementPickerScriptResult(result) {
     if (typeof result !== "object" || result === null) {
         return false;

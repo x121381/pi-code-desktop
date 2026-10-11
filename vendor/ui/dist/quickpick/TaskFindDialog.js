@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { ArrowDownIcon, ArrowUpIcon, FileDiffIcon, MessageCircleIcon, SearchIcon, XIcon, } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { getConversationFindState, resolveConversationFindNavigationSelection, resolveConversationFindNavigationDirection, } from "@/quickpick/conversationFindSearch.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useIsOfficeMode } from "../hooks/useInterfaceMode.js";
+import { getConversationFindState, resolveConversationFindNavigationSelection, resolveConversationFindNavigationDirection, } from "../quickpick/conversationFindSearch.js";
 export function TaskFindDialog({ open, focusRequestId, placement = "window", isMacDesktop, isWindowsDesktop, isLinuxDesktop, conversationMatchCount, conversationMatchIndex, fileChangeMatchCount, fileChangeMatchIndex, onOpenChange, onConversationFindChange, onConversationFindNavigate, onFileChangeFindChange, onFileChangeFindNavigate, onOpenFileChanges, }) {
     const isOfficeMode = useIsOfficeMode();
     const { intl } = useZCodeIntl();

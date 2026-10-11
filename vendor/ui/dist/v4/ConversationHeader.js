@@ -2,9 +2,9 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { memo } from "react";
 import { TID_V4_PANE_WORKSPACE_BADGE, TID_V4_SESSION_TITLE, TID_V4_SPLIT_CLOSE, } from "@zcode/shared";
 import { XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 /**
  * pane chrome：不占布局高度，只在右上角悬浮拆分/关闭入口。
  * 保留 title data 节点，供 E2E 读取投影但不恢复旧横条。

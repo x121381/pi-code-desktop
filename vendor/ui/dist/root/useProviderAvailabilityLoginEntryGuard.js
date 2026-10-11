@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { resolveProviderAvailabilityState } from "@/lib/modelProviderAvailability.js";
-import { logger } from "@/logger.js";
+import { resolveProviderAvailabilityState } from "../lib/modelProviderAvailability.js";
+import { logger } from "../logger.js";
 export function useProviderAvailabilityLoginEntryGuard({ enabled = true, user, isRestoringOAuthSession, providerFamilyDomain, modelSelectionView, modelSelectionError, refreshProviderState, readModelSelectionView, setLoginEntryOpen, }) {
     const [startupCheckCompleted, setStartupCheckCompleted] = useState(!enabled);
     const startupCheckCompletedRef = useRef(false);

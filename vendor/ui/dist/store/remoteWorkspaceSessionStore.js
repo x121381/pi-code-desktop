@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { remoteAgentServiceGeneration } from "@/lib/remoteAgentServiceGeneration.js";
-import { createRemoteWorkspaceDisconnectedError } from "@/lib/remoteWorkspaceServiceError.js";
+import { remoteAgentServiceGeneration } from "../lib/remoteAgentServiceGeneration.js";
+import { createRemoteWorkspaceDisconnectedError } from "../lib/remoteWorkspaceServiceError.js";
 export const useRemoteWorkspaceSessionStore = create()((set) => ({
     baseServices: null,
     sessionsById: {},

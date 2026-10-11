@@ -1,7 +1,7 @@
 import { AppBridge, } from "@modelcontextprotocol/ext-apps/app-bridge";
 import { z } from "zod";
 import { GEN_UI_STATE_METHOD, GEN_UI_FOLLOW_UP_METHOD, GEN_UI_TWEAK_METHOD, GEN_UI_PRESENTATION_METHOD, GEN_UI_STATE_CONTEXT_KEY, GEN_UI_TWEAK_CONTEXT_KEY, buildGenUiStateKey, genUiWidgetStateSchema, genUiFollowUpSchema, genUiTweakMessageSchema, genUiTweakResultSchema, } from "@zcode/shared/gen-ui";
-import { createPluginUiPagePlane, createPluginUiMessagePortTransport, getPluginUiSessionActions, } from "@/plugin-ui/hostPrimitives.js";
+import { createPluginUiPagePlane, createPluginUiMessagePortTransport, getPluginUiSessionActions, } from "../../plugin-ui/hostPrimitives.js";
 import { EMPTY_GEN_UI_SNAPSHOT } from "../contract.js";
 import { readGenUiStyleVariables } from "./theme.js";
 import { createGenUiTweakRegistry } from "../app/tweaks.js";

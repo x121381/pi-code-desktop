@@ -1,6 +1,6 @@
-import { DOCUMENT_FILE_ICON_SRC, FOLDER_FILE_ICON_SRC, INLINE_FALLBACK_FILE_ICON_SRC, resolveFileDisplayDescriptor, } from "@/lib/fileDisplay.js";
-import { resolvePluginIconSource } from "@/lib/pluginIconSource.js";
-import { COMMAND_MENTION_ICON_NODE, COMPACT_COMMAND_MENTION_ICON_NODE, createMentionSvgIcon, GOAL_COMMAND_MENTION_ICON_NODE, PLUGIN_MENTION_ICON_NODE, SESSION_MENTION_ICON_NODE, SKILL_MENTION_ICON_NODE, SUBAGENT_MENTION_ICON_NODE, WHITEBOARD_MENTION_ICON_NODE, WORKFLOW_COMMAND_MENTION_ICON_NODE, } from "@/mentions/nodes/mentionIconDom.js";
+import { DOCUMENT_FILE_ICON_SRC, FOLDER_FILE_ICON_SRC, INLINE_FALLBACK_FILE_ICON_SRC, resolveFileDisplayDescriptor, } from "../../lib/fileDisplay.js";
+import { resolvePluginIconSource } from "../../lib/pluginIconSource.js";
+import { COMMAND_MENTION_ICON_NODE, COMPACT_COMMAND_MENTION_ICON_NODE, createMentionSvgIcon, GOAL_COMMAND_MENTION_ICON_NODE, PLUGIN_MENTION_ICON_NODE, SESSION_MENTION_ICON_NODE, SKILL_MENTION_ICON_NODE, SUBAGENT_MENTION_ICON_NODE, WHITEBOARD_MENTION_ICON_NODE, WORKFLOW_COMMAND_MENTION_ICON_NODE, } from "../../mentions/nodes/mentionIconDom.js";
 const pendingImages = new WeakMap();
 function cssUrl(url) {
     // CSS 中相对 URL 会按样式表路径解析；统一按文档 baseURI 解析，和原 img.src 一致。

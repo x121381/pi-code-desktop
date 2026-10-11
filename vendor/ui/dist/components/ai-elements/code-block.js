@@ -11,15 +11,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { cn } from "../lib/utils.js";
 import { CheckIcon, CopyIcon, Maximize2Icon, WrapTextIcon } from "lucide-react";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
-import { CodeViewer } from "@/components/ui/code-viewer.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { FileDisplayIcon, resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { isMermaidLanguage, shouldRenderMermaidCodeBlock } from "@/lib/mermaidLanguage.js";
-import { getCurrentMermaidDocumentVisibility, resolveMermaidAutoRenderDecision, } from "@/lib/mermaidRenderBudget.js";
-import { MermaidBlock } from "@/components/ai-elements/mermaid-block.js";
-import { DiagramPreviewDialog } from "@/components/ai-elements/diagram-preview-dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { CodeViewer } from "../../components/ui/code-viewer.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { FileDisplayIcon, resolveFileDisplayDescriptor } from "../../lib/fileDisplay.js";
+import { isMermaidLanguage, shouldRenderMermaidCodeBlock } from "../../lib/mermaidLanguage.js";
+import { getCurrentMermaidDocumentVisibility, resolveMermaidAutoRenderDecision, } from "../../lib/mermaidRenderBudget.js";
+import { MermaidBlock } from "../../components/ai-elements/mermaid-block.js";
+import { DiagramPreviewDialog } from "../../components/ai-elements/diagram-preview-dialog.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
 const LANGUAGE_DISPLAY_FILE_BY_LANGUAGE = {
     bash: "script.sh",
     cjs: "index.cjs",

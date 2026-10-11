@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useCallback, useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
-import { resolveHighSpeedCanvasColor, shouldCompleteHighSpeedDiffusion, resolveHighSpeedDiffusionDistance, resolveHighSpeedDiffusionProgress, shouldStartHighSpeedModelSwitch, } from "@/v4/highspeed/highSpeedDiffusion.js";
+import { resolveHighSpeedCanvasColor, shouldCompleteHighSpeedDiffusion, resolveHighSpeedDiffusionDistance, resolveHighSpeedDiffusionProgress, shouldStartHighSpeedModelSwitch, } from "../../v4/highspeed/highSpeedDiffusion.js";
 const HIGHSPEED_DIFFUSION_DELAY_MS = 500;
 const HIGHSPEED_DIFFUSION_FRAME_INTERVAL_MS = 1_000 / 30;
 // 参考稿的马赛克颗粒约 6px；更高的内部像素密度不会增加可见细节，反而会让宽屏

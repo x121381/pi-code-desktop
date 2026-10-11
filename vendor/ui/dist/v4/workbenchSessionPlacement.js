@@ -1,6 +1,6 @@
-import { logger } from "@/logger.js";
-import { V4_PRIMARY_PANE_ID, canAddPane, effectiveFocusedPaneId, findPaneIdForSession, paneBindingMatchesSession, paneWorkspaceKey, usePaneLayoutStore, } from "@/v4/paneLayoutStore.js";
-import { buildWorkbenchSessionKey, selectWorkbenchGroupActiveBinding, useWorkbenchGroupStore, } from "@/v4/workbenchGroupStore.js";
+import { logger } from "../logger.js";
+import { V4_PRIMARY_PANE_ID, canAddPane, effectiveFocusedPaneId, findPaneIdForSession, paneBindingMatchesSession, paneWorkspaceKey, usePaneLayoutStore, } from "../v4/paneLayoutStore.js";
+import { buildWorkbenchSessionKey, selectWorkbenchGroupActiveBinding, useWorkbenchGroupStore, } from "../v4/workbenchGroupStore.js";
 function targetBinding(target) {
     const { sessionId, ...workspaceScope } = target;
     return { workspaceScope, sessionId };

@@ -1,22 +1,22 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { ContextMentionOptionContent } from "@/mentions/components/ContextMentionOptionContent.js";
-import { useFileMentionProvider } from "@/mentions/providers/fileMentionProvider.js";
-import { useSessionsMentionProvider } from "@/mentions/providers/sessionsMentionProvider.js";
-import { MENTION_FILES_ONLY_DEFAULT_PREVIEW_LIMIT, buildVisibleMentionGroups, } from "@/mentions/mentionSearch.js";
-import { getSessionMentionWorkspaceScope } from "@/mentions/mentionPanelRouting.js";
-import { useChatViewActiveTaskProvider } from "@/v4/activeTaskProvider.js";
+import { ContextMentionOptionContent } from "../mentions/components/ContextMentionOptionContent.js";
+import { useFileMentionProvider } from "../mentions/providers/fileMentionProvider.js";
+import { useSessionsMentionProvider } from "../mentions/providers/sessionsMentionProvider.js";
+import { MENTION_FILES_ONLY_DEFAULT_PREVIEW_LIMIT, buildVisibleMentionGroups, } from "../mentions/mentionSearch.js";
+import { getSessionMentionWorkspaceScope } from "../mentions/mentionPanelRouting.js";
+import { useChatViewActiveTaskProvider } from "../v4/activeTaskProvider.js";
 import { useMemo, useRef, useState } from "react";
 import { GoalIcon, Info, PaperclipIcon, PlusIcon, Workflow } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { buildSlashApplyMentionPayload } from "@/lib/slashApplyMentionPayload.js";
-import { useSlashCommands } from "@/hooks/useSlashCommands.js";
-import { normalizeSlashCommandValue } from "@/slashCommandHelpers.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MentionPanel } from "@/mentions/components/MentionPanel.js";
-import { PluginMentionOptionContent } from "@/mentions/components/PluginMentionOptionContent.js";
-import { usePluginsMentionProvider } from "@/mentions/providers/pluginsMentionProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { Button } from "../components/ui/button.js";
+import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { buildSlashApplyMentionPayload } from "../lib/slashApplyMentionPayload.js";
+import { useSlashCommands } from "../hooks/useSlashCommands.js";
+import { normalizeSlashCommandValue } from "../slashCommandHelpers.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { MentionPanel } from "../mentions/components/MentionPanel.js";
+import { PluginMentionOptionContent } from "../mentions/components/PluginMentionOptionContent.js";
+import { usePluginsMentionProvider } from "../mentions/providers/pluginsMentionProvider.js";
 /**
  * 「添加」分区里紧随附件之后的命令快捷项，选中即插入与 `/` 面板相同的命令标签。
  * 两者都只在消息开头解析/展开，所以只对严格空草稿提供。

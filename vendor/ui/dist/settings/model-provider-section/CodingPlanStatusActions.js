@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { CodingPlanEntryButton } from "@/settings/CodingPlanEntryButton.js";
+import { CodingPlanEntryButton } from "../../settings/CodingPlanEntryButton.js";
 import { ArrowLeftIcon, Loader2Icon, RocketIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, } from "@/CodingPlanBillingDiscount.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, } from "../../CodingPlanBillingDiscount.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function CodingPlanStatusActions({ providerName, isDisconnected, isUnavailable, isPurchased, loginLoading, loginButtonId, loginVisible, canDisconnectProvider, disconnectLoading, onLogin, onDisconnect, }) {
     const { intl } = useZCodeIntl();
     return (_jsxs("div", { className: "flex shrink-0 flex-wrap justify-start gap-2", children: [loginVisible && (isDisconnected || isUnavailable) && onLogin ? (_jsxs(Button, { type: "button", size: "lg", onClick: () => onLogin(), disabled: loginLoading, children: [loginLoading ? _jsx(Loader2Icon, { className: "size-3.5 animate-spin" }) : null, intl.formatMessage({ id: loginButtonId }, { provider: providerName })] })) : null, canDisconnectProvider && onDisconnect && !isPurchased ? (_jsxs(Button, { type: "button", variant: "outline", size: "lg", disabled: disconnectLoading, onClick: onDisconnect, children: [disconnectLoading ? _jsx(Loader2Icon, { className: "size-3.5 animate-spin" }) : null, intl.formatMessage({

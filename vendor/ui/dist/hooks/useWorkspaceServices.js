@@ -1,11 +1,11 @@
 import { Event, ProxyChannel } from "@zcode/rpc";
 import { useMemo } from "react";
-import { useOptionalServices, useServices } from "@/hooks/useServices.js";
-import { useRemoteWorkspaceSessionStore, } from "@/store/remoteWorkspaceSessionStore.js";
-import { useResolvedRemoteWorkspaceSessionId } from "@/hooks/useResolvedRemoteWorkspaceSessionId.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { REMOTE_WORKSPACE_DISCONNECTED_ERROR_CODE } from "@/lib/remoteWorkspaceServiceError.js";
+import { useOptionalServices, useServices } from "../hooks/useServices.js";
+import { useRemoteWorkspaceSessionStore, } from "../store/remoteWorkspaceSessionStore.js";
+import { useResolvedRemoteWorkspaceSessionId } from "../hooks/useResolvedRemoteWorkspaceSessionId.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { REMOTE_WORKSPACE_DISCONNECTED_ERROR_CODE } from "../lib/remoteWorkspaceServiceError.js";
 let disconnectedRemoteServices = null;
 function createDisconnectedRemoteServices() {
     const createDisconnectedError = () => {

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function TweakPanel({ snapshot, page }) {
     const { groups, tweakValues: values, previewOriginal: preview } = snapshot;
     const { intl } = useZCodeIntl();

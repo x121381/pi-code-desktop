@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EraserIcon, ImagePlusIcon, PaletteIcon, PencilIcon, Redo2Icon, Trash2Icon, Undo2Icon, } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { WHITEBOARD_DEFAULT_COLOR, createWhiteboardStroke, dispatchWhiteboardAddToChat, drawWhiteboardDocument, } from "@/lib/whiteboard.js";
-import { buildWhiteboardWorkspaceKey } from "@/lib/whiteboard.js";
-import { useWhiteboardStore } from "@/store/whiteboardStore.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { Button } from "./components/ui/button.js";
+import { Input } from "./components/ui/input.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { WHITEBOARD_DEFAULT_COLOR, createWhiteboardStroke, dispatchWhiteboardAddToChat, drawWhiteboardDocument, } from "./lib/whiteboard.js";
+import { buildWhiteboardWorkspaceKey } from "./lib/whiteboard.js";
+import { useWhiteboardStore } from "./store/whiteboardStore.js";
 const WHITEBOARD_SWATCHES = ["#111827", "#2563eb", "#16a34a", "#dc2626", "#ca8a04", "#7c3aed"];
 export function WhiteboardPane({ workspacePath, workspaceIdentity, boardId, }) {
     const { intl } = useZCodeIntl();

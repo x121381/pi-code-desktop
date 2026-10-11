@@ -3,14 +3,14 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2, UploadCloud } from "lucide-react";
 import { normalizeUnknownError, SKILL_SYNC_SIZE_LIMIT_ERROR_CODE, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogHeader, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { RemoteSkillSyncSelectionList, } from "@/settings/RemoteSkillSyncSelectionList.js";
-import { RemoteSkillSyncResultList } from "@/settings/RemoteSkillSyncResultList.js";
-import { RemoteSkillSyncTitle } from "@/settings/RemoteSkillSyncTitle.js";
-import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "@/settings/RemoteSyncActions.js";
-export { RemoteSkillSyncSelectionList, shouldToggleRemoteSkillSyncCardSelection, } from "@/settings/RemoteSkillSyncSelectionList.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogHeader, } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { RemoteSkillSyncSelectionList, } from "../settings/RemoteSkillSyncSelectionList.js";
+import { RemoteSkillSyncResultList } from "../settings/RemoteSkillSyncResultList.js";
+import { RemoteSkillSyncTitle } from "../settings/RemoteSkillSyncTitle.js";
+import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "../settings/RemoteSyncActions.js";
+export { RemoteSkillSyncSelectionList, shouldToggleRemoteSkillSyncCardSelection, } from "../settings/RemoteSkillSyncSelectionList.js";
 export function buildRemoteSkillSyncRows(candidates, statuses) {
     const statusByDirectory = new Map(statuses.map((status) => [status.directoryName, status]));
     return candidates.map((candidate) => ({

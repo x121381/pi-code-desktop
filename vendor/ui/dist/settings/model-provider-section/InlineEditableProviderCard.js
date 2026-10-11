@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- provider 卡片同时承载名称、连接、鉴权、模型和映射编辑；本阶段先维持单组件，后续再按表单域拆分。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { getProviderFormApiKey, getProviderFormLabel, } from "@/lib/providerSettingsFormTypes.js";
+import { getProviderFormApiKey, getProviderFormLabel, } from "../../lib/providerSettingsFormTypes.js";
 import { isApiKeyAccess, } from "@zcode/provider";
-import { logger } from "@/logger.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Switch } from "@/components/ui/switch.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
+import { logger } from "../../logger.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { Switch } from "../../components/ui/switch.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { isImeComposingKeyEvent } from "../../lib/imeComposition.js";
 import { resolvePendingProviderDraftSave } from "./ProviderDraftSave.js";
 import { ProviderApiKeySection, ProviderCardHeader, ProviderConnectionSection, ProviderModelsSection, } from "./ProviderCardSections.js";
 import { resolveModelProviderDisplayName } from "./constants.js";

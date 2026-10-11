@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo, useState } from "react";
 import { ChevronsDownIcon, XIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { buildSearchFields, filterAndRankSearchItems, normalizeSearchQuery, } from "@/app-shell/sidePaneTabSearch.js";
-import { SidePaneTabIcon } from "@/app-shell/SidePaneTabTrigger.js";
-import { getLocalizedSidePaneTabTitle, getSidePaneTabSearchHint, getSidePaneTabTypeLabel, } from "@/app-shell/sidePaneTabPresentation.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "../components/ui/command.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { buildSearchFields, filterAndRankSearchItems, normalizeSearchQuery, } from "../app-shell/sidePaneTabSearch.js";
+import { SidePaneTabIcon } from "../app-shell/SidePaneTabTrigger.js";
+import { getLocalizedSidePaneTabTitle, getSidePaneTabSearchHint, getSidePaneTabTypeLabel, } from "../app-shell/sidePaneTabPresentation.js";
 export function SidePaneTabOverview({ tabs, activeTabId, recentClosedTabs, labels, onActivateTab, onCloseTab, onReopenClosedTab, }) {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState("");

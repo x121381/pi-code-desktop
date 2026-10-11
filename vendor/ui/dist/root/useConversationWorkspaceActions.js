@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { logger } from "@/logger.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { usePaneLayoutStore } from "@/v4/paneLayoutStore.js";
-import { useWorkbenchGroupStore } from "@/v4/workbenchGroupStore.js";
+import { logger } from "../logger.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { usePaneLayoutStore } from "../v4/paneLayoutStore.js";
+import { useWorkbenchGroupStore } from "../v4/workbenchGroupStore.js";
 export function useConversationWorkspaceActions({ services, addTab, setWorkspaceActionError, }) {
     const handleSelectConversationWorkspace = useCallback((path) => {
         // 对话工作区是 app 管理的共享 cwd，不属于用户项目：不走跨窗口项目激活，

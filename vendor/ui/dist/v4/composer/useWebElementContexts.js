@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { WEB_ELEMENT_CONTEXT_ADD_TO_CHAT_EVENT, WEB_ELEMENT_CONTEXT_REMOVE_FROM_CHAT_EVENT, createWebElementContextId, getWebElementContextWorkspaceKey, isWebElementContextAddToChatEvent, isWebElementContextPayload, isWebElementContextRemoveFromChatEvent, } from "@/lib/webElementContext.js";
+import { WEB_ELEMENT_CONTEXT_ADD_TO_CHAT_EVENT, WEB_ELEMENT_CONTEXT_REMOVE_FROM_CHAT_EVENT, createWebElementContextId, getWebElementContextWorkspaceKey, isWebElementContextAddToChatEvent, isWebElementContextPayload, isWebElementContextRemoveFromChatEvent, } from "../../lib/webElementContext.js";
 function isRemovePayload(payload) {
     const candidate = payload;
     return (typeof payload === "object" &&

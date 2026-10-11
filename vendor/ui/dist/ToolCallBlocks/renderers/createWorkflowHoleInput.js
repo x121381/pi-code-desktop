@@ -1,5 +1,5 @@
-import { isSyntheticLaneId, } from "@/components/workflow-graph/types.js";
-import { isPlainRecord } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { isSyntheticLaneId, } from "../../components/workflow-graph/types.js";
+import { isPlainRecord } from "../../ToolCallBlocks/renderers/createWorkflowInput.js";
 function trimmed(value) {
     if (typeof value !== "string")
         return undefined;

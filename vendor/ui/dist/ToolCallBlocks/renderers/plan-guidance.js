@@ -1,11 +1,11 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { NotepadText } from "lucide-react";
 import { useCallback } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { ToolOutput } from "@/components/ai-elements/tool.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getToolCallErrorText } from "@/lib/toolError.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { ToolOutput } from "../../components/ai-elements/tool.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { getToolCallErrorText } from "../../lib/toolError.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { ToolLayout } from "../ToolLayout.js";
 const PLAN_GUIDANCE_TOOL_ICON = _jsx(NotepadText, { className: "size-4 shrink-0 text-foreground-subtle" });
 function isRecord(value) {

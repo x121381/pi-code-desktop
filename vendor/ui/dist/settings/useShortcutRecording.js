@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { checkShortcutBindingConflict, isSamePhysicalBinding } from "@/shortcuts/conflicts.js";
-import { formatShortcutBindingLabel } from "@/shortcuts/label.js";
-import { recordShortcutBinding } from "@/shortcuts/bindings.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { checkShortcutBindingConflict, isSamePhysicalBinding } from "../shortcuts/conflicts.js";
+import { formatShortcutBindingLabel } from "../shortcuts/label.js";
+import { recordShortcutBinding } from "../shortcuts/bindings.js";
 /**
  * 录制态键盘捕获：window keydown capture。Escape 取消；Backspace 恢复默认；
  * 其余交给内核录制器。落盘按 RecordingState.mode 分派：add → 追加一条；replace → 替换

@@ -1,6 +1,6 @@
 import { Cron } from "croner";
-import { isValidCronExpr } from "#src/session/automationCronValidation.js";
-export { isValidCronExpr } from "#src/session/automationCronValidation.js";
+import { isValidCronExpr } from "../session/automationCronValidation.js";
+export { isValidCronExpr } from "../session/automationCronValidation.js";
 const ONE_SHOT_MISSED_RUN_GRACE_MS = 60 * 1_000;
 // 一次性固定月日 cron「目标刚过去」的识别窗口。模型对“现在”的时刻常是陈旧的（时间上下文停留在
 // 会话/轮开始），把相对请求自算成绝对 cron 时，目标分钟往往已过去几分钟到几十分钟。窗口内的过期

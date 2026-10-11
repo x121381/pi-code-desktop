@@ -1,4 +1,4 @@
-import { buildAssistantPreviewCards, } from "@/lib/assistantPreviewCards.js";
+import { buildAssistantPreviewCards, } from "../lib/assistantPreviewCards.js";
 function isPreviewCardTerminalState(state) {
     return state === "complete" || state === "interrupted";
 }

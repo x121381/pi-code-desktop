@@ -8,14 +8,14 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 // 代码查看器看**现在**的文件。状态以 journal 为准，活投影只叠 `cached`。
 import { memo, useCallback, useMemo, useState, } from "react";
 import { ChevronRightIcon, FileIcon, GitBranchIcon, SearchIcon, SquareTerminalIcon, TerminalIcon, } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { ReadFileChip } from "@/ToolCallBlocks/renderers/read.js";
-import { WorkspaceCardBody } from "@/app-shell/WorkflowWorkspaceCardBody.js";
-import { WorkspacePeek } from "@/app-shell/WorkflowWorkspacePeek.js";
-import { formatAgo, formatOffset, rememberedOpen, setRememberedOpen, } from "@/app-shell/workflowWorkspaceLogbook.js";
-import { formatWorkspaceBytes, formatWorkspaceDuration, isTimeoutError, workspaceCardStatus, } from "@/app-shell/workflowWorkspaceTranscript.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { resolveFileDisplayDescriptor } from "../lib/fileDisplay.js";
+import { ReadFileChip } from "../ToolCallBlocks/renderers/read.js";
+import { WorkspaceCardBody } from "../app-shell/WorkflowWorkspaceCardBody.js";
+import { WorkspacePeek } from "../app-shell/WorkflowWorkspacePeek.js";
+import { formatAgo, formatOffset, rememberedOpen, setRememberedOpen, } from "../app-shell/workflowWorkspaceLogbook.js";
+import { formatWorkspaceBytes, formatWorkspaceDuration, isTimeoutError, workspaceCardStatus, } from "../app-shell/workflowWorkspaceTranscript.js";
 const KIND_ICON = {
     read: _jsx(FileIcon, { className: "size-3.5" }),
     search: _jsx(SearchIcon, { className: "size-3.5" }),

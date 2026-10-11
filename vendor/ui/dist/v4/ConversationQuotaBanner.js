@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { CodingPlanEntryButton } from "@/settings/CodingPlanEntryButton.js";
+import { CodingPlanEntryButton } from "../settings/CodingPlanEntryButton.js";
 import { useEffect, useRef } from "react";
 import { InfoIcon, RocketIcon, XIcon } from "lucide-react";
-import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, } from "@/CodingPlanBillingDiscount.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, } from "../CodingPlanBillingDiscount.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const MESSAGE_IDS = {
     "model-very-low": "chat.quota.startPlan.modelVeryLow",
     "model-exhausted": "chat.quota.startPlan.modelExhausted",

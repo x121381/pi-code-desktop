@@ -1,10 +1,10 @@
 import { computeLineChangeStat } from "@zcode/shared";
-import { getPathLeaf } from "@/lib/path.js";
-import { resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { buildUnifiedDiff } from "@/lib/toolDiffPreview.js";
-import { buildFallbackRawToolCallFileSummary, hasWritableToolSemantic, inferEditOperation, } from "@/ToolCallBlocks/fileSummaryHeuristics.js";
-import { isPlainRecord, normalizeSingleFilePatch, readRawToolCallInput, readRawToolCallChanges, readStringField, readStructuredDiffBlock, readUnifiedDiffField, } from "@/ToolCallBlocks/fileSummaryTypes.js";
-export { inferEditOperation } from "@/ToolCallBlocks/fileSummaryHeuristics.js";
+import { getPathLeaf } from "../lib/path.js";
+import { resolveFileDisplayDescriptor } from "../lib/fileDisplay.js";
+import { buildUnifiedDiff } from "../lib/toolDiffPreview.js";
+import { buildFallbackRawToolCallFileSummary, hasWritableToolSemantic, inferEditOperation, } from "../ToolCallBlocks/fileSummaryHeuristics.js";
+import { isPlainRecord, normalizeSingleFilePatch, readRawToolCallInput, readRawToolCallChanges, readStringField, readStructuredDiffBlock, readUnifiedDiffField, } from "../ToolCallBlocks/fileSummaryTypes.js";
+export { inferEditOperation } from "../ToolCallBlocks/fileSummaryHeuristics.js";
 function readFileDiffDisplays(value) {
     if (!isPlainRecord(value)) {
         return [];

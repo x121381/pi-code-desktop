@@ -1,17 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ChevronRightIcon, Loader2Icon, Undo2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
-import { toWorkspaceRelativePath } from "@/lib/taskChangeSummary.js";
-import { buildChangeSummaryFilePreviewSource } from "@/messageChangeSummaryPreview.js";
-import { OpenSplitButton } from "@/OpenSplitButton.js";
-import { logger } from "@/logger.js";
-import { collectGenUiSourcePaths, matchesGenUiSourcePath } from "@/gen-ui/contract.js";
-import { ConversationFileRewindDialog } from "@/v4/ConversationFileRewindDialog.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "../components/ui/collapsible.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { FileDisplayInline } from "../lib/fileDisplay.js";
+import { toWorkspaceRelativePath } from "../lib/taskChangeSummary.js";
+import { buildChangeSummaryFilePreviewSource } from "../messageChangeSummaryPreview.js";
+import { OpenSplitButton } from "../OpenSplitButton.js";
+import { logger } from "../logger.js";
+import { collectGenUiSourcePaths, matchesGenUiSourcePath } from "../gen-ui/contract.js";
+import { ConversationFileRewindDialog } from "../v4/ConversationFileRewindDialog.js";
 function formatPatch(path, patches) {
     if (patches.length === 0)
         return "";

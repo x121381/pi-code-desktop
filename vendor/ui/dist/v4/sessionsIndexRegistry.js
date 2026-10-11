@@ -1,8 +1,8 @@
-import { logger } from "@/logger.js";
-import { remoteAgentServiceGeneration } from "@/lib/remoteAgentServiceGeneration.js";
-import { findRemoteWorkspaceSessionIdForAgentService } from "@/store/remoteWorkspaceSessionStore.js";
-import { createAgentSessionsIndexTransport } from "@/v4/agentSessionsIndexTransport.js";
-import { SessionsIndexStore } from "@/v4/sessionsIndexStore.js";
+import { logger } from "../logger.js";
+import { remoteAgentServiceGeneration } from "../lib/remoteAgentServiceGeneration.js";
+import { findRemoteWorkspaceSessionIdForAgentService } from "../store/remoteWorkspaceSessionStore.js";
+import { createAgentSessionsIndexTransport } from "../v4/agentSessionsIndexTransport.js";
+import { SessionsIndexStore } from "../v4/sessionsIndexStore.js";
 const registry = new Map();
 const entriesByStore = new WeakMap();
 /** 已上报过的 endpoint 不一致 scope；同一 scope 反复 acquire（重渲染/多消费者）只落一条日志。 */

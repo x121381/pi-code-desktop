@@ -1,5 +1,5 @@
 import { Activity, Archive, Blocks, Bot, Database, FileOutput, FileText, Folder, KeyRound, PackageOpen, Route, } from "lucide-react";
-import { APP_USAGE_MODEL_CHART_COLORS } from "@/settings/usage-stats/appUsageChartPalette.js";
+import { APP_USAGE_MODEL_CHART_COLORS } from "../../settings/usage-stats/appUsageChartPalette.js";
 export const STORAGE_CATEGORY_ICONS = {
     sessionStore: Database,
     subagentTranscripts: Bot,

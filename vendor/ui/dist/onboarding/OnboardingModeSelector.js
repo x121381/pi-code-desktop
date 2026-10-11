@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Check } from "lucide-react";
-import { modeOptionIcons } from "@/onboarding/occupationOptions.js";
-import { cn } from "@/components/lib/utils.js";
+import { modeOptionIcons } from "../onboarding/occupationOptions.js";
+import { cn } from "../components/lib/utils.js";
 /** 引导第二步的 UI 模式选择；从 OccupationOnboarding 抽出以控制文件行数。 */
 export function OnboardingModeSelector({ mode, saving, onSelect, label, formatLabel, }) {
     return (_jsx("div", { className: "mt-8 space-y-3", role: "group", "aria-label": label, children: ["coding", "office"].map((value) => {

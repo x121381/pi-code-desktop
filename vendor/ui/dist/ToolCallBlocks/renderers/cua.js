@@ -1,20 +1,20 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- summary 与同源 detail 投影暂集中维护，本次 review fix 不扩大重构范围。 */
 import { useCallback, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { isZCodeCuaToolName } from "@/lib/cuaPermissionAction.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { readCuaActionDetail } from "@/ToolCallBlocks/renderers/cuaActionDetail.js";
-import { buildCuaAccessDetails } from "@/ToolCallBlocks/renderers/cuaAccessDetails.js";
-import { CuaToolCallDetails } from "@/ToolCallBlocks/renderers/cuaDetails.js";
-import { readCuaErrorDetails } from "@/ToolCallBlocks/renderers/cuaErrorDetails.js";
-import { CUA_FALLBACK_ICON } from "@/ToolCallBlocks/renderers/cuaIcon.js";
-import { CuaAppSummaryIcon } from "@/ToolCallBlocks/renderers/cuaAppSummaryIcon.js";
-import { readCuaActionTargetName, readCuaAppName, readCuaResultBundleId, readCuaResultListCount, readCuaResultState, } from "@/ToolCallBlocks/renderers/cuaResultState.js";
-import { buildCuaDetailList, } from "@/ToolCallBlocks/renderers/cuaListDetails.js";
-import { buildCuaScreenshotDetails, } from "@/ToolCallBlocks/renderers/cuaScreenshotDetails.js";
-import { CUA_TOOL_SUMMARY_IDS } from "@/ToolCallBlocks/renderers/cuaSummaryMessages.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { isZCodeCuaToolName } from "../../lib/cuaPermissionAction.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { readCuaActionDetail } from "../../ToolCallBlocks/renderers/cuaActionDetail.js";
+import { buildCuaAccessDetails } from "../../ToolCallBlocks/renderers/cuaAccessDetails.js";
+import { CuaToolCallDetails } from "../../ToolCallBlocks/renderers/cuaDetails.js";
+import { readCuaErrorDetails } from "../../ToolCallBlocks/renderers/cuaErrorDetails.js";
+import { CUA_FALLBACK_ICON } from "../../ToolCallBlocks/renderers/cuaIcon.js";
+import { CuaAppSummaryIcon } from "../../ToolCallBlocks/renderers/cuaAppSummaryIcon.js";
+import { readCuaActionTargetName, readCuaAppName, readCuaResultBundleId, readCuaResultListCount, readCuaResultState, } from "../../ToolCallBlocks/renderers/cuaResultState.js";
+import { buildCuaDetailList, } from "../../ToolCallBlocks/renderers/cuaListDetails.js";
+import { buildCuaScreenshotDetails, } from "../../ToolCallBlocks/renderers/cuaScreenshotDetails.js";
+import { CUA_TOOL_SUMMARY_IDS } from "../../ToolCallBlocks/renderers/cuaSummaryMessages.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 function asRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value)
         ? value

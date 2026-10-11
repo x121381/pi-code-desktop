@@ -2,17 +2,17 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TID_CHAT_SEND_BUTTON } from "@zcode/shared";
 import { ArrowUpIcon, Hand, XIcon } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { cn } from "@/components/lib/utils.js";
-import { LexicalChatInput, } from "@/LexicalChatInput.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { hasWorkspaceFileDragPayload, readWorkspaceFileDragPayload, } from "@/lib/workspaceFileDrag.js";
-import { appendWorkspaceFileMentionToComposer } from "@/lib/workspaceFileComposer.js";
-import { usePromptEditorDragState } from "@/prompt-editor/usePromptEditorDragState.js";
-import { ChatPromptActionMenu } from "@/prompt-editor/ChatPromptActionMenu.js";
-import { useComposerToolbarFit } from "@/prompt-editor/useComposerToolbarFit.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { Button } from "../components/ui/button.js";
+import { Spinner } from "../components/ui/spinner.js";
+import { cn } from "../components/lib/utils.js";
+import { LexicalChatInput, } from "../LexicalChatInput.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { hasWorkspaceFileDragPayload, readWorkspaceFileDragPayload, } from "../lib/workspaceFileDrag.js";
+import { appendWorkspaceFileMentionToComposer } from "../lib/workspaceFileComposer.js";
+import { usePromptEditorDragState } from "../prompt-editor/usePromptEditorDragState.js";
+import { ChatPromptActionMenu } from "../prompt-editor/ChatPromptActionMenu.js";
+import { useComposerToolbarFit } from "../prompt-editor/useComposerToolbarFit.js";
 function runAfterFrame(callback) {
     if (typeof requestAnimationFrame === "function") {
         requestAnimationFrame(callback);

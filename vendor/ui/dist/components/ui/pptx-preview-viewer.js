@@ -2,19 +2,19 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState, } from "react";
 import { ChevronLeftIcon, ChevronRightIcon, FileDownIcon, Loader2Icon, MousePointer2Icon, ZoomInIcon, ZoomOutIcon, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { PopoverAnchor } from "@/components/ui/popover.js";
-import { toast } from "@/components/ui/toast.js";
-import { PptxSelectionActionBar } from "@/components/ui/pptx-selection-action-bar.js";
-import { cn } from "@/components/lib/utils.js";
-import { logger } from "@/logger.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { PPTX_MAX_ZOOM_PERCENT, PPTX_MIN_ZOOM_PERCENT, PPTX_ZOOM_STEP_PERCENT, clampPresentationPageNumber, clampPresentationZoomPercent, } from "@/presentation/presentationPreviewControls.js";
-import { hitTestPresentationElement } from "@/presentation/presentationElementModel.js";
-import { getPresentationElementSelectedText } from "@/presentation/presentationTextSelection.js";
-import { installDocumentLinkSafety, sanitizeDocumentHref } from "@/lib/officeFilePreview.js";
-import { createPptxElementReference, dispatchPptxElementReferenceAddToChat, sha256Fingerprint, } from "@/lib/pptxElementReference.js";
+import { Button } from "../../components/ui/button.js";
+import { Input } from "../../components/ui/input.js";
+import { PopoverAnchor } from "../../components/ui/popover.js";
+import { toast } from "../../components/ui/toast.js";
+import { PptxSelectionActionBar } from "../../components/ui/pptx-selection-action-bar.js";
+import { cn } from "../../components/lib/utils.js";
+import { logger } from "../../logger.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { PPTX_MAX_ZOOM_PERCENT, PPTX_MIN_ZOOM_PERCENT, PPTX_ZOOM_STEP_PERCENT, clampPresentationPageNumber, clampPresentationZoomPercent, } from "../../presentation/presentationPreviewControls.js";
+import { hitTestPresentationElement } from "../../presentation/presentationElementModel.js";
+import { getPresentationElementSelectedText } from "../../presentation/presentationTextSelection.js";
+import { installDocumentLinkSafety, sanitizeDocumentHref } from "../../lib/officeFilePreview.js";
+import { createPptxElementReference, dispatchPptxElementReferenceAddToChat, sha256Fingerprint, } from "../../lib/pptxElementReference.js";
 function isSamePresentationElement(left, right) {
     if (!left || !right) {
         return false;
@@ -247,7 +247,7 @@ export function PptxPreviewViewer({ data, labels, onOpenBrowserUrl, className, f
         setAiEditDraft(null);
         setAddingReference(false);
         void sha256Fingerprint(data)
-            .then((sourceFingerprint) => import("@/presentation/pptxRendererPreviewEngine.js")
+            .then((sourceFingerprint) => import("../../presentation/pptxRendererPreviewEngine.js")
             .then(({ pptxRendererPreviewEngine }) => pptxRendererPreviewEngine.open(data))
             .then((nextDocument) => ({ nextDocument, sourceFingerprint })))
             .then(({ nextDocument, sourceFingerprint }) => {
@@ -452,7 +452,7 @@ export function PptxPreviewViewer({ data, labels, onOpenBrowserUrl, className, f
         setExportingPdf(true);
         let printHost = null;
         try {
-            const { renderPresentationToPrintHost } = await import("@/presentation/presentationPdfPrintExport.js");
+            const { renderPresentationToPrintHost } = await import("../../presentation/presentationPdfPrintExport.js");
             printHost = await renderPresentationToPrintHost(document, window.document);
             const printResult = await printPageToPdf();
             // 拿到 PDF 字节立即释放打印 DOM，避免保存对话框期间占着全量页面的内存

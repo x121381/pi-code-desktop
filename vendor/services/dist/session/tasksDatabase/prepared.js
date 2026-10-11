@@ -1,4 +1,4 @@
-import { areTasksDatabaseMigrationsApplied } from "#src/session/tasksDatabase/migrations.js";
+import { areTasksDatabaseMigrationsApplied } from "../../session/tasksDatabase/migrations.js";
 // 仅当前进程的启动交接凭据；不落盘、不代替 SQLite 账本，不影响不同路径的新库。
 const migrated = new Set();
 const prepared = new Set();

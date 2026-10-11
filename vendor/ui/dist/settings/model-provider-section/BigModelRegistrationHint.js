@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function BigModelRegistrationHint({ onOpenRegistration, }) {
     const { intl } = useZCodeIntl();
     return (_jsxs("span", { className: "flex flex-wrap items-center gap-x-1.5 gap-y-1 text-ui-base text-foreground-subtle", children: [intl.formatMessage({

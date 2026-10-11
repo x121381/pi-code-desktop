@@ -2,14 +2,14 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 /* eslint-disable max-lines -- Explore 聚合渲染同时维护分类、父级摘要和可复用子工具摘要，拆开会让父子展示规则更难对齐 */
 import { SearchIcon } from "lucide-react";
 import { extractPlanStepsFromToolInput, extractPlanStepsFromToolOutput } from "@zcode/shared";
-import { ToolCallBlock } from "@/ToolCallBlocks.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getExecuteSecondaryText } from "@/ToolCallBlocks/renderers/execute.js";
-import { buildReadSummary, ReadFileChip } from "@/ToolCallBlocks/renderers/read.js";
-import { getSearchPrimaryText } from "@/ToolCallBlocks/renderers/search.js";
-import { renderFilePath } from "@/ToolCallBlocks/shared.js";
-import { resolveToolCallIdentity } from "@/lib/toolIdentity.js";
+import { ToolCallBlock } from "../../ToolCallBlocks.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { getExecuteSecondaryText } from "../../ToolCallBlocks/renderers/execute.js";
+import { buildReadSummary, ReadFileChip } from "../../ToolCallBlocks/renderers/read.js";
+import { getSearchPrimaryText } from "../../ToolCallBlocks/renderers/search.js";
+import { renderFilePath } from "../../ToolCallBlocks/shared.js";
+import { resolveToolCallIdentity } from "../../lib/toolIdentity.js";
 import { ToolLayout } from "../ToolLayout.js";
 import { useCallback } from "react";
 const EXPLORE_TOOL_ICON = _jsx(SearchIcon, { className: "size-4 shrink-0 text-foreground-subtle" });

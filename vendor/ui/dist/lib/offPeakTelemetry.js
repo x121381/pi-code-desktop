@@ -1,6 +1,6 @@
 import {} from "@zcode/shared";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { legacyTelemetryProviderId } from "@/lib/providerTelemetryIdentity.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
+import { legacyTelemetryProviderId } from "../lib/providerTelemetryIdentity.js";
 /** submit 同步阶段冻结来源/模板/模型，后续导航或表单变化不得改写本次 attempt。 */
 export function freezeOffPeakCreateTelemetrySnapshot(params) {
     return {

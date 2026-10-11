@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { AlertCircle, Files, LoaderCircle } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { areWorkspaceFilePathsEqual, getWorkspaceDirectoryGitStatuses, getWorkspaceFileGitStatus, isWorkspaceFileGitIgnored, } from "@/workspace-file-tree/model.js";
-import { WorkspaceFileTreeNotice } from "@/workspace-file-tree/WorkspaceFileTreeNotice.js";
-import { WorkspaceFileTreeRowView } from "@/workspace-file-tree/WorkspaceFileTreeRowView.js";
-import { WORKSPACE_FILE_TREE_VIRTUAL_ROW_HEIGHT_PX } from "@/workspace-file-tree/constants.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { areWorkspaceFilePathsEqual, getWorkspaceDirectoryGitStatuses, getWorkspaceFileGitStatus, isWorkspaceFileGitIgnored, } from "../workspace-file-tree/model.js";
+import { WorkspaceFileTreeNotice } from "../workspace-file-tree/WorkspaceFileTreeNotice.js";
+import { WorkspaceFileTreeRowView } from "../workspace-file-tree/WorkspaceFileTreeRowView.js";
+import { WORKSPACE_FILE_TREE_VIRTUAL_ROW_HEIGHT_PX } from "../workspace-file-tree/constants.js";
 export const WORKSPACE_FILE_TREE_MASK_OFFSET_PROPERTY = "--workspace-file-tree-mask-offset";
 export function getWorkspaceFileTreeListMaskStyle({ stickyFolderCount, }) {
     if (stickyFolderCount === 0) {

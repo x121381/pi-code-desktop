@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { CheckIcon, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getContextQuotaMeterGridClass } from "@/chat-input-toolbar/contextQuotaMeterGrid.js";
-import { burstCodingPlanQuotaResetConfetti } from "@/lib/codingPlanQuotaResetConfetti.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogTitle } from "../../components/ui/dialog.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { getContextQuotaMeterGridClass } from "../../chat-input-toolbar/contextQuotaMeterGrid.js";
+import { burstCodingPlanQuotaResetConfetti } from "../../lib/codingPlanQuotaResetConfetti.js";
 const SUCCESS_DISPLAY_MS = 600;
 const ROW_EXIT_MS = 820;
 function getRemainingSeconds(expiresAt, now) {

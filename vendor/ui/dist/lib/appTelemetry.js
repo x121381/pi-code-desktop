@@ -1,5 +1,5 @@
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, ZAI_PROVIDER_ID, collectTelemetryRendererContext, isZaiCodingPlanProviderId, sanitizeTelemetryEventDetail, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export function resolveProviderTelemetryLabel(providerId) {
     if (providerId === ZAI_PROVIDER_ID || isZaiCodingPlanProviderId(providerId)) {
         return "z.ai";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useZCodeSessionService } from "@/hooks/useZCodeSessionService.js";
-import { zcodeSessionSnapshotToTaskMeta } from "@/lib/zcodeSessionProjection.js";
+import { useZCodeSessionService } from "../hooks/useZCodeSessionService.js";
+import { zcodeSessionSnapshotToTaskMeta } from "../lib/zcodeSessionProjection.js";
 export function resolveImmediateActiveTaskSnapshotMeta(previousSnapshotMeta, taskId, taskMetaFromLists) {
     if (!taskId || taskMetaFromLists) {
         return null;

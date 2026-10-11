@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { CodingPlanEntryButton } from "@/settings/CodingPlanEntryButton.js";
+import { CodingPlanEntryButton } from "../settings/CodingPlanEntryButton.js";
 import { Loader2Icon, RocketIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, useCodingPlanBillingDiscount, } from "@/CodingPlanBillingDiscount.js";
-import { getContextQuotaMeterGridClass } from "@/chat-input-toolbar/contextQuotaMeterGrid.js";
-import { formatStartPlanBucketResetTime } from "@/lib/codingPlanQuotaPresentation.js";
-import { formatQuotaModelDisplayName } from "@/settings/model-provider-section/quotaModelDisplayName.js";
+import { cn } from "../components/lib/utils.js";
+import { CodingPlanBillingDiscountBadgePill, CodingPlanBillingDiscountInfoDialog, useCodingPlanBillingDiscount, } from "../CodingPlanBillingDiscount.js";
+import { getContextQuotaMeterGridClass } from "../chat-input-toolbar/contextQuotaMeterGrid.js";
+import { formatStartPlanBucketResetTime } from "../lib/codingPlanQuotaPresentation.js";
+import { formatQuotaModelDisplayName } from "../settings/model-provider-section/quotaModelDisplayName.js";
 function resolveLimitTotal(limit) {
     return limit.number ?? limit.unit ?? 0;
 }

@@ -7,11 +7,11 @@
 // SessionDataLayer；pane 当前默认从侧边栏隐藏（workspaceSidePane sanitize 过滤
 // treemapping tab），该订阅只在 pane 真实挂载时才会建立。
 import { useEffect, useMemo, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { createAgentConversationTransport } from "@/v4/agentConversationTransport.js";
-import { SessionDataLayer } from "@/v4/sessionDataLayer.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
+import { useServices } from "../hooks/useServices.js";
+import { createAgentConversationTransport } from "../v4/agentConversationTransport.js";
+import { SessionDataLayer } from "../v4/sessionDataLayer.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
 const ASSISTANT_TURN_ROW_KINDS = new Set([
     "assistantText",
     "reasoning",

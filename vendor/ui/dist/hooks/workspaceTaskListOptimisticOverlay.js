@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { buildTaskEntityKey, buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { compareZCodeTaskListItems } from "@/lib/taskListOrdering.js";
-import { mergeTaskWithOptimisticMeta } from "@/lib/zcodeTaskMetaMerge.js";
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { mergeTaskListMembershipFields } from "@/v4/taskListRowActivity.js";
+import { buildTaskEntityKey, buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { compareZCodeTaskListItems } from "../lib/taskListOrdering.js";
+import { mergeTaskWithOptimisticMeta } from "../lib/zcodeTaskMetaMerge.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { mergeTaskListMembershipFields } from "../v4/taskListRowActivity.js";
 export function mergeWorkspaceTaskListItemsWithOptimistic(params) {
     const taskByKey = new Map(params.items.map((task) => [buildTaskEntityKey(task), task]));
     for (const optimisticTask of params.optimisticTasks) {

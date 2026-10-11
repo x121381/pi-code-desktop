@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useEffect, useMemo } from "react";
 import { HourglassIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workflowActorStartState } from "@/app-shell/workflowRunPanel.js";
-import { SessionPane } from "@/v4/SessionPane.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { useV4Conversation, V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { workflowActorStartState } from "../app-shell/workflowRunPanel.js";
+import { SessionPane } from "../v4/SessionPane.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { useV4Conversation, V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
 /**
  * 未启动占位。从卡上一枚还没启动的药丸点开的 tab 落地就是它。
  *

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlertTriangleIcon, CheckIcon, FileTextIcon, Loader2Icon, RefreshCwIcon, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function OnboardingAgentsFileStep(props) {
     const { intl } = useZCodeIntl();
     const status = props.migration.status;

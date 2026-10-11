@@ -1,4 +1,4 @@
-import { CONVERSATION_SELECTION_MAX_TEXT_LENGTH } from "@/lib/conversationSelectionReference.js";
+import { CONVERSATION_SELECTION_MAX_TEXT_LENGTH } from "../lib/conversationSelectionReference.js";
 const CONVERSATION_SELECTION_EXCLUDED_SELECTOR = [
     "button",
     "input",

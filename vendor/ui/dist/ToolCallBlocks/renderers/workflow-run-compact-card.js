@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
-import { RUN_STATUS_DOT, RUN_STATUS_TEXT, } from "@/components/workflow-graph/run-status-presentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { RUN_STATUS_DOT, RUN_STATUS_TEXT, } from "../../components/workflow-graph/run-status-presentation.js";
 function isInteractiveDescendant(target, card) {
     if (!(target instanceof Element))
         return false;

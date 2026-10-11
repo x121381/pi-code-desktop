@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createElement } from "react";
 import { Marked } from "marked";
-import { cn } from "@/components/lib/utils.js";
-import { parseCloudDescriptionStyle } from "@/components/cloud-content-dialog/cloudDescriptionStyle.js";
+import { cn } from "../../components/lib/utils.js";
+import { parseCloudDescriptionStyle } from "../../components/cloud-content-dialog/cloudDescriptionStyle.js";
 const TAGS = new Set([
     "p",
     "br",

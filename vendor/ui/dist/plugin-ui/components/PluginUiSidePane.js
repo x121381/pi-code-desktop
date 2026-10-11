@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { PluginUiCard } from "@/plugin-ui/components/PluginUiCard.js";
+import { PluginUiCard } from "../../plugin-ui/components/PluginUiCard.js";
 /** 纯侧栏视图：不读取会话、lease、projection 或 workspace store。 */
 export function PluginUiSidePaneView({ scopeRef, host, loadingLabel, errorLabel, retryLabel, onWidthChange, }) {
     return (_jsx("div", { ...(scopeRef.kind === "toolCall"

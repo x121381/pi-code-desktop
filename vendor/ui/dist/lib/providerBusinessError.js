@@ -1,7 +1,7 @@
 /** 与 core `model-errors.ts` 中 anomaly guard 文案保持一致。 */
 export const SUSPICIOUS_EMPTY_MODEL_RESULT_MESSAGE = "Model returned no text, no tool calls, and no usage before completing the turn.";
-import { requestVerificationActionMessages, requestVerificationRecoveryAction, } from "@/request-security-edition/errors.js";
-export { resolveRequestVerificationBusinessCode, isRequestVerificationTerminalError, isRequestVerificationRejectedMessage, REQUEST_VERIFICATION_REJECTED_MESSAGE, } from "@/request-security-edition/errors.js";
+import { requestVerificationActionMessages, requestVerificationRecoveryAction, } from "../request-security-edition/errors.js";
+export { resolveRequestVerificationBusinessCode, isRequestVerificationTerminalError, isRequestVerificationRejectedMessage, REQUEST_VERIFICATION_REJECTED_MESSAGE, } from "../request-security-edition/errors.js";
 /**
  * zcode-plan / Coding Plan 业务错误码与前端处理约定。
  *

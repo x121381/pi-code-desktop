@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from "node:fs";
-import { getLegacyDeletedTaskSessionSnapshotPath, getLegacyTaskSessionSnapshotPath, } from "#src/paths.js";
-import { buildImportedClaudeTaskId } from "#src/session/claude-native/buildImportedClaudeTaskFile.js";
-import { claudeNativeSessionImportRepo } from "#src/session/claude-native/claudeNativeSessionImportRepo.js";
-import { parseClaudeNativeSessionFile } from "#src/session/claude-native/claudeNativeSessionImportParser.js";
-import { safeParseLegacyTaskSessionFile } from "#src/session/legacyTaskSessionFile.js";
+import { getLegacyDeletedTaskSessionSnapshotPath, getLegacyTaskSessionSnapshotPath, } from "../../paths.js";
+import { buildImportedClaudeTaskId } from "../../session/claude-native/buildImportedClaudeTaskFile.js";
+import { claudeNativeSessionImportRepo } from "../../session/claude-native/claudeNativeSessionImportRepo.js";
+import { parseClaudeNativeSessionFile } from "../../session/claude-native/claudeNativeSessionImportParser.js";
+import { safeParseLegacyTaskSessionFile } from "../../session/legacyTaskSessionFile.js";
 function toImportMessages(messages) {
     return messages
         .filter((message) => message.role === "user" || message.role === "assistant")

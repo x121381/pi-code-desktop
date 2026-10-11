@@ -1,5 +1,5 @@
 import { RENDERER_ACTION_TRACE_MAX_BATCH_BYTES, RENDERER_ACTION_TRACE_MAX_BATCH_SPANS, } from "@zcode/shared";
-import { resolveUserActionCatalogEntry, } from "@/lib/userActionTraceCatalog.js";
+import { resolveUserActionCatalogEntry, } from "../lib/userActionTraceCatalog.js";
 const RENDERER_ACTION_TRACE_MAX_QUEUE_SPANS = 256;
 const RENDERER_ACTION_TRACE_FLUSH_DELAY_MS = 2_000;
 const NOOP_ACTION_HANDLE = {

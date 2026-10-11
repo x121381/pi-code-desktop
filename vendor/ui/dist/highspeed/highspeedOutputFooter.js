@@ -1,4 +1,4 @@
-import { calculateHighspeedSavedDurationMs } from "@/highspeed/highspeedSavedTime.js";
+import { calculateHighspeedSavedDurationMs } from "../highspeed/highspeedSavedTime.js";
 /**
  * 给同一张卡覆盖的最后一个渲染单元打上 footer 标记。
  *

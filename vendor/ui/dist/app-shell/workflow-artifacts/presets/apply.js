@@ -8,7 +8,7 @@
  * 条目只会**追加**（journal 只追加），所以四种折叠都可以按到达顺序单遍完成。
  */
 import { readWorkflowArtifactField } from "@zcode/shared/zcode-protocol-v4";
-import { artifactFieldLabel, chartSeriesFields, } from "@/app-shell/workflow-artifacts/presets/spec.js";
+import { artifactFieldLabel, chartSeriesFields, } from "../../../app-shell/workflow-artifacts/presets/spec.js";
 /** 落到末尾「其他」列的列 id；spec 的 columns 里若真有同名列，会与它合并——可接受。 */
 const BOARD_OTHER_COLUMN_ID = "__other__";
 /**

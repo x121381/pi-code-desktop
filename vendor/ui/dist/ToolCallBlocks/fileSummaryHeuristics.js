@@ -1,9 +1,9 @@
 import { computeLineChangeStat } from "@zcode/shared";
-import { resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { buildUnifiedDiff } from "@/lib/toolDiffPreview.js";
-import { resolveToolCallIdentity } from "@/lib/toolIdentity.js";
-import { isPlainRecord, readRawToolCallInput, readStringField, } from "@/ToolCallBlocks/fileSummaryTypes.js";
+import { resolveFileDisplayDescriptor } from "../lib/fileDisplay.js";
+import { getPathLeaf } from "../lib/path.js";
+import { buildUnifiedDiff } from "../lib/toolDiffPreview.js";
+import { resolveToolCallIdentity } from "../lib/toolIdentity.js";
+import { isPlainRecord, readRawToolCallInput, readStringField, } from "../ToolCallBlocks/fileSummaryTypes.js";
 function normalizeActionText(value) {
     return value.trim().toLowerCase();
 }

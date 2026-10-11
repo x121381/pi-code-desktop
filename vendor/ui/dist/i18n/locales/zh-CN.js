@@ -1,4 +1,4 @@
-import { requestSecurityMessagesZhCN } from "@/request-security-edition/messages.js";
+import { requestSecurityMessagesZhCN } from "../../request-security-edition/messages.js";
 /** 中文翻译 */
 const zhCN = {
     "startPlan.recommendation.subagentDescription": "你的体验套餐中，{model} 仍有可用额度，是否将此子智能体的模型切换到体验套餐？",

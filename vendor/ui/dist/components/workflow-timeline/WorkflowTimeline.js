@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useCallback, useEffect, useId, useMemo, useRef, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { laneDisplayName } from "@/components/workflow-graph/lane-name.js";
-import { phaseDisplayName } from "@/components/workflow-graph/phase-name.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { laneDisplayName } from "../../components/workflow-graph/lane-name.js";
+import { phaseDisplayName } from "../../components/workflow-graph/phase-name.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { ROSTER_PINS_CARD, rosterMore, stationRosterOf } from "./roster-model.js";
 import { useTypewriter } from "./use-typewriter.js";
 import { WorkflowAgentPill } from "./WorkflowAgentPill.js";

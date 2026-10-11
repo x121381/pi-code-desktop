@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useLayoutEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { ScrollFadeViewport } from "@/components/ui/scroll-fade-viewport.js";
+import { logger } from "../../logger.js";
+import { ScrollFadeViewport } from "../../components/ui/scroll-fade-viewport.js";
 export function ExecuteOutput({ text, running }) {
     const scroll = useRef(null);
     const previousTop = useRef(0);

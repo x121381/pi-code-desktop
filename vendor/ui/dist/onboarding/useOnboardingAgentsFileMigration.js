@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 function normalizeError(error) {
     return error instanceof Error ? error.message : String(error);
 }

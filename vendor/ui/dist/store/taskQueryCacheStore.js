@@ -1,12 +1,12 @@
 /* eslint-disable max-lines -- task query cache 的 descriptor、membership 与 mutation 必须在同一 Zustand 事务里维护，拆散会增加缓存一致性风险。 */
 import { create } from "zustand";
 import { matchesTaskListMembershipKind } from "@zcode/shared/zcode-protocol-v4";
-import { mergeTaskMetaCandidates } from "@/lib/zcodeTaskMetaMerge.js";
-import { compareZCodeTaskListItems } from "@/lib/taskListOrdering.js";
-import { getTaskListRowActivity, mergeTaskListMembershipFields } from "@/v4/taskListRowActivity.js";
-import { buildTaskEntityKey, buildTaskWorkspaceKey, } from "@/lib/taskQueryCache.js";
-import { notifyTaskLifecycle } from "@/lib/taskLifecycleEvents.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { mergeTaskMetaCandidates } from "../lib/zcodeTaskMetaMerge.js";
+import { compareZCodeTaskListItems } from "../lib/taskListOrdering.js";
+import { getTaskListRowActivity, mergeTaskListMembershipFields } from "../v4/taskListRowActivity.js";
+import { buildTaskEntityKey, buildTaskWorkspaceKey, } from "../lib/taskQueryCache.js";
+import { notifyTaskLifecycle } from "../lib/taskLifecycleEvents.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 function buildCachedTaskListResult(params) {
     return {
         taskKeys: params.taskKeys,

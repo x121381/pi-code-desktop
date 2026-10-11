@@ -1,5 +1,5 @@
-import { isChatTaskRunning } from "@/lib/chatStatus.js";
-import { logger } from "@/logger.js";
+import { isChatTaskRunning } from "../lib/chatStatus.js";
+import { logger } from "../logger.js";
 export const WINDOWS_RESERVED_NAME_SCAN_SKIPPED_DIRECTORIES = new Set([
     ".git",
     "node_modules",

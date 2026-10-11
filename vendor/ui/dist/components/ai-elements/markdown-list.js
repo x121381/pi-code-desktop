@@ -1,6 +1,6 @@
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 export function MarkdownUnorderedList({ className, node: _node, ...props }) {
     return (_jsx("ul", { className: cn("my-3 list-outside list-disc space-y-1.5 pl-5 marker:text-foreground-subtlest", "[&_ul]:my-1.5 [&_ol]:my-1.5", className), "data-markdown-list": "unordered", "data-streamdown": "unordered-list", ...props }));
 }

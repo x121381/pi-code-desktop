@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /**
  * 两个重量级叶子查看器（PDF / PPTX）的本地化标签。
  *

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo, useState } from "react";
-import { buildPresetLabels } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workDurationParts, workDurationUnitSeparator } from "@/lib/workDuration.js";
+import { buildPresetLabels } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { workDurationParts, workDurationUnitSeparator } from "../../lib/workDuration.js";
 import { WORKFLOW_RUN_KIND_ID, WorkflowCardHeader, WorkflowRunStatus, } from "./WorkflowCardChrome.js";
 import { completionArtifactCellCount, completionArtifactLayout, WorkflowCompletionArtifacts, } from "./WorkflowCompletionArtifacts.js";
 import { PILL_STAGGER_MS } from "./WorkflowTimeline.js";

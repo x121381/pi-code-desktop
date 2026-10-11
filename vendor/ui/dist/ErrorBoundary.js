@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Component } from "react";
 import { DEFAULT_LOCALE } from "@zcode/shared";
-import { DesktopWindowFrame } from "@/DesktopWindowFrame.js";
-import zhCN from "@/i18n/locales/zh-CN.js";
-import enUS from "@/i18n/locales/en-US.js";
-import { logger } from "@/logger.js";
-import { reportReactErrorToArms } from "@/lib/reactErrorArmsTelemetry.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
+import { DesktopWindowFrame } from "./DesktopWindowFrame.js";
+import zhCN from "./i18n/locales/zh-CN.js";
+import enUS from "./i18n/locales/en-US.js";
+import { logger } from "./logger.js";
+import { reportReactErrorToArms } from "./lib/reactErrorArmsTelemetry.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
 import { AlertTriangleIcon, RefreshCw } from "lucide-react";
 const LOCALE_PREFERENCE_KEY = "zcode-locale-preference";
 function normalizeError(error) {

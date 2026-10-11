@@ -1,16 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { ChevronRightIcon, ExternalLinkIcon, SquareMousePointerIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { CodeBlock, CodeBlockActions, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle, CodeBlockWrapButton, } from "@/components/ai-elements/code-block.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { cuaAppKeyToIconRequest } from "@/lib/cuaAppIconRequest.js";
-import { buildNodeReplDisplayModel } from "@/lib/nodeReplToolDisplay.js";
-import { CuaAppSummaryIcon } from "@/ToolCallBlocks/renderers/cuaAppSummaryIcon.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { NodeReplImageGrid } from "@/ToolCallBlocks/renderers/nodeReplImageGrid.js";
+import { Button } from "../../components/ui/button.js";
+import { CodeBlock, CodeBlockActions, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle, CodeBlockWrapButton, } from "../../components/ai-elements/code-block.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "../../components/ui/collapsible.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { cuaAppKeyToIconRequest } from "../../lib/cuaAppIconRequest.js";
+import { buildNodeReplDisplayModel } from "../../lib/nodeReplToolDisplay.js";
+import { CuaAppSummaryIcon } from "../../ToolCallBlocks/renderers/cuaAppSummaryIcon.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { NodeReplImageGrid } from "../../ToolCallBlocks/renderers/nodeReplImageGrid.js";
 const NODE_REPL_TOOL_ICON = (_jsx(SquareMousePointerIcon, { className: "size-4 shrink-0 text-foreground-subtle" }));
 // Radix 会在浏览器工具及执行详情打开时立即测量高度；代码块默认的 200px 离屏占位
 // 会让动画先展开过头再回落。两层内容都只在对应区域展开时挂载，使用真实布局不会损失长会话性能。

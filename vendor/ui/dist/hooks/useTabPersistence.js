@@ -6,7 +6,7 @@
  */
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { readPersistedWorkspaceSessionEntries } from "@/lib/remoteWorkspaceHistory.js";
+import { readPersistedWorkspaceSessionEntries } from "../lib/remoteWorkspaceHistory.js";
 import { useTabStoreApi } from "../store/TabStoreProvider.js";
 import { isWorkspaceTab } from "../store/tabStore.js";
 import { logger } from "../logger.js";

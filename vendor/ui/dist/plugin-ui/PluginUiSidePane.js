@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
-import { readPluginUiScopeRef } from "@/plugin-ui/contract.js";
-import { PluginUiConversationScope, usePluginUiSidePaneModel, } from "@/plugin-ui/adapters/usePluginUiSidePaneModel.js";
-import { PluginUiSidePaneView } from "@/plugin-ui/components/PluginUiSidePane.js";
+import { readPluginUiScopeRef } from "../plugin-ui/contract.js";
+import { PluginUiConversationScope, usePluginUiSidePaneModel, } from "../plugin-ui/adapters/usePluginUiSidePaneModel.js";
+import { PluginUiSidePaneView } from "../plugin-ui/components/PluginUiSidePane.js";
 function Content(props) {
     return _jsx(PluginUiSidePaneView, { ...usePluginUiSidePaneModel(props) });
 }

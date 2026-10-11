@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useStableAccountAccess } from "@/hooks/useStableAccountAccess.js";
-import { USAGE_ENTITLEMENT_ACCESS_REFRESH_MS } from "@/lib/usageEntitlementRefreshPolicy.js";
+import { logger } from "../logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { useStableAccountAccess } from "../hooks/useStableAccountAccess.js";
+import { USAGE_ENTITLEMENT_ACCESS_REFRESH_MS } from "../lib/usageEntitlementRefreshPolicy.js";
 const codingPlanUsageAccessCache = new WeakMap();
 export function shouldRefreshCodingPlanUsageOnAccess(params) {
     return (params.lastUpdatedAt === null ||

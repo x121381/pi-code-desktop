@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
 /**
  * 子代理模型的 provider 名从哪儿来：会话的模型清单
  * （workspace configOptions 里 category === "model" 的那一项）已经带着

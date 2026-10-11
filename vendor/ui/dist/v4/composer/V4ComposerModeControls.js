@@ -2,15 +2,15 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useCallback, useMemo } from "react";
 import { LightbulbIcon, XIcon, ChevronDownIcon } from "lucide-react";
 import { TID_CHAT_MODE_SELECT_TRIGGER, TID_CHAT_MODE_SELECT_ITEM, TID_V4_COMPOSER_INPUT, ZCODE_AGENT_PROVIDER, getZCodeAgentAvailableModes, testId, } from "@zcode/shared";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, } from "@/components/ui/dropdown-menu.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { getModeOptionDisplayLabel, getModeOptionDescriptionMessageId, resolveModeOptionIcon, } from "@/chat-input-toolbar/display.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { isCoarseTouchDevice } from "@/lib/pickerFocus.js";
-import { useShortcutCommandLabel } from "@/shortcuts/useShortcutBindings.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { getNextConfigSelectValue, useToolbarShortcutBindings, } from "@/v4/composer/toolbarShortcuts.js";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, } from "../../components/ui/dropdown-menu.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { getModeOptionDisplayLabel, getModeOptionDescriptionMessageId, resolveModeOptionIcon, } from "../../chat-input-toolbar/display.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { isCoarseTouchDevice } from "../../lib/pickerFocus.js";
+import { useShortcutCommandLabel } from "../../shortcuts/useShortcutBindings.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { getNextConfigSelectValue, useToolbarShortcutBindings, } from "../../v4/composer/toolbarShortcuts.js";
 function noop() { }
 /** Plan 是独立勾选项，三种权限仍为单选；只编辑草稿，不向 Runtime 发切换命令。 */
 function V4ComposerModeSwitchImpl({ provider, draftConfig, disabled, activeConfigPicker, onConfigPickerOpenChange, onSwitchMode, }) {

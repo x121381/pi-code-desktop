@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../components/ui/select.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { TID_MODEL_PROVIDER_API_FORMAT_ITEM, TID_MODEL_PROVIDER_API_FORMAT_TRIGGER, testId, } from "@zcode/shared";
 export const PROVIDER_CONNECTION_API_FORMATS = [
     "anthropic-messages",

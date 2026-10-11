@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Loader2Icon, RefreshCwIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function CodingPlanStatusMeta({ renewTime, expireTime, extraAction, statusLabel, manageLabel, unlinkLabel, unlinkLoading, onManage, onUnlink, }) {
     const { intl, locale } = useZCodeIntl();
     const subscriptionTime = resolveCodingPlanSubscriptionTime({

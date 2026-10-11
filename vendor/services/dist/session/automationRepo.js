@@ -1,4 +1,4 @@
-import { isTasksStorageMigrated, isTasksStoragePrepared, } from "#src/session/tasksDatabase/prepared.js";
+import { isTasksStorageMigrated, isTasksStoragePrepared, } from "../session/tasksDatabase/prepared.js";
 /* eslint-disable max-lines -- automation 仓库集中维护 automations / automation_runs 的 sqlite schema、
    调度状态机写入与运行历史，稳定后再按读写职责拆分。 */
 import { mkdir } from "node:fs/promises";
@@ -6,8 +6,8 @@ import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { randomUUID } from "node:crypto";
 import { AUTOMATION_CREATE_LIMIT, AUTOMATION_CREATE_LIMIT_ERROR_CODE, resolveWorkspaceKey, zcodeAutomationBotDeliveryTargetSchema, modelSelectionSchema, zcodeTaskModeSchema, } from "@zcode/shared";
-import { getTasksIndexDatabasePath } from "#src/paths.js";
-import { runTasksDatabaseMigrations } from "#src/session/tasksDatabase/migrations.js";
+import { getTasksIndexDatabasePath } from "../paths.js";
+import { runTasksDatabaseMigrations } from "../session/tasksDatabase/migrations.js";
 const require = createRequire(import.meta.url);
 const { DatabaseSync } = require("node:sqlite");
 /** 派发失败退避常量。 */

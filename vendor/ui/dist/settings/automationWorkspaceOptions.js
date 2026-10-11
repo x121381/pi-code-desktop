@@ -1,5 +1,5 @@
 import { resolveWorkspaceKey } from "@zcode/shared";
-import { isWorkspaceTab, isWorkspaceTabReadOnly } from "@/store/tabStore.js";
+import { isWorkspaceTab, isWorkspaceTabReadOnly } from "../store/tabStore.js";
 export function resolveAutomationWorkspaceSelectionKey(workspace) {
     return resolveWorkspaceKey(workspace);
 }

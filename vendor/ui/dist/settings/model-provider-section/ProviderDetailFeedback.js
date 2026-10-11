@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
 import { CheckCircle2Icon, CircleAlertIcon, Loader2Icon, XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
 const ProviderDetailFeedbackContext = createContext({
     showFeedback: () => undefined,
     dismissFeedback: () => undefined,

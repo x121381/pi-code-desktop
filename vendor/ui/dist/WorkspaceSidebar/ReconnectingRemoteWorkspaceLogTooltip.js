@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { cn } from "@/components/lib/utils.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "../components/ui/tooltip.js";
 export function scrollRemoteConnectionLogsToLatest(viewport) {
     viewport.scrollTop = viewport.scrollHeight;
 }

@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { SlidersHorizontalIcon } from "lucide-react";
-import { ConfigSelect } from "@/chat-input-toolbar/display.js";
+import { ConfigSelect } from "../chat-input-toolbar/display.js";
 export function ChatModeSwitchControl({ compactIconOnly = false, disabled, disabledReason, intl, labelVisibilityClassName, modeOption, modeShortcutLabel, modeTriggerRef, onConfigValueChange, open, onOpenChange, restoreFocusSelector, selectedProvider, }) {
     return (_jsx(ConfigSelect, { option: modeOption, onValueChange: (value) => onConfigValueChange(modeOption, value), open: open, onOpenChange: onOpenChange, disabled: disabled, tooltipTitle: disabledReason ?? intl.formatMessage({ id: "chat.toolbar.mode.label" }), shortcutLabel: modeShortcutLabel, triggerRef: modeTriggerRef, triggerSize: "default", triggerClassName: compactIconOnly
             ? // Bug 原因：窄 composer 隐藏 mode 文案后仍保留下拉箭头和横向 padding，

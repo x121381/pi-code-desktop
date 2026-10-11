@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { TID_SETTINGS_MEMORY_COUNT, TID_SETTINGS_MEMORY_FILE, TID_SETTINGS_MEMORY_FILE_EDITOR_ACTIONS, TID_SETTINGS_MEMORY_FILE_ICON, TID_SETTINGS_MEMORY_FILE_NAME, TID_SETTINGS_MEMORY_FILE_UPDATED_AT, TID_SETTINGS_MEMORY_REFRESH, TID_SETTINGS_MEMORY_SCOPE_ICON, TID_SETTINGS_MEMORY_SCOPE_TRIGGER, TID_SETTINGS_MEMORY_SEARCH_CLEAR, TID_SETTINGS_MEMORY_SEARCH_INPUT, TID_SETTINGS_MEMORY_WORKSPACE, testId, } from "@zcode/shared";
-import { Alert, AlertDescription } from "@/components/ui/alert.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { FileDisplayIcon, resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { PluginScopeMenu } from "@/settings/PluginScopeMenu.js";
-import { PluginSearchEmptyState } from "@/settings/PluginInstallEmptyState.js";
-import { SettingsSearchInput } from "@/settings/SettingsSearchInput.js";
-import { SettingsResourceHeaderActions } from "@/settings/SettingsResourceHeaderActions.js";
-import { formatMemoryUpdatedAt } from "@/settings/memoryUpdatedAt.js";
-import { WorkspaceEditorButtonGroup } from "@/WorkspaceEditorButtonGroup.js";
+import { Alert, AlertDescription } from "../components/ui/alert.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { FileDisplayIcon, resolveFileDisplayDescriptor } from "../lib/fileDisplay.js";
+import { PluginScopeMenu } from "../settings/PluginScopeMenu.js";
+import { PluginSearchEmptyState } from "../settings/PluginInstallEmptyState.js";
+import { SettingsSearchInput } from "../settings/SettingsSearchInput.js";
+import { SettingsResourceHeaderActions } from "../settings/SettingsResourceHeaderActions.js";
+import { formatMemoryUpdatedAt } from "../settings/memoryUpdatedAt.js";
+import { WorkspaceEditorButtonGroup } from "../WorkspaceEditorButtonGroup.js";
 export function MemorySettingsViewer({ catalogError, catalogState, selectedWorkspace, workspaces, onRefresh, onScopeKeyChange, }) {
     const { intl, locale } = useZCodeIntl();
     const [searchQuery, setSearchQuery] = useState("");

@@ -2,21 +2,21 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { RefreshCcw } from "lucide-react";
 import { Fragment, lazy, useState } from "react";
 import { APP_USAGE_RANGES } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useAppUsageStats } from "@/hooks/useUsageStats.js";
-import { UsageChartLoadBoundary } from "@/settings/usage-stats/UsageChartLoadBoundary.js";
-import { UsageHeatmap } from "@/settings/usage-stats/UsageHeatmap.js";
-import { UsageStatsErrorNotice } from "@/settings/usage-stats/UsageStatsErrorNotice.js";
-import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, UsageEmptyState, formatCompactNumber, formatSummaryCompactTokenUsage, } from "@/settings/usage-stats/usageStatsUiParts.js";
+import { Button } from "../../components/ui/button.js";
+import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { useAppUsageStats } from "../../hooks/useUsageStats.js";
+import { UsageChartLoadBoundary } from "../../settings/usage-stats/UsageChartLoadBoundary.js";
+import { UsageHeatmap } from "../../settings/usage-stats/UsageHeatmap.js";
+import { UsageStatsErrorNotice } from "../../settings/usage-stats/UsageStatsErrorNotice.js";
+import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, UsageEmptyState, formatCompactNumber, formatSummaryCompactTokenUsage, } from "../../settings/usage-stats/usageStatsUiParts.js";
 // Recharts 会在模块初始化阶段触发 decimal.js-light 的 LN10 校验，
 // 在 Electron Linux 容器里会阻断整个 renderer 启动。图表按需加载后，
 // 普通启动和 e2e 首页不会被 Usage 页图表依赖影响，打开 Usage 时也由局部边界隔离。
-const AppUsageDailyModelTrendChart = lazy(() => import("@/settings/usage-stats/AppUsageDailyModelTrendChart.js").then((module) => ({
+const AppUsageDailyModelTrendChart = lazy(() => import("../../settings/usage-stats/AppUsageDailyModelTrendChart.js").then((module) => ({
     default: module.AppUsageDailyModelTrendChart,
 })));
-const AppUsageModelUsagePieChart = lazy(() => import("@/settings/usage-stats/AppUsageModelUsagePieChart.js").then((module) => ({
+const AppUsageModelUsagePieChart = lazy(() => import("../../settings/usage-stats/AppUsageModelUsagePieChart.js").then((module) => ({
     default: module.AppUsageModelUsagePieChart,
 })));
 export function AppUsagePanel() {

@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useId } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 import { bandAt, bandForkX, bandMergeX, lampX, STUB, TAIL, } from "./timeline-geometry.js";
 import { MarchLight } from "./WorkflowMarchLight.js";
 import { STREAM_GAP, StreamChevrons } from "./WorkflowStreamChevrons.js";

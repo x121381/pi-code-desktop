@@ -4,7 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { WorkspaceSidebarItem } from "./WorkspaceSidebarItem.js";
 // 垂直拖拽容器约束已上提到 lib（Idle-time 侧栏组内拖拽需要复用且不能背上本模块的依赖链）。
-export { restrictVerticalDragWithinContainer } from "@/lib/restrictVerticalDragWithinContainer.js";
+export { restrictVerticalDragWithinContainer } from "./lib/restrictVerticalDragWithinContainer.js";
 export const SortableWorkspaceSidebarItem = memo(function SortableWorkspaceSidebarItem({ tab, isActiveWorkspace, isExpanded, activateTab, closeTab, toggleWorkspaceExpanded, onSelectTask, onStartDraftInWorkspace, taskItems, taskListLoading, taskListHasMore, taskListHasUnread = false, taskListLiveWorkflowCount = 0, mobileActiveTaskKey, isWebRemoteControl = false, workspaceKey, onShowMoreWorkspaceTasks, reconnectingRemoteWorkspaceKeys, remoteWorkspaceErrorByWorkspaceKey, reconnectingRemoteWorkspaceLogsByWorkspaceKey, onReconnectRemoteWorkspace, onOpenFileTree, }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: tab.id,

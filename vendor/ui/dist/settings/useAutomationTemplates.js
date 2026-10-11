@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from "react";
 import { isValidCronExpr } from "@zcode/services";
-import { isClientScenesBusinessError, useClientScenesResource, } from "@/hooks/useClientScenesResource.js";
-import { logger } from "@/logger.js";
-import { mapClientScenesToAutomationTemplates, } from "@/settings/automationTemplateCatalog.js";
+import { isClientScenesBusinessError, useClientScenesResource, } from "../hooks/useClientScenesResource.js";
+import { logger } from "../logger.js";
+import { mapClientScenesToAutomationTemplates, } from "../settings/automationTemplateCatalog.js";
 export function useAutomationTemplates(clientScenesService) {
     const { scenes, loading, error } = useClientScenesResource(clientScenesService);
     const catalog = useMemo(() => mapClientScenesToAutomationTemplates(scenes, isValidCronExpr), [scenes]);

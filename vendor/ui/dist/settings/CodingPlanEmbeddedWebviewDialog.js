@@ -2,16 +2,16 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- Coding Plan webview 容器集中维护凭据注入、购买完成回传、三方支付导航和错误兜底。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLinkIcon, RefreshCwIcon } from "lucide-react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { RENDERER_ZCODE_ENDPOINT_URLS } from "@/lib/rendererZCodeEndpoint.js";
-import { logger } from "@/logger.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { EmbeddedWebsiteHeader } from "@/components/EmbeddedWebsiteHeader.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { normalizeThemePreference, resolveTheme } from "@/useTheme.js";
-import { buildCodingPlanEmbeddedWebviewUrl, buildCodingPlanEmbeddedReportContext, createCodingPlanAuthInjectionScript, createCodingPlanCredentialClearScript, createCodingPlanLangInjectionScript, createCodingPlanScrollbarHideScript, getCodingPlanCredentialKeys, isTrustedCodingPlanEmbeddedWebviewUrl, resolveCodingPlanEmbeddedOrigin, resolveCodingPlanWebsiteProvider, CODING_PLAN_WEBVIEW_OVERRIDE_ENV_KEY, } from "@/settings/model-provider-section/codingPlanEmbeddedWebview.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { RENDERER_ZCODE_ENDPOINT_URLS } from "../lib/rendererZCodeEndpoint.js";
+import { logger } from "../logger.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { EmbeddedWebsiteHeader } from "../components/EmbeddedWebsiteHeader.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
+import { normalizeThemePreference, resolveTheme } from "../useTheme.js";
+import { buildCodingPlanEmbeddedWebviewUrl, buildCodingPlanEmbeddedReportContext, createCodingPlanAuthInjectionScript, createCodingPlanCredentialClearScript, createCodingPlanLangInjectionScript, createCodingPlanScrollbarHideScript, getCodingPlanCredentialKeys, isTrustedCodingPlanEmbeddedWebviewUrl, resolveCodingPlanEmbeddedOrigin, resolveCodingPlanWebsiteProvider, CODING_PLAN_WEBVIEW_OVERRIDE_ENV_KEY, } from "../settings/model-provider-section/codingPlanEmbeddedWebview.js";
 import { CodingPlanWebviewChannels, ZCODE_ENV, ZCODE_VERSION, } from "@zcode/shared";
 function readCodingPlanWebviewImportMetaEnv() {
     return (import.meta.env ??

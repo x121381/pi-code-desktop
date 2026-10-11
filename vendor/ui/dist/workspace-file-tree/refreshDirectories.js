@@ -1,4 +1,4 @@
-import { isWorkspaceFilePathInside } from "@/workspace-file-tree/model.js";
+import { isWorkspaceFilePathInside } from "../workspace-file-tree/model.js";
 export function getWorkspaceFileTreeRefreshDirectoryPaths({ workspacePath, expandedPaths, loadedDirectoryPaths, }) {
     const refreshPaths = [];
     const seenPaths = new Set();

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { isZCodeAgentProvider, ZCODE_AGENT_PROVIDER, } from "@zcode/shared";
-import { buildModelConfigMissingUiError, } from "@/lib/chatPrepareError.js";
-import { logger } from "@/logger.js";
+import { buildModelConfigMissingUiError, } from "../../lib/chatPrepareError.js";
+import { logger } from "../../logger.js";
 export function resolveModelSelectionReadinessStatus(view) {
     return view.providers.some((provider) => provider.models.length > 0)
         ? "ready"

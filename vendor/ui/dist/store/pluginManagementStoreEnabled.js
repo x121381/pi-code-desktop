@@ -1,5 +1,5 @@
-import { logger } from "@/logger.js";
-import { loadInto } from "@/store/pluginManagementStoreLoading.js";
+import { logger } from "../logger.js";
+import { loadInto } from "../store/pluginManagementStoreLoading.js";
 function toMessage(error) {
     return error instanceof Error ? error.message : String(error);
 }

@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Command, CommandEmpty, CommandItem, CommandList } from "@/components/ui/command.js";
-import { Input } from "@/components/ui/input.js";
-import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover.js";
-import { shouldIgnoreRemoteConnectionHistoryPopoverInteractOutside } from "@/remote-connection/remoteConnectionHistoryPopover.js";
+import { cn } from "../components/lib/utils.js";
+import { Command, CommandEmpty, CommandItem, CommandList } from "../components/ui/command.js";
+import { Input } from "../components/ui/input.js";
+import { Popover, PopoverAnchor, PopoverContent } from "../components/ui/popover.js";
+import { shouldIgnoreRemoteConnectionHistoryPopoverInteractOutside } from "../remote-connection/remoteConnectionHistoryPopover.js";
 function matchesSuggestion(value, query) {
     const normalizedValue = value.trim().toLowerCase();
     const normalizedQuery = query.trim().toLowerCase();

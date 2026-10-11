@@ -8,27 +8,27 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // Helper 权限状态走 useCuaPermissionStatus：事件驱动（进入页面 / 窗口重获焦点 / 显式 refresh）
 // 各查一次，不再定时轮询；状态存在共享缓存里，与输入框常驻入口读同一份。
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSettings } from "@/hooks/useSettingService.js";
+import { useSettings } from "../hooks/useSettingService.js";
 import { DesktopCommandIds, isRemoteWorkspaceIdentity, ZCODE_CUA_OFFICIAL_PLUGIN_ID, } from "@zcode/shared";
 import { isCuaPermissionStatusAvailable } from "@zcode/services";
-import { Button } from "@/components/ui/button.js";
-import { toast } from "@/components/ui/toast.js";
-import { Switch } from "@/components/ui/switch.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useCuaPermissionStatus } from "@/hooks/useCuaPermissionStatus.js";
-import { claimCuaPermissionReturnRecovery, completeCuaPermissionReturnRecovery, captureCuaPermissionReturnRecovery, createCuaPermissionReturnRecoveryState, isCuaPermissionReturnRecoveryCurrent, markCuaPermissionOnboardingOpened, shouldRestartHelperAfterCuaPermissionReturn, } from "@/lib/cuaPermissionAction.js";
-import { usePluginManagementStore } from "@/store/pluginManagementStore.js";
-import { SettingsBadge, SettingsGroupCard, SettingsRow } from "@/settings/SettingsPageParts.js";
-import { StatusDot } from "@/settings/StatusDot.js";
-import { supportsLocalMacCuaPermissionOnboarding } from "@/lib/cuaPlatform.js";
-import { runAfterSuccessfulPluginEnabledChange } from "@/settings/pluginEnabledChange.js";
-import { createCuaPermissionOnboardingOperationId } from "@/lib/cuaPermissionOnboardingOperation.js";
-import { waitForAccessibilityNotStale } from "@/settings/cuaPermissionRestartVerify.js";
-import { requiredCuaPermissionsForFreshStatus } from "@/settings/cuaPermissionPreparation.js";
+import { Button } from "../components/ui/button.js";
+import { toast } from "../components/ui/toast.js";
+import { Switch } from "../components/ui/switch.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useCuaPermissionStatus } from "../hooks/useCuaPermissionStatus.js";
+import { claimCuaPermissionReturnRecovery, completeCuaPermissionReturnRecovery, captureCuaPermissionReturnRecovery, createCuaPermissionReturnRecoveryState, isCuaPermissionReturnRecoveryCurrent, markCuaPermissionOnboardingOpened, shouldRestartHelperAfterCuaPermissionReturn, } from "../lib/cuaPermissionAction.js";
+import { usePluginManagementStore } from "../store/pluginManagementStore.js";
+import { SettingsBadge, SettingsGroupCard, SettingsRow } from "../settings/SettingsPageParts.js";
+import { StatusDot } from "../settings/StatusDot.js";
+import { supportsLocalMacCuaPermissionOnboarding } from "../lib/cuaPlatform.js";
+import { runAfterSuccessfulPluginEnabledChange } from "../settings/pluginEnabledChange.js";
+import { createCuaPermissionOnboardingOperationId } from "../lib/cuaPermissionOnboardingOperation.js";
+import { waitForAccessibilityNotStale } from "../settings/cuaPermissionRestartVerify.js";
+import { requiredCuaPermissionsForFreshStatus } from "../settings/cuaPermissionPreparation.js";
 import { ExternalLink } from "lucide-react";
-import { isComputerUseRemoteOrLinux, resolveComputerUseAvailability, } from "@/settings/computerUseAvailability.js";
+import { isComputerUseRemoteOrLinux, resolveComputerUseAvailability, } from "../settings/computerUseAvailability.js";
 export function ComputerUseSection({ isDesktop = false, isMacDesktop, isWindowsDesktop = false, workspacePath, workspaceIdentity, remoteSessionId, remoteTarget, localWorkspacePath, }) {
     const { intl } = useZCodeIntl();
     const services = useServices();

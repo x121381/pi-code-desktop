@@ -16,7 +16,7 @@ export { usePluginUiContextImages } from "./adapters/usePluginUiContextImages.js
 export { PluginUiModelContextChip } from "./adapters/PluginUiModelContextChip.js";
 export { PluginUiFollowUpDialogHost } from "./components/PluginUiFollowUpDialogHost.js";
 export { PluginUiSidePane } from "./PluginUiSidePane.js";
-export { PluginUiLauncherItems, buildPluginUiLauncherItemId, } from "@/plugin-ui/components/PluginUiLauncherItems.js";
+export { PluginUiLauncherItems, buildPluginUiLauncherItemId, } from "../plugin-ui/components/PluginUiLauncherItems.js";
 export { usePluginUiSurfaces, resolvePluginUiSurfaceTitle, } from "./adapters/usePluginUiSurfaces.js";
 export { openPluginUiSidePane, } from "./sidePane/pluginUiSidePaneTab.js";
 //# sourceMappingURL=index.js.map

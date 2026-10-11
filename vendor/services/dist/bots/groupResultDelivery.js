@@ -1,4 +1,4 @@
-import { getUnavailableReplyFallback } from "#src/bots/groupReply.js";
+import { getUnavailableReplyFallback } from "../bots/groupReply.js";
 import { setTimeout as sleep } from "node:timers/promises";
 /** 只保存和发送已生成结果；不持有任务执行或输入队列。 */
 export function createGroupResultDelivery(deps) {

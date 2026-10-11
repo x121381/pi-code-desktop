@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronRightIcon, Save } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { cn } from "@/components/lib/utils.js";
-import { formatWorkflowArgValue } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
-import { readSaveWorkflowInput, SaveWorkflowOverwriteBadge, } from "@/ToolCallBlocks/renderers/save-workflow.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { CodeBlock } from "./components/ai-elements/code-block.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "./components/ui/collapsible.js";
+import { cn } from "./components/lib/utils.js";
+import { formatWorkflowArgValue } from "./ToolCallBlocks/renderers/createWorkflowInput.js";
+import { readSaveWorkflowInput, SaveWorkflowOverwriteBadge, } from "./ToolCallBlocks/renderers/save-workflow.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 const NO_VALUE_PLACEHOLDER = "—";
 function MetadataRow({ label, value, mono }) {
     return (_jsxs("div", { className: "flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2", children: [_jsx("span", { className: "shrink-0 text-ui-sm text-foreground-subtlest", children: label }), _jsx("span", { className: cn("min-w-0 whitespace-pre-wrap break-words text-ui-sm text-foreground-subtle", mono === true && "font-mono"), children: value })] }));

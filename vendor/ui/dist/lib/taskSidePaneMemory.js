@@ -1,4 +1,4 @@
-import { normalizeWorkspaceSidePaneState, } from "@/lib/workspaceSidePane.js";
+import { normalizeWorkspaceSidePaneState, } from "../lib/workspaceSidePane.js";
 const DEFAULT_TASK_SIDE_PANE_MEMORY_STATE = {
     sidePaneState: null,
     isSidePaneCollapsed: true,

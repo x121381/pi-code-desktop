@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Check, LoaderCircle } from "lucide-react";
 import { ALL_BOT_WORKSPACES } from "@zcode/shared";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsRow } from "@/settings/SettingsPageParts.js";
-import { cn } from "@/components/lib/utils.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsRow } from "../settings/SettingsPageParts.js";
+import { cn } from "../components/lib/utils.js";
 import { isAllWorkspacesAllowed } from "./shared.js";
 export function WorkspaceAccessCard({ bot, workspaceRefs, currentWorkspace, loading, onPatchAllowedWorkspaces, onToggleWorkspaceAccess, }) {
     const { intl } = useZCodeIntl();

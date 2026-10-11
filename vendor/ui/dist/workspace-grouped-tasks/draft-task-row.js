@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { X } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { TaskRowActionButton } from "@/workspace-grouped-tasks/task-row-action-button.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { TaskRowActionButton } from "../workspace-grouped-tasks/task-row-action-button.js";
 export function GroupedDraftTaskRow({ active, workspaceLabel, onSelect, onClose, }) {
     const { intl } = useZCodeIntl();
     const title = intl.formatMessage({ id: "taskList.newThread" });

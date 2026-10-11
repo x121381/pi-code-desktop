@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TID_WORKFLOW_DETAIL_MENU, TID_WORKFLOW_DETAIL_RUN, TID_WORKFLOW_ACTION_DELETE, TID_WORKFLOW_ACTION_MOVE, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { AutomationMoreHorizontalIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "@/settings/AutomationDesignPrimitives.js";
+import { Button } from "../../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { AutomationMoreHorizontalIcon, AutomationRunNowIcon, AutomationTrashIcon, } from "../../settings/AutomationDesignPrimitives.js";
 /**
  * 详情页头行：标题 + 说明 + 右上「运行」与 ⋯ 菜单。从详情页拆出以守住 max-lines（≤400）。
  */

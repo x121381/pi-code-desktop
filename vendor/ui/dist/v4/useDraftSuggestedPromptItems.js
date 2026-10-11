@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { isClientScenesBusinessError, useClientScenesResource, } from "@/hooks/useClientScenesResource.js";
-import { logger } from "@/logger.js";
-import { mapClientScenesToDraftSuggestedPromptItems, } from "@/v4/draftSuggestedPromptItems.js";
+import { isClientScenesBusinessError, useClientScenesResource, } from "../hooks/useClientScenesResource.js";
+import { logger } from "../logger.js";
+import { mapClientScenesToDraftSuggestedPromptItems, } from "../v4/draftSuggestedPromptItems.js";
 export function useDraftSuggestedPromptItems({ clientScenesService, rpcReady, workspaceKey, }) {
     const clientScenes = useClientScenesResource(clientScenesService, {
         enabled: rpcReady,

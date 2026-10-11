@@ -1,6 +1,6 @@
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 export const imageThumbnailTriggerClassName = "my-4 block w-fit max-w-1/2 cursor-zoom-in overflow-hidden rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 export const imageThumbnailClassName = "h-auto max-h-90 max-w-full rounded-xl border border-border bg-background object-cover";
 export function ImageThumbnailGallery({ children, className, grouped = true, ...props }) {

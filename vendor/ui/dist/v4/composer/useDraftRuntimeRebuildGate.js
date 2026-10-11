@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { useZCodeSessionStore } from "../../store/zcodeSessionStore.js";
 /**
  * 重建窗口上限。实测 agent start→ready 约 550-650ms，createSession 再数百 ms，5s 有充分余量。
  * 超时只解除门禁，不取消重建——迟到的 binding 仍会正常更新 effectiveSessionId 并唤醒附件重传。

@@ -1,4 +1,4 @@
-import { requestSecurityMessagesEnUS } from "@/request-security-edition/messages.js";
+import { requestSecurityMessagesEnUS } from "../request-security-edition/messages.js";
 const seedDetail = {
     askMode: "build",
     modelName: "glm-model",

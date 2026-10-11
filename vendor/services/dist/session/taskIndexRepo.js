@@ -1,13 +1,13 @@
-import { isTasksStorageMigrated, isTasksStoragePrepared, } from "#src/session/tasksDatabase/prepared.js";
+import { isTasksStorageMigrated, isTasksStoragePrepared, } from "../session/tasksDatabase/prepared.js";
 /* eslint-disable max-lines -- task 索引仓库集中维护 sqlite schema、查询和状态写入，迁移稳定后再按读写职责拆分。 */
 import { mkdir } from "node:fs/promises";
 import { createHash, randomUUID } from "node:crypto";
 import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { isRemoteWorkspaceIdentity, normalizeAgentProviderToZCodeAgent, zcodeTaskMetaSchema, resolveWorkspaceKey, CRON_DEFAULT_GROUP_ID, OFF_PEAK_DEFAULT_GROUP_ID, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { getTasksIndexDatabasePath } from "#src/paths.js";
-import { runTasksDatabaseMigrations } from "#src/session/tasksDatabase/migrations.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { getTasksIndexDatabasePath } from "../paths.js";
+import { runTasksDatabaseMigrations } from "../session/tasksDatabase/migrations.js";
 const require = createRequire(import.meta.url);
 const { DatabaseSync } = require("node:sqlite");
 function appendZCodeAgentIndexedProviderFilter(where, args, provider) {

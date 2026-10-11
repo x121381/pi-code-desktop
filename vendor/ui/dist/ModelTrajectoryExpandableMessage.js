@@ -1,16 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowRightIcon, ChevronRightIcon, CircleAlertIcon, CopyIcon } from "lucide-react";
 import { useContext, useState } from "react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { logger } from "@/logger.js";
-import { TrajectoryExpansionCommandContext, TrajectoryExpansionRegistryContext, } from "@/ModelTrajectoryExpansion.js";
-import { TrajectoryExpandedContent } from "@/ModelTrajectoryExpandedContent.js";
-import { TrajectorySearchRevealContext } from "@/ModelTrajectorySearch.js";
-import { trajectoryRoleTextClass } from "@/ModelTrajectoryRoleStyles.js";
-import { trajectoryToolHasError, trajectoryToolMetadata, trajectoryToolOutputs, trajectoryToolPayloadErrorText, } from "@/ModelTrajectoryToolPayload.js";
+import { Badge } from "./components/ui/badge.js";
+import { Button } from "./components/ui/button.js";
+import { cn } from "./components/lib/utils.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "./components/ui/collapsible.js";
+import { logger } from "./logger.js";
+import { TrajectoryExpansionCommandContext, TrajectoryExpansionRegistryContext, } from "./ModelTrajectoryExpansion.js";
+import { TrajectoryExpandedContent } from "./ModelTrajectoryExpandedContent.js";
+import { TrajectorySearchRevealContext } from "./ModelTrajectorySearch.js";
+import { trajectoryRoleTextClass } from "./ModelTrajectoryRoleStyles.js";
+import { trajectoryToolHasError, trajectoryToolMetadata, trajectoryToolOutputs, trajectoryToolPayloadErrorText, } from "./ModelTrajectoryToolPayload.js";
 export function ExpandableTrajectoryMessage({ message, role, visualRole, roleLabel, callDurationLabel, callDatetimeLabel, callDatetimeTitle, isAlt = false, intl, expansionKey, }) {
     const expansionCommands = useContext(TrajectoryExpansionCommandContext);
     const expansionRegistry = useContext(TrajectoryExpansionRegistryContext);

@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronRight, Clock, CopyIcon, ListChecks } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { StatusIndicator } from "@/feedback/feedbackBadges.js";
-import { FeedbackProgress } from "@/feedback/feedbackProgress.js";
-import { FeedbackSupplementComposer } from "@/feedback/FeedbackSupplementComposer.js";
-import { getFeedbackTimelineItems } from "@/feedback/feedbackTimeline.js";
-import { formatRelativeTime, formatFeedbackStatusHint, formatSubmittedAt, getUserFacingDescription, } from "@/feedback/feedbackUserView.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { StatusIndicator } from "../feedback/feedbackBadges.js";
+import { FeedbackProgress } from "../feedback/feedbackProgress.js";
+import { FeedbackSupplementComposer } from "../feedback/FeedbackSupplementComposer.js";
+import { getFeedbackTimelineItems } from "../feedback/feedbackTimeline.js";
+import { formatRelativeTime, formatFeedbackStatusHint, formatSubmittedAt, getUserFacingDescription, } from "../feedback/feedbackUserView.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 export function TicketDetailView({ ticket, feedbackService, onRefresh, onOpenProcess, }) {
     const { intl } = useZCodeIntl();
     const formatMessage = intl.formatMessage;

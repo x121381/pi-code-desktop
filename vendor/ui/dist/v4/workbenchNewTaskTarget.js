@@ -1,5 +1,5 @@
-import { effectiveFocusedPaneId, V4_PRIMARY_PANE_ID, } from "@/v4/paneLayoutStore.js";
-import { selectWorkbenchGroupPaneBinding } from "@/v4/workbenchGroupStore.js";
+import { effectiveFocusedPaneId, V4_PRIMARY_PANE_ID, } from "../v4/paneLayoutStore.js";
+import { selectWorkbenchGroupPaneBinding } from "../v4/workbenchGroupStore.js";
 function targetFromScope(scope) {
     return {
         workspacePath: scope.workspacePath,

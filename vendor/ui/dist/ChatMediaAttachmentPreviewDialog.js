@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 // react-pdf/pdfjs 在模块导入阶段依赖浏览器 DOMMatrix；对话列表也会加载本组件，
 // 导致 Node 测试和非 PDF 对话在真正打开预览前就触发浏览器专属依赖。仅在渲染 PDF 时懒加载，
 // 保持图片/视频分支的加载行为不变，同时避免对话模块产生无条件的 PDF.js 副作用。
 const LazyPdfViewer = lazy(async () => {
-    const module = await import("@/components/ui/pdf-viewer.js");
+    const module = await import("./components/ui/pdf-viewer.js");
     return { default: module.PdfViewer };
 });
 export function ChatMediaAttachmentPreviewDialog({ attachment, open, onOpenChange, loading = false, error = false, }) {

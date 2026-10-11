@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export async function persistCliMcpToUserDirectory(platform, payload, directoryService) {
     if (directoryService) {
         await directoryService.saveMcpToUserDirectory(payload);

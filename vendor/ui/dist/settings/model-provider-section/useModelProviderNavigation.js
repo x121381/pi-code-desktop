@@ -1,13 +1,13 @@
 /* eslint-disable max-lines -- Model Provider 导航需要集中计算分组、选中项与 Coding Plan 权益态，后续拆分时再收敛。 */
 import { useEffect, useMemo } from "react";
-import { getProviderFormLabel } from "@/lib/providerSettingsFormTypes.js";
+import { getProviderFormLabel } from "../../lib/providerSettingsFormTypes.js";
 import { BUILTIN_MODEL_PROVIDER_IDS, isStartPlanModelProviderId, resolveModelProviderFamilySpecByProviderId, resolveProviderFamilyDomainFromOAuthProvider, } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { CODING_PLAN_PROVIDER_SPECS, } from "@/settings/model-provider-section/constants.js";
-import { pickCodingPlanEntitlementProvider } from "@/lib/codingPlanProvider.js";
-import { createCodingPlanProviderNodeKey, createCustomProviderNodeKey, createPresetProviderNodeKey, } from "@/settings/model-provider-section/utils.js";
-import { sortModelProvidersForDisplay, } from "@/lib/modelProviderOrdering.js";
-import { buildVisibleFamilyConnectionItems, resolveCodingPlanEntitlementState, } from "@/settings/model-provider-section/providerFamilyConnectionVisibility.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { CODING_PLAN_PROVIDER_SPECS, } from "../../settings/model-provider-section/constants.js";
+import { pickCodingPlanEntitlementProvider } from "../../lib/codingPlanProvider.js";
+import { createCodingPlanProviderNodeKey, createCustomProviderNodeKey, createPresetProviderNodeKey, } from "../../settings/model-provider-section/utils.js";
+import { sortModelProvidersForDisplay, } from "../../lib/modelProviderOrdering.js";
+import { buildVisibleFamilyConnectionItems, resolveCodingPlanEntitlementState, } from "../../settings/model-provider-section/providerFamilyConnectionVisibility.js";
 export function useModelProviderNavigation({ presetProviders, modelProviders, entitledAccountProviderIds = new Set(), modelProvidersLoading = false, displayOrder, codingPlanEntitlements = {}, providerFamilyDomain = null, connectionSelections = {}, pendingConnectionSelections = {}, familyConnectionSettingsLoading = false, familyConnectionSettingsFailed = false, subscribedTeamProducts = [], showPurchasedTeamPlanFallback = false, selectedNodeKey, setSelectedNodeKey, intl, }) {
     const customProviders = useMemo(() => {
         const allCustomProviders = modelProviders.filter((provider) => provider.config.group === "standard-personal");

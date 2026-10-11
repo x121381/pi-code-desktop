@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { areWorkspaceFilePathsEqual, getWorkspaceDirectoryGitStatuses, getWorkspaceFileGitStatus, isWorkspaceFileGitIgnored, } from "@/workspace-file-tree/model.js";
-import { WorkspaceFileTreeRowView } from "@/workspace-file-tree/WorkspaceFileTreeRowView.js";
+import { areWorkspaceFilePathsEqual, getWorkspaceDirectoryGitStatuses, getWorkspaceFileGitStatus, isWorkspaceFileGitIgnored, } from "../workspace-file-tree/model.js";
+import { WorkspaceFileTreeRowView } from "../workspace-file-tree/WorkspaceFileTreeRowView.js";
 export function WorkspaceFileTreeStickyFolders({ items, selectedPath, gitStatusByPath, ignoredPathSet, gitStatusLabelByStatus, contextMenuLabels, editorState, workspacePath, workspaceIdentity, onSelect, onToggleDirectory, onRevealRow, onOpenPreview, onOpenBrowserUrl, onKeyDown, }) {
     if (items.length === 0) {
         return null;

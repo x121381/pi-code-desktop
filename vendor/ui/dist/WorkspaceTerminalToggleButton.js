@@ -1,14 +1,14 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { TID_TERMINAL_TOGGLE } from "@zcode/shared";
 import { SquareTerminalIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useShortcutCommandLabel } from "@/shortcuts/useShortcutBindings.js";
-import { WINDOWS_CAPTION_CONTROL_CLASS } from "@/windowCaptionControls.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useShortcutCommandLabel } from "./shortcuts/useShortcutBindings.js";
+import { WINDOWS_CAPTION_CONTROL_CLASS } from "./windowCaptionControls.js";
+import { runUserAction } from "./lib/userActionTelemetry.js";
+import { useIsOfficeMode } from "./hooks/useInterfaceMode.js";
 export function WorkspaceTerminalToggleButton({ isTerminalOpen, onToggleTerminal, disabledReason, useWindowsCaptionSpacing = false, }) {
     const { intl } = useZCodeIntl();
     const isOfficeMode = useIsOfficeMode();

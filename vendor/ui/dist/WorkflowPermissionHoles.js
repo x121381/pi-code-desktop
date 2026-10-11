@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { PenIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 /**
  * 确认窗的留白行（docs/dynamic-workflow/presentation.md「Holes on the timeline」的「The hole station」）：
  * 还开着的留白按源码序排成一行芯片（笔、名字；类型不上界面），后面一句「运行到留白处会暂停，等主代理

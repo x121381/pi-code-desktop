@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { ConversationShareServiceError } from "#src/conversation-share/conversationShare.js";
+import { ConversationShareServiceError } from "../conversation-share/conversationShare.js";
 function fenced(value) {
     const fence = value.includes("```") ? "````" : "```";
     return `${fence}\n${value}\n${fence}`;

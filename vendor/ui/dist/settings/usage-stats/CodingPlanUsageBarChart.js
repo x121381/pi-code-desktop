@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, } from "@/settings/usage-stats/usageStatsUiParts.js";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "../../components/ui/chart.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, } from "../../settings/usage-stats/usageStatsUiParts.js";
 const CODING_PLAN_BAR_CHART_MARGIN = { top: 8, right: 24, left: 24 };
 const CODING_PLAN_BAR_CHART_MAX_BAR_SIZE = 24;
 const BAR_COLORS = [

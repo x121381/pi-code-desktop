@@ -2,11 +2,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {} from "@zcode/services";
 import { TID_SETTINGS_MEMORY_SWITCH } from "@zcode/shared";
-import { runUserAction, runUserActionAsync } from "@/lib/userActionTelemetry.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MemorySettingsViewer, } from "@/settings/MemorySettingsViewer.js";
-import { SettingsGroupCard, SettingsRow } from "@/settings/SettingsPageParts.js";
+import { runUserAction, runUserActionAsync } from "../lib/userActionTelemetry.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { MemorySettingsViewer, } from "../settings/MemorySettingsViewer.js";
+import { SettingsGroupCard, SettingsRow } from "../settings/SettingsPageParts.js";
 function normalizeWorkspaceDisplayName(value) {
     const slug = value
         .toLowerCase()

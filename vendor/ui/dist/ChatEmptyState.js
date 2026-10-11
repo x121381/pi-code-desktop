@@ -1,19 +1,19 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { InputGroup, InputGroupAddon } from "@/components/ui/input-group.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { InputGroup, InputGroupAddon } from "./components/ui/input-group.js";
 import { ChevronDownIcon, Cloud, Folder, FolderPlus, House, MessageCircle, SearchIcon, X, } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useRemoteConnectionEntryVisibility } from "@/hooks/useRemoteConnectionEntryVisibility.js";
-import { cn } from "@/components/lib/utils.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { formatRemoteWorkspaceTargetSubtitle, hasRemoteWorkspaceIdentity, } from "@/lib/remoteWorkspaceHistory.js";
-import { logger } from "@/logger.js";
-import { SSHDialog } from "@/SSHDialog.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useRemoteConnectionEntryVisibility } from "./hooks/useRemoteConnectionEntryVisibility.js";
+import { cn } from "./components/lib/utils.js";
+import { getPathLeaf } from "./lib/path.js";
+import { formatRemoteWorkspaceTargetSubtitle, hasRemoteWorkspaceIdentity, } from "./lib/remoteWorkspaceHistory.js";
+import { logger } from "./logger.js";
+import { SSHDialog } from "./SSHDialog.js";
 import { TID_COMPOSER_PROJECT_DETACH, TID_COMPOSER_REMOTE_CONNECTION, TID_COMPOSER_WORK_OUTSIDE_PROJECT, TID_COMPOSER_WORKSPACE_TRIGGER, resolveWorkspaceKey, } from "@zcode/shared";
-import { runUserAction, runUserActionAsync } from "@/lib/userActionTelemetry.js";
-export { getScratchWorkspaceLocationHint, getScratchWorkspaceNameErrorKind, } from "@/ChatEmptyScratchWorkspaceDialog.js";
+import { runUserAction, runUserActionAsync } from "./lib/userActionTelemetry.js";
+export { getScratchWorkspaceLocationHint, getScratchWorkspaceNameErrorKind, } from "./ChatEmptyScratchWorkspaceDialog.js";
 // ---------------------------------------------------------------------------
 // Workspace 路径工具函数
 // ---------------------------------------------------------------------------

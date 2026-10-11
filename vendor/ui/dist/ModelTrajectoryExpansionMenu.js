@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Settings2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { Switch } from "@/components/ui/switch.js";
-import { TRAJECTORY_EXPANSION_KINDS, } from "@/ModelTrajectoryExpansion.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { Switch } from "./components/ui/switch.js";
+import { TRAJECTORY_EXPANSION_KINDS, } from "./ModelTrajectoryExpansion.js";
 export function ModelTrajectoryExpansionMenu({ commands, onToggle, intl, }) {
     const label = intl.formatMessage({ id: "modelTrajectory.customExpansion" });
     return (_jsxs(DropdownMenu, { children: [_jsx(DropdownMenuTrigger, { asChild: true, children: _jsx(Button, { "data-trajectory-custom-expansion": "", type: "button", variant: "ghost", size: "icon-sm", className: "shrink-0 text-foreground", "aria-label": label, title: label, children: _jsx(Settings2Icon, { className: "size-3.5" }) }) }), _jsx(DropdownMenuContent, { align: "end", className: "w-52", children: TRAJECTORY_EXPANSION_KINDS.map((kind) => (_jsxs(DropdownMenuItem, { "data-trajectory-expansion-kind": kind, className: "justify-between", onSelect: (event) => {

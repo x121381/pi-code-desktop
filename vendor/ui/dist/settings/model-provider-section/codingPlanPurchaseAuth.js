@@ -1,5 +1,5 @@
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, isCodingPlanModelProviderId, isZaiCodingPlanProviderId, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import {} from "@/settings/model-provider-section/constants.js";
+import {} from "../../settings/model-provider-section/constants.js";
 export function isCodingPlanPurchaseAuthPending(status) {
     return status === "unknown" || status === "loading";
 }

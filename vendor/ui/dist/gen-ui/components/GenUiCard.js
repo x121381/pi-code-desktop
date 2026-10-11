@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, } from "react";
 import { Copy, Maximize2, SlidersHorizontal, X } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogPortal, } from "@/components/ui/dialog.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useGenUi } from "@/hooks/useGenUi.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogPortal, } from "../../components/ui/dialog.js";
+import { Textarea } from "../../components/ui/textarea.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { useGenUi } from "../../hooks/useGenUi.js";
 import { EMPTY_GEN_UI_SNAPSHOT } from "../contract.js";
 import { TweakPanel } from "./TweakPanel.js";
 const subscribeEmpty = () => () => { };

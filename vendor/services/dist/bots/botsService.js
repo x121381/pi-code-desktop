@@ -1,13 +1,13 @@
-import { replyToBotChannel } from "#src/bots/channelReply.js";
-import { BotAdminRequiredError, BotReplyError, createGroupAdminAttention, } from "#src/bots/groupAdminAttention.js";
-import { createTopicPreparationState } from "#src/bots/topicPreparationState.js";
-import { createTopicContinuation } from "#src/bots/topicContinuation.js";
-import { TopicHistoryPermissionError } from "#src/bots/topicHistory.js";
-import { createTopicHistoryAttachment, botGroupCommandId, } from "#src/bots/topicHistoryAttachment.js";
-import { createGroupDeliveryThrottle } from "#src/bots/groupDeliveryThrottle.js";
-import { createGroupResultDelivery } from "#src/bots/groupResultDelivery.js";
-import { createGroupQueueCardSync } from "#src/bots/groupQueueCard.js";
-import { readAuthorizedTopicResource, authorizeTopicResource } from "#src/bots/topicResource.js";
+import { replyToBotChannel } from "../bots/channelReply.js";
+import { BotAdminRequiredError, BotReplyError, createGroupAdminAttention, } from "../bots/groupAdminAttention.js";
+import { createTopicPreparationState } from "../bots/topicPreparationState.js";
+import { createTopicContinuation } from "../bots/topicContinuation.js";
+import { TopicHistoryPermissionError } from "../bots/topicHistory.js";
+import { createTopicHistoryAttachment, botGroupCommandId, } from "../bots/topicHistoryAttachment.js";
+import { createGroupDeliveryThrottle } from "../bots/groupDeliveryThrottle.js";
+import { createGroupResultDelivery } from "../bots/groupResultDelivery.js";
+import { createGroupQueueCardSync } from "../bots/groupQueueCard.js";
+import { readAuthorizedTopicResource, authorizeTopicResource } from "../bots/topicResource.js";
 import { getBotConversationKey, getBotStateKey, isGroupOwnerCommand, canAnswerGroupQuestion, } from "./groupSessions.js";
 /* eslint-disable max-lines -- Bots 服务仍复用原 RPC 文件名，先把鉴权、命令路由、ZCode Agent 桥接收口集中在同一服务内。 */
 import { Buffer } from "node:buffer";
@@ -16,10 +16,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { completeNewModelSelection } from "@zcode/provider";
 import { ALL_BOT_WORKSPACES, CONVERSATION_SELECTION_MAX_TEXT_LENGTH, generateTraceId, normalizeAgentProviderToZCodeAgent, ZCODE_AGENT_PROVIDER, BOT_TASK_BROADCAST_CHANNEL, BOT_TASK_STREAM_BROADCAST_CHANNEL, appendAssistantMessagePart, buildZCodeAssistantPresentation, decodeCustomModelValue, encodeCustomModelValue, getPermissionRequestPreview, getSupportedBotReplyGranularities, normalizeBotReplyGranularity, isFeishuBotProvider, } from "@zcode/shared";
-import { resolveProviderModeIdFromConfigOptions } from "#src/session/sessionModeOptions.js";
-import { deriveSessionTitle as deriveTaskTitle } from "#src/session/sessionTitle.js";
+import { resolveProviderModeIdFromConfigOptions } from "../session/sessionModeOptions.js";
+import { deriveSessionTitle as deriveTaskTitle } from "../session/sessionTitle.js";
 import { getAppConfigDir } from "../paths.js";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { beginFeishuAppRegistration, pollFeishuAppRegistration, } from "./providers/feishuAppRegistration.js";
 import { BOT_BIND_CODE_TTL_MS, buildBotCredentialKey, buildBotWebhookSecretKey, getDefaultBotReplyGranularity, normalizeBotCommandPolicy, normalizeBotCurrentOptions, } from "./config.js";
 import { BOT_MENU_COMMAND_ORDER } from "./commandOrder.js";
@@ -37,10 +37,10 @@ import { firstAllowedWorkspace, createWorkspaceRef, filterAllowedWorkspaces, get
 import { getNativeModelProviderId } from "./modelSelectionHelpers.js";
 import { formatStatusStreamToolProgress, formatStatusTaskLine, formatTaskRunningDuration, normalizeStatusProgressText, readLatestAssistantTurnChangeSummary, readLatestTaskProgress, readTaskWorkedDurationMs, taskStatus, truncateLiveStatusProgressText, } from "./statusFormatting.js";
 import { createTelegramChannelRuntime } from "./telegramChannelRuntime.js";
-import { createBotTaskStreamHub } from "#src/bots/taskStreamHub.js";
+import { createBotTaskStreamHub } from "../bots/taskStreamHub.js";
 import { createWeixinChannelRuntime } from "./weixinChannelRuntime.js";
 import { createFeishuChannelRuntime } from "./feishuChannelRuntime.js";
-import { registerMemoryDiagnosticsProvider } from "#src/memoryDiagnostics.js";
+import { registerMemoryDiagnosticsProvider } from "../memoryDiagnostics.js";
 const botsLogger = createServiceLogger("bots");
 function formatBotModelSelectionValue(selection) {
     if (!selection)

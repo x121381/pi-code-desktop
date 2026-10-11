@@ -2,11 +2,11 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { DesktopCommandIds } from "@zcode/shared";
 import { MinusIcon, XIcon } from "lucide-react";
-import { WindowMaximizeIcon, WindowRestoreIcon } from "@/components/icons/windowIcons.js";
-import { Button } from "@/components/ui/button.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { WindowMaximizeIcon, WindowRestoreIcon } from "./components/icons/windowIcons.js";
+import { Button } from "./components/ui/button.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { logger } from "./logger.js";
 export function DesktopWindowControls() {
     const platform = usePlatform();
     const { intl } = useZCodeIntl();

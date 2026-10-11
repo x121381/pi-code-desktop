@@ -1,8 +1,8 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { Fragment } from "react";
 import { CircleCheckIcon, CircleXIcon, LoaderCircleIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 门后的名单：侧板名册站里没被钉住
  * 的人，每人一次，按状态分组、组序即注意力序（failed → running → pending → done），组内参与者序。

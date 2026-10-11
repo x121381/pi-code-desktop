@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useLayoutEffect, useRef } from "react";
 import { ArrowDownIcon, LoaderCircleIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { ScrollFadeViewport } from "@/components/ui/scroll-fade-viewport.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useBackgroundBashOutput } from "@/hooks/useBackgroundBashOutput.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { ScrollFadeViewport } from "../components/ui/scroll-fade-viewport.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useBackgroundBashOutput } from "../hooks/useBackgroundBashOutput.js";
+import { logger } from "../logger.js";
 export const BackgroundBashOutputSidePane = memo(function BackgroundBashOutputSidePane({ tab, visible, onOpenCodeViewer, }) {
     const { intl } = useZCodeIntl();
     const preview = useBackgroundBashOutput(tab, visible);

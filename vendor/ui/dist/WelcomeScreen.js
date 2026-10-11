@@ -10,14 +10,14 @@ import { Loader2Icon, LoaderIcon, TriangleAlertIcon } from "lucide-react";
 import { BIGMODEL_PROVIDER_ID, TID_LOGIN_USE_API_KEY_BUTTON, TID_OAUTH_CANCEL, TID_OAUTH_ERROR, TID_OAUTH_LOGIN_BUTTON, ZAI_PROVIDER_ID, testId, } from "@zcode/shared";
 import { Alert, AlertDescription } from "./components/ui/alert.js";
 import { Button } from "./components/ui/button.js";
-import { ZCodeAboutLogo } from "@/components/ui/ZCodeAboutLogo.js";
+import { ZCodeAboutLogo } from "./components/ui/ZCodeAboutLogo.js";
 import { useOAuth } from "./hooks/useOAuth.js";
 import { useZCodeIntl } from "./i18n/IntlProvider.js";
 import { LoginApiKeyForm } from "./login/LoginApiKeyForm.js";
 import { renderOAuthProviderIcon } from "./lib/oauthProviderIcon.js";
 import { ThemeHeroVisual } from "./openWorkspacePageThemeHero.js";
 import { useZCodeStore } from "./store/StoreProvider.js";
-import { DesktopOverlayWindowControls } from "@/DesktopOverlayWindowControls.js";
+import { DesktopOverlayWindowControls } from "./DesktopOverlayWindowControls.js";
 export function WelcomeScreen({ onComplete }) {
     return (_jsxs("main", { className: "relative flex h-full min-h-dvh items-center justify-center overflow-hidden bg-background px-4 py-6 text-foreground sm:px-6", children: [_jsx(ThemeHeroVisual, { className: "absolute inset-0" }), _jsx("div", { className: "pointer-events-none absolute left-0 top-0 right-0 z-10 flex h-12 items-center [app-region:drag] platform-windows-desktop:right-[134px] platform-linux-desktop:right-[134px]" }), _jsx(DesktopOverlayWindowControls, {}), _jsx("section", { className: "relative z-10 w-full flex flex-col gap-10 max-w-sm rounded-2xl border border-popover-border bg-background p-8 text-ui-base/relaxed shadow-md sm:p-10", children: _jsx(LoginPanel, { active: true, onComplete: onComplete }) })] }));
 }

@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { TaskGroupColorMark } from "@/workspace-grouped-tasks/colors.js";
-import { getTaskGroupDisplayTitle } from "@/workspace-grouped-tasks/group-title.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { TaskGroupColorMark } from "../workspace-grouped-tasks/colors.js";
+import { getTaskGroupDisplayTitle } from "../workspace-grouped-tasks/group-title.js";
 function GroupDragOverlay({ node, className, style, }) {
     const { intl } = useZCodeIntl();
     // cron 在存储层使用 `cron` 占位名；拖拽浮层曾绕过普通 header 的本地化逻辑，

@@ -10,10 +10,10 @@
 // startSavedWorkflow 命令（跑工作流），这里要发的是一条普通用户输入。带 firstInput 的 create
 // 要么整体接受要么被拒，没有「会话建了、消息没发」的中间态，所以不需要回收逻辑。
 import { useCallback, useRef, useState } from "react";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { logger } from "@/logger.js";
-import { buildSavedWorkflowPromotePrompt } from "@/settings/saved-workflows/savedWorkflowLaunchPrompt.js";
-import { acquireLaunchLease, launchWorkspaceId, } from "@/settings/saved-workflows/useSavedWorkflowLauncher.js";
+import { createCommandEnvelope } from "../../v4/commandFactory.js";
+import { logger } from "../../logger.js";
+import { buildSavedWorkflowPromotePrompt } from "../../settings/saved-workflows/savedWorkflowLaunchPrompt.js";
+import { acquireLaunchLease, launchWorkspaceId, } from "../../settings/saved-workflows/useSavedWorkflowLauncher.js";
 /**
  * 载体 `agentService` = 该项目解析出的 agent service（项目组已经有它）；`onNavigate` 在 accepted
  * 后切到新会话（与直接启动共用 `onNavigateToLaunchedRun`）。运行时缺省模型 / 模式，不复用 composer

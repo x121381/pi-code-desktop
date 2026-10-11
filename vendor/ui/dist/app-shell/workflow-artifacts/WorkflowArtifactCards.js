@@ -7,11 +7,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  * 从 `WorkflowArtifactBody.tsx` 里分出来的理由是行数上限（400）：那个文件的主体是**按
  * contentType 分派**，这三样是分派**兜不住**时的落点，两者按职责本就该分开读。
  */
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatArtifactBytes } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { toFileUrl } from "@/lib/path.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatArtifactBytes } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { toFileUrl } from "../../lib/path.js";
 /**
  * 「不能内联渲染」的两种正文（html 与表外类型）共用的卡片壳：标题 / 类型 / 大小 / 出处，
  * 外加至多一个动作。两者各画一遍的话，迟早一个说了大小另一个没说。

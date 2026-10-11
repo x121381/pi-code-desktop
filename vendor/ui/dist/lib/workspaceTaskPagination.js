@@ -1,4 +1,4 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 export const WORKSPACE_TASK_PAGE_SIZE = 5;
 export function resolveVisibleWorkspaceTaskKeys(params) {
     if (!params.enabled) {

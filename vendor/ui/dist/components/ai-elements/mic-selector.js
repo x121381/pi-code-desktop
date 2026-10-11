@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger, } from "../ui/popover.js";
 import { cn } from "../lib/utils.js";
 import { ChevronsUpDownIcon } from "lucide-react";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 const deviceIdRegex = /\(([\da-fA-F]{4}:[\da-fA-F]{4})\)$/;
 const MicSelectorContext = createContext({
     data: [],

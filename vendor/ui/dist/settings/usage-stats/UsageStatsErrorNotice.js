@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlertTriangle, InfoIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { setPendingSettingsSection } from "@/lib/settingsNavigation.js";
-import { formatUsageErrorMessage, isUsageCredentialError, isUsageTeamPlanBusinessError, } from "@/lib/usageErrorCopy.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { setPendingSettingsSection } from "../../lib/settingsNavigation.js";
+import { formatUsageErrorMessage, isUsageCredentialError, isUsageTeamPlanBusinessError, } from "../../lib/usageErrorCopy.js";
 export function UsageStatsErrorNotice({ error }) {
     const { intl } = useZCodeIntl();
     // 团队套餐业务错误（如"您当前暂无有效的团队套餐授权记录…"）含"授权"字样，

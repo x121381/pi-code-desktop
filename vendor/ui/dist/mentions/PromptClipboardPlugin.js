@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getSelection, $isRangeSelection, $setSelection, COMMAND_PRIORITY_HIGH, COPY_COMMAND, CUT_COMMAND, } from "lexical";
-import { $getAtomicPromptSelection, $getPromptSelectionMarkdown, } from "@/mentions/promptSerialization.js";
+import { $getAtomicPromptSelection, $getPromptSelectionMarkdown, } from "../mentions/promptSerialization.js";
 export function registerPromptClipboard(editor) {
     const handle = (event, cut) => {
         const selection = $getSelection();

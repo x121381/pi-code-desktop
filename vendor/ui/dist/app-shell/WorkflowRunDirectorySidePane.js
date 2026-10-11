@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { memo, useEffect, useMemo, useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { RUN_STATUS_DOT, RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "@/components/workflow-graph/run-status-presentation.js";
-import { useWorkflowRunJournalSummaries } from "@/hooks/useWorkflowRunJournalSummaries.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatTaskRelativeTime } from "@/lib/taskListItemPresentation.js";
-import { V4PaneConversationProvider, useV4Conversation } from "@/v4/V4ConversationContext.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { WORKFLOW_RUN_DIRECTORY_LIMIT, buildWorkflowRunDirectory, workflowRunDirectoryRefreshKey, } from "@/v4/workflowRunDirectoryModel.js";
+import { cn } from "../components/lib/utils.js";
+import { RUN_STATUS_DOT, RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "../components/workflow-graph/run-status-presentation.js";
+import { useWorkflowRunJournalSummaries } from "../hooks/useWorkflowRunJournalSummaries.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatTaskRelativeTime } from "../lib/taskListItemPresentation.js";
+import { V4PaneConversationProvider, useV4Conversation } from "../v4/V4ConversationContext.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { WORKFLOW_RUN_DIRECTORY_LIMIT, buildWorkflowRunDirectory, workflowRunDirectoryRefreshKey, } from "../v4/workflowRunDirectoryModel.js";
 /**
  * 一条对话的 workflow run 目录。三步形状与 subagent 目录逐字同构：任务列表页脚行 → 这一页 → `workflow-run`
  * 详情页。

@@ -7,7 +7,7 @@ import { Loader2Icon } from "lucide-react";
 import { ProviderStatusIndicator } from "./ProviderStatusIndicator.js";
 import { resolveModelProviderFamilySpecByProviderId, isStartPlanModelProviderId, TID_MODEL_PROVIDER_NAV_ITEM, testId, } from "@zcode/shared";
 import { useCallback, useMemo } from "react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
 import { useOptimisticReorder } from "./useOptimisticReorder.js";
 import { renderModelProviderNavIcon } from "./utils.js";
 // 侧栏会裁切水平溢出；排序只改变纵向位置，拖动时也必须保持 x=0。

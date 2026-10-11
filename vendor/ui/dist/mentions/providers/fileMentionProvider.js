@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { buildFileMentionMarkdown } from "@/mentions/mentionMarkdown.js";
+import { useServices } from "../../hooks/useServices.js";
+import { buildFileMentionMarkdown } from "../../mentions/mentionMarkdown.js";
 import { WORKSPACE_FILE_SEARCH_DISPLAY_CAP } from "@zcode/shared/workspaceFileSearch";
-import { getMentionGroupLimitForQuery } from "@/mentions/mentionSearch.js";
+import { getMentionGroupLimitForQuery } from "../../mentions/mentionSearch.js";
 function mapWorkspaceFileToMentionItem(entry) {
     return {
         id: `file:${entry.relativePath}`,

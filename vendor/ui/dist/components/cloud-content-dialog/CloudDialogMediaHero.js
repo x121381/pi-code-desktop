@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
-import { useCloudHeroEnvironment } from "@/components/cloud-content-dialog/useCloudHeroEnvironment.js";
-import { loadCloudLottieData } from "@/components/cloud-content-dialog/cloudLottieRuntime.js";
+import { useCloudHeroEnvironment } from "../../components/cloud-content-dialog/useCloudHeroEnvironment.js";
+import { loadCloudLottieData } from "../../components/cloud-content-dialog/cloudLottieRuntime.js";
 export function CloudImage({ hero }) {
     const { dark } = useCloudHeroEnvironment();
     const src = dark && hero.darkSrc ? hero.darkSrc : hero.src;

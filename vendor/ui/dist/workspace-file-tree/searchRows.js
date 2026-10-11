@@ -1,4 +1,4 @@
-import { getWorkspaceFileAncestorDirectories, isWorkspaceFilePathInside, } from "@/workspace-file-tree/model.js";
+import { getWorkspaceFileAncestorDirectories, isWorkspaceFilePathInside, } from "../workspace-file-tree/model.js";
 export function createWorkspaceFileTreeRowsFromSearchEntries(entries) {
     return entries.map((entry) => ({
         path: entry.path,

@@ -1,4 +1,4 @@
-import { createGitGraphLayoutModel, } from "@/git-graph/layoutAlgorithm.js";
+import { createGitGraphLayoutModel, } from "../git-graph/layoutAlgorithm.js";
 const DEFAULT_ROW_HEIGHT = 42;
 const DEFAULT_LANE_GAP = 18;
 const DEFAULT_LANE_PADDING = 16;

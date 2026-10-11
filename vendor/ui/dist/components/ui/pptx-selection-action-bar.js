@@ -2,10 +2,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { SparklesIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent } from "@/components/ui/popover.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
+import { Button } from "../../components/ui/button.js";
+import { Popover, PopoverContent } from "../../components/ui/popover.js";
+import { Textarea } from "../../components/ui/textarea.js";
+import { isImeComposingKeyEvent } from "../../lib/imeComposition.js";
 /**
  * PPTX 元素选择的应用层操作条。
  *

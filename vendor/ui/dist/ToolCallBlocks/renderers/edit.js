@@ -2,13 +2,13 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 /* eslint-disable max-lines -- Edit 工具块同时维护单文件、多文件子块和 diff 预览引用稳定性；当前变更先保持同文件收口，避免为行数拆分引入展示回归。 */
 import { PencilIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { ToolCallBody } from "@/ToolCallBlocks/ToolCallBody.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { getFileDisplayPath } from "@/lib/fileDisplay.js";
+import { ToolCallBody } from "../../ToolCallBlocks/ToolCallBody.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { getFileDisplayPath } from "../../lib/fileDisplay.js";
 import { ToolLayout } from "../ToolLayout.js";
-import { EditInlineDiffContent } from "@/ToolCallBlocks/renderers/EditInlineDiffContent.js";
+import { EditInlineDiffContent } from "../../ToolCallBlocks/renderers/EditInlineDiffContent.js";
 import { getEditKindLabelMessageId, renderDiffCount, renderFilePath, renderJoinedFileChips, renderFileChip, } from "../shared.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 const EDIT_TOOL_ICON = _jsx(PencilIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 const EDIT_SINGLE_LAYOUT = {
     canToggle: true,

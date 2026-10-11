@@ -1,5 +1,5 @@
 import { BUILTIN_MODEL_PROVIDER_IDS, isStartPlanModelProviderId, } from "@zcode/shared";
-import { allBucketsExhausted, bucketMatchesModel, bucketRemainingRatio, bucketReminderKey, getActiveModelBuckets, } from "@/v4/startPlanQuotaBuckets.js";
+import { allBucketsExhausted, bucketMatchesModel, bucketRemainingRatio, bucketReminderKey, getActiveModelBuckets, } from "../v4/startPlanQuotaBuckets.js";
 export const HIDDEN_SESSION_QUOTA_BANNER_STATE = {
     visible: false,
     kind: null,

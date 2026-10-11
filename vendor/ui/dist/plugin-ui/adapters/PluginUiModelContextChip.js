@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { PuzzleIcon, Trash2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ContextAttachmentPill } from "@/v4/composer/ContextAttachmentPill.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ContextAttachmentPill } from "../../v4/composer/ContextAttachmentPill.js";
 import { formatPluginUiContextLabel, } from "../domain/pluginUiModelContext.js";
 export const TID_PLUGIN_UI_MODEL_CONTEXT_CHIP = "plugin-ui-model-context-chip";
 /** composer 与历史用户消息共用的"插件上下文"pill；与 WebElementContextAttachmentChip 同构。 */

@@ -6,8 +6,8 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // 与「配置」修订出来的。
 // 工具路径发起的 run 没有——它的来历是转写里那一行 CreateWorkflow。只读，无动作。
 import { Fragment, memo } from "react";
-import { workflowSettingsProvenanceRows } from "@/components/workflow-timeline/workflowSettingsChange.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { workflowSettingsProvenanceRows } from "../components/workflow-timeline/workflowSettingsChange.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 实参值：字符串原样，其余 `JSON.stringify`（与实参窗 / 通知同一条归一化）。 */
 function formatArgValue(value) {
     return typeof value === "string" ? value : JSON.stringify(value);

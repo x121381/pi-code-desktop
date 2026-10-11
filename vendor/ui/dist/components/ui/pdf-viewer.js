@@ -4,12 +4,12 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { ChevronLeftIcon, ChevronRightIcon, ZoomInIcon, ZoomOutIcon } from "lucide-react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
-import pdfWorkerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import * as pdfZoom from "@/components/ui/usePdfZoomOverlay.js";
-import { isAppleKeyboardPlatform } from "@/lib/keyboardShortcuts.js";
-import { createPdfJsDocumentOptions } from "@/lib/pdfJsAssets.js";
+const pdfWorkerSrc = "/zcode-assets/pdf.worker.min.mjs";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import * as pdfZoom from "../../components/ui/usePdfZoomOverlay.js";
+import { isAppleKeyboardPlatform } from "../../lib/keyboardShortcuts.js";
+import { createPdfJsDocumentOptions } from "../../lib/pdfJsAssets.js";
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 // 与 service 层 readFileRange 的默认分段大小对齐，一次 range 请求对应一次 RPC 调用。
 const RANGE_CHUNK_BYTES = 256 * 1024;

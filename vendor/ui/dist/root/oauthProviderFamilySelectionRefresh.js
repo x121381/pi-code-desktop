@@ -1,8 +1,8 @@
 import { getModelProviderFamilySpec, resolveProviderFamilyDomainFromOAuthProvider, } from "@zcode/shared";
-import { logger } from "@/logger.js";
-import { resolveAccountProviderInspectionAccess } from "@/lib/accountProviderAccess.js";
-import { resolveAutomaticModelProviderFamilyConnectionSelection, } from "@/lib/modelProviderFamilyConnectionSelection.js";
-import { getEnterprisePricingProductsOrEmpty } from "@/root/oauthTeamPricing.js";
+import { logger } from "../logger.js";
+import { resolveAccountProviderInspectionAccess } from "../lib/accountProviderAccess.js";
+import { resolveAutomaticModelProviderFamilyConnectionSelection, } from "../lib/modelProviderFamilyConnectionSelection.js";
+import { getEnterprisePricingProductsOrEmpty } from "../root/oauthTeamPricing.js";
 function resolveModelProviderFamilySpecFromOAuth(provider) {
     const family = resolveProviderFamilyDomainFromOAuthProvider(provider);
     return family ? getModelProviderFamilySpec(family) : null;

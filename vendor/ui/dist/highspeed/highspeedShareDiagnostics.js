@@ -1,5 +1,5 @@
-import { aggregateHighspeedCardMetrics, listHighspeedTurnsByCard, listHighspeedTurnsBySession, } from "@/highspeed/highspeedTurnStore.js";
-import { isHighspeedShareEligible } from "@/highspeed/highspeedShare.js";
+import { aggregateHighspeedCardMetrics, listHighspeedTurnsByCard, listHighspeedTurnsBySession, } from "../highspeed/highspeedTurnStore.js";
+import { isHighspeedShareEligible } from "../highspeed/highspeedShare.js";
 /**
  * 诊断：这张卡为什么还不是自动分享候选，空数组表示已就绪。
  * 门禁条件与 turnStore.listHighspeedCardAutoShareCandidates 保持一致，

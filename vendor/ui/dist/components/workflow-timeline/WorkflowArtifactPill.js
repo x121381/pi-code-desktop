@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRightIcon } from "lucide-react";
-import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, truncateArtifactChipTitle, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, truncateArtifactChipTitle, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function WorkflowArtifactPill({ artifact, className, detail, enterDelayMs, fill = false, onOpen, size = "md", testId = "workflow-artifact-pill", title, truncateTitle = false, variant = "pill", }) {
     const { intl } = useZCodeIntl();
     const fullTitle = artifactDisplayTitle(artifact);

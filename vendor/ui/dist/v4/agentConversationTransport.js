@@ -1,13 +1,13 @@
-import { sendWithConversationDelayE2E } from "@/v4/conversationTransportDelayE2E.js";
-import { getLocalTtftObserver } from "@/v4/telemetry/localTtftObserver.js";
+import { sendWithConversationDelayE2E } from "../v4/conversationTransportDelayE2E.js";
+import { getLocalTtftObserver } from "../v4/telemetry/localTtftObserver.js";
 import { calibrateLocalTtftClock, localTtftNow } from "@zcode/shared";
 import { conversationTopicFrameSchema, PROTOCOL_V4_LIMITS, parseConversationTopic, TopicWireFrameAssembler, } from "@zcode/shared/zcode-protocol-v4";
-import { ensureAgentV4ConnectionHandshake } from "@/v4/agentV4ConnectionHandshake.js";
-import { createWorkflowRunTransportMethods } from "@/v4/agentConversationTransportWorkflowRuns.js";
-import { createAckActivationBarrier } from "@/v4/ackActivationBarrier.js";
-import { createTopicWireDecoder } from "@/v4/topicWireDecoder.js";
-import { logger } from "@/logger.js";
-import { uploadAttachmentTransaction, } from "@/v4/attachmentUploadTransaction.js";
+import { ensureAgentV4ConnectionHandshake } from "../v4/agentV4ConnectionHandshake.js";
+import { createWorkflowRunTransportMethods } from "../v4/agentConversationTransportWorkflowRuns.js";
+import { createAckActivationBarrier } from "../v4/ackActivationBarrier.js";
+import { createTopicWireDecoder } from "../v4/topicWireDecoder.js";
+import { logger } from "../logger.js";
+import { uploadAttachmentTransaction, } from "../v4/attachmentUploadTransaction.js";
 /**
  * 一条 host 连接（= 一个 workspace）上的 v4 conversation 传输面。
  * connectionId 由 host 侧补齐；这里只负责 workspace 定位与帧监听生命周期。

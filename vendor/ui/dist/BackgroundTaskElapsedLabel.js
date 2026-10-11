@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useRef } from "react";
 import { getZCodeBackgroundTaskControlItemElapsedMs, } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 export function formatBackgroundTaskElapsedLabel(elapsedMs, formatMessage) {
     const totalSeconds = Math.max(1, Math.floor(elapsedMs / 1000));
     const minutes = Math.floor(totalSeconds / 60);

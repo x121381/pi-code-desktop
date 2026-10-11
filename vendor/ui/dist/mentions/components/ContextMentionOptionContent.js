@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { MessagesSquare } from "lucide-react";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
+import { FileDisplayInline } from "../../lib/fileDisplay.js";
 export function ContextMentionOptionContent({ item, workspacePath, }) {
     return item.category === "files" ? (_jsx(FileDisplayInline, { path: item.data?.path ?? item.data?.relativePath ?? item.value, options: {
             basePath: workspacePath,

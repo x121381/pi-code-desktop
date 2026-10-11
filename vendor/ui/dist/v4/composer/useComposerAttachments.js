@@ -1,17 +1,17 @@
 /* oxlint-disable eslint(max-lines) -- 附件采集、分 scope 上传调度和生命周期必须在同一 hook 中原子收口。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
+import { toast } from "../../components/ui/toast.js";
 import { nanoid } from "nanoid";
-import { WORKSPACE_FILE_DRAG_MIME } from "@/lib/workspaceFileDrag.js";
-import { MAX_CHAT_ATTACHMENTS, MissingInlinePdfContentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, createChatComposerAttachment, createChatComposerPathAttachment, createClipboardTextAttachmentFilenameForDate, createClipboardTextPathComposerAttachment, formatAttachmentSize, revokeChatComposerAttachment, serializeChatComposerAttachment, shouldCreateClipboardTextAttachment, shouldPreferSpreadsheetClipboardText, } from "@/lib/chatAttachments.js";
-import { WHITEBOARD_ADD_TO_CHAT_EVENT, buildWhiteboardWorkspaceKey, createWhiteboardPngFile, isWhiteboardAddToChatEvent, } from "@/lib/whiteboard.js";
-import { useWhiteboardStore } from "@/store/whiteboardStore.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { exposeComposerAttachmentScopeKeyForE2E, readComposerAttachmentScope, updateComposerAttachmentScope, useComposerAttachmentUploadStore, } from "@/store/composerAttachmentUploadStore.js";
-import { uploadComposerAttachment } from "@/v4/composer/attachmentUpload.js";
+import { WORKSPACE_FILE_DRAG_MIME } from "../../lib/workspaceFileDrag.js";
+import { MAX_CHAT_ATTACHMENTS, MissingInlinePdfContentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, createChatComposerAttachment, createChatComposerPathAttachment, createClipboardTextAttachmentFilenameForDate, createClipboardTextPathComposerAttachment, formatAttachmentSize, revokeChatComposerAttachment, serializeChatComposerAttachment, shouldCreateClipboardTextAttachment, shouldPreferSpreadsheetClipboardText, } from "../../lib/chatAttachments.js";
+import { WHITEBOARD_ADD_TO_CHAT_EVENT, buildWhiteboardWorkspaceKey, createWhiteboardPngFile, isWhiteboardAddToChatEvent, } from "../../lib/whiteboard.js";
+import { useWhiteboardStore } from "../../store/whiteboardStore.js";
+import { usePlatform } from "../../hooks/usePlatform.js";
+import { useServices } from "../../hooks/useServices.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
+import { exposeComposerAttachmentScopeKeyForE2E, readComposerAttachmentScope, updateComposerAttachmentScope, useComposerAttachmentUploadStore, } from "../../store/composerAttachmentUploadStore.js";
+import { uploadComposerAttachment } from "../../v4/composer/attachmentUpload.js";
 export const COMPOSER_ATTACHMENT_UPLOAD_CONCURRENCY = 2;
 export const COMPOSER_ATTACHMENT_AUTO_RETRY_DELAY_MS = 500;
 export const COMPOSER_ATTACHMENT_COMPLETE_VISIBLE_MS = 300;

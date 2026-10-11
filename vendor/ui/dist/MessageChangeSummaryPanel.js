@@ -2,15 +2,15 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useMemo, useState } from "react";
 import { TID_CHAT_CHANGE_SUMMARY_TOGGLE_FILES_BUTTON, testId } from "@zcode/shared";
 import { ChevronRightIcon, Undo2 } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
-import { buildTurnChangeSummary, toWorkspaceRelativePath } from "@/lib/taskChangeSummary.js";
-import { Button } from "@/components/ui/button.js";
-import { OpenSplitButton } from "@/OpenSplitButton.js";
-import { cn } from "@/components/lib/utils.js";
-import { buildChangeSummaryDiffViewerSource, buildChangeSummaryFilePreviewSource, openChangeSummaryDiffViewer, } from "@/messageChangeSummaryPreview.js";
-export { buildChangeSummaryDiffViewerSource, buildChangeSummaryFilePreviewSource, openChangeSummaryDiffViewer, } from "@/messageChangeSummaryPreview.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "./components/ui/collapsible.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { FileDisplayInline } from "./lib/fileDisplay.js";
+import { buildTurnChangeSummary, toWorkspaceRelativePath } from "./lib/taskChangeSummary.js";
+import { Button } from "./components/ui/button.js";
+import { OpenSplitButton } from "./OpenSplitButton.js";
+import { cn } from "./components/lib/utils.js";
+import { buildChangeSummaryDiffViewerSource, buildChangeSummaryFilePreviewSource, openChangeSummaryDiffViewer, } from "./messageChangeSummaryPreview.js";
+export { buildChangeSummaryDiffViewerSource, buildChangeSummaryFilePreviewSource, openChangeSummaryDiffViewer, } from "./messageChangeSummaryPreview.js";
 export function MessageChangeSummaryPanel({ summary, workspacePath, workspaceIdentity, workspaceRemoteSessionId, changeDetails, readonlyDiffPatchesByPath, fileState = "applied", messageId, compactForRemoteControl = false, animationDelayMs = 0, onToggleFiles, onOpenCodeViewer, }) {
     const { intl } = useZCodeIntl();
     const [isFileListOpen, setIsFileListOpen] = useState(false);

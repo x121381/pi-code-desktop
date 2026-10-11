@@ -1,4 +1,4 @@
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
 const MAX_ARMS_CUSTOM_EVENT_ENTRIES = 200;
 /**
  * 仅 E2E 构建记录 renderer 实际提交给 desktop bridge 的 ARMS payload。

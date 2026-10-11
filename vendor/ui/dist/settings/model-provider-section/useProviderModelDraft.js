@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
-import { createProviderModelDraftValues, resolveProviderModelDraftCommit, } from "@/settings/model-provider-section/ProviderModelMetadata.js";
-import { modelDraftOverrides, projectModelDraft, updateModelDraft, restoreModelDraft, } from "@/settings/model-provider-section/ProviderModelDraftState.js";
-import { useModelConfigResolution } from "@/settings/model-provider-section/useModelConfigResolution.js";
+import { createProviderModelDraftValues, resolveProviderModelDraftCommit, } from "../../settings/model-provider-section/ProviderModelMetadata.js";
+import { modelDraftOverrides, projectModelDraft, updateModelDraft, restoreModelDraft, } from "../../settings/model-provider-section/ProviderModelDraftState.js";
+import { useModelConfigResolution } from "../../settings/model-provider-section/useModelConfigResolution.js";
 /** 添加和编辑共享推荐生命周期；业务入口仅保留初始化、权限与各自的保存事务。 */
 export function useProviderModelDraft({ model, open, scopeKey, resolve, }) {
     const [rawDraft, setRawDraft] = useState(() => createProviderModelDraftValues(model));

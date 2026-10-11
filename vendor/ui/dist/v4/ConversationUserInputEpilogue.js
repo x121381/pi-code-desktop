@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /**
  * 用户消息里的引擎附加文本。
  *

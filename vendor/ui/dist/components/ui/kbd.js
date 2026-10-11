@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 /**
  * 键帽组件（对齐 shadcn Kbd）：每个按键独立成 chip，固定高度 + 最小方形宽度 +
  * flex 居中，保证 ⌘/⇧ 等单符号键与字母键视觉尺寸一致；font-sans 避免符号从

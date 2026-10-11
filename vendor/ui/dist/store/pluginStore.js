@@ -1,6 +1,6 @@
 /* eslint-disable max-lines -- 插件市场、安装、卸载、启停状态需要集中维护以避免并发操作状态分散 */
 import { create } from "zustand";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function buildPluginOperationId(scope, pluginName, marketplace) {
     return `${scope}:${pluginName}@${marketplace}`;
 }

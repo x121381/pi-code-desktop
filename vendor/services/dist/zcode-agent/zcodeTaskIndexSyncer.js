@@ -1,10 +1,10 @@
 /* eslint-disable max-lines -- task index 的 v4 帧摄入、snapshot upsert 和 workspace 广播必须共享同一份闭包状态。 */
-import { repairSubagentTaskIndex } from "#src/zcode-agent/repairSubagentTaskIndex.js";
+import { repairSubagentTaskIndex } from "../zcode-agent/repairSubagentTaskIndex.js";
 import { deriveZCodeTaskStatusFromSessionSnapshot, generateTraceId, getZCodeUserVisibleMessages, isZCodeGoalContinuationReminderText, isZCodeModelOnlySyntheticUserMessage, resolveWorkspaceKey, resolveZCodeVisibleSessionTitle, ZCODE_AGENT_PROVIDER_NOT_READY_CODE, ZCODE_AGENT_PROVIDER, } from "@zcode/shared";
 import { PROTOCOL_V4_LIMITS, sessionsIndexTopic, sessionsIndexTopicFrameSchema, workspaceConfigTopic, workspaceConfigTopicFrameSchema, TopicWireFrameAssembler, } from "@zcode/shared/zcode-protocol-v4";
 import { Emitter } from "@zcode/rpc";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { TaskIndexRepo } from "#src/session/taskIndexRepo.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { TaskIndexRepo } from "../session/taskIndexRepo.js";
 import { ZCODE_AGENT_RUNTIME_UNAVAILABLE_CODE } from "./zcodeAgent.js";
 import { formatTaskMetaModelSelectionFromSnapshot } from "./zcodeConfigOptions.js";
 const logger = createServiceLogger("zcode-task-index-syncer");

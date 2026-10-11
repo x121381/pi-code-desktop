@@ -1,12 +1,12 @@
 import { useCallback, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { buildWorkspaceSessionReloadDraftError, shouldDebounceWorkspaceSessionReload, } from "@/lib/workspaceSessionReloadPlan.js";
-import { resolveWorkspaceModelConfigSyncScope } from "@/lib/modelConfigSync.js";
-import { prepareWorkspaceWithZCodeSessionService } from "@/hooks/useWorkspacePrepare.js";
-import { logger } from "@/logger.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { toast } from "../components/ui/toast.js";
+import { buildWorkspaceSessionReloadDraftError, shouldDebounceWorkspaceSessionReload, } from "../lib/workspaceSessionReloadPlan.js";
+import { resolveWorkspaceModelConfigSyncScope } from "../lib/modelConfigSync.js";
+import { prepareWorkspaceWithZCodeSessionService } from "../hooks/useWorkspacePrepare.js";
+import { logger } from "../logger.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 export function useWorkspaceSessionReload({ intl, services, workspaceAbsPath, reloadSessionDisabled, }) {
     const [reloadSessionPending, setReloadSessionPending] = useState(false);
     const workspaceIdentity = useTabStore((state) => {

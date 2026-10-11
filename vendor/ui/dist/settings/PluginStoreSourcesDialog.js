@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlertTriangle, Loader2, RefreshCw, Trash2 } from "lucide-react";
 import { CLAUDE_OFFICIAL_PLUGIN_MARKETPLACE_ID } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveMarketplaceDisplayName } from "@/settings/pluginSourceLabel.js";
-import { isPublicStoreMarketplaceId, sortMarketplaceSources, } from "@/settings/pluginStoreListing.js";
-import { DEFAULT_MARKETPLACE_ID } from "@/settings/recommendedPlugins.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogTitle } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { resolveMarketplaceDisplayName } from "../settings/pluginSourceLabel.js";
+import { isPublicStoreMarketplaceId, sortMarketplaceSources, } from "../settings/pluginStoreListing.js";
+import { DEFAULT_MARKETPLACE_ID } from "../settings/recommendedPlugins.js";
 // 官方市场不可移除：移除后启动时会被重新补种，只会造成「删了又回来」的困惑。
 function isRemovableMarketplace(marketplace) {
     if (isPublicStoreMarketplaceId(marketplace.id))

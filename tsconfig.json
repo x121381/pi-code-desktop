@@ -27,10 +27,10 @@
         "./*"
       ],
       "@zcode/web-host": [
-        "./vendor/web-host/host.tsx"
+        "./vendor/web-host/dist/host.js"
       ],
       "@zcode/web-host/*": [
-        "./vendor/web-host/*"
+        "./vendor/web-host/dist/*"
       ]
     },
     "target": "ES2017"

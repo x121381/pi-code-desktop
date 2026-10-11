@@ -1,6 +1,6 @@
-import { planHighspeedTranscriptHydration } from "@/highspeed/highspeedTurnHydration.js";
-import { calculateHighspeedSavedDurationMs } from "@/highspeed/highspeedSavedTime.js";
-import { isHighspeedShareEligible } from "@/highspeed/highspeedShare.js";
+import { planHighspeedTranscriptHydration } from "../highspeed/highspeedTurnHydration.js";
+import { calculateHighspeedSavedDurationMs } from "../highspeed/highspeedSavedTime.js";
+import { isHighspeedShareEligible } from "../highspeed/highspeedShare.js";
 const MAX_RECORDS = 300;
 let records = [];
 const highspeedTpsByCardId = new Map();

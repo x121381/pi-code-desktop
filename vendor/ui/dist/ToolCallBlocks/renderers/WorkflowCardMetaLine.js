@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 工具卡卡体顶部的一行元信息：淡色标签 + 等宽值（来源文件名、run id……），可带一句淡色注记。
  * `marker` 落成 `data-workflow-card-<marker>="true"`，测试与样式按它找行；`flag` 落成

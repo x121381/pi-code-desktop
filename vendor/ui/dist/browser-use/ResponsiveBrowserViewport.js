@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, } from "react";
 import { TID_BROWSER_RESPONSIVE_SCALED_FRAME, TID_BROWSER_RESPONSIVE_VIEWPORT, } from "@zcode/shared";
-import { resolveBrowserViewportRendererScale, resolveBrowserViewportScale, } from "@/browser-use/browserViewportZoom.js";
-import { RESPONSIVE_BROWSER_VIEWPORT_LIMITS, ResponsiveBrowserResizeHandles, } from "@/browser-use/ResponsiveBrowserResizeHandles.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { resolveBrowserViewportRendererScale, resolveBrowserViewportScale, } from "../browser-use/browserViewportZoom.js";
+import { RESPONSIVE_BROWSER_VIEWPORT_LIMITS, ResponsiveBrowserResizeHandles, } from "../browser-use/ResponsiveBrowserResizeHandles.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 export const DEFAULT_RESPONSIVE_BROWSER_VIEWPORT_SIZE = {
     width: 393,
     height: 852,

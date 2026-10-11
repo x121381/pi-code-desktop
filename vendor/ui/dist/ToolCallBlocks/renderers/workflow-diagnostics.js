@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 分析器自有规则的码段（9001 起）。
  * 不能写成「≥ 9000」：TypeScript 自己的 18xxx（如 TS18048）仍是 TypeScript 码；TypeScript 在 9xxx 只有

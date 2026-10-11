@@ -1,4 +1,4 @@
-import { resolveWorkbenchDropSide } from "@/v4/workbenchDragDrop.js";
+import { resolveWorkbenchDropSide } from "../v4/workbenchDragDrop.js";
 const targets = new Set();
 let previewedTarget = null;
 function clearPreview() {

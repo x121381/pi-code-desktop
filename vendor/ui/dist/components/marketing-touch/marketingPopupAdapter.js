@@ -1,4 +1,4 @@
-import { additionalRequestModalSelectors } from "@/request-security-edition/errors.js";
+import { additionalRequestModalSelectors } from "../../request-security-edition/errors.js";
 import { isStartPlanModelProviderId } from "@zcode/shared";
 export function canOpenMarketingPopup() {
     return (document.visibilityState !== "hidden" &&

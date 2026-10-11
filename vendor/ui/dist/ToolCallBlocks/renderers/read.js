@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { SearchIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { FileDisplayIcon, FOLDER_FILE_ICON_SRC, resolveFileDisplayDescriptor, } from "@/lib/fileDisplay.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { FileDisplayIcon, FOLDER_FILE_ICON_SRC, resolveFileDisplayDescriptor, } from "../../lib/fileDisplay.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { ToolLayout } from "../ToolLayout.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { renderFilePath } from "../shared.js";
 const READ_TOOL_ICON = _jsx(SearchIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 function isPlainRecord(value) {

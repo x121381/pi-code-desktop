@@ -1,5 +1,5 @@
 import { buildGenUiScopeKey } from "@zcode/shared/gen-ui";
-import { sandboxPages } from "@/plugin-ui/hostPrimitives.js";
+import { sandboxPages } from "../../plugin-ui/hostPrimitives.js";
 import { EMPTY_GEN_UI_SNAPSHOT } from "../contract.js";
 import { createGenUiPage } from "./page.js";
 const creating = new Map();

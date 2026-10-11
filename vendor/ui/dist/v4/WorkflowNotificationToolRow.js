@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Hourglass, MessageCircleQuestion, Workflow } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CodeBlock, CodeBlockHeader } from "@/components/ai-elements/code-block.js";
-import { WorkflowNotificationHoleRow } from "@/v4/WorkflowNotificationHoleRow.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workflowRunQuestionWaitedLabel } from "@/app-shell/workflowRunQuestions.js";
-import { WorkflowNotificationArtifactChips } from "@/v4/WorkflowNotificationArtifactChips.js";
+import { CodeBlock, CodeBlockHeader } from "../components/ai-elements/code-block.js";
+import { WorkflowNotificationHoleRow } from "../v4/WorkflowNotificationHoleRow.js";
+import { ToolLayout } from "../ToolCallBlocks/ToolLayout.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { workflowRunQuestionWaitedLabel } from "../app-shell/workflowRunQuestions.js";
+import { WorkflowNotificationArtifactChips } from "../v4/WorkflowNotificationArtifactChips.js";
 /**
  * 后台 workflow 通知行。
  *

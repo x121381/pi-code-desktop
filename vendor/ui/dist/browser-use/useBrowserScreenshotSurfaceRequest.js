@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 function matchesTab(tab, payload) {
     return (tab.workspaceKey === payload.workspaceKey &&
         tab.sessionId === payload.sessionId &&

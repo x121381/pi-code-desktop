@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export function releaseWorkspaceRuntimeAfterProjectRemoval({ tab, zcodeTaskService, }) {
     const workspaceIdentity = tab.workspaceIdentity?.trim() || undefined;
     void zcodeTaskService

@@ -1,4 +1,4 @@
-import { DEFAULT_MARKETPLACE_ID } from "@/settings/recommendedPlugins.js";
+import { DEFAULT_MARKETPLACE_ID } from "../settings/recommendedPlugins.js";
 // 官方插件在 agent 侧的 source 取值；其余取值（如 inline 本地目录）一律按「内置」处理。
 // 注意: 从市场安装的插件 source 为 "cache"，其真实归属在 plugin.marketplace 上。
 const MARKETPLACE_INSTALLED_SOURCE = "cache";

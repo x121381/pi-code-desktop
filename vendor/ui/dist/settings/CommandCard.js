@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Terminal } from "lucide-react";
 import { isPluginCommand, isUserCommand } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Switch } from "@/components/ui/switch.js";
-import { settingsResourceRowInteraction } from "@/settings/settingsResourceRowInteraction.js";
-import { PluginStoreAvatar } from "@/settings/PluginStoreAvatar.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Switch } from "../components/ui/switch.js";
+import { settingsResourceRowInteraction } from "../settings/settingsResourceRowInteraction.js";
+import { PluginStoreAvatar } from "../settings/PluginStoreAvatar.js";
 export function isEditableUserCommand(command) {
     return isUserCommand(command) && command.location.source === "zcode";
 }

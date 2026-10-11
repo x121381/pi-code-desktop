@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { ToolOutput } from "@/components/ai-elements/tool.js";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getToolCallErrorText } from "@/lib/toolError.js";
-import { extractPlanToolCallContent, getPlanFileLabel } from "@/lib/planToolCall.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { ToolOutput } from "../../components/ai-elements/tool.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { getToolCallErrorText } from "../../lib/toolError.js";
+import { extractPlanToolCallContent, getPlanFileLabel } from "../../lib/planToolCall.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { ArrowRightIcon, CheckIcon, CopyIcon, NotepadTextIcon } from "lucide-react";
 function isInteractiveDescendant(target, card) {
     if (!(target instanceof Element))

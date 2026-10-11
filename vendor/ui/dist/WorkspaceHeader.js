@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { TID_WORKSPACE_HEADER } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { WorkspaceHeaderActionSection, WorkspaceHeaderTitleSection, } from "@/WorkspaceHeaderSections.js";
+import { cn } from "./components/lib/utils.js";
+import { WorkspaceHeaderActionSection, WorkspaceHeaderTitleSection, } from "./WorkspaceHeaderSections.js";
 export function WorkspaceHeader({ variant = "task", draftDropTargetController, readOnlyReason, workspaceAbsPath, remoteSessionId, workspaceIdentity, remoteTarget, localWorkspacePath, projectName, activeTaskTitle, activeTaskChangeSummary, hasUpdateReady, activeTaskId, user, activeTraceId, activeSessionId, activeTaskProvider, resolvedActiveTaskMeta, sessionLogPath, nativeSessionLogProvider, nativeSessionLogPath, nativeSessionLogExists, nativeSessionLogLoading, providerWorkspaceConfigPath, providerWorkspaceConfigExists, providerWorkspaceConfigLoading, workspaceHeaderState, gitSummary, gitDirtyFileCount, isMacDesktop, isMacFullscreen, isWindowsDesktop, isWebRemoteControl = false, isDesktop, simplifyForNarrowRemote = false, isSidebarVisible, isTerminalOpen, isSidePaneOpen, onRefreshGit, onToggleTerminal, onToggleSidePane, toggleSidePaneShortcutLabel, onReloadSession, reloadSessionDisabled, reloadSessionPending, }) {
     const [selectedEditor, setSelectedEditor] = useState(null);
     const shouldOffsetHeaderForWindowControls = !isSidebarVisible;

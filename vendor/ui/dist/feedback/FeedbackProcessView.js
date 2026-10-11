@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronLeft, Clock3, ListChecks } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { FeedbackProgress } from "@/feedback/feedbackProgress.js";
-import { FeedbackSupplementComposer } from "@/feedback/FeedbackSupplementComposer.js";
-import { FeedbackTimeline, getFeedbackTimelineItems } from "@/feedback/feedbackTimeline.js";
-import { formatRelativeTime } from "@/feedback/feedbackUserView.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { FeedbackProgress } from "../feedback/feedbackProgress.js";
+import { FeedbackSupplementComposer } from "../feedback/FeedbackSupplementComposer.js";
+import { FeedbackTimeline, getFeedbackTimelineItems } from "../feedback/feedbackTimeline.js";
+import { formatRelativeTime } from "../feedback/feedbackUserView.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function FeedbackProcessView({ ticket, feedbackService, onBack, onRefresh, }) {
     const { intl } = useZCodeIntl();
     const formatMessage = intl.formatMessage;

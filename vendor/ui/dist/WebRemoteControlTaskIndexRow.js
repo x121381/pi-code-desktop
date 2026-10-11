@@ -2,12 +2,12 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { Archive, ArchiveX, CloudDownload, LoaderIcon, Pin, Trash2, } from "lucide-react";
 import { TID_TASK_ARCHIVE, TID_TASK_ITEM, resolveWebRemoteControlWorkspaceKey, testId, } from "@zcode/shared";
 import { useCallback, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { formatTaskRelativeTime } from "@/lib/taskListItemPresentation.js";
-import { buildWebRemoteControlTaskRowKey } from "@/hooks/useWebRemoteControlTaskOpen.js";
-import { TaskWorkflowRunLines } from "@/components/workflow-run-line/TaskWorkflowRunLines.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { formatTaskRelativeTime } from "./lib/taskListItemPresentation.js";
+import { buildWebRemoteControlTaskRowKey } from "./hooks/useWebRemoteControlTaskOpen.js";
+import { TaskWorkflowRunLines } from "./components/workflow-run-line/TaskWorkflowRunLines.js";
 export function WebRemoteControlTaskIndexRow({ activeTaskId, activeWorkspaceKey, canMutateTask, intl, mutatingTaskKey, onArchiveTask, onDeleteArchivedTask, onOpenTask, onToggleTaskPin, onUnarchiveTask, pendingArchiveTaskKey, showWorkspaceLabel = false, switchingTaskKey, task, taskSortBy, }) {
     const [hoverActionsVisible, setHoverActionsVisible] = useState(false);
     const rowKey = buildWebRemoteControlTaskRowKey(task);

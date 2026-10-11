@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
-import { isAppleKeyboardPlatform } from "@/lib/keyboardShortcuts.js";
-import { isPrimaryFollowupModifierPressed } from "@/v4/composer/followupModeSettings.js";
+import { isAppleKeyboardPlatform } from "../../lib/keyboardShortcuts.js";
+import { isPrimaryFollowupModifierPressed } from "../../v4/composer/followupModeSettings.js";
 const listeners = new Set();
 let pressed = false;
 let detachWindowListeners = null;

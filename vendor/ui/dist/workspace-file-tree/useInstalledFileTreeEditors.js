@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { sortInstalledEditorsForOpenWith } from "@/lib/openWithEditors.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { sortInstalledEditorsForOpenWith } from "../lib/openWithEditors.js";
+import { logger } from "../logger.js";
 export function useInstalledFileTreeEditors() {
     const platform = usePlatform();
     const [installedEditors, setInstalledEditors] = useState([]);

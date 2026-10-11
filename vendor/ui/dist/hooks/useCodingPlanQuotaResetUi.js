@@ -1,13 +1,13 @@
 /* eslint-disable max-lines -- 额度重置 hook 集中处理 scope 共享请求、轮询、幂等核销与服务端历史对账。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { useOptionalBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useStableAccountAccess } from "@/hooks/useStableAccountAccess.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { requestCodingPlanResetOpportunityWhenDue, subscribeCodingPlanQuotaResetPolling, } from "@/lib/codingPlanQuotaResetCoordinator.js";
-import { CODING_PLAN_QUOTA_RESET_DONE_DISPLAY_MS, CODING_PLAN_QUOTA_RESET_TYPES, applyCodingPlanQuotaResetStatus, completeCodingPlanQuotaResetEntitlementRefresh, failCodingPlanQuotaResetManualUse, hasUsableCodingPlanQuotaResetOpportunity, resolveCodingPlanQuotaResetStatusVisible, startCodingPlanQuotaResetManualUse, } from "@/lib/codingPlanQuotaResetUi.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
+import { toast } from "../components/ui/toast.js";
+import { useOptionalBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { useStableAccountAccess } from "../hooks/useStableAccountAccess.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { requestCodingPlanResetOpportunityWhenDue, subscribeCodingPlanQuotaResetPolling, } from "../lib/codingPlanQuotaResetCoordinator.js";
+import { CODING_PLAN_QUOTA_RESET_DONE_DISPLAY_MS, CODING_PLAN_QUOTA_RESET_TYPES, applyCodingPlanQuotaResetStatus, completeCodingPlanQuotaResetEntitlementRefresh, failCodingPlanQuotaResetManualUse, hasUsableCodingPlanQuotaResetOpportunity, resolveCodingPlanQuotaResetStatusVisible, startCodingPlanQuotaResetManualUse, } from "../lib/codingPlanQuotaResetUi.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
 const STATUS_FRESHNESS_MS = 1_500;
 const USE_STATUS_RETRY_DELAYS_MS = [0, 250, 750, 1_500];
 const EMPTY_ENTRIES = {};

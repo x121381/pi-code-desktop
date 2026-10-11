@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { AlertCircle, ChevronDown, ChevronUp, CheckCircle2, PauseCircle, Upload, X, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { dismissFeedbackSubmissionJob, getFeedbackSubmissionJobsSnapshot, subscribeFeedbackSubmissionJobs, } from "@/feedback/feedbackSubmissionJob.js";
-import { useFeedbackStore } from "@/feedback/feedbackStore.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { dismissFeedbackSubmissionJob, getFeedbackSubmissionJobsSnapshot, subscribeFeedbackSubmissionJobs, } from "../feedback/feedbackSubmissionJob.js";
+import { useFeedbackStore } from "../feedback/feedbackStore.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 const SUCCESS_DISMISS_DELAY_MS = 5_000;
 export function shouldOpenExistingFeedbackTicket(status, ticketId) {
     return Boolean(ticketId) && (status === "success" || status === "error");

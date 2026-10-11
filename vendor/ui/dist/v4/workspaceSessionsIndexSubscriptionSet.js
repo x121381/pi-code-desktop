@@ -1,5 +1,5 @@
-import { LOCAL_SESSIONS_INDEX_ENDPOINT, acquireSessionsIndex, buildSessionsIndexEntryKey, releaseSessionsIndex, } from "@/v4/sessionsIndexRegistry.js";
-import { logger } from "@/logger.js";
+import { LOCAL_SESSIONS_INDEX_ENDPOINT, acquireSessionsIndex, buildSessionsIndexEntryKey, releaseSessionsIndex, } from "../v4/sessionsIndexRegistry.js";
+import { logger } from "../logger.js";
 function scopeLogKey(scope) {
     return `${scope.endpointKey ?? "__base__"}:${scope.workspaceKey}`;
 }

@@ -1,8 +1,8 @@
 import { ChannelClient, MessagePortProtocol, ProxyChannel, } from "@zcode/rpc";
-import { IZCodeTaskService, } from "#src/session/zcodeTaskService.js";
-import { IZCodeAgentService, } from "#src/zcode-agent/zcodeAgent.js";
-import { IZCodeSessionService, } from "#src/zcode-session/zcodeSession.js";
-import { IModelSelectionService, } from "#src/model-provider/providerFacadeServices.js";
+import { IZCodeTaskService, } from "../session/zcodeTaskService.js";
+import { IZCodeAgentService, } from "../zcode-agent/zcodeAgent.js";
+import { IZCodeSessionService, } from "../zcode-session/zcodeSession.js";
+import { IModelSelectionService, } from "../model-provider/providerFacadeServices.js";
 function toMessagePortLike(port) {
     return {
         addEventListener(type, listener) {

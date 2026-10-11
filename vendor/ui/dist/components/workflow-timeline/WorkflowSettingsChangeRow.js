@@ -7,7 +7,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // 它是记录，不是控件。
 import { Fragment } from "react";
 import { SlidersHorizontalIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { workflowSettingsChangeSegments } from "./workflowSettingsChange.js";
 export function WorkflowSettingsChangeRow({ amend, at, providerName, }) {
     const { intl } = useZCodeIntl();

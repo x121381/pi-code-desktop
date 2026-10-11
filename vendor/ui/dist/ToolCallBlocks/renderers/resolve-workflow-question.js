@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { MessageCircleReply } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
 const RESOLVE_QUESTION_TOOL_ICON = (_jsx(MessageCircleReply, { className: "size-4 shrink-0 text-foreground-subtle" }));
 /** 折叠头部的单行概要上限：概要只是「大概答了什么」，整段答案在展开后的 body 里。 */
 const INLINE_PREVIEW_MAX_LENGTH = 160;

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 // 闲时任务系统通知（通知；权威路径应用内、通知点击跳 session；样式待设计补）。
 // 全局挂载（App 根，每窗口一份）：main 进程 dispatchTaskNotification 按 (status:taskId) 3s 去重，
 // 多窗口重复触发只显示一条，故无需选主。轮询独立于 host sync（renderer 无 sqlite 访问）。

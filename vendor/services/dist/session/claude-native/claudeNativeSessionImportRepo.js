@@ -1,10 +1,10 @@
 import { copyFile, mkdir, readdir, rename, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, dirname, join, normalize, resolve, sep } from "node:path";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { getAppConfigDir, getDataBaseDir, getWorkspaceHash } from "#src/paths.js";
-import { extractClaudeNativeSessionHeadInfo, hasClaudeNativeSidechainMarker, } from "#src/session/claude-native/claudeNativeSessionHeadParser.js";
-import { readJsonLinesFileHead } from "#src/session/claude-native/sessionHistoryJsonl.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
+import { getAppConfigDir, getDataBaseDir, getWorkspaceHash } from "../../paths.js";
+import { extractClaudeNativeSessionHeadInfo, hasClaudeNativeSidechainMarker, } from "../../session/claude-native/claudeNativeSessionHeadParser.js";
+import { readJsonLinesFileHead } from "../../session/claude-native/sessionHistoryJsonl.js";
 const logger = createServiceLogger("claude-native-import");
 const CLAUDE_NATIVE_IGNORED_TRANSCRIPT_DIR_NAMES = new Set(["subagents", "worktree", "worktrees"]);
 function normalizePathForComparison(path) {

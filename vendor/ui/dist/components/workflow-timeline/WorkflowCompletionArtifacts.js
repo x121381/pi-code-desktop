@@ -1,5 +1,5 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { resolvePrimaryArtifact } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
+import { resolvePrimaryArtifact } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
 import { WorkflowArtifactIndex } from "./WorkflowArtifactIndex.js";
 import { WorkflowArtifactRow } from "./WorkflowArtifactRow.js";
 import { ArtifactSheetGlyph } from "./WorkflowArtifactTile.js";

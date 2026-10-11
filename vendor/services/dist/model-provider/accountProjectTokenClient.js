@@ -1,6 +1,6 @@
 import { ApiError, ProjectAccessTokenClient, ProjectAccessTokenTransientError, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { readApiJson } from "#src/providers/api/apiJson.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { readApiJson } from "../providers/api/apiJson.js";
 const PROJECT_TOKEN_REQUEST_TIMEOUT_MS = 15_000;
 const log = createServiceLogger("project-access-token");
 /** 本地与旧远程附加入口复用同一 HTTP/ID 存储约束，每个鉴权 owner 只持有一个实例。 */

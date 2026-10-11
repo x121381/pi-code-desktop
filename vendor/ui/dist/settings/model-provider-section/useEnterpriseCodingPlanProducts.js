@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getModelProviderFamilySpec, } from "@zcode/shared";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { isRemoteWorkspaceDisconnectedError } from "@/lib/remoteWorkspaceServiceError.js";
-import { logger } from "@/logger.js";
-import { resolveEnterpriseCodingPlanProductList, } from "@/settings/model-provider-section/enterpriseCodingPlanProducts.js";
-import { normalizeErrorMessage } from "@/settings/model-provider-section/useCodingPlanProducts.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
+import { isRemoteWorkspaceDisconnectedError } from "../../lib/remoteWorkspaceServiceError.js";
+import { logger } from "../../logger.js";
+import { resolveEnterpriseCodingPlanProductList, } from "../../settings/model-provider-section/enterpriseCodingPlanProducts.js";
+import { normalizeErrorMessage } from "../../settings/model-provider-section/useCodingPlanProducts.js";
 export function shouldRetainEnterprisePricingSnapshotForRefresh(snapshot, authenticated) {
     return snapshot?.authenticated === authenticated;
 }

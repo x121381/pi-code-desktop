@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { cn } from "@/components/lib/utils.js";
-import { resolveConversationShareSelectionScrimMotion } from "@/v4/conversationShareModeMotion.js";
+import { cn } from "../components/lib/utils.js";
+import { resolveConversationShareSelectionScrimMotion } from "../v4/conversationShareModeMotion.js";
 export function ConversationShareSelectionScrim({ visible, interactive = false, onBackdropClick, }) {
     const prefersReducedMotion = useReducedMotion() === true;
     const motionConfig = resolveConversationShareSelectionScrimMotion(prefersReducedMotion);

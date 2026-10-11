@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function RemoteSkillSyncResultList({ result }) {
     const { intl } = useZCodeIntl();
     if (!result) {

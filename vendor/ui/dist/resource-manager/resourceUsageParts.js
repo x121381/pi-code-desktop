@@ -4,7 +4,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  * 只做格式化与布局，不持有任何指标状态。
  */
 import { ChevronRight } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 import { formatBytes, formatPercent } from "./resourceUsageView.js";
 export const UNSAMPLED_PLACEHOLDER = "—";
 /** 双层进度条：灰色 = 整机总占用，brand = ZCode 自身占用；图例文字做颜色之外的第二编码 */

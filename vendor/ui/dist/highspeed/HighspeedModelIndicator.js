@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { motion, useReducedMotion } from "motion/react";
-import lightningIconUrl from "@/assets/highspeed/lightning.svg";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import lightningIconUrl from "../assets/highspeed/lightning.svg";
+import { cn } from "../components/lib/utils.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const HIGHSPEED_MODEL_TRANSITION = {
     duration: 0.4,
     ease: [0.55, 0, 0.45, 1],

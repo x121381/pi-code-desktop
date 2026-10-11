@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { ExecuteCommand } from "@/ToolCallBlocks/renderers/ExecuteCommand.js";
+import { ExecuteCommand } from "../../ToolCallBlocks/renderers/ExecuteCommand.js";
 import { bashOutputDisplaySchema, executionOutputPreviewSchema, } from "@zcode/shared/zcode-protocol-v4";
-import { ExecuteOutput } from "@/ToolCallBlocks/renderers/ExecuteOutput.js";
+import { ExecuteOutput } from "../../ToolCallBlocks/renderers/ExecuteOutput.js";
 import { SquareTerminalIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
 import { ToolLayout } from "../ToolLayout.js";
 const EXECUTE_TOOL_ICON = _jsx(SquareTerminalIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 function isPlainRecord(value) {

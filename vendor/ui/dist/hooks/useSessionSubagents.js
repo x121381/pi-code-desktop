@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
 const PAGE_SIZE = 20;
 const MAX_PAGE_SIZE = 100;
 function emptyState() {

@@ -7,7 +7,7 @@
 // 与「配置」弹层是同一份草稿、同一条「改了什么」的判断（workflowRunSettings.ts），差别只在起点与出口：
 // 起点读的是**这次调用的入参**（CLI resolveInput 归一化过的值），出口是 Allow 应答的 `content`，用工具
 // 自己的字段名与三态——agent 侧据此只有一套解析（contracts 的 WorkflowSettingsAdjustmentSchema）。
-import { readWorkflowMaxConcurrency, readWorkflowSubagentModel, } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { readWorkflowMaxConcurrency, readWorkflowSubagentModel, } from "../../ToolCallBlocks/renderers/createWorkflowInput.js";
 import { workflowRunSettingsChange, workflowRunSettingsModelOf, } from "./workflowRunSettings.js";
 /**
  * 起点：入参里的值。模型缺席即会话模型；上界缺席即默认并发（「没有自己的界」在步进器上就是那个数），

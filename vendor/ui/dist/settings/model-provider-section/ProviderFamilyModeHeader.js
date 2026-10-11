@@ -1,10 +1,10 @@
 import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 import { TID_MODEL_PROVIDER_CONNECTION_MODE_ITEM, TID_MODEL_PROVIDER_CONNECTION_MODE_TRIGGER, resolveModelProviderFamilySpecByProviderId, isStartPlanModelProviderId, testId, } from "@zcode/shared";
 import { InfoIcon } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { connectionSelectionMatchesNavigationItem } from "@/settings/model-provider-section/useModelProviderNavigation.js";
-import { resolveModelProviderNavLogo } from "@/settings/model-provider-section/utils.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../components/ui/select.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { connectionSelectionMatchesNavigationItem } from "../../settings/model-provider-section/useModelProviderNavigation.js";
+import { resolveModelProviderNavLogo } from "../../settings/model-provider-section/utils.js";
 import { ProviderLogo } from "./ProviderLogo.js";
 export function ProviderFamilyDetailShell({ header, children, }) {
     if (!header) {

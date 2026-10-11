@@ -1,7 +1,7 @@
 import { useShallow } from "zustand/react/shallow";
-import { getWorkspaceDisplayedTaskState, selectWorkspaceZCodeState, useZCodeSessionStore, } from "@/store/zcodeSessionStore.js";
-import { resolveWorkspaceModelConfigSyncScope } from "@/lib/modelConfigSync.js";
-import { hasBusyTaskInWorkspaceProvider } from "@/lib/workspaceBusyTaskLock.js";
+import { getWorkspaceDisplayedTaskState, selectWorkspaceZCodeState, useZCodeSessionStore, } from "../store/zcodeSessionStore.js";
+import { resolveWorkspaceModelConfigSyncScope } from "../lib/modelConfigSync.js";
+import { hasBusyTaskInWorkspaceProvider } from "../lib/workspaceBusyTaskLock.js";
 export function useWorkspaceShellZCodeState(workspaceAbsPath, workspaceIdentity) {
     // App 之前直接订阅整个 workspaceZCodeState，streaming 每个 chunk 都会改 taskMessagesByTaskId。
     // 这会把侧边栏、Header、Git 派生逻辑一起拖进同步重渲染，性能 trace 里那串 long task 就是这样被放大的。

@@ -1,4 +1,4 @@
-import { requestSecurityMessagesEnUS } from "@/request-security-edition/messages.js";
+import { requestSecurityMessagesEnUS } from "../../request-security-edition/messages.js";
 /** English translations */
 const enUS = {
     "startPlan.recommendation.subagentDescription": "Your Start Plan has quota available for {model}. Switch this subagent’s model to the Start Plan?",

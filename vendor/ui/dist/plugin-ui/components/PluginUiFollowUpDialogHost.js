@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "../../components/ui/dialog.js";
+import { Textarea } from "../../components/ui/textarea.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { formatPluginDisplayName } from "../domain/pluginDisplayName.js";
 import { getCurrentPluginUiFollowUpRequest, resolvePluginUiFollowUpRequest, subscribePluginUiFollowUpRequests, } from "../app/pluginUiFollowUpDialogStore.js";
 export const TID_PLUGIN_UI_FOLLOW_UP_DIALOG = "plugin-ui-follow-up-dialog";

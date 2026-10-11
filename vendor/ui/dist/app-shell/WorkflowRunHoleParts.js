@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { PenIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { workflowRunQuestionWaitedLabel } from "@/app-shell/workflowRunQuestions.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { workflowRunQuestionWaitedLabel } from "../app-shell/workflowRunQuestions.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /**
  * 侧板脊线上的留白零件（docs/dynamic-workflow/presentation.md「Holes on the timeline」的「The pane」）。
  * 从 WorkflowRunPhaseList.tsx 拆出（max-lines 门）。

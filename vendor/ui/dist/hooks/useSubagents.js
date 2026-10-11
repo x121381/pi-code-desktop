@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useServices } from "./useServices.js";
-import { useResolvedRemoteWorkspaceSessionId } from "@/hooks/useResolvedRemoteWorkspaceSessionId.js";
-import { shouldEnableWorkspaceRpc } from "@/lib/workspaceRpcAvailability.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { getSubagentsContextKey, useSubagentsContextStore } from "@/store/subagentsContextStore.js";
-import { useSubagentsStore } from "@/store/subagentsStore.js";
+import { useResolvedRemoteWorkspaceSessionId } from "../hooks/useResolvedRemoteWorkspaceSessionId.js";
+import { shouldEnableWorkspaceRpc } from "../lib/workspaceRpcAvailability.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { getSubagentsContextKey, useSubagentsContextStore } from "../store/subagentsContextStore.js";
+import { useSubagentsStore } from "../store/subagentsStore.js";
 export function useSubagents(workspacePath, provider, explicitWorkspaceIdentity) {
     const { subagentsService } = useServices();
     const explicitIdentity = explicitWorkspaceIdentity?.trim() || undefined;

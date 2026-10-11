@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 // Composer 发送漏斗埋点的 ARMS 出口。
 // 本组事件只走 ARMS，不进 /event/report；reporter 由 Root.tsx 按 isDesktop 安装，
 // Web / 手机远控拿不到 reporter，整组静默。

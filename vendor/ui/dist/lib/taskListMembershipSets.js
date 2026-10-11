@@ -1,4 +1,4 @@
-import { buildTaskEntityKey } from "@/lib/taskQueryCache.js";
+import { buildTaskEntityKey } from "../lib/taskQueryCache.js";
 let activeTaskListMembershipRefreshHold = null;
 let taskListMembershipRefreshHoldState = {
     armed: false,

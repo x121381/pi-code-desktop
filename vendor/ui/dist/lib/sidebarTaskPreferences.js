@@ -1,4 +1,4 @@
-import { getSafeLocalStorage } from "@/lib/browserEnvironment.js";
+import { getSafeLocalStorage } from "../lib/browserEnvironment.js";
 export const SIDEBAR_TASK_PREFERENCES_STORAGE_KEY = "zcode-sidebar-task-preferences";
 const DEFAULT_SIDEBAR_TASK_PREFERENCES = {
     organizeBy: "project",

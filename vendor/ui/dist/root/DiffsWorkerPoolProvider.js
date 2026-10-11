@@ -1,12 +1,12 @@
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo } from "react";
 import { WorkerPoolContextProvider, useWorkerPool, } from "@pierre/diffs/react";
-import { createDiffsWorkerHighlighterOptions } from "@/lib/diffsHighlighterEngine.js";
-import { logger } from "@/logger.js";
-import { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/store/index.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
+import { createDiffsWorkerHighlighterOptions } from "../lib/diffsHighlighterEngine.js";
+import { logger } from "../logger.js";
+import { DEFAULT_CODE_PREVIEW_SETTINGS } from "../store/index.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
 function createDiffsWorker() {
-    return new Worker(new URL("../workers/diffs.worker.ts", import.meta.url), {
+    return new Worker(new URL("../workers/diffs.worker.js", import.meta.url), {
         type: "module",
         name: "zcode-diffs-worker",
     });

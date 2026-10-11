@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useLayoutEffect, useRef, } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 const AUTOMATION_INSTRUCTIONS_MIN_HEIGHT_PX = 116;
 const AUTOMATION_INSTRUCTIONS_MAX_HEIGHT_PX = 156;
 /**

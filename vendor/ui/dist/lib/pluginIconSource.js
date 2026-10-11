@@ -1,10 +1,10 @@
-import documentsIconUrl from "@/assets/plugin-icons/documents.png";
-import imageSearchIconUrl from "@/assets/plugin-icons/image-search.png";
-import pdfIconUrl from "@/assets/plugin-icons/pdf.png";
-import pluginCreatorIconUrl from "@/assets/plugin-icons/plugin-creator.png";
-import presentationsIconUrl from "@/assets/plugin-icons/presentations.png";
-import spreadsheetsIconUrl from "@/assets/plugin-icons/spreadsheets.png";
-import { isTrustedImageUrl } from "@/lib/trustedImageUrl.js";
+import documentsIconUrl from "../assets/plugin-icons/documents.png";
+import imageSearchIconUrl from "../assets/plugin-icons/image-search.png";
+import pdfIconUrl from "../assets/plugin-icons/pdf.png";
+import pluginCreatorIconUrl from "../assets/plugin-icons/plugin-creator.png";
+import presentationsIconUrl from "../assets/plugin-icons/presentations.png";
+import spreadsheetsIconUrl from "../assets/plugin-icons/spreadsheets.png";
+import { isTrustedImageUrl } from "../lib/trustedImageUrl.js";
 const OFFICIAL_PLUGIN_ICON_BY_ID = {
     "documents@zcode-plugins-official": documentsIconUrl,
     "image-search@zcode-plugins-official": imageSearchIconUrl,

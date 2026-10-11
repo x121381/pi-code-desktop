@@ -1,9 +1,9 @@
 /* eslint-disable max-lines -- Coding Plan 套餐需要集中处理静态套餐、远端试算、缓存与登录态回退，避免把共享状态拆散。 */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { BUILTIN_MODEL_PROVIDER_IDS, CODING_PLAN_SYSTEM_BUSY, isZaiCodingPlanProviderId, } from "@zcode/shared";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { normalizeCodingPlanCardCopyItems, } from "@/settings/model-provider-section/codingPlanProductPresentation.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
+import { logger } from "../../logger.js";
+import { normalizeCodingPlanCardCopyItems, } from "../../settings/model-provider-section/codingPlanProductPresentation.js";
 const CODING_PLAN_OAUTH_REQUIRED_ERROR = "coding_plan_oauth_required";
 export const ZAI_START_FREE_PRODUCT_ID = "zai-start-free";
 const ZAI_START_FREE_PRODUCT_IDS = {

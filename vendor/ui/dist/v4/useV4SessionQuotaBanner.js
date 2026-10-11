@@ -1,14 +1,14 @@
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { buildStartPlanEntitlementOptions } from "@/lib/startPlanEntitlementOptions.js";
+import { useProviderSettingsView } from "../hooks/useProviderSettingsView.js";
+import { buildStartPlanEntitlementOptions } from "../lib/startPlanEntitlementOptions.js";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import { BUILTIN_MODEL_PROVIDER_IDS, isStartPlanModelProviderId } from "@zcode/shared";
-import { useUsageEntitlementWithService } from "@/hooks/useUsageEntitlement.js";
-import { resolveGlmQuotaBannerBusinessCode, resolveStartPlanConcurrentLimitBannerReason, resolveStartPlanConcurrentLimitBusinessCode, resolveStartPlanQuotaExhaustedBusinessCode, } from "@/lib/providerBusinessError.js";
-import { isMaxCodingPlanSnapshot, isTerminalCodingPlanSnapshot, } from "@/lib/sidebarCodingPlanUpgrade.js";
-import { buildSessionQuotaBannerDismissKey, buildSessionQuotaBannerState, resolveQuotaBannerUpgradeProviderId, shouldOfferQuotaBannerUpgrade, } from "@/v4/sessionQuotaBannerState.js";
-import { logger } from "@/logger.js";
-import { sessionQuotaBannerDismissalStore } from "@/v4/sessionQuotaBannerDismissalStore.js";
-import { startPlanQuotaReminderStore } from "@/v4/startPlanQuotaReminderStore.js";
+import { useUsageEntitlementWithService } from "../hooks/useUsageEntitlement.js";
+import { resolveGlmQuotaBannerBusinessCode, resolveStartPlanConcurrentLimitBannerReason, resolveStartPlanConcurrentLimitBusinessCode, resolveStartPlanQuotaExhaustedBusinessCode, } from "../lib/providerBusinessError.js";
+import { isMaxCodingPlanSnapshot, isTerminalCodingPlanSnapshot, } from "../lib/sidebarCodingPlanUpgrade.js";
+import { buildSessionQuotaBannerDismissKey, buildSessionQuotaBannerState, resolveQuotaBannerUpgradeProviderId, shouldOfferQuotaBannerUpgrade, } from "../v4/sessionQuotaBannerState.js";
+import { logger } from "../logger.js";
+import { sessionQuotaBannerDismissalStore } from "../v4/sessionQuotaBannerDismissalStore.js";
+import { startPlanQuotaReminderStore } from "../v4/startPlanQuotaReminderStore.js";
 function isGlmQuotaBannerProviderId(providerId) {
     return (providerId === BUILTIN_MODEL_PROVIDER_IDS.zaiIndividualCodingPlan ||
         providerId === BUILTIN_MODEL_PROVIDER_IDS.zaiStartPlan ||

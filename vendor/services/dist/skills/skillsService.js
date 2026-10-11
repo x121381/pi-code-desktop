@@ -7,7 +7,7 @@ import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "nod
 import { parse as parseYaml } from "yaml";
 import { DEFAULT_ENABLED_OFFICIAL_PLUGIN_IDS } from "@zcode/shared";
 import { SKILL_FILE_NAME, walkSkillMarkdownPaths } from "./skillDiscoveryWalk.js";
-import { readInstalledPluginRoots } from "#src/plugins/installedPluginRoots.js";
+import { readInstalledPluginRoots } from "../plugins/installedPluginRoots.js";
 const SKILL_META_FILE_NAME = "_meta.json";
 const SKILL_SETTINGS_DIR = join(resolveUserHomeDir(), ".zcode", "v2");
 const SKILL_CLI_SETTINGS_DIR = join(resolveUserHomeDir(), ".zcode", "cli");

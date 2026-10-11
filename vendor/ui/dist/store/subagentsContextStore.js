@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { normalizeAgentProviderToZCodeAgent, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 const inFlightLoads = new Map();
 const latestRequestIds = new Map();
 let nextRequestId = 0;

@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { filterMentionItemsWithOptions } from "@/mentions/mentionSearch.js";
-import { buildSkillMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { useSkills } from "@/hooks/useSkills.js";
-import { filterSkillsForProvider } from "@/lib/skillSourceFilter.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveSkillDisplayDescription, resolveSkillSourceLabel } from "@/lib/builtinSkillI18n.js";
+import { filterMentionItemsWithOptions } from "../../mentions/mentionSearch.js";
+import { buildSkillMentionMarkdown } from "../../mentions/mentionMarkdown.js";
+import { useSkills } from "../../hooks/useSkills.js";
+import { filterSkillsForProvider } from "../../lib/skillSourceFilter.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { resolveSkillDisplayDescription, resolveSkillSourceLabel } from "../../lib/builtinSkillI18n.js";
 export function mapSkillsToMentionItemsForTest(skills, locale) {
     const uniqueSkillsByName = new Map();
     const scopePriority = {

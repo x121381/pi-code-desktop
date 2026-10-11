@@ -1,24 +1,24 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { PackageIcon } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
-import alibabaModelStudioLogo from "@/assets/provider-icons/model-provider-alibaba-cloud.png";
-import anthropicLogo from "@/assets/provider-icons/model-provider-anthropic.png";
-import bigModelLogo from "@/assets/provider-icons/logo-bigmodel.svg";
-import deepSeekLogo from "@/assets/provider-icons/model-provider-deepseek.png";
-import miniMaxLogo from "@/assets/provider-icons/model-provider-minimax.png";
-import moonshotKimiLogo from "@/assets/provider-icons/model-provider-moonshot-kimi.png";
-import openAiLogo from "@/assets/provider-icons/model-provider-openai.png";
-import xAiLogo from "@/assets/provider-icons/model-provider-xai.png";
-import xiaomiMimoLogo from "@/assets/provider-icons/model-provider-xiaomi-mimo.png";
-import startPlanLogo from "@/assets/provider-icons/model-provider-start-plan.png";
-import zaiLogo from "@/assets/provider-icons/model-provider-zai-app.png";
-import openrouterLight from "@/assets/provider-icons/model-provider-openrouter-light.svg";
-import openrouterDark from "@/assets/provider-icons/model-provider-openrouter-dark.svg";
-import opencodeLight from "@/assets/provider-icons/model-provider-opencode-light.svg";
-import opencodeDark from "@/assets/provider-icons/model-provider-opencode-dark.svg";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeStoreWithDefault } from "../../store/StoreProvider.js";
+import { resolveTheme } from "../../useTheme.js";
+import alibabaModelStudioLogo from "../../assets/provider-icons/model-provider-alibaba-cloud.png";
+import anthropicLogo from "../../assets/provider-icons/model-provider-anthropic.png";
+import bigModelLogo from "../../assets/provider-icons/logo-bigmodel.svg";
+import deepSeekLogo from "../../assets/provider-icons/model-provider-deepseek.png";
+import miniMaxLogo from "../../assets/provider-icons/model-provider-minimax.png";
+import moonshotKimiLogo from "../../assets/provider-icons/model-provider-moonshot-kimi.png";
+import openAiLogo from "../../assets/provider-icons/model-provider-openai.png";
+import xAiLogo from "../../assets/provider-icons/model-provider-xai.png";
+import xiaomiMimoLogo from "../../assets/provider-icons/model-provider-xiaomi-mimo.png";
+import startPlanLogo from "../../assets/provider-icons/model-provider-start-plan.png";
+import zaiLogo from "../../assets/provider-icons/model-provider-zai-app.png";
+import openrouterLight from "../../assets/provider-icons/model-provider-openrouter-light.svg";
+import openrouterDark from "../../assets/provider-icons/model-provider-openrouter-dark.svg";
+import opencodeLight from "../../assets/provider-icons/model-provider-opencode-light.svg";
+import opencodeDark from "../../assets/provider-icons/model-provider-opencode-dark.svg";
 // 这里只负责把 Config 中的资源 key 解析为打包素材；禁止加入 Provider ID、名称或排序逻辑。
 const BUILTIN_PROVIDER_LOGO_ASSETS = {
     // 用户指定 Dock 应用图标；同名旧 SVG 带灰色描边，不能当作同一素材复用。

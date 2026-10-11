@@ -1,4 +1,4 @@
-import { extractAssistantDirectives, findAssistantDirectivePrefixStart, findMarkdownCodeRanges, findUnclosedAssistantDirectiveStart, } from "@/lib/assistantDirectiveParser.js";
+import { extractAssistantDirectives, findAssistantDirectivePrefixStart, findMarkdownCodeRanges, findUnclosedAssistantDirectiveStart, } from "../lib/assistantDirectiveParser.js";
 const ARTIFACT_KIND_TO_PREVIEW_KIND = {
     audio: "audio",
     document: "docx",

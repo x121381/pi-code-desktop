@@ -1,12 +1,12 @@
 /* oxlint-disable eslint(max-lines) -- 旧 message/ARMS builders 共用同一 prompt 生命周期与时钟；拆散 fact 状态机会增加跨模块同步漂移。 */
-import { legacyTelemetryModelValue, legacyTelemetryProviderId, } from "@/lib/providerTelemetryIdentity.js";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { reportChatErrorBannerTelemetry, resolveVisibleChatErrorTelemetryRecoveryAction, } from "@/lib/chatErrorBannerTelemetry.js";
-import { activatePromptTelemetry, activateDetachedAgentStepTelemetry, composeAgentComposition, buildCompactionTelemetryExtraDetail, discardPromptTelemetry, discardQueuedPromptTelemetry, finalizePromptTelemetry, getActivePromptModelName, getActivePromptMessageId, queuePromptTelemetry, recordAgentStepTelemetryEvent, recordComposerFocus, recordComposerTextChange, recordSubagentToolAttribution, recordPromptModelRequestStarted, recordPromptPermissionRequest, recordPromptPermissionResponse, recordPromptTokenUsageDelta, } from "@/lib/messageTelemetry.js";
-import { reportPlanUsageModelRequestStartedToArms, reportPlanUsageTtftToArms, } from "@/lib/planUsageArmsTelemetry.js";
-import { reportSendFunnelInputFocus, reportSendFunnelSendClick, reportSendFunnelSendResult, } from "@/lib/sendFunnelArmsTelemetry.js";
-import { clearStreamStallTracking, recordStreamChunkArrival, reportUiFirstToken, reportUiMessageComplete, reportUiToolCallDetail, reportUiTurnBreakdown, } from "@/lib/uiPerfArmsTelemetry.js";
-import { resolveLegacyRuntimeModelValue } from "@/v4/telemetry/conversationPromptTelemetry.js";
+import { legacyTelemetryModelValue, legacyTelemetryProviderId, } from "../../lib/providerTelemetryIdentity.js";
+import { reportAppTelemetryEvent } from "../../lib/appTelemetry.js";
+import { reportChatErrorBannerTelemetry, resolveVisibleChatErrorTelemetryRecoveryAction, } from "../../lib/chatErrorBannerTelemetry.js";
+import { activatePromptTelemetry, activateDetachedAgentStepTelemetry, composeAgentComposition, buildCompactionTelemetryExtraDetail, discardPromptTelemetry, discardQueuedPromptTelemetry, finalizePromptTelemetry, getActivePromptModelName, getActivePromptMessageId, queuePromptTelemetry, recordAgentStepTelemetryEvent, recordComposerFocus, recordComposerTextChange, recordSubagentToolAttribution, recordPromptModelRequestStarted, recordPromptPermissionRequest, recordPromptPermissionResponse, recordPromptTokenUsageDelta, } from "../../lib/messageTelemetry.js";
+import { reportPlanUsageModelRequestStartedToArms, reportPlanUsageTtftToArms, } from "../../lib/planUsageArmsTelemetry.js";
+import { reportSendFunnelInputFocus, reportSendFunnelSendClick, reportSendFunnelSendResult, } from "../../lib/sendFunnelArmsTelemetry.js";
+import { clearStreamStallTracking, recordStreamChunkArrival, reportUiFirstToken, reportUiMessageComplete, reportUiToolCallDetail, reportUiTurnBreakdown, } from "../../lib/uiPerfArmsTelemetry.js";
+import { resolveLegacyRuntimeModelValue } from "../../v4/telemetry/conversationPromptTelemetry.js";
 const MAX_DEDUPE_KEYS = 2_000;
 const MAX_BUFFERED_FACTS_PER_COMMAND = 128;
 const MAX_BUFFERED_COMMANDS = 200;

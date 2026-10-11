@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowDownIcon, ArrowUpIcon, SearchIcon, XIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button.js";
+import { Button } from "./components/ui/button.js";
 export function ModelTrajectorySearchBar({ query, activeIndex, matchCount, onQueryChange, onMove, onClose, intl, }) {
     const inputRef = useRef(null);
     useEffect(() => {

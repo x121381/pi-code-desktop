@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
-import { Badge } from "@/components/ui/badge.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { Badge } from "../components/ui/badge.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 组件分组徽标配色：复用主题里已有的 Tailwind 调色板做轻量底色，深浅主题均正确。 */
 const COMPONENT_BADGE_STYLES = {
     agent: "bg-violet-500/15 text-violet-500 dark:text-violet-300",

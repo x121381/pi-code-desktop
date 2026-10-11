@@ -5,13 +5,13 @@
  * 这样切换标签页时，当前任务、输入中的草稿态和初始化状态才不会互相串台。
  */
 import { create } from "zustand";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
 import {} from "./zcodeSessionStoreTypes.js";
 import { getWorkspaceState } from "./zcodeSessionStoreSelectors.js";
 import { createNavigationSlice } from "./zcodeSessionStoreNavigation.js";
 import { createTaskSlice } from "./zcodeSessionStoreTaskSlice.js";
 import { createWorkspaceSlice } from "./zcodeSessionStoreWorkspaceSlice.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 export const useZCodeSessionStore = create()((set, get) => ({
     workspaces: {},
     ...createNavigationSlice(set, get),

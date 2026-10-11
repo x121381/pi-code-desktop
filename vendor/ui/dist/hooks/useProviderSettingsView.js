@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef, useState, useSyncExternalStore } from "react";
-import { logger } from "@/logger.js";
-import { getProviderSettingsSnapshot, reloadProviderSettingsSnapshot, subscribeProviderSettingsSnapshot, } from "@/lib/providerSettingsSnapshot.js";
+import { logger } from "../logger.js";
+import { getProviderSettingsSnapshot, reloadProviderSettingsSnapshot, subscribeProviderSettingsSnapshot, } from "../lib/providerSettingsSnapshot.js";
 export function useProviderSettingsView() {
     const state = useSyncExternalStore(subscribeProviderSettingsSnapshot, getProviderSettingsSnapshot, getProviderSettingsSnapshot);
     return {

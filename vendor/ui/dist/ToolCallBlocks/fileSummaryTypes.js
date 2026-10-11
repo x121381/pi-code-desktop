@@ -1,4 +1,4 @@
-import { countPatchFileDiffs } from "@/lib/patchDiffPreview.js";
+import { countPatchFileDiffs } from "../lib/patchDiffPreview.js";
 export function isPlainRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }

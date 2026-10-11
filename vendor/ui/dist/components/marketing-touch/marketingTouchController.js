@@ -1,5 +1,5 @@
 import { createStore } from "zustand/vanilla";
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 export function isMarketingBannerRenderable(banner) {
     return Boolean(banner && banner.delivery.resource_position === "banner" && (banner.image || banner.bannerHero));
 }

@@ -1,13 +1,13 @@
 /* eslint-disable max-lines -- 旧版临时驱动必须逐项翻译统一场景，并通过旧 production builder/reporter 发到最终出口。 */
 import {} from "@zcode/shared";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { reportChatErrorBannerTelemetry } from "@/lib/chatErrorBannerTelemetry.js";
-import { getConversationTelemetryParityScenario, } from "@/lib/conversationTelemetryParityScenarioDefinitions.js";
-import { runRequestVerificationParityAssertions, runQuotaParityStateAssertions, } from "@/lib/conversationTelemetryParityStateE2E.js";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
-import { activatePromptTelemetry, buildCompactionTelemetryExtraDetail, finalizePromptTelemetry, getActivePromptMessageId, getActivePromptModelName, queuePromptTelemetry, recordAgentStepTelemetryEvent, recordComposerFocus, recordComposerTextChange, recordPromptModelRequestStarted, recordPromptPermissionRequest, recordPromptPermissionResponse, recordPromptTokenUsageDelta, resetMessageTelemetryForTest, } from "@/lib/messageTelemetry.js";
-import { reportPlanUsageModelRequestStartedToArms, reportPlanUsageTtftToArms, } from "@/lib/planUsageArmsTelemetry.js";
-import { clearStreamStallTracking, recordStreamChunkArrival, reportUiFirstToken, reportUiMessageComplete, reportUiToolCallDetail, reportUiTurnBreakdown, setUiPerfArmsReporter, } from "@/lib/uiPerfArmsTelemetry.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
+import { reportChatErrorBannerTelemetry } from "../lib/chatErrorBannerTelemetry.js";
+import { getConversationTelemetryParityScenario, } from "../lib/conversationTelemetryParityScenarioDefinitions.js";
+import { runRequestVerificationParityAssertions, runQuotaParityStateAssertions, } from "../lib/conversationTelemetryParityStateE2E.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
+import { activatePromptTelemetry, buildCompactionTelemetryExtraDetail, finalizePromptTelemetry, getActivePromptMessageId, getActivePromptModelName, queuePromptTelemetry, recordAgentStepTelemetryEvent, recordComposerFocus, recordComposerTextChange, recordPromptModelRequestStarted, recordPromptPermissionRequest, recordPromptPermissionResponse, recordPromptTokenUsageDelta, resetMessageTelemetryForTest, } from "../lib/messageTelemetry.js";
+import { reportPlanUsageModelRequestStartedToArms, reportPlanUsageTtftToArms, } from "../lib/planUsageArmsTelemetry.js";
+import { clearStreamStallTracking, recordStreamChunkArrival, reportUiFirstToken, reportUiMessageComplete, reportUiToolCallDetail, reportUiTurnBreakdown, setUiPerfArmsReporter, } from "../lib/uiPerfArmsTelemetry.js";
 export function installLegacyConversationTelemetryParityE2EBridge(input) {
     if (!input.isDesktop || !shouldExposeE2EStoreBridge())
         return () => undefined;

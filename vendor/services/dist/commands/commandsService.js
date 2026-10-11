@@ -6,7 +6,7 @@ import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "nod
 import { ZCODE_COMMAND_AGENT_SOURCE, ZCODE_COMMAND_AGENT_SOURCES, } from "@zcode/shared";
 import { DEFAULT_ENABLED_OFFICIAL_PLUGIN_IDS } from "@zcode/shared";
 import { CommandFileParser } from "./commandFileParser.js";
-import { readInstalledPluginRoots } from "#src/plugins/installedPluginRoots.js";
+import { readInstalledPluginRoots } from "../plugins/installedPluginRoots.js";
 function resolveUserHomeDir() {
     const envHome = process.env.HOME?.trim() || process.env.USERPROFILE?.trim();
     return envHome && envHome.length > 0 ? envHome : homedir();

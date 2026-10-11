@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { logger } from "@/logger.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { logger } from "../logger.js";
 // 首读的临时 IO 失败未必产生 Provider 变化事件；只重读两次，不轮询业务状态或重试写操作。
 const INITIAL_READ_RETRY_DELAYS = [500, 1500];
 function isTransientReadError(cause) {

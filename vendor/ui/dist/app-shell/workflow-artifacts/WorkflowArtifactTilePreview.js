@@ -1,14 +1,14 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { artifactFileBadge, buildPresetLabels, isArtifactPresetKind, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { ArtifactPresetBody } from "@/app-shell/workflow-artifacts/ArtifactPresetBody.js";
-import { artifactPresetFieldPaths } from "@/app-shell/workflow-artifacts/presets/spec.js";
-import { cn } from "@/components/lib/utils.js";
-import { ArtifactSheetGlyph, } from "@/components/workflow-timeline/WorkflowArtifactTile.js";
-import { useWorkflowRunArtifactBytes } from "@/hooks/useWorkflowRunArtifactBytes.js";
-import { useWorkflowRunArtifactData } from "@/hooks/useWorkflowRunArtifactData.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { artifactFileBadge, buildPresetLabels, isArtifactPresetKind, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { ArtifactPresetBody } from "../../app-shell/workflow-artifacts/ArtifactPresetBody.js";
+import { artifactPresetFieldPaths } from "../../app-shell/workflow-artifacts/presets/spec.js";
+import { cn } from "../../components/lib/utils.js";
+import { ArtifactSheetGlyph, } from "../../components/workflow-timeline/WorkflowArtifactTile.js";
+import { useWorkflowRunArtifactBytes } from "../../hooks/useWorkflowRunArtifactBytes.js";
+import { useWorkflowRunArtifactData } from "../../hooks/useWorkflowRunArtifactData.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 产物瓦片的预览区（侧板画廊同用）：产物**本身**的缩略。
  *

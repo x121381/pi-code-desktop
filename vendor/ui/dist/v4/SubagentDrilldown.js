@@ -7,10 +7,10 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // - 只读：不下发 onFork/onRetry/onEdit，行内动作面不出现。
 import { memo, useEffect, useMemo, useState } from "react";
 import { TID_V4_SUBAGENT_DRILLDOWN, testId, } from "@zcode/shared";
-import { ConversationRowView } from "@/v4/ConversationRowView.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { ConversationRowView } from "../v4/ConversationRowView.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 /** 输出预览只展示最近 N 条文本输出（更早历史请在右侧 tab 里看全量）。 */
 export const SUBAGENT_DRILLDOWN_MAX_ROWS = 20;
 function isSubagentOutputRow(row) {

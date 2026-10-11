@@ -1,4 +1,4 @@
-import { ASSISTANT_PREVIEW_CARD_CANDIDATE_LIMIT, ASSISTANT_PREVIEW_CARD_VISIBLE_LIMIT, getAssistantPreviewCardFilePath, isValidAssistantPreviewWebsiteUrl, requiresAssistantPreviewCardFileStat, } from "@/lib/assistantPreviewCards.js";
+import { ASSISTANT_PREVIEW_CARD_CANDIDATE_LIMIT, ASSISTANT_PREVIEW_CARD_VISIBLE_LIMIT, getAssistantPreviewCardFilePath, isValidAssistantPreviewWebsiteUrl, requiresAssistantPreviewCardFileStat, } from "../lib/assistantPreviewCards.js";
 export function getAssistantPreviewCardsValidationSignature(cards) {
     return cards
         .map((card) => {

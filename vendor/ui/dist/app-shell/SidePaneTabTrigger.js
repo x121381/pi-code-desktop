@@ -4,14 +4,14 @@ import { useRef } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { BotIcon, BotMessageSquareIcon, BugIcon, FileCode2Icon, FileDiffIcon, MapIcon, MessageSquareTextIcon, ListTreeIcon, PlugIcon, NotepadTextIcon, PackageIcon, PaletteIcon, ShieldCheckIcon, SquareTerminalIcon, TerminalIcon, WaypointsIcon, Workflow as WorkflowIcon, XIcon, } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger, } from "@/components/ui/context-menu.js";
-import { TabsTrigger } from "@/components/ui/tabs.js";
-import { FileDisplayIcon, resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { Button } from "@/components/ui/button.js";
-import { BrowserUseTabIcon } from "@/app-shell/BrowserUseTabIcon.js";
-import { BrowserTabFavicon } from "@/app-shell/BrowserTabFavicon.js";
-import { SidePaneTabTitleTooltip } from "@/app-shell/SidePaneTabTitleTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger, } from "../components/ui/context-menu.js";
+import { TabsTrigger } from "../components/ui/tabs.js";
+import { FileDisplayIcon, resolveFileDisplayDescriptor } from "../lib/fileDisplay.js";
+import { Button } from "../components/ui/button.js";
+import { BrowserUseTabIcon } from "../app-shell/BrowserUseTabIcon.js";
+import { BrowserTabFavicon } from "../app-shell/BrowserTabFavicon.js";
+import { SidePaneTabTitleTooltip } from "../app-shell/SidePaneTabTitleTooltip.js";
 // tab 默认按 156px 等宽排列；空间不足时以相同 grow/shrink 参数平均收缩到 60px，
 // 之后由外层滚动容器承接溢出，避免标题长度改变每个 tab 的宽度。
 // 标题没有独立上限时，长网页标题会持续撑宽 tab；主 tab 与拖拽浮层都只钳制标题本体，避免挤占图标、徽标和关闭按钮。

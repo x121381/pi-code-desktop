@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRightIcon, ChevronDownIcon, CircleXIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { laneDisplayName } from "@/components/workflow-graph/lane-name.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { laneDisplayName } from "../../components/workflow-graph/lane-name.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { LaneGlyph } from "./WorkflowAgentPill.js";
 import { RosterTally } from "./WorkflowRosterParts.js";
 /**

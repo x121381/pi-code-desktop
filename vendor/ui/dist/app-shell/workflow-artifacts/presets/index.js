@@ -9,11 +9,11 @@
  * **这个 barrel 的静态依赖里没有 recharts**：`ArtifactChart` 是一层 `lazy()` 封装
  * （见 `ArtifactChart.tsx`），所以 import 本模块不会把图表库拖进首屏。
  */
-export {} from "@/app-shell/workflow-artifacts/presets/apply.js";
-export { parseArtifactPresetSpec, } from "@/app-shell/workflow-artifacts/presets/spec.js";
-export {} from "@/app-shell/workflow-artifacts/presets/parts.js";
-export { ArtifactChart } from "@/app-shell/workflow-artifacts/presets/ArtifactChart.js";
-export { ArtifactTable } from "@/app-shell/workflow-artifacts/presets/ArtifactTable.js";
-export { ArtifactMetrics } from "@/app-shell/workflow-artifacts/presets/ArtifactMetrics.js";
-export { ArtifactBoard } from "@/app-shell/workflow-artifacts/presets/ArtifactBoard.js";
+export {} from "../../../app-shell/workflow-artifacts/presets/apply.js";
+export { parseArtifactPresetSpec, } from "../../../app-shell/workflow-artifacts/presets/spec.js";
+export {} from "../../../app-shell/workflow-artifacts/presets/parts.js";
+export { ArtifactChart } from "../../../app-shell/workflow-artifacts/presets/ArtifactChart.js";
+export { ArtifactTable } from "../../../app-shell/workflow-artifacts/presets/ArtifactTable.js";
+export { ArtifactMetrics } from "../../../app-shell/workflow-artifacts/presets/ArtifactMetrics.js";
+export { ArtifactBoard } from "../../../app-shell/workflow-artifacts/presets/ArtifactBoard.js";
 //# sourceMappingURL=index.js.map

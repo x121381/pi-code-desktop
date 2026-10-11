@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { FileTextIcon, GlobeIcon } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getAssistantPreviewCardFilePath, shouldOpenAssistantHtmlInBrowser, } from "@/lib/assistantPreviewCards.js";
-import { getAssistantPreviewCardsValidationSignature, resolveAssistantPreviewCardsWithoutFileStat, resolveValidatedAssistantPreviewCards, } from "@/lib/assistantPreviewCardValidation.js";
-import { FileDisplayIcon, resolveFileDisplayDescriptor } from "@/lib/fileDisplay.js";
-import { OpenSplitButton } from "@/OpenSplitButton.js";
+import { useWorkspaceServices } from "./hooks/useWorkspaceServices.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { getAssistantPreviewCardFilePath, shouldOpenAssistantHtmlInBrowser, } from "./lib/assistantPreviewCards.js";
+import { getAssistantPreviewCardsValidationSignature, resolveAssistantPreviewCardsWithoutFileStat, resolveValidatedAssistantPreviewCards, } from "./lib/assistantPreviewCardValidation.js";
+import { FileDisplayIcon, resolveFileDisplayDescriptor } from "./lib/fileDisplay.js";
+import { OpenSplitButton } from "./OpenSplitButton.js";
 export function buildAssistantPreviewCardFileSource(card, scope) {
     return {
         type: "file",

@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Flame } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatCompactTokenNumber } from "@/lib/tokenNumberFormat.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatCompactTokenNumber } from "../../lib/tokenNumberFormat.js";
 export const RANGE_OPTIONS = ["7d", "30d"];
 export const USAGE_STATS_TABS_LIST_CLASS = "flex h-7 rounded-full bg-surface p-0.5 group-data-horizontal/tabs:h-7";
 export const USAGE_STATS_TABS_TRIGGER_CLASS = "h-6 flex-none justify-center rounded-full border-transparent bg-transparent px-2.5 py-0 text-ui-sm font-medium text-foreground-subtle data-active:border-transparent data-active:bg-background data-active:text-foreground data-active:shadow-none dark:data-active:border-transparent dark:data-active:bg-background";

@@ -1,6 +1,6 @@
-import { findWorkspaceHookCommandBinding, findWorkspaceHookReviewBindingForItem, useWorkspaceHookReviewStore, waitForWorkspaceHookReviewBindingForItem, } from "@/store/workspaceHookReviewStore.js";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { pendingCommandRegistry } from "@/v4/pendingCommandRegistry.js";
+import { findWorkspaceHookCommandBinding, findWorkspaceHookReviewBindingForItem, useWorkspaceHookReviewStore, waitForWorkspaceHookReviewBindingForItem, } from "../store/workspaceHookReviewStore.js";
+import { createCommandEnvelope } from "../v4/commandFactory.js";
+import { pendingCommandRegistry } from "../v4/pendingCommandRegistry.js";
 export async function sendWorkspaceHookCommand(binding, sessionId, type, payload) {
     const envelope = createCommandEnvelope({ type, sessionId, payload });
     pendingCommandRegistry.record(envelope);

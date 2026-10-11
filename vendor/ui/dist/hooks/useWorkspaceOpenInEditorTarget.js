@@ -1,7 +1,7 @@
 import { createOpenInEditorRemoteTarget } from "@zcode/shared";
 import { useMemo } from "react";
-import { useOptionalTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab, } from "@/store/tabStore.js";
+import { useOptionalTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab, } from "../store/tabStore.js";
 export function resolveWorkspaceOpenInEditorTarget(tabs, scope) {
     if (!scope.workspacePath) {
         return { isRemoteWorkspace: false, remoteTarget: undefined };

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Download, Loader2, MoreHorizontal, Plus, RefreshCcw, SquareArrowRightEnter, } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { Button } from "../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function SettingsResourceHeaderActions({ onRefresh, onImport, onExport, onNew, refreshing = false, refreshDisabled = false, importDisabled = false, exportDisabled = false, newDisabled = false, refreshTestId, newTestId, refreshLabel, newLabel: customNewLabel, importActionId, exportActionId, newActionId, }) {
     const { intl } = useZCodeIntl();
     const resolvedRefreshLabel = refreshLabel ?? intl.formatMessage({ id: "common.refresh" });

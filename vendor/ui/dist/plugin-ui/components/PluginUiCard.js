@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 import { TID_PLUGIN_UI_CARD } from "@zcode/shared";
 import { useLayoutEffect, useRef } from "react";
 import { bindPluginUiPage } from "../adapters/pluginUiPageRegistry.js";

@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { GroupedTaskItem } from "@/workspace-grouped-tasks/task-item.js";
-import { taskKey } from "@/workspace-grouped-tasks/ids.js";
-import { isPotentialVerticalScrollContainer, scrollGroupedTaskVirtualizerToOffset, } from "@/workspace-grouped-tasks/virtualized-scroll.js";
+import { GroupedTaskItem } from "../workspace-grouped-tasks/task-item.js";
+import { taskKey } from "../workspace-grouped-tasks/ids.js";
+import { isPotentialVerticalScrollContainer, scrollGroupedTaskVirtualizerToOffset, } from "../workspace-grouped-tasks/virtualized-scroll.js";
 const GROUPED_TASK_ROW_ESTIMATE_PX = 32;
 const GROUPED_TASK_VIRTUALIZATION_THRESHOLD = 80;
 const GROUPED_TASK_VIRTUALIZATION_OVERSCAN = 12;

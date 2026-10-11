@@ -1,10 +1,10 @@
 /* eslint-disable max-lines -- entitlement hook 集中处理缓存、共享 in-flight、轮询和 Team Plan 上下文，后续拆分需保持刷新策略一致。 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useOptionalBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useStableAccountAccess } from "@/hooks/useStableAccountAccess.js";
-import { logger } from "@/logger.js";
-import { readCachedUsageEntitlementSnapshot, writeCachedUsageEntitlementSnapshot, } from "@/lib/usageEntitlementCache.js";
-import { hasSharedEntitlementFailure, buildEntitlementFreshnessKey, beginSharedEntitlementRequest, publishSharedEntitlementSnapshot, readSharedEntitlementSnapshot, recordSharedEntitlementAccess, recordSharedEntitlementFailure, shouldDeferSharedEntitlementRefresh, shouldDeferSharedEntitlementAccess, shouldUseSharedEntitlementSnapshot, subscribeSharedEntitlementSnapshot, USAGE_ENTITLEMENT_ACCESS_REFRESH_MS, } from "@/lib/usageEntitlementRefreshPolicy.js";
+import { useOptionalBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { useStableAccountAccess } from "../hooks/useStableAccountAccess.js";
+import { logger } from "../logger.js";
+import { readCachedUsageEntitlementSnapshot, writeCachedUsageEntitlementSnapshot, } from "../lib/usageEntitlementCache.js";
+import { hasSharedEntitlementFailure, buildEntitlementFreshnessKey, beginSharedEntitlementRequest, publishSharedEntitlementSnapshot, readSharedEntitlementSnapshot, recordSharedEntitlementAccess, recordSharedEntitlementFailure, shouldDeferSharedEntitlementRefresh, shouldDeferSharedEntitlementAccess, shouldUseSharedEntitlementSnapshot, subscribeSharedEntitlementSnapshot, USAGE_ENTITLEMENT_ACCESS_REFRESH_MS, } from "../lib/usageEntitlementRefreshPolicy.js";
 const INITIAL_STATE = {
     snapshot: null,
     loading: false,

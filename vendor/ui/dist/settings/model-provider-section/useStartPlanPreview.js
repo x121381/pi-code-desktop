@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { normalizeErrorMessage as normalizeCodingPlanErrorMessage } from "@/settings/model-provider-section/useCodingPlanProducts.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
+import { logger } from "../../logger.js";
+import { normalizeErrorMessage as normalizeCodingPlanErrorMessage } from "../../settings/model-provider-section/useCodingPlanProducts.js";
 const START_PLAN_PREVIEW_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 let previewCache = null;
 let previewRequest = null;

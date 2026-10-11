@@ -1,4 +1,4 @@
-import { attachTaskListRowActivity, } from "@/v4/taskListRowActivity.js";
+import { attachTaskListRowActivity, } from "../v4/taskListRowActivity.js";
 /** phase → 侧栏持久化状态（running/completed/error）；draft 无结果状态。 */
 function phaseToStatus(phase) {
     switch (phase) {

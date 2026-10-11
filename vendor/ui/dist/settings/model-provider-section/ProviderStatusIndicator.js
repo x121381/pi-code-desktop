@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { CircleIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 const presentation = {
     disabled: { label: "settings.modelProvider.disabledStatus", color: "text-foreground-subtlest" },
     unavailable: { label: "settings.modelProvider.unavailableStatus", color: "text-warning" },

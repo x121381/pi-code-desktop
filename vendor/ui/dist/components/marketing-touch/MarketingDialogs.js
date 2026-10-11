@@ -1,12 +1,12 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect } from "react";
 import { useStore } from "zustand";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { toast } from "@/components/ui/toast.js";
-import { CloudContentDialog } from "@/components/cloud-content-dialog/CloudContentDialog.js";
-import { MarketingFailureDialog } from "@/components/marketing-touch/MarketingFailureDialog.js";
-import { adaptMarketingPopup } from "@/components/marketing-touch/marketingPopupAdapter.js";
-import { marketingNavigation } from "@/lib/marketingNavigation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { toast } from "../../components/ui/toast.js";
+import { CloudContentDialog } from "../../components/cloud-content-dialog/CloudContentDialog.js";
+import { MarketingFailureDialog } from "../../components/marketing-touch/MarketingFailureDialog.js";
+import { adaptMarketingPopup } from "../../components/marketing-touch/marketingPopupAdapter.js";
+import { marketingNavigation } from "../../lib/marketingNavigation.js";
 export function MarketingDialogs({ controller }) {
     const state = useStore(controller.store);
     const openingUpgrade = useStore(marketingNavigation, (state) => state.request?.target.page === "upgrade");

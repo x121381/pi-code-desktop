@@ -2,14 +2,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronDownIcon, CircleMinusIcon, CirclePlusIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { fitDiagramToViewport, panDiagram, zoomDiagramAtPoint, } from "@/lib/diagramViewport.js";
-import { logger } from "@/logger.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../components/ui/dialog.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../../components/ui/dropdown-menu.js";
+import { cn } from "../../components/lib/utils.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { fitDiagramToViewport, panDiagram, zoomDiagramAtPoint, } from "../../lib/diagramViewport.js";
+import { logger } from "../../logger.js";
 const defaultTransform = {
     scale: 1,
     translateX: 0,

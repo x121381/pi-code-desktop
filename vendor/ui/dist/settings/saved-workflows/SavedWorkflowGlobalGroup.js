@@ -1,15 +1,15 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { Plus } from "lucide-react";
 import { TID_WORKFLOWS_CREATE_VIA_CHAT, TID_WORKFLOWS_LIST, TID_WORKFLOW_GLOBAL_GROUP, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SavedWorkflowCard } from "@/settings/saved-workflows/SavedWorkflowCard.js";
-import { SavedWorkflowDetailView } from "@/settings/saved-workflows/SavedWorkflowDetailView.js";
-import { SavedWorkflowLaunchDialog } from "@/settings/saved-workflows/SavedWorkflowLaunchDialog.js";
-import { SavedWorkflowMoveDialog } from "@/settings/saved-workflows/SavedWorkflowMoveDialog.js";
-import { GLOBAL_SAVED_WORKFLOW_TARGET } from "@/settings/saved-workflows/globalWorkflowGroupHelpers.js";
-import { useSavedWorkflowGlobalGroup } from "@/settings/saved-workflows/useSavedWorkflowGlobalGroup.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { SavedWorkflowCard } from "../../settings/saved-workflows/SavedWorkflowCard.js";
+import { SavedWorkflowDetailView } from "../../settings/saved-workflows/SavedWorkflowDetailView.js";
+import { SavedWorkflowLaunchDialog } from "../../settings/saved-workflows/SavedWorkflowLaunchDialog.js";
+import { SavedWorkflowMoveDialog } from "../../settings/saved-workflows/SavedWorkflowMoveDialog.js";
+import { GLOBAL_SAVED_WORKFLOW_TARGET } from "../../settings/saved-workflows/globalWorkflowGroupHelpers.js";
+import { useSavedWorkflowGlobalGroup } from "../../settings/saved-workflows/useSavedWorkflowGlobalGroup.js";
 /**
  * 全局工作流组：顶部固定的「全局」组，空也显示。载体不用
  * `useWorkspaceServicesResolution`——直接用 `useServices().zcodeAgentService`，RPC 带 `{ scope: "global" }`，

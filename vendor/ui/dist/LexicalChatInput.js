@@ -15,10 +15,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
  * 2. ChatComposerPasteEvent 收口为本文件导出的结构类型；
  * 3. mention 面板用 enableMentionPanel 控制；slash command 始终读取 CLI workspace catalog。
  */
-import { $getPromptMarkdown } from "@/mentions/promptSerialization.js";
-import { PromptClipboardPlugin } from "@/mentions/PromptClipboardPlugin.js";
-import { resolveComposerKeyAction, shouldBareEnterFallThroughToNewline, } from "@/shortcuts/composerShortcuts.js";
-import { useEffectiveShortcutBindings } from "@/shortcuts/useShortcutBindings.js";
+import { $getPromptMarkdown } from "./mentions/promptSerialization.js";
+import { PromptClipboardPlugin } from "./mentions/PromptClipboardPlugin.js";
+import { resolveComposerKeyAction, shouldBareEnterFallThroughToNewline, } from "./shortcuts/composerShortcuts.js";
+import { useEffectiveShortcutBindings } from "./shortcuts/useShortcutBindings.js";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
@@ -28,12 +28,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $createParagraphNode, $createTextNode, $getSelection, $getNodeByKey, $setSelection, $getRoot, $isParagraphNode, $isRangeSelection, $isTextNode, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_BACKSPACE_COMMAND, COMMAND_PRIORITY_HIGH, KEY_ENTER_COMMAND, } from "lexical";
 import { SlashCommandPlugin } from "./SlashCommandPlugin.js";
 import { MentionPlugin } from "./mentions/MentionPlugin.js";
-import { useChatViewActiveTaskProvider } from "@/v4/activeTaskProvider.js";
+import { useChatViewActiveTaskProvider } from "./v4/activeTaskProvider.js";
 import { $createPromptMentionNode, $isPromptMentionNode, PromptMentionNode, } from "./mentions/nodes/PromptMentionNode.js";
 import { logger } from "./logger.js";
 import { recordInputLag } from "./lib/uiPerfArmsTelemetry.js";
 import { navigatePromptHistory } from "./lib/promptHistory.js";
-import { resolveMobileInputTextSizeClassName } from "@/lib/mobileTextInput.js";
+import { resolveMobileInputTextSizeClassName } from "./lib/mobileTextInput.js";
 const CHINESE_SLASH_ALIAS = "、";
 const STANDARD_SLASH_TRIGGER = "/";
 import { HISTORY_NAVIGATION_UPDATE_TAG, PROGRAMMATIC_UPDATE_TAG } from "./lib/editorUpdateTags.js";

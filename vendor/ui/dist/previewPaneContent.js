@@ -1,17 +1,17 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { inferCodeLanguage } from "@/lib/codeViewer.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MarkdownPreviewContent } from "@/previewPaneMarkdownContent.js";
-import { CodeContent } from "@/previewPaneCodeContent.js";
-import { ImagePreviewContent, SvgPreviewContent } from "@/previewPaneImageContent.js";
-import { PreviewPaneMediaContent } from "@/previewPaneMediaContent.js";
-import { PdfPreviewContent } from "@/previewPanePdfContent.js";
-import { PptxPreviewContent } from "@/previewPanePptxContent.js";
-import { PatchFallbackContent } from "@/previewPanePatchFallbackContent.js";
-import { DiffViewer } from "@/components/ui/diff-viewer.js";
-import { PreviewPaneOfficeContent } from "@/previewPaneOfficeContent.js";
-import { resolveCodeReviewContentProjection } from "@/previewPaneCodeReview.js";
+import { inferCodeLanguage } from "./lib/codeViewer.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { MarkdownPreviewContent } from "./previewPaneMarkdownContent.js";
+import { CodeContent } from "./previewPaneCodeContent.js";
+import { ImagePreviewContent, SvgPreviewContent } from "./previewPaneImageContent.js";
+import { PreviewPaneMediaContent } from "./previewPaneMediaContent.js";
+import { PdfPreviewContent } from "./previewPanePdfContent.js";
+import { PptxPreviewContent } from "./previewPanePptxContent.js";
+import { PatchFallbackContent } from "./previewPanePatchFallbackContent.js";
+import { DiffViewer } from "./components/ui/diff-viewer.js";
+import { PreviewPaneOfficeContent } from "./previewPaneOfficeContent.js";
+import { resolveCodeReviewContentProjection } from "./previewPaneCodeReview.js";
 function isSvgPath(path) {
     return path?.toLowerCase().endsWith(".svg") ?? false;
 }

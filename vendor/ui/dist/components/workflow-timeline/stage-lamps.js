@@ -1,4 +1,4 @@
-import { phaseNameMatches } from "@/components/workflow-graph/phase-name.js";
+import { phaseNameMatches } from "../../components/workflow-graph/phase-name.js";
 // 顺序规则的两件（`isCurrentPhase` / `stationStatus`）原在 timeline-model.ts；dwf-recursive 与
 // dwf-pipeline-display 合并后那个文件到了 430 行（oxlint max-lines 上限 400），灯的规则于是都搬来这里。
 /** `currentPhase` 与一站的关联，与 `phaseEntryFor` 同一条名字规则。 */

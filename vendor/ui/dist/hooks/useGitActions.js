@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { toast } from "../components/ui/toast.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 export function useGitActions(options) {
     const { workspacePath } = options;
     const { intl } = useZCodeIntl();

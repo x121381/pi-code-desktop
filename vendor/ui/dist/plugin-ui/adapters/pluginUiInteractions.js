@@ -1,10 +1,10 @@
-import { getPluginUiSessionActions } from "@/plugin-ui/adapters/pluginUiSessionActions.js";
+import { getPluginUiSessionActions } from "../../plugin-ui/adapters/pluginUiSessionActions.js";
 import { buildPluginSandboxScopeId, concatMcpAppsTextContent } from "@zcode/shared/mcp-apps";
 import { requestPluginUiFollowUpConfirmation } from "../app/pluginUiFollowUpDialogStore.js";
 import { PLUGIN_UI_FOLLOW_UP_STRUCTURED_MAX_BYTES, buildPluginUiFollowUpPrompt, } from "../domain/pluginUiFollowUp.js";
 import { readPluginUiImageBlocks } from "../domain/pluginUiImageBlocks.js";
 import { dispatchPluginUiModelContextAdd } from "./pluginUiModelContextEvents.js";
-import {} from "@/plugin-ui/contract.js";
+import {} from "../../plugin-ui/contract.js";
 const JSON_RPC_UNAVAILABLE = -32601;
 const JSON_RPC_CANCELLED = -32000;
 function rpcError(code, message) {

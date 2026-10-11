@@ -1,5 +1,5 @@
 import { resolveWebRemoteControlWorkspaceKey } from "@zcode/shared";
-import { groupWebRemoteControlTasksByWorkspace, sortWebRemoteControlTasksByTime, } from "@/lib/webRemoteControlTaskIndex.js";
+import { groupWebRemoteControlTasksByWorkspace, sortWebRemoteControlTasksByTime, } from "../lib/webRemoteControlTaskIndex.js";
 export const EMPTY_WEB_REMOTE_CONTROL_WORKSPACE_LIST = {
     workspaces: [],
     tasks: [],

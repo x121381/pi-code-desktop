@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { XIcon } from "lucide-react";
-import { AttachmentHoverCard, AttachmentHoverCardContent, AttachmentHoverCardTrigger, } from "@/components/ai-elements/attachments.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
+import { AttachmentHoverCard, AttachmentHoverCardContent, AttachmentHoverCardTrigger, } from "../../components/ai-elements/attachments.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
 /**
  * 上下文附件共享同一个 pill 与详情浮层外壳，避免各类型复制布局和交互样式。
  * Trigger 使用 asChild，详情使用 Portal，因此消息附件容器中只留下一个 pill 节点。

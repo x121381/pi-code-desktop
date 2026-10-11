@@ -1,6 +1,6 @@
-import { zcodeSessionSettingsToConfigOptions, zcodeSessionSnapshotToZCodeTaskSnapshot, } from "@/lib/zcodeSessionProjection.js";
-import { normalizeZCodeUiError } from "@/lib/zcodeUiError.js";
-import { logger } from "@/logger.js";
+import { zcodeSessionSettingsToConfigOptions, zcodeSessionSnapshotToZCodeTaskSnapshot, } from "../lib/zcodeSessionProjection.js";
+import { normalizeZCodeUiError } from "../lib/zcodeUiError.js";
+import { logger } from "../logger.js";
 function isSessionMissingError(error) {
     const message = error instanceof Error ? error.message : String(error ?? "");
     return /\bSession (not found|is not active):/i.test(message);

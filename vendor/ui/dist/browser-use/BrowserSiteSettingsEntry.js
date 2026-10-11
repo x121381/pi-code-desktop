@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { Settings, SlidersHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /**
  * 地址栏左侧的站点设置入口（spec：docs/browser-use/2026-10-08-embedded-browser-permission-governance-spec.md
  * 「站点权限设置标签页」）。恒为滑杆图标、不随权限请求变化；点击弹出站点信息气泡，

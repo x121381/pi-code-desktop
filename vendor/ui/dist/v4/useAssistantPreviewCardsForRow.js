@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { buildAssistantPreviewCardsFromReferences, extractAssistantFileReferences, } from "@/lib/assistantPreviewCards.js";
-import { logger } from "@/logger.js";
+import { buildAssistantPreviewCardsFromReferences, extractAssistantFileReferences, } from "../lib/assistantPreviewCards.js";
+import { logger } from "../logger.js";
 const EMPTY_CHANGED_FILE_PATHS = [];
 function joinAssistantTurnText(rows) {
     return rows

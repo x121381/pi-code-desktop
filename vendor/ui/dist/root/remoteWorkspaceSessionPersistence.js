@@ -1,7 +1,7 @@
 import { resolveStartupLocalWorkspaceSessionIndex } from "@zcode/shared";
-import { buildPersistedWorkspaceSessionEntries, buildRemoteWorkspaceSessionEntryMap, buildWorkspaceSessionKey, readPersistedWorkspaceSessionEntries, resolveRemoteWorkspaceSessionIdentity, } from "@/lib/remoteWorkspaceHistory.js";
-import { logger } from "@/logger.js";
-import { isWorkspaceTab, } from "@/store/tabStore.js";
+import { buildPersistedWorkspaceSessionEntries, buildRemoteWorkspaceSessionEntryMap, buildWorkspaceSessionKey, readPersistedWorkspaceSessionEntries, resolveRemoteWorkspaceSessionIdentity, } from "../lib/remoteWorkspaceHistory.js";
+import { logger } from "../logger.js";
+import { isWorkspaceTab, } from "../store/tabStore.js";
 function getRestorableWorkspaceKey(tab) {
     if (typeof tab === "string") {
         return tab;

@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ChevronRightIcon, ListIcon, Maximize2Icon, Workflow } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { RUN_STATUS_DOT, RUN_STATUS_TEXT, STATUS_DOT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, isWorkflowRunSuperseded, } from "@/components/workflow-graph/run-status-presentation.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { RUN_STATUS_DOT, RUN_STATUS_TEXT, STATUS_DOT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, isWorkflowRunSuperseded, } from "../../components/workflow-graph/run-status-presentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 工作流卡的表头与页脚。
  *

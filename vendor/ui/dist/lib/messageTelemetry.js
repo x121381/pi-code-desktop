@@ -1,5 +1,5 @@
 /* oxlint-disable eslint(max-lines) -- message_completion 与 agent_step 共用 prompt 生命周期状态，拆分会增加跨文件同步复杂度。 */
-import { legacyTelemetryModelFields, legacyTelemetryModelValue, legacyTelemetryProviderId, } from "@/lib/providerTelemetryIdentity.js";
+import { legacyTelemetryModelFields, legacyTelemetryModelValue, legacyTelemetryProviderId, } from "../lib/providerTelemetryIdentity.js";
 import { CUSTOM_SUPPLIER_KEY_PREFIX, GHOST_SUPPLIER_KEY_PREFIX, NATIVE_SUPPLIER_KEY_PREFIX, createUuid, computeLineChangeStat, decodeCustomModelValue, } from "@zcode/shared";
 export function composeAgentComposition(input) {
     const parts = [

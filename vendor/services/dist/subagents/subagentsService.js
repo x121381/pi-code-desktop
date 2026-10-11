@@ -5,9 +5,9 @@ import { createAgentStateId, createPluginAgentStateId, parsePluginSubagentModelS
 import { normalizeSubagentModelSelection } from "./subagentModelSelection.js";
 import { serializeSubagentMarkdown, parseSubagentMarkdown } from "./subagentMarkdown.js";
 import { resolveSubagentStateFile, resolveUserHomeDir, resolveUserSubagentRoot, resolveWorkspaceSubagentRoot, resolveZCodeStorageRoot, } from "./subagentStorage.js";
-import { atomicWriteText } from "#src/fs/atomicFileUtils.js";
+import { atomicWriteText } from "../fs/atomicFileUtils.js";
 import { migrateUserSubagentMarkdown, migrateSubagentStateFile, scanOfficialPluginCacheRoots, } from "@zcode/shared/node";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { createSubagentRuntimeConfigCache } from "./subagentRuntimeConfig.js";
 const subagentLogger = createServiceLogger("subagents");
 const BUILT_IN_AGENT_NAMES = new Set(["general-purpose", "Explore"]);

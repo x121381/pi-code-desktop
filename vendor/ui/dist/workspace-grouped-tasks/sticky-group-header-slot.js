@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 const STICKY_GROUP_HEADER_EXIT_MS = 150;
 export function StickyGroupHeaderSlot({ header }) {
     const [renderedHeader, setRenderedHeader] = useState(header);

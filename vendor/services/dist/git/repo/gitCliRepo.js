@@ -2,7 +2,7 @@
 import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, resolve, sep } from "node:path";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
 import { DEFAULT_GIT_COMMAND_TIMEOUT_MS, DEFAULT_GIT_DIFF_BYTES, DEFAULT_GIT_DIFF_TIMEOUT_MS, DEFAULT_GIT_OUTPUT_BYTES, DEFAULT_GIT_PUSH_OUTPUT_BYTES, DEFAULT_GIT_PUSH_TIMEOUT_MS, getGitNullDevicePath, normalizeGitPath, normalizeWorkspaceInRepoPath, } from "../config.js";
 import { createGitCommandProvider, } from "../providers/gitCommandProvider.js";
 import { buildUntrackedTextDiffResult, buildUntrackedStats, ensureGitCommandSucceeded, ensureRepositoryAvailable, fileExists, inferKindFromNumstat, isMissingWorkingDirectoryResult, isNotRepositoryResult, normalizeInputPath, parseGitBranchMutationIssues, parseGitConfigValue, parseNumstat, parseStatusPorcelain, toInvalidBranchNameIssue, toDiffResult, } from "./gitCliHelpers.js";

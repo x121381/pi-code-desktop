@@ -1,0 +1,1 @@
+{"version":3,"file":"defaultAppConfig.js","sourceRoot":"","sources":["../defaultAppConfig.ts"],"names":[],"mappings":";;AAAA,mIAAmI;AACnI,MAAM,qBAAqB,GAAG;IAC5B,cAAc,EAAE,wEAAwE;IACxF,4BAA4B,EAAE,KAAK;IACnC,gBAAgB,EAAE;QAChB,OAAO,EAAE,wHAAwH;QACjI,OAAO,EAAE,+BAA+B;KACzC;CACO,CAAC;AACX,kBAAe,qBAAqB,CAAC"}

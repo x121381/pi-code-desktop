@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 明确被 restart 丢弃的 startNow 输入只提供显式用户决策，组件本身不自动重放。 */
 export const PendingCommandRecoveryBanner = memo(function PendingCommandRecoveryBanner({ entry, onResend, onDismiss, }) {
     const { intl } = useZCodeIntl();

@@ -6,9 +6,9 @@ import { jsx as _jsx } from "react/jsx-runtime";
 // 才取（IntersectionObserver，提前 200 px），取回即进同一份缓存——之后展开不再读。没有
 // IntersectionObserver 的环境（jsdom）视作立刻可见。
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { useWorkflowRunNodeResult } from "@/hooks/useWorkflowRunNodeResult.js";
-import { peekLinesOf } from "@/app-shell/workflowWorkspaceLogbook.js";
+import { cn } from "../components/lib/utils.js";
+import { useWorkflowRunNodeResult } from "../hooks/useWorkflowRunNodeResult.js";
+import { peekLinesOf } from "../app-shell/workflowWorkspaceLogbook.js";
 export const WorkspacePeek = memo(function WorkspacePeek({ node, runId, sessionId, }) {
     const ref = useRef(null);
     const [visible, setVisible] = useState(() => typeof IntersectionObserver === "undefined");

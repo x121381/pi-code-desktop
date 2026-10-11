@@ -1,10 +1,10 @@
-import { isExecuteToolCall, isExploreToolCall, isShellToolCallAwaitingCommand, } from "@/lib/exploreToolCall.js";
-import { resolveToolCallIdentity } from "@/lib/toolIdentity.js";
-import { isConversationReasoningRowVisible, } from "@/v4/conversationRowContext.js";
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
-import { ENABLE_CUA_TOOL_CALL_GROUPING, prepareCuaGroups, } from "@/v4/conversationCuaGroups.js";
+import { isExecuteToolCall, isExploreToolCall, isShellToolCallAwaitingCommand, } from "../lib/exploreToolCall.js";
+import { resolveToolCallIdentity } from "../lib/toolIdentity.js";
+import { isConversationReasoningRowVisible, } from "../v4/conversationRowContext.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
+import { ENABLE_CUA_TOOL_CALL_GROUPING, prepareCuaGroups, } from "../v4/conversationCuaGroups.js";
 export const ENABLE_EXPLORE_TOOL_CALL_GROUPING = true;
-export { ENABLE_CUA_TOOL_CALL_GROUPING } from "@/v4/conversationCuaGroups.js";
+export { ENABLE_CUA_TOOL_CALL_GROUPING } from "../v4/conversationCuaGroups.js";
 export const ENABLE_TERMINAL_TOOL_CALL_GROUPING = true;
 export const ENABLE_CHANGES_TOOL_CALL_GROUPING = false;
 const SUBAGENT_TOOL_NAMES = new Set(["Agent", "Task", "subagent"]);

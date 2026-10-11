@@ -6,14 +6,14 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 // 本文件承载纯展示件——轨道段、接头行、灯、折叠节头上的头像串、轮次、子代理行的尾巴（计数与模型名）。
 import { useId, useMemo } from "react";
 import { Repeat2Icon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { STATUS_DOT } from "@/components/workflow-graph/run-status-presentation.js";
-import { workflowActorModelLabels } from "@/components/workflow-timeline/subagent-model-label.js";
-import { LaneGlyph, agentColor } from "@/components/workflow-timeline/WorkflowAgentPill.js";
-import { MarchLight } from "@/components/workflow-timeline/WorkflowMarchLight.js";
-import { StreamChevronsBox } from "@/components/workflow-timeline/WorkflowStreamChevrons.js";
-import { SPINE_JOINT_PX, SPINE_TRACK_X, } from "@/app-shell/workflowRunSpine.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { STATUS_DOT } from "../components/workflow-graph/run-status-presentation.js";
+import { workflowActorModelLabels } from "../components/workflow-timeline/subagent-model-label.js";
+import { LaneGlyph, agentColor } from "../components/workflow-timeline/WorkflowAgentPill.js";
+import { MarchLight } from "../components/workflow-timeline/WorkflowMarchLight.js";
+import { StreamChevronsBox } from "../components/workflow-timeline/WorkflowStreamChevrons.js";
+import { SPINE_JOINT_PX, SPINE_TRACK_X, } from "../app-shell/workflowRunSpine.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 开口接头行的主轨朝行外伸出的长度（卡上的 TAIL）。 */
 const SPINE_STUB_PX = 4;
 /** 流轨的两半各在节边界前后让出这么多，缺口里站两枚朝下的 chevron。 */

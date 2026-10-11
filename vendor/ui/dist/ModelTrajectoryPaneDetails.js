@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Badge } from "@/components/ui/badge.js";
-import { cn } from "@/components/lib/utils.js";
+import { Badge } from "./components/ui/badge.js";
+import { cn } from "./components/lib/utils.js";
 export function ContentPartView({ part, intl, sectionLabel, showToolHeader = true, }) {
     if (part.kind === "text") {
         if (!part.text) {

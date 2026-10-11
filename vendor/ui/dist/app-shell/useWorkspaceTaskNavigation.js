@@ -1,18 +1,18 @@
 /* eslint-disable max-lines -- workspace 的 task、自动化与插件市场共享浏览器式历史，集中处理才能保证前进/后退目标一致。 */
 import { useCallback } from "react";
-import { useBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { canGoBack as navCanGoBack, canGoForward as navCanGoForward, isAutomationsNavEntry, isPluginStoreNavEntry, } from "@/lib/taskNavigationHistory.js";
-import { shouldBlockTaskSelectionDuringModelRestart } from "@/lib/taskSwitchGuard.js";
-import { logger } from "@/logger.js";
-import { toast } from "@/components/ui/toast.js";
-import { getVisibleTaskMetas, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { buildTaskEntityKey, buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { markTaskQueryCacheScopesStale, reconcileTaskQueryCacheUnread, rollbackTaskQueryCacheUnread, setTaskQueryCacheUnreadOverlay, useTaskQueryCacheStore, } from "@/store/taskQueryCacheStore.js";
-import { taskNavigationTargetExists } from "@/lib/taskNavigationTarget.js";
-import { getRemoteWorkspaceSession } from "@/store/remoteWorkspaceSessionStore.js";
-import { useTabStoreApi } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { bumpTaskListMembershipVersion } from "@/v4/taskListMembershipVersion.js";
+import { useBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { canGoBack as navCanGoBack, canGoForward as navCanGoForward, isAutomationsNavEntry, isPluginStoreNavEntry, } from "../lib/taskNavigationHistory.js";
+import { shouldBlockTaskSelectionDuringModelRestart } from "../lib/taskSwitchGuard.js";
+import { logger } from "../logger.js";
+import { toast } from "../components/ui/toast.js";
+import { getVisibleTaskMetas, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { buildTaskEntityKey, buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { markTaskQueryCacheScopesStale, reconcileTaskQueryCacheUnread, rollbackTaskQueryCacheUnread, setTaskQueryCacheUnreadOverlay, useTaskQueryCacheStore, } from "../store/taskQueryCacheStore.js";
+import { taskNavigationTargetExists } from "../lib/taskNavigationTarget.js";
+import { getRemoteWorkspaceSession } from "../store/remoteWorkspaceSessionStore.js";
+import { useTabStoreApi } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { bumpTaskListMembershipVersion } from "../v4/taskListMembershipVersion.js";
 export function useWorkspaceTaskNavigation({ intl, workspaceAbsPath, workspaceIdentity, activateTabByPath, onNavigateToTask, onNavigateToAutomations, onNavigateToPluginStore, }) {
     // 跨 workspace 选择会先同步切换 tab，但本次 React render 捕获的 ambient
     // services 仍可能属于旧 remote attachment。local 目标必须固定从 window base attachment

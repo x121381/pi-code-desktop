@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import {} from "react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Input } from "@/components/ui/input.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { hasGitCommitIdentity, } from "@/git-branch-switcher/switchAssist.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { FileDisplayInline } from "@/lib/fileDisplay.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { Input } from "../components/ui/input.js";
+import { Textarea } from "../components/ui/textarea.js";
+import { hasGitCommitIdentity, } from "../git-branch-switcher/switchAssist.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { FileDisplayInline } from "../lib/fileDisplay.js";
 import { AlertCircleIcon, GitBranchIcon, LoaderIcon } from "lucide-react";
 export function GitBranchCreateDialog({ open, branchName, mutationPending, onOpenChange, onBranchNameChange, onCancel, onSubmit, }) {
     const { intl } = useZCodeIntl();

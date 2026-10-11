@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useOptionalCodingPlanUpgradeDialog } from "@/settings/CodingPlanUpgradeDialogProvider.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useOptionalCodingPlanUpgradeDialog } from "../settings/CodingPlanUpgradeDialogProvider.js";
 export function useCodingPlanEntryGate() {
     const dialog = useOptionalCodingPlanUpgradeDialog();
     const { intl } = useZCodeIntl();

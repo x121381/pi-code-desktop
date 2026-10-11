@@ -1,6 +1,6 @@
-import { ENABLE_CUA_TOOL_CALL_GROUPING, prepareCuaGroupFlowItems, } from "@/v4/conversationCuaGroups.js";
-import { isPluginUiPinnedToolRow } from "@/plugin-ui/index.js";
-import { buildConversationFlowItems } from "@/v4/conversationTurnFlowItems.js";
+import { ENABLE_CUA_TOOL_CALL_GROUPING, prepareCuaGroupFlowItems, } from "../v4/conversationCuaGroups.js";
+import { isPluginUiPinnedToolRow } from "../plugin-ui/index.js";
+import { buildConversationFlowItems } from "../v4/conversationTurnFlowItems.js";
 export function resolveConversationTurnWorkStatus(header, workRows, isRunning, durationMs, isInterrupted = false) {
     if (header?.executionKind === "controlOnly")
         return undefined;

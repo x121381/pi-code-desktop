@@ -6,7 +6,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
  */
 import { createContext, useContext, useEffect, useRef } from "react";
 import { useStore } from "zustand";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
 import { createTabStore } from "./tabStore.js";
 const TabStoreContext = createContext(null);
 const fallbackTabStore = createTabStore(null);

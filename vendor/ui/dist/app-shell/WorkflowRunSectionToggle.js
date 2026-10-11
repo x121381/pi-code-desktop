@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import {} from "react";
 import { ChevronRightIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 /**
  * workflow run 详情页里可折叠分区的表头栏。
  *

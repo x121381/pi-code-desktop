@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 // Scheduled 曾单独实现 switch，导致关闭态轨道与滑块定位偏离 Automations；两页统一从这里渲染。
 // 首页模板进入创建页时 switch 只有点击和 focus 反馈，鼠标悬浮无法识别为可交互控件。
 export function AutomationSwitchToggle({ checked, onChange, ariaLabel, color = "green", size = "default", }) {

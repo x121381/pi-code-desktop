@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Check, Download, Loader2, TriangleAlert } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert.js";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { cn } from "@/components/lib/utils.js";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert.js";
+import { Badge } from "../components/ui/badge.js";
+import { Button } from "../components/ui/button.js";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
 function getKnownReasonLabel(intl, reason) {
     if (reason === "session_not_found_or_workspace_mismatch") {
         return intl.formatMessage({

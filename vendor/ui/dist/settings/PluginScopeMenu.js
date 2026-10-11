@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ChevronDown, Cloud, Folder, Monitor } from "lucide-react";
 import { testId } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getWorkspaceKey } from "@/lib/workspaceKey.js";
+import { Button } from "../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getWorkspaceKey } from "../lib/workspaceKey.js";
 export function getPluginWorkspaceKey(tab) {
     return getWorkspaceKey(tab.workspacePath, tab.workspaceIdentity);
 }

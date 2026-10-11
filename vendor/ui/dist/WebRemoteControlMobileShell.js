@@ -2,12 +2,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, LoaderIcon } from "lucide-react";
 import { resolveWebRemoteControlWorkspaceKey, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { WebRemoteControlMobileTaskHome, persistWebRemoteControlMobileTaskHomePreferences, readWebRemoteControlMobileTaskHomePreferences, } from "@/WebRemoteControlMobileTaskHome.js";
-import { WebRemoteControlThemeMenu } from "@/WebRemoteControlThemeMenu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { useWebRemoteControlTerminalTransportState } from "@/webRemoteControlTerminalTransportState.js";
+import { Button } from "./components/ui/button.js";
+import { WebRemoteControlMobileTaskHome, persistWebRemoteControlMobileTaskHomePreferences, readWebRemoteControlMobileTaskHomePreferences, } from "./WebRemoteControlMobileTaskHome.js";
+import { WebRemoteControlThemeMenu } from "./WebRemoteControlThemeMenu.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { logger } from "./logger.js";
+import { useWebRemoteControlTerminalTransportState } from "./webRemoteControlTerminalTransportState.js";
 export function isWebRemoteControlMobileChatHistoryState(state) {
     return (typeof state === "object" &&
         state !== null &&

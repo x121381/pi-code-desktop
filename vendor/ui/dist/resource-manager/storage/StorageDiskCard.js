@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { HardDrive } from "lucide-react";
 import { TID_RESOURCE_MANAGER_STORAGE_DISK_CARD, TID_RESOURCE_MANAGER_STORAGE_ROOT, testId, } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatBytes } from "@/resource-manager/resourceUsageView.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatBytes } from "../../resource-manager/resourceUsageView.js";
 import { storageCategoryTitleId } from "./storageCategoryPresentation.js";
 export function StorageDiskCard({ group, index, legend, selected, selectable, onSelect, }) {
     const { intl } = useZCodeIntl();

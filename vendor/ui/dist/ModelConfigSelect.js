@@ -1,17 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 /* eslint-disable max-lines -- 模型菜单同时维护触发器、模型项、provider family 连接方式子菜单和焦点恢复，拆开会增加受控 Dropdown 状态同步成本。 */
 import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState, } from "react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "./components/ui/select.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "./components/ui/tooltip.js";
 import { AlertCircle, CheckIcon, ChevronDownIcon, LoaderIcon, PackageIcon } from "lucide-react";
 import { TID_CHAT_MODEL_SELECT_GROUP, TID_CHAT_MODEL_SELECT_ITEM, TID_CHAT_MODEL_SELECT_TRIGGER, testId, } from "@zcode/shared";
-import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "@/lib/pickerFocus.js";
-import { RollingToolbarLabel } from "@/chat-input-toolbar/RollingToolbarLabel.js";
-import { ModelInputCapabilityBadge } from "@/components/ModelInputCapabilityBadge.js";
+import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "./lib/pickerFocus.js";
+import { RollingToolbarLabel } from "./chat-input-toolbar/RollingToolbarLabel.js";
+import { ModelInputCapabilityBadge } from "./components/ModelInputCapabilityBadge.js";
 const EMPTY_MODEL_SELECT_FOOTER_ACTIONS = [];
 export const MODEL_CONFIG_SELECT_BADGE_CLASS_NAME = "shrink-0 rounded-full bg-surface px-1 py-px text-ui-xs font-medium leading-normal text-foreground-subtle";
 export function shouldShowModelProviderLevel(modelGroups) {

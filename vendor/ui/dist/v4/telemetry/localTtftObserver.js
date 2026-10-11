@@ -1,6 +1,6 @@
-import { mergeLocalTtftFacts } from "@/v4/telemetry/localTtftFacts.js";
-import { buildLocalTtftRecord, } from "@/v4/telemetry/localTtftRecord.js";
-import { logger } from "@/logger.js";
+import { mergeLocalTtftFacts } from "../../v4/telemetry/localTtftFacts.js";
+import { buildLocalTtftRecord, } from "../../v4/telemetry/localTtftRecord.js";
+import { logger } from "../../logger.js";
 import { LOCAL_TTFT_MAX_PENDING, LOCAL_TTFT_TTL_MS, LOCAL_TTFT_CLOCK_TTL_MS, localTtftNow, } from "@zcode/shared";
 /** Renderer 独占点击总时钟；不使用 ACK 或旁路 telemetry 判定首输出。 */
 export class LocalTtftObserver {

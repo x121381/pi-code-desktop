@@ -1,5 +1,5 @@
 import { formatLogPrefix } from "@zcode/shared";
-import { isEffectiveDevelopmentNodeEnv } from "#src/runtime-tools/nodeEnv.js";
+import { isEffectiveDevelopmentNodeEnv } from "../runtime-tools/nodeEnv.js";
 export function createServiceLogger(scope, options) {
     const pid = options?.pid ?? process.pid;
     const sink = options?.sink ?? console;

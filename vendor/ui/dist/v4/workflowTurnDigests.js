@@ -1,4 +1,4 @@
-import { readWorkflowName } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { readWorkflowName } from "../ToolCallBlocks/renderers/createWorkflowInput.js";
 export function resolveWorkflowTurnDigests(unit, join) {
     const digests = [];
     const seen = new Set();

@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { getFeedbackRootDir } from "#src/paths.js";
+import { getFeedbackRootDir } from "../paths.js";
 export class FeedbackLocalTicketStore {
     filePath;
     constructor(rootDir = getFeedbackRootDir()) {

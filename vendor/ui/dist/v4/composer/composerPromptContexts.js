@@ -1,9 +1,9 @@
-import { buildPromptWithCodeComments, parsePromptCodeComments, } from "@/lib/codeCommentContext.js";
+import { buildPromptWithCodeComments, parsePromptCodeComments, } from "../../lib/codeCommentContext.js";
 import { stripGenUiModelContext } from "@zcode/shared/gen-ui";
-import { buildPromptWithConversationSelections, parsePromptConversationSelections, } from "@/lib/conversationSelectionReference.js";
-import { buildPromptWithWebElementContexts, parsePromptWebElementContexts, } from "@/lib/webElementContext.js";
-import { buildPromptWithPptxElementReferences, parsePromptPptxElementReferences, } from "@/lib/pptxElementReference.js";
-import { buildPromptWithPluginUiContexts, parsePromptPluginUiContexts, } from "@/plugin-ui/index.js";
+import { buildPromptWithConversationSelections, parsePromptConversationSelections, } from "../../lib/conversationSelectionReference.js";
+import { buildPromptWithWebElementContexts, parsePromptWebElementContexts, } from "../../lib/webElementContext.js";
+import { buildPromptWithPptxElementReferences, parsePromptPptxElementReferences, } from "../../lib/pptxElementReference.js";
+import { buildPromptWithPluginUiContexts, parsePromptPluginUiContexts, } from "../../plugin-ui/index.js";
 export function countComposerPromptContexts(contexts) {
     return (contexts.codeComments.length +
         contexts.conversationSelections.length +

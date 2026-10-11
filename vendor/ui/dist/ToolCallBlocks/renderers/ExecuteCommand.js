@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId, useLayoutEffect, useRef, useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
 export function ExecuteCommand({ command }) {
     const { intl } = useZCodeIntl();
     const id = useId();

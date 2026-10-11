@@ -4,13 +4,13 @@ import { CircleAlert, Clock3, Copy, ExternalLink, KeyRound, LoaderCircle, QrCode
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import { isFeishuBotProvider } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsGroupCard, SettingsRow } from "@/settings/SettingsPageParts.js";
-import { cn } from "@/components/lib/utils.js";
-import { logger } from "@/logger.js";
-import { PrivateDeliveryRetry } from "@/BotsDialog/PrivateDeliveryRetry.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsGroupCard, SettingsRow } from "../settings/SettingsPageParts.js";
+import { cn } from "../components/lib/utils.js";
+import { logger } from "../logger.js";
+import { PrivateDeliveryRetry } from "../BotsDialog/PrivateDeliveryRetry.js";
 import { TELEGRAM_BOTFATHER_URL, formatBindCountdown } from "./shared.js";
 function DetailPanel({ children }) {
     return _jsx("div", { className: "rounded-lg bg-background p-3", children: children });

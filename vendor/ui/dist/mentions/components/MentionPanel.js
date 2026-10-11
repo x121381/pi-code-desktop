@@ -3,9 +3,9 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { TID_PROMPT_SUGGESTION_OPTION, TID_PROMPT_SUGGESTION_PANEL, TID_PROMPT_SUGGESTION_SECTION, TID_PROMPT_SUGGESTION_STATUS, testId, } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 import { Info, LoaderIcon } from "lucide-react";
-import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "@/mentions/components/scrollMask.js";
+import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "../../mentions/components/scrollMask.js";
 const OPTION_ROW_HEIGHT = 34;
 const STATUS_ROW_HEIGHT = 40;
 export const SECTION_HEADER_ROW_HEIGHT = 34;

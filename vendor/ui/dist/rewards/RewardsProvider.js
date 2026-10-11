@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, } from "react";
 import { buildRewardsUrl, resolveRewardsOrigin, ZCODE_ENV } from "@zcode/shared";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
-import { RewardsWebview } from "@/rewards/RewardsWebview.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
+import { resolveTheme } from "../useTheme.js";
+import { RewardsWebview } from "../rewards/RewardsWebview.js";
+import { logger } from "../logger.js";
 const RewardsContext = createContext(null);
 export const useOpenRewards = () => useContext(RewardsContext);
 export function RewardsProvider({ children, desktop, }) {

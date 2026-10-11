@@ -1,4 +1,4 @@
-import { requestVerificationClaimFailureMessageId } from "@/request-security-edition/errors.js";
+import { requestVerificationClaimFailureMessageId } from "../../request-security-edition/errors.js";
 export function resolveManualClaimFailureMessageId(code, failureEndsAt, now = Date.now()) {
     switch (code) {
         case 1001:

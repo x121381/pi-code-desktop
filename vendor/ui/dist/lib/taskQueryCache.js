@@ -1,4 +1,4 @@
-import { resolveWorkspaceStateKey } from "@/store/zcodeSessionStoreSelectors.js";
+import { resolveWorkspaceStateKey } from "../store/zcodeSessionStoreSelectors.js";
 export function buildTaskWorkspaceKey(workspacePath, workspaceIdentity) {
     return resolveWorkspaceStateKey(workspacePath, workspaceIdentity);
 }

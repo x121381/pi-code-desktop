@@ -1,6 +1,6 @@
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, isZaiCodingPlanProviderId, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import { logger } from "@/logger.js";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
+import { logger } from "../logger.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
 export function createPurchaseFunnelId() {
     return globalThis.crypto?.randomUUID?.() ?? createFallbackFunnelId();
 }

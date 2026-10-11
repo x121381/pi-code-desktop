@@ -1,5 +1,5 @@
 import { RECOMMENDED_ZIP_LIMITS, buildTextIndex, buildPresentation, materializeSlideNodes, parseZipLazyMedia, renderSlide, } from "@aiden0z/pptx-renderer/browser";
-import { buildPresentationPageElements } from "@/presentation/presentationElementModel.js";
+import { buildPresentationPageElements } from "../presentation/presentationElementModel.js";
 function readTextBody(textBody) {
     return textBody?.paragraphs
         .map((paragraph) => paragraph.runs.map((run) => run.text).join(""))

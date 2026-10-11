@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
-import { logger } from "@/logger.js";
-import { useDynamicWorkflowAvailabilityStore, } from "@/store/dynamicWorkflowAvailabilityStore.js";
+import { logger } from "../logger.js";
+import { useDynamicWorkflowAvailabilityStore, } from "../store/dynamicWorkflowAvailabilityStore.js";
 /**
  * 读动态工作流灰度快照。
  * 只读，不触发请求：取数由 Root 里的 loader 唯一负责。消费方（自动化页、run 面板）可能位于

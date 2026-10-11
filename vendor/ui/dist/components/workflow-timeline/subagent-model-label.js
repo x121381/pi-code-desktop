@@ -1,6 +1,6 @@
-import { thoughtLevelLabelId } from "@/chat-input-toolbar/thoughtLevelOptions.js";
-import { parseModelPickerValue } from "@/lib/zcodeSessionProjection.js";
-import { formatProviderModelLabel } from "@/v4/composer/modelTriggerDisplay.js";
+import { thoughtLevelLabelId } from "../../chat-input-toolbar/thoughtLevelOptions.js";
+import { parseModelPickerValue } from "../../lib/zcodeSessionProjection.js";
+import { formatProviderModelLabel } from "../../v4/composer/modelTriggerDisplay.js";
 /** 解析不出结构时的兜底取名：砍掉 `providerId/` 前缀与 `$level` 后缀，剩下的就是人能读的那截。 */
 function fallbackName(canonical) {
     const separatorIndex = canonical.indexOf("/");

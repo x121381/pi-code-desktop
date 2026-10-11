@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CircleAlert } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 与 HooksList 行内 Trust 按钮保持同一判定，避免风险提示形成第二套审核状态。 */
 export function requiresWorkspaceHookTrust(hook) {
     return Boolean(hook.workspaceHook) && hook.workspaceHook?.trustState !== "trusted_persistent";

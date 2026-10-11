@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { UsageEmptyState, formatCompactTokenUsage, formatDay, resolveModelLabel, } from "@/settings/usage-stats/usageStatsUiParts.js";
-import { getAppUsageModelChartColor } from "@/settings/usage-stats/appUsageChartPalette.js";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "../../components/ui/chart.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { UsageEmptyState, formatCompactTokenUsage, formatDay, resolveModelLabel, } from "../../settings/usage-stats/usageStatsUiParts.js";
+import { getAppUsageModelChartColor } from "../../settings/usage-stats/appUsageChartPalette.js";
 // XAxis 首尾刻度以绘图区边界为中心向两侧延伸，原 8px margin 小于日期文本半宽，
 // SVG 会裁掉首尾文字；左右保留 24px 安全区，让桌面端与手机 Web 端都能完整显示短日期。
 export const APP_USAGE_TREND_CHART_MARGIN = {

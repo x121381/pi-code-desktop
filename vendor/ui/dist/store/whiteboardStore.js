@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { buildWhiteboardWorkspaceKey, createWhiteboardDocument, } from "@/lib/whiteboard.js";
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { buildWhiteboardWorkspaceKey, createWhiteboardDocument, } from "../lib/whiteboard.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
 function getWorkspaceState(state, workspaceKey) {
     return state.workspaces[workspaceKey] ?? { boardIds: [], boardsById: {} };
 }

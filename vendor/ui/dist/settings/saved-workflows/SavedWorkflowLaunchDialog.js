@@ -2,18 +2,18 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { Info, Workflow } from "lucide-react";
 import { TID_WORKFLOW_LAUNCH_ARG, TID_WORKFLOW_LAUNCH_DIALOG, TID_WORKFLOW_LAUNCH_ERROR, TID_WORKFLOW_LAUNCH_SUBMIT, TID_WORKFLOW_LAUNCH_TARGET, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Input } from "@/components/ui/input.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { Switch } from "@/components/ui/switch.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { AutomationRunNowIcon } from "@/settings/AutomationDesignPrimitives.js";
-import { SettingsFormTextarea } from "@/settings/SettingsFormTextarea.js";
-import { findAutomationWorkspaceOptionByKey, reconcileAutomationWorkspaceSelectionKey, resolveAutomationWorkspaceSelectionKey, } from "@/settings/automationWorkspaceOptions.js";
-import { buildSavedWorkflowArgFields, collectSavedWorkflowArgs, } from "@/settings/saved-workflows/savedWorkflowArgsForm.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "../../components/ui/dialog.js";
+import { Input } from "../../components/ui/input.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../components/ui/select.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { Switch } from "../../components/ui/switch.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { AutomationRunNowIcon } from "../../settings/AutomationDesignPrimitives.js";
+import { SettingsFormTextarea } from "../../settings/SettingsFormTextarea.js";
+import { findAutomationWorkspaceOptionByKey, reconcileAutomationWorkspaceSelectionKey, resolveAutomationWorkspaceSelectionKey, } from "../../settings/automationWorkspaceOptions.js";
+import { buildSavedWorkflowArgFields, collectSavedWorkflowArgs, } from "../../settings/saved-workflows/savedWorkflowArgsForm.js";
 /**
  * 实参窗：头部 = Workflow 图标 + 名字（mono）
  * + 作用域徽标 + 说明；「运行于」（全局档）；实参表；一句「将立即在 X 的新会话中运行」；主按钮

@@ -1,7 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 const LABEL_ROLL_TRANSITION = {
     duration: 0.2,
     ease: [0.4, 0, 0.2, 1],

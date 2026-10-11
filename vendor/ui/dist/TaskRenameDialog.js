@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { Input } from "@/components/ui/input.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
-import { logger } from "@/logger.js";
+import { Button } from "./components/ui/button.js";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
+import { Input } from "./components/ui/input.js";
+import { isImeComposingKeyEvent } from "./lib/imeComposition.js";
+import { logger } from "./logger.js";
 export function TaskRenameDialog({ open, value, inputRef, intl, onOpenChange, onChange, onCancel, onConfirm, }) {
     const compositionActiveRef = useRef(false);
     return (_jsx(Dialog, { open: open, onOpenChange: onOpenChange, children: _jsx(DialogContent, { className: "max-w-xl overflow-hidden rounded-2xl p-0", children: _jsxs("div", { className: "flex min-w-0 flex-col gap-6 p-6", children: [_jsx(DialogHeader, { className: "space-y-2", children: _jsx(DialogTitle, { children: intl.formatMessage({ id: "taskList.rename" }) }) }), _jsx("div", { className: "flex min-w-0 flex-col space-y-4", children: _jsx(Input, { ref: inputRef, value: value, size: "lg", placeholder: intl.formatMessage({ id: "taskList.renamePlaceholder" }), onChange: (event) => {

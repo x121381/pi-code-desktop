@@ -2,11 +2,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback } from "react";
 import { BROWSER_VIEW_RESTORE_BOOTSTRAP_URL, TID_BROWSER_WEBVIEW, } from "@zcode/shared";
 import { TriangleAlertIcon } from "lucide-react";
-import { ResponsiveBrowserViewport } from "@/browser-use/ResponsiveBrowserViewport.js";
-import { resolveResponsiveBrowserGuestLayout, } from "@/browser-use/browserViewportZoom.js";
-import { cn } from "@/components/lib/utils.js";
-import { BrowserEmptyState, BrowserGuestFailureState, BrowserLoadErrorState, } from "@/EmbeddedBrowserPaneParts.js";
-import { DEFAULT_BROWSER_URL, isCertificateBrowserLoadErrorCode, } from "@/embeddedBrowserHelpers.js";
+import { ResponsiveBrowserViewport } from "../browser-use/ResponsiveBrowserViewport.js";
+import { resolveResponsiveBrowserGuestLayout, } from "../browser-use/browserViewportZoom.js";
+import { cn } from "../components/lib/utils.js";
+import { BrowserEmptyState, BrowserGuestFailureState, BrowserLoadErrorState, } from "../EmbeddedBrowserPaneParts.js";
+import { DEFAULT_BROWSER_URL, isCertificateBrowserLoadErrorCode, } from "../embeddedBrowserHelpers.js";
 export function BrowserViewportSurface({ browserRegionRef, browserState, desktopZoomFactor, isResidencyRestore, formatMessage, isEmptyBrowserState, isComposed, isResponsiveMode, isViewportEmulated = isResponsiveMode, onRetryGuest, onRetryLoad, onViewportResize, onViewportSizeChange, onWebviewRef, shouldMountWebview = true, showResizeWarning, webviewGeneration, viewportSize, viewportZoom, }) {
     const { guestFailure } = browserState;
     // guest 进程级失败优先于 load error：前者连画面都没有，后者只是这次导航被拒。

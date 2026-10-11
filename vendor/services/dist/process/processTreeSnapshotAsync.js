@@ -1,6 +1,6 @@
-import { captureExitedRootDescendantsSnapshot, captureProcessTreeSnapshot, filterCurrentProcessIdentities, } from "#src/process/processTreeSnapshot.js";
-import { readWindowsProcessListAsync } from "#src/process/windowsProcessListAsync.js";
-export { verifyWindowsProcessIdentityAsync } from "#src/process/windowsProcessListAsync.js";
+import { captureExitedRootDescendantsSnapshot, captureProcessTreeSnapshot, filterCurrentProcessIdentities, } from "../process/processTreeSnapshot.js";
+import { readWindowsProcessListAsync } from "../process/windowsProcessListAsync.js";
+export { verifyWindowsProcessIdentityAsync } from "../process/windowsProcessListAsync.js";
 const WINDOWS_START_TIME_PREFIX = "windows-utc-us:";
 function parseWindowsCreationTimeMs(startTime) {
     if (!startTime.startsWith(WINDOWS_START_TIME_PREFIX))

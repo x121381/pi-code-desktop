@@ -1,8 +1,8 @@
 import { databaseMigrationIdSchema } from "@zcode/shared";
 import { createHash } from "node:crypto";
-import { AUTOMATION_SCHEMA, OFF_PEAK_SCHEMA, TASK_INDEX_SCHEMA, } from "#src/session/tasksDatabase/schema-v1.js";
-import { importLegacyAutomationSelections } from "#src/session/tasksDatabase/provider-selection-v2.js";
-import { OFFICIAL_GLM_SELECTION_MIGRATION_SQL } from "#src/session/tasksDatabase/official-glm-selection-v3.js";
+import { AUTOMATION_SCHEMA, OFF_PEAK_SCHEMA, TASK_INDEX_SCHEMA, } from "../../session/tasksDatabase/schema-v1.js";
+import { importLegacyAutomationSelections } from "../../session/tasksDatabase/provider-selection-v2.js";
+import { OFFICIAL_GLM_SELECTION_MIGRATION_SQL } from "../../session/tasksDatabase/official-glm-selection-v3.js";
 // 冻结历史列声明，不能以实时 Repo/schema 代替，否则新版构建会改变已应用 checksum。
 const columns = [
     ["tasks", "title_overridden", "INTEGER NOT NULL DEFAULT 0"],

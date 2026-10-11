@@ -3,11 +3,11 @@ import { dirname } from "node:path";
 import { createRequire } from "node:module";
 // 与既有 Repo 一致：避免构建器把 node:sqlite 改写成不存在的 npm sqlite 包。
 const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite");
-import { TaskIndexRepo } from "#src/session/taskIndexRepo.js";
-import { AutomationRepo } from "#src/session/automationRepo.js";
-import { OffPeakTaskRepo } from "#src/session/offPeakTaskRepo.js";
-import { runTasksDatabaseMigrations, inspectTasksMigrationKind, } from "#src/session/tasksDatabase/migrations.js";
-import { markTasksStorageMigrated, markTasksStoragePrepared, } from "#src/session/tasksDatabase/prepared.js";
+import { TaskIndexRepo } from "../../session/taskIndexRepo.js";
+import { AutomationRepo } from "../../session/automationRepo.js";
+import { OffPeakTaskRepo } from "../../session/offPeakTaskRepo.js";
+import { runTasksDatabaseMigrations, inspectTasksMigrationKind, } from "../../session/tasksDatabase/migrations.js";
+import { markTasksStorageMigrated, markTasksStoragePrepared, } from "../../session/tasksDatabase/prepared.js";
 const LOCK_WAIT_MS = 60 * 60_000;
 /** 由 Host Worker 调用，SQL 和迁移后修复与旧 Repo 共用，只有获取写锁异步等待。 */
 export async function prepareTasksIndexStorage(path, onProgress) {

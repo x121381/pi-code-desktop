@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { packWorkspaceFileEntries, unpackWorkspaceFileEntries, } from "@zcode/shared/workspaceFileEntriesCodec";
-import { useWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { fetchWorkspaceFileEntriesPacked } from "@/workspace-file-search/fetchWorkspaceFileEntries.js";
-import { useWorkspaceFileSearchFilterEntries } from "@/workspace-file-search/useWorkspaceFileSearchFilter.js";
+import { useWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { fetchWorkspaceFileEntriesPacked } from "../workspace-file-search/fetchWorkspaceFileEntries.js";
+import { useWorkspaceFileSearchFilterEntries } from "../workspace-file-search/useWorkspaceFileSearchFilter.js";
 export function useWorkspaceFileSearchIndex({ workspacePath, workspaceIdentity, workspaceRemoteSessionId, enabled, }) {
     const { fileService } = useWorkspaceServices(workspacePath, workspaceRemoteSessionId, workspaceIdentity);
     // packed 直存（Host 返回列式字符串）：树渲染用 useMemo unpack，搜索态直透 worker。

@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { extname } from "node:path";
 import { rm } from "node:fs/promises";
 import { contentBundleSchema } from "@zcode/shared";
-import { createContentBundleCache } from "#src/cloud-content/contentBundleCache.js";
+import { createContentBundleCache } from "../cloud-content/contentBundleCache.js";
 const CSP = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; sandbox allow-scripts";
 const MIME = {
     ".html": "text/html; charset=utf-8",

@@ -1,5 +1,5 @@
 import { $getCharacterOffsets, $getRoot, $isElementNode, $isTextNode, } from "lexical";
-import { $isPromptMentionNode } from "@/mentions/nodes/PromptMentionNode.js";
+import { $isPromptMentionNode } from "../mentions/nodes/PromptMentionNode.js";
 /** 编辑器文本用于光标；业务输出显式读取 canonical，不能覆写 TextNode 文本语义。 */
 export function $getPromptMarkdown(node = $getRoot()) {
     if ($isPromptMentionNode(node))

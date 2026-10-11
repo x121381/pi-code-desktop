@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronDown, ChevronRight, GripVertical } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "../components/ui/collapsible.js";
 export function WorkspacePurposeSection({ title, open, onOpenChange, action, children, testId, sortableId, dragHandleLabel, }) {
     const { attributes, listeners, setActivatorNodeRef, setNodeRef, transform, transition, isDragging, } = useSortable({ id: sortableId });
     const style = {

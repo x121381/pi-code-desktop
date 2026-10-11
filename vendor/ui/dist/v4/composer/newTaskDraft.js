@@ -1,5 +1,5 @@
-import { readComposerRecent, resolveDraftInitialModelSelection } from "@/lib/composerRecent.js";
-import { persistV4ComposerDraft, readV4ComposerDraft, V4_DRAFT_SCOPE_ROOT, } from "@/v4/composer/composerDraftStore.js";
+import { readComposerRecent, resolveDraftInitialModelSelection } from "../../lib/composerRecent.js";
+import { persistV4ComposerDraft, readV4ComposerDraft, V4_DRAFT_SCOPE_ROOT, } from "../../v4/composer/composerDraftStore.js";
 /** 普通新任务与首次分享导入共用初始化；保留 Recent 原意图，由公共 View 解析有效选择。 */
 export function initializeNewTaskDraft(draft, workspacePath, workspaceIdentity, view) {
     const recent = readComposerRecent(workspacePath, workspaceIdentity);

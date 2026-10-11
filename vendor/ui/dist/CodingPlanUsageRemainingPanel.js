@@ -2,10 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, ZAI_PROVIDER_ID, } from "@zcode/shared";
 import { ChevronRightIcon, Loader2 } from "lucide-react";
 import { useMemo } from "react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, resolveMcpQuotaLimit, } from "@/lib/codingPlanQuotaPresentation.js";
-import { renderOAuthProviderIcon } from "@/lib/oauthProviderIcon.js";
+import { Button } from "./components/ui/button.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, resolveMcpQuotaLimit, } from "./lib/codingPlanQuotaPresentation.js";
+import { renderOAuthProviderIcon } from "./lib/oauthProviderIcon.js";
 function UsageLimitRow({ label, value, resetTime, }) {
     return (_jsxs("div", { className: "grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-1.5", children: [_jsx("div", { className: "min-w-0 truncate text-ui-sm text-foreground", children: label }), _jsxs("div", { className: "flex min-w-0 max-w-36 items-center gap-2 text-right text-ui-sm", children: [_jsx("span", { className: "min-w-0 truncate font-medium text-foreground", children: value }), resetTime ? (_jsx("span", { className: "min-w-0 truncate text-foreground-subtle", children: resetTime })) : null] })] }));
 }

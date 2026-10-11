@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { hasWorkspaceFileDragPayload, isWorkspaceFileDragStateEvent, WORKSPACE_FILE_DRAG_STATE_EVENT, } from "@/lib/workspaceFileDrag.js";
+import { hasWorkspaceFileDragPayload, isWorkspaceFileDragStateEvent, WORKSPACE_FILE_DRAG_STATE_EVENT, } from "../lib/workspaceFileDrag.js";
 function hasExternalFileDrag(dataTransfer) {
     return (Array.from(dataTransfer.types).includes("Files") ||
         Array.from(dataTransfer.items ?? []).some((item) => item.kind === "file"));

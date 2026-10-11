@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- V4WorkspaceChatArea 是分屏 workbench 宿主，集中管理 pane layout/focus/session binding；拆散会让 store action 和 shell binding 链路跨文件跳转。 */
 import { useCallback, useMemo, useRef } from "react";
-import { logger } from "@/logger.js";
-import { effectiveFocusedPaneId, MAX_WORKBENCH_PANES, paneWorkspaceKey, PRIMARY_LEAF, usePaneLayoutStore, V4_PRIMARY_PANE_ID, } from "@/v4/paneLayoutStore.js";
-import { collectWorkbenchLayout, dividerStyle, SPLIT_VAR_PREFIX } from "@/v4/workbenchLayout.js";
-import { WorkbenchLeafPane } from "@/v4/WorkbenchPane.js";
-import { WorkbenchSplitDivider } from "@/v4/WorkbenchSplitDivider.js";
-import { closeWorkbenchGroupPane, selectWorkbenchGroupActiveBinding, selectWorkbenchGroupPaneBinding, useWorkbenchGroupStore, } from "@/v4/workbenchGroupStore.js";
-import { canPlaceWorkbenchSessionInSplit, placeWorkbenchSessionInSplit, } from "@/v4/workbenchSessionPlacement.js";
+import { logger } from "../logger.js";
+import { effectiveFocusedPaneId, MAX_WORKBENCH_PANES, paneWorkspaceKey, PRIMARY_LEAF, usePaneLayoutStore, V4_PRIMARY_PANE_ID, } from "../v4/paneLayoutStore.js";
+import { collectWorkbenchLayout, dividerStyle, SPLIT_VAR_PREFIX } from "../v4/workbenchLayout.js";
+import { WorkbenchLeafPane } from "../v4/WorkbenchPane.js";
+import { WorkbenchSplitDivider } from "../v4/WorkbenchSplitDivider.js";
+import { closeWorkbenchGroupPane, selectWorkbenchGroupActiveBinding, selectWorkbenchGroupPaneBinding, useWorkbenchGroupStore, } from "../v4/workbenchGroupStore.js";
+import { canPlaceWorkbenchSessionInSplit, placeWorkbenchSessionInSplit, } from "../v4/workbenchSessionPlacement.js";
 function dragPayloadSessionTarget(payload) {
     return {
         workspacePath: payload.workspacePath,

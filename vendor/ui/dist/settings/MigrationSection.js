@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
 import { Loader2, RefreshCcw, TriangleAlert } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card.js";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert.js";
-import { Input } from "@/components/ui/input.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useClaudeSessionMigration } from "@/hooks/useClaudeSessionMigration.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MigrationCandidatesCard } from "@/settings/MigrationCandidatesCard.js";
+import { Button } from "../components/ui/button.js";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle, } from "../components/ui/card.js";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert.js";
+import { Input } from "../components/ui/input.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useClaudeSessionMigration } from "../hooks/useClaudeSessionMigration.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { MigrationCandidatesCard } from "../settings/MigrationCandidatesCard.js";
 const RANGE_OPTIONS = ["7d", "30d", "90d", "all"];
 const WORKSPACE_FILTER_OPTIONS = ["all", "current"];
 export function MigrationSection({ workspacePath, workspaceIdentity, isDesktop, }) {

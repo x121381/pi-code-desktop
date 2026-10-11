@@ -1,4 +1,4 @@
-import { getPathLeaf, isAbsoluteFilePath, joinFilePath } from "@/lib/path.js";
+import { getPathLeaf, isAbsoluteFilePath, joinFilePath } from "../lib/path.js";
 function isRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }

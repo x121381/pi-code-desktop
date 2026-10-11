@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { createInitialFinishExecutionState, } from "@/onboarding/OnboardingFlowParts.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getPathLeaf } from "../lib/path.js";
+import { createInitialFinishExecutionState, } from "../onboarding/OnboardingFlowParts.js";
 export function shouldAutoScanOnboardingSessions(params) {
     return (params.view === "wizard" &&
         params.wizardStep === "session" &&

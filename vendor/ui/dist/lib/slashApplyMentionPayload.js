@@ -1,5 +1,5 @@
-import { buildSkillMentionMarkdown, buildSubagentMentionMarkdown, } from "@/mentions/mentionMarkdown.js";
-import { normalizeSlashCommandValue } from "@/slashCommandHelpers.js";
+import { buildSkillMentionMarkdown, buildSubagentMentionMarkdown, } from "../mentions/mentionMarkdown.js";
+import { normalizeSlashCommandValue } from "../slashCommandHelpers.js";
 /** 将 `/` 面板选中的建议转成 PromptMention 载荷；skill/subagent 仍复用既有 $skill 与 @agent markdown 语义。 */
 export function buildSlashApplyMentionPayload(suggestion) {
     if (suggestion.id.startsWith("skill:")) {

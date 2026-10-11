@@ -3,8 +3,8 @@
    （由 idle plan per-turn provider 在 agent 进程内直连，D33）。
    无内建重试：排队/退避语义在调用方（offPeakTaskService 轮询 / 适配层 D24）。 */
 import { z } from "zod";
-import { withRequestIdHeader, REQUEST_ID_HEADER_NAME, } from "#src/providers/api/requestIdHeaders.js";
-import { buildZCodeSourceHeaders } from "#src/providers/sourceHeaders.js";
+import { withRequestIdHeader, REQUEST_ID_HEADER_NAME, } from "../providers/api/requestIdHeaders.js";
+import { buildZCodeSourceHeaders } from "../providers/sourceHeaders.js";
 import { buildOffPeakPlanIdentityHeaders, } from "./offPeakRuntimeModel.js";
 /** 服务端准入态（两轴状态机的服务端轴）。 */
 export const offPeakTicketStateSchema = z.enum([

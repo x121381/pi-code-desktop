@@ -1,0 +1,4 @@
+import { type AcknowledgedWebRemoteControlRelayProtocolAdapter, type AcknowledgedWebRemoteControlRelayProtocolOptions } from "./webRemoteControlAcknowledgedRelayProtocolTypes.js";
+export { ACKNOWLEDGED_WEB_REMOTE_CONTROL_RELAY_LIMITS, type AcknowledgedWebRemoteControlRelayProtocolAdapter, type AcknowledgedWebRemoteControlRelayProtocolOptions, } from "./webRemoteControlAcknowledgedRelayProtocolTypes.js";
+export declare function createAcknowledgedWebRemoteControlRelayProtocol(options: AcknowledgedWebRemoteControlRelayProtocolOptions): AcknowledgedWebRemoteControlRelayProtocolAdapter;
+//# sourceMappingURL=webRemoteControlAcknowledgedRelayProtocol.d.ts.map

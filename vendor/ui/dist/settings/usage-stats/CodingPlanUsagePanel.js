@@ -2,27 +2,27 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 /* eslint-disable max-lines -- Coding Plan usage 面板集中处理数据来源、额度卡片和用量图表，拆分会让账号级来源绑定状态更分散。 */
 import { Fragment, lazy, useCallback, useEffect, useMemo, useState } from "react";
 import { Check, InfoIcon, RefreshCw } from "lucide-react";
-import { LocalizedCodingPlanQuotaResetAction } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetAction.js";
-import { CodingPlanQuotaResetOpportunity } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetOpportunity.js";
-import { buildCodingPlanQuotaResetDialogConfig } from "@/components/coding-plan-quota-reset/buildCodingPlanQuotaResetDialogConfig.js";
-import { Button } from "@/components/ui/button.js";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { LocalizedCodingPlanQuotaResetAction } from "../../components/coding-plan-quota-reset/CodingPlanQuotaResetAction.js";
+import { CodingPlanQuotaResetOpportunity } from "../../components/coding-plan-quota-reset/CodingPlanQuotaResetOpportunity.js";
+import { buildCodingPlanQuotaResetDialogConfig } from "../../components/coding-plan-quota-reset/buildCodingPlanQuotaResetDialogConfig.js";
+import { Button } from "../../components/ui/button.js";
+import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
 import { BUILTIN_MODEL_PROVIDER_IDS } from "@zcode/shared";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useUsageEntitlement } from "@/hooks/useUsageEntitlement.js";
-import { useCodingPlanQuotaResetUi } from "@/hooks/useCodingPlanQuotaResetUi.js";
-import { useCodingPlanUsageStats } from "@/hooks/useUsageStats.js";
-import { buildUsageEntitlementCacheKey } from "@/lib/usageEntitlementCache.js";
-import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, getQuotaRemainingPercentage, resolveMcpQuotaLimit, } from "@/lib/codingPlanQuotaPresentation.js";
-import { mergeCodingPlanQuotaResetOpportunityBadges, resolveCodingPlanQuotaResetActionCompletedAt, resolveCodingPlanQuotaResetLimit, } from "@/lib/codingPlanQuotaResetUi.js";
-import { UsageChartLoadBoundary } from "@/settings/usage-stats/UsageChartLoadBoundary.js";
-import { buildCodingPlanModelLineChartSeries, buildCodingPlanToolLineChartSeries, buildCodingPlanUsageDetailLineChartSeries, } from "@/settings/usage-stats/codingPlanUsageChartSeries.js";
-import { UsageStatsErrorNotice } from "@/settings/usage-stats/UsageStatsErrorNotice.js";
-import { UsageHeatmap } from "@/settings/usage-stats/UsageHeatmap.js";
-import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, formatFullDay, formatSummaryCompactTokenUsage, } from "@/settings/usage-stats/usageStatsUiParts.js";
-import { formatAppUsageDuration } from "@/settings/usage-stats/AppUsagePanel.js";
-import { buildCodingPlanUsageSources, } from "@/lib/codingPlanUsageSources.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { useUsageEntitlement } from "../../hooks/useUsageEntitlement.js";
+import { useCodingPlanQuotaResetUi } from "../../hooks/useCodingPlanQuotaResetUi.js";
+import { useCodingPlanUsageStats } from "../../hooks/useUsageStats.js";
+import { buildUsageEntitlementCacheKey } from "../../lib/usageEntitlementCache.js";
+import { findCodingPlanQuotaLimit, formatQuotaRemainingPercentage, formatQuotaResetTime, getQuotaRemainingPercentage, resolveMcpQuotaLimit, } from "../../lib/codingPlanQuotaPresentation.js";
+import { mergeCodingPlanQuotaResetOpportunityBadges, resolveCodingPlanQuotaResetActionCompletedAt, resolveCodingPlanQuotaResetLimit, } from "../../lib/codingPlanQuotaResetUi.js";
+import { UsageChartLoadBoundary } from "../../settings/usage-stats/UsageChartLoadBoundary.js";
+import { buildCodingPlanModelLineChartSeries, buildCodingPlanToolLineChartSeries, buildCodingPlanUsageDetailLineChartSeries, } from "../../settings/usage-stats/codingPlanUsageChartSeries.js";
+import { UsageStatsErrorNotice } from "../../settings/usage-stats/UsageStatsErrorNotice.js";
+import { UsageHeatmap } from "../../settings/usage-stats/UsageHeatmap.js";
+import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, formatFullDay, formatSummaryCompactTokenUsage, } from "../../settings/usage-stats/usageStatsUiParts.js";
+import { formatAppUsageDuration } from "../../settings/usage-stats/AppUsagePanel.js";
+import { buildCodingPlanUsageSources, } from "../../lib/codingPlanUsageSources.js";
 export { buildCodingPlanUsageSources };
 /** Usage stats 独有的完整重置时刻格式；其它紧凑入口继续按各自规则展示。 */
 export function formatUsageStatsQuotaResetTime(locale, value) {
@@ -31,10 +31,10 @@ export function formatUsageStatsQuotaResetTime(locale, value) {
 // Recharts 会在模块初始化阶段触发 decimal.js-light 的 LN10 校验，
 // 在 Electron Linux 容器里会阻断整个 renderer 启动。图表按需加载后，
 // 普通启动和 e2e 首页不会被 Usage 页图表依赖影响，打开 Usage 时也由局部边界隔离。
-const CodingPlanUsageLineChart = lazy(() => import("@/settings/usage-stats/CodingPlanUsageLineChart.js").then((module) => ({
+const CodingPlanUsageLineChart = lazy(() => import("../../settings/usage-stats/CodingPlanUsageLineChart.js").then((module) => ({
     default: module.CodingPlanUsageLineChart,
 })));
-const CodingPlanUsageBarChart = lazy(() => import("@/settings/usage-stats/CodingPlanUsageBarChart.js").then((module) => ({
+const CodingPlanUsageBarChart = lazy(() => import("../../settings/usage-stats/CodingPlanUsageBarChart.js").then((module) => ({
     default: module.CodingPlanUsageBarChart,
 })));
 const CODING_PLAN_DETAIL_SERIES_COLORS = [

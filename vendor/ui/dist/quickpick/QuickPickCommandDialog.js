@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut, } from "@/components/ui/command.js";
-import { toast } from "@/components/ui/toast.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { QUICK_PICK_SECTION_ORDER, } from "@/quickpick/quickPickCommands.js";
-import { QUICK_PICK_ICON_BY_KIND } from "@/quickpick/quickPickCommandIcons.js";
-import { quickPickCommandClassName, quickPickDialogClassName, quickPickInputClassName, quickPickItemClassName, quickPickListClassName, quickPickShortcutPillClassName, } from "@/quickpick/quickPickStyles.js";
+import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandShortcut, } from "../components/ui/command.js";
+import { toast } from "../components/ui/toast.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { QUICK_PICK_SECTION_ORDER, } from "../quickpick/quickPickCommands.js";
+import { QUICK_PICK_ICON_BY_KIND } from "../quickpick/quickPickCommandIcons.js";
+import { quickPickCommandClassName, quickPickDialogClassName, quickPickInputClassName, quickPickItemClassName, quickPickListClassName, quickPickShortcutPillClassName, } from "../quickpick/quickPickStyles.js";
 export function QuickPickCommandDialog({ open, commands, onOpenChange, }) {
     const { intl } = useZCodeIntl();
     const groupedCommands = useMemo(() => QUICK_PICK_SECTION_ORDER.map((sectionId) => ({

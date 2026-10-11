@@ -1,11 +1,11 @@
 /* oxlint-disable eslint(max-lines) -- 当前文件承接 task 级状态切片，先保持最小改动修复草稿逻辑，后续再统一拆分 */
 import { normalizeAgentProviderToZCodeAgent, } from "@zcode/shared";
-import { removeTaskFromHistory } from "@/lib/taskNavigationHistory.js";
-import { mergeTaskWithOptimisticMeta } from "@/lib/zcodeTaskMetaMerge.js";
-import { getDefaultWorkspaceState } from "@/store/zcodeSessionStoreTypes.js";
-import { clearPersistedComposerDraft } from "@/lib/chatComposerDraftStorage.js";
-import { areConfigOptionsEquivalent } from "@/lib/configOptionsEquality.js";
-import { getTaskRuntimeState, getTaskUiState, getWorkspaceState, resolveWorkspaceStateKey, updateWorkspaceState, } from "@/store/zcodeSessionStoreSelectors.js";
+import { removeTaskFromHistory } from "../lib/taskNavigationHistory.js";
+import { mergeTaskWithOptimisticMeta } from "../lib/zcodeTaskMetaMerge.js";
+import { getDefaultWorkspaceState } from "../store/zcodeSessionStoreTypes.js";
+import { clearPersistedComposerDraft } from "../lib/chatComposerDraftStorage.js";
+import { areConfigOptionsEquivalent } from "../lib/configOptionsEquality.js";
+import { getTaskRuntimeState, getTaskUiState, getWorkspaceState, resolveWorkspaceStateKey, updateWorkspaceState, } from "../store/zcodeSessionStoreSelectors.js";
 function sortTasksByUpdatedAt(tasks) {
     return [...tasks].sort((left, right) => {
         if (right.updatedAt !== left.updatedAt) {

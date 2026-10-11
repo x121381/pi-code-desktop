@@ -3,7 +3,7 @@ import { randomBytes } from "node:crypto";
 import { ApiError, formatLogPrefix, BIGMODEL_PROVIDER_ID, ZAI_PROVIDER_ID, resolveJwtExpiration, } from "@zcode/shared";
 import { createServiceLogger } from "../logger/serviceLogger.js";
 import { readApiJson } from "../providers/api/apiJson.js";
-import { isCurrentOAuthCredentialRequest } from "#src/oauth/oauthUnauthorizedRequest.js";
+import { isCurrentOAuthCredentialRequest } from "../oauth/oauthUnauthorizedRequest.js";
 import { hasOAuthAuthorizationCode, parseOAuthLoginAttribution } from "./callbackAttribution.js";
 import { refreshLegacyBigModelCachedProfile, withProviderProfileSchema, } from "./oauthProfileSchema.js";
 import { createOAuthProviderAdapters } from "./providers/index.js";

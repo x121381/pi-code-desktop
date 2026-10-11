@@ -1,5 +1,5 @@
-import { sortInstalledEditorsForOpenWith } from "@/lib/openWithEditors.js";
-import { toFileUrl } from "@/lib/path.js";
+import { sortInstalledEditorsForOpenWith } from "../lib/openWithEditors.js";
+import { toFileUrl } from "../lib/path.js";
 export function toError(value) {
     return value instanceof Error ? value : new Error(String(value));
 }

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { buildGitBranchAutoCommitMessage, getPrimaryGitBranchIssue, resolveGitBranchIssueMessageId, resolveGitBranchSuccessMessageId, summarizeGitBranchIssuePaths, } from "@/git-branch-switcher/display.js";
-import { buildGitBranchSwitchAssistState, formatGitBranchIssuePathList, hasGitCommitIdentity, } from "@/git-branch-switcher/switchAssist.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
+import { toast } from "../components/ui/toast.js";
+import { buildGitBranchAutoCommitMessage, getPrimaryGitBranchIssue, resolveGitBranchIssueMessageId, resolveGitBranchSuccessMessageId, summarizeGitBranchIssuePaths, } from "../git-branch-switcher/display.js";
+import { buildGitBranchSwitchAssistState, formatGitBranchIssuePathList, hasGitCommitIdentity, } from "../git-branch-switcher/switchAssist.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
 export function useGitBranchSwitcher({ workspacePath, currentBranchName, headRefType, onRefreshGit, }) {
     const { gitService } = useServices();
     const { intl, locale } = useZCodeIntl();

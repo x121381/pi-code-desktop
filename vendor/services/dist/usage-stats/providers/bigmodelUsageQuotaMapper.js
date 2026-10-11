@@ -1,4 +1,4 @@
-import { isActivePersonalCodingPlan } from "#src/bigmodel/codingPlanEntitlement.js";
+import { isActivePersonalCodingPlan } from "../../bigmodel/codingPlanEntitlement.js";
 export function normalizeLimits(limits) {
     if (!Array.isArray(limits)) {
         return [];

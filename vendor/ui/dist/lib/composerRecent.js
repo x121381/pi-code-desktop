@@ -1,7 +1,7 @@
 import { isHighspeedProviderId } from "@zcode/shared";
 import { modelSelectionSchema } from "@zcode/shared/model-selection";
 import { submissionModeSchema } from "@zcode/shared/zcode-protocol-v4";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 // 沿用旧 key，读取时兼容只保存 ModelSelection 的历史记录。
 const COMPOSER_RECENT_KEY_PREFIX = "zcode-model-selection-recent-v1";
 let submissionSequence = 0;

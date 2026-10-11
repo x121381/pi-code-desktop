@@ -3,11 +3,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
    一行汇总一次完整执行（3h 续跑分段对用户透明，D30-6）：Instructions / Triggered /
    Status / Duration + 行菜单 Go to session / Delete；无执行记录 → 「No history yet.」 */
 import { isOffPeakTerminalStatus } from "@zcode/shared";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatDateTime } from "@/settings/automationFormat.js";
-import { AutomationExternalLinkIcon, AutomationHistoryEmptyState, AutomationMoreHorizontalIcon, AutomationTrashIcon, } from "@/settings/AutomationDesignPrimitives.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatDateTime } from "../settings/automationFormat.js";
+import { AutomationExternalLinkIcon, AutomationHistoryEmptyState, AutomationMoreHorizontalIcon, AutomationTrashIcon, } from "../settings/AutomationDesignPrimitives.js";
 // 状态用「圆点 + 彩色文字」呈现（Scheduled 历史表密度规格）。
 const STATUS_INDICATOR_CLASS = {
     succeeded: { dot: "bg-success", text: "text-success" },

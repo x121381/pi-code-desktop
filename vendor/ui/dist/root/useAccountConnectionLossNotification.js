@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { toast, dismissToast } from "@/components/ui/toast.js";
-import { createAccountConnectionRefreshObserver, } from "@/root/accountConnectionRefreshObserver.js";
-import { prepareAccountConnectionSwitch } from "@/root/accountConnectionLossSuggestion.js";
-import { logger } from "@/logger.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { toast, dismissToast } from "../components/ui/toast.js";
+import { createAccountConnectionRefreshObserver, } from "../root/accountConnectionRefreshObserver.js";
+import { prepareAccountConnectionSwitch } from "../root/accountConnectionLossSuggestion.js";
+import { logger } from "../logger.js";
 /** 根层只观察一次；页面/文案变化不重新建立账号基线。 */
 export function useAccountConnectionLossNotification(services, intentKey, refreshAppSettings) {
     const { intl } = useZCodeIntl();

@@ -1,5 +1,5 @@
 import { isBuiltinModelProviderId, isStartPlanModelProviderId } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /** 只比较同一连接的确定状态；手动选未开通套餐不能触发自动回退。 */
 export function createAccountConnectionRefreshObserver(notify) {
     let disposed = false;

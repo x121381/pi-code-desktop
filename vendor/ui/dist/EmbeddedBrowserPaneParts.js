@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Bug, ChevronLeft, ChevronRight, Ellipsis, ExternalLink, Globe, LoaderIcon, MonitorSmartphone, MousePointerClick, RefreshCw, TriangleAlertIcon, } from "lucide-react";
 import { TID_BROWSER_ADDRESS_INPUT, TID_BROWSER_BACK_BUTTON, TID_BROWSER_DEVTOOLS_BUTTON, TID_BROWSER_ELEMENT_PICKER_BUTTON, TID_BROWSER_FORWARD_BUTTON, TID_BROWSER_LOAD_ERROR, TID_BROWSER_LOAD_ERROR_CERT_HINT, TID_BROWSER_MORE_BUTTON, TID_BROWSER_OPEN_EXTERNAL_ITEM, TID_BROWSER_REFRESH_BUTTON, TID_BROWSER_RESPONSIVE_BUTTON, } from "@zcode/shared";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { Input } from "@/components/ui/input.js";
-import { isDefaultBrowserOpenableUrl, } from "@/embeddedBrowserHelpers.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { Input } from "./components/ui/input.js";
+import { isDefaultBrowserOpenableUrl, } from "./embeddedBrowserHelpers.js";
+import { runUserAction } from "./lib/userActionTelemetry.js";
 export function BrowserToolbar({ addressValue, browserState, permissionControl, formatMessage, onAddressChange, onGoBack, onGoForward, onOpenExternal, onOpenDevTools, onPickElement, onReload, onToggleResponsiveMode, onSubmit, isElementPickerActive, isResponsiveMode, }) {
     return (_jsxs("form", { onSubmit: (event) => runUserAction({
             input: { featureId: "workbench.browser", action: "navigate", trigger: "keyboard" },

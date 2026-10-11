@@ -1,4 +1,4 @@
-import { hasActiveCodingPlanSnapshot } from "@/CodingPlanUsageRemainingPanel.js";
+import { hasActiveCodingPlanSnapshot } from "./CodingPlanUsageRemainingPanel.js";
 export function resolveSidebarFooterProfilePlanBadge({ hasTeamPlanEntitlement, individualEntitlements, }) {
     const activeIndividualEntitlement = individualEntitlements.find((entitlement) => hasActiveCodingPlanSnapshot(entitlement.snapshot, entitlement.providerId));
     if (activeIndividualEntitlement?.snapshot) {

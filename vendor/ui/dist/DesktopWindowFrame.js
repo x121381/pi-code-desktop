@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "./components/lib/utils.js";
 export const DesktopWindowFrame = memo(function DesktopWindowFrameComponent({ title: _title, children, actions: _actions, tabBar: _tabBar, isDesktop = false, isMacDesktop = false, isWindowsDesktop = false, headerTestId: _headerTestId, showHeader: _showHeader = isDesktop, }) {
     const isLinuxDesktop = isDesktop && !isMacDesktop && !isWindowsDesktop;
     const usesOpaqueRootSurface = !isDesktop || isWindowsDesktop || isLinuxDesktop;

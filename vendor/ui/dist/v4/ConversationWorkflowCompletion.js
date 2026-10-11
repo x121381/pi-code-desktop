@@ -1,11 +1,11 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { WorkflowCompletionCard, } from "@/components/workflow-timeline/WorkflowCompletionCard.js";
-import { completionArtifactLayout, completionPreviewIds, } from "@/components/workflow-timeline/WorkflowCompletionArtifacts.js";
-import { useWorkflowRunArtifacts, } from "@/hooks/useWorkflowRunArtifacts.js";
-import { WorkflowRunSaveSlotsBoundary, } from "@/components/workflow-timeline/WorkflowRunSaveControls.js";
-import { WorkflowArtifactTilePreview } from "@/app-shell/workflow-artifacts/WorkflowArtifactTilePreview.js";
-import { useHasV4Conversation } from "@/v4/V4ConversationContext.js";
+import { WorkflowCompletionCard, } from "../components/workflow-timeline/WorkflowCompletionCard.js";
+import { completionArtifactLayout, completionPreviewIds, } from "../components/workflow-timeline/WorkflowCompletionArtifacts.js";
+import { useWorkflowRunArtifacts, } from "../hooks/useWorkflowRunArtifacts.js";
+import { WorkflowRunSaveSlotsBoundary, } from "../components/workflow-timeline/WorkflowRunSaveControls.js";
+import { WorkflowArtifactTilePreview } from "../app-shell/workflow-artifacts/WorkflowArtifactTilePreview.js";
+import { useHasV4Conversation } from "../v4/V4ConversationContext.js";
 /**
  * 完成卡的落位：把解析出的完成事实接上
  * 宿主回调与产物取数。回调的存在即门控（照 `ConversationWorkflowDigests`）：⤢ 要

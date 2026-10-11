@@ -1,20 +1,20 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useId, useRef, useState } from "react";
 import { Loader2Icon, Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog.js";
-import { Input } from "@/components/ui/input.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ProviderModelInputModalityOptions } from "@/settings/model-provider-section/ProviderModelModalityOptions.js";
-import { BooleanModelOption } from "@/settings/model-provider-section/ProviderModelMetadataFields.js";
-import { ModelSettingsGroup, ProviderModelReasoningSettings, } from "@/settings/model-provider-section/ProviderModelSettingsGroups.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
-import { TECHNICAL_INPUT_ATTRIBUTES } from "@/lib/technicalInputAttributes.js";
-import { ProviderModelMetadataDialogActions, ModelSmartConfigSwitch, ModelConfigDraftFeedback, ModelConfigRestoreButton, } from "@/settings/model-provider-section/ProviderModelMetadataDialogActions.js";
-import { modelEditorControlStyle } from "@/settings/model-provider-section/modelEditorControlStyle.js";
-import { cn } from "@/components/lib/utils.js";
-import { ModelConfigHelp, ModelConfigInputLabel, } from "@/settings/model-provider-section/ModelConfigHelp.js";
-import { ModelEditorAdvanced } from "@/settings/model-provider-section/ModelEditorAdvanced.js";
+import { Button } from "../../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, } from "../../components/ui/dialog.js";
+import { Input } from "../../components/ui/input.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ProviderModelInputModalityOptions } from "../../settings/model-provider-section/ProviderModelModalityOptions.js";
+import { BooleanModelOption } from "../../settings/model-provider-section/ProviderModelMetadataFields.js";
+import { ModelSettingsGroup, ProviderModelReasoningSettings, } from "../../settings/model-provider-section/ProviderModelSettingsGroups.js";
+import { isImeComposingKeyEvent } from "../../lib/imeComposition.js";
+import { TECHNICAL_INPUT_ATTRIBUTES } from "../../lib/technicalInputAttributes.js";
+import { ProviderModelMetadataDialogActions, ModelSmartConfigSwitch, ModelConfigDraftFeedback, ModelConfigRestoreButton, } from "../../settings/model-provider-section/ProviderModelMetadataDialogActions.js";
+import { modelEditorControlStyle } from "../../settings/model-provider-section/modelEditorControlStyle.js";
+import { cn } from "../../components/lib/utils.js";
+import { ModelConfigHelp, ModelConfigInputLabel, } from "../../settings/model-provider-section/ModelConfigHelp.js";
+import { ModelEditorAdvanced } from "../../settings/model-provider-section/ModelEditorAdvanced.js";
 export function selectFocusedInputText(event) {
     event.currentTarget.select();
 }

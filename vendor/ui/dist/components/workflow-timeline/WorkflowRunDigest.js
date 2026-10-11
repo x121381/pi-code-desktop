@@ -2,10 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useMemo, useState } from "react";
 import { MessageCircleQuestionIcon, RotateCcwIcon, SlidersHorizontalIcon, SquareIcon, } from "lucide-react";
 import { TID_CHAT_WORKFLOW_RUN_DIGEST, testId } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { buildWorkflowTimeline } from "./timeline-model.js";
 import { workflowCardDetail } from "./timeline-summary.js";
 import { HolesWaitingChip } from "./WorkflowHoleParts.js";

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { WORKSPACE_FILE_TREE_VIRTUAL_ROW_HEIGHT_PX } from "@/workspace-file-tree/constants.js";
+import { WORKSPACE_FILE_TREE_VIRTUAL_ROW_HEIGHT_PX } from "../workspace-file-tree/constants.js";
 export function getWorkspaceFileTreeStickyFolders({ rows, virtualItems, scrollOffset, enabled = true, }) {
     if (!enabled) {
         return [];

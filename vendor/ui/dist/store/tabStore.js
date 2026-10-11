@@ -7,8 +7,8 @@
  */
 import { create } from "zustand";
 import { createUuid, } from "@zcode/shared";
-import { persistWorkspaceExpandedPreference, readWorkspaceExpansionState, resolveExpandedWorkspacePaths, } from "@/lib/workspaceExpansionPreference.js";
-import { isSameWorkspaceTab } from "@/store/tabWorkspaceIdentity.js";
+import { persistWorkspaceExpandedPreference, readWorkspaceExpansionState, resolveExpandedWorkspacePaths, } from "../lib/workspaceExpansionPreference.js";
+import { isSameWorkspaceTab } from "../store/tabWorkspaceIdentity.js";
 export const SETTINGS_TAB_ID = "__settings__";
 export function isWorkspaceTab(tab) {
     return tab.kind === "workspace";

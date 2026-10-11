@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useState } from "react";
 import { TID_V4_USER_INPUT_DIALOG, TID_V4_USER_INPUT_OPTION, TID_V4_USER_INPUT_TEXT, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 /** v4 userInput 交互最小弹窗（竖切）。 */
 export function V4UserInputDialog({ model, onSubmit }) {
     const [freeText, setFreeText] = useState("");

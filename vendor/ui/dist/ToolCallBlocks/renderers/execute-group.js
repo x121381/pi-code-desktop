@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { SquareTerminalIcon } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolCallBlock } from "@/ToolCallBlocks.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { getExecuteSecondaryText } from "@/ToolCallBlocks/renderers/execute.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolCallBlock } from "../../ToolCallBlocks.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { getExecuteSecondaryText } from "../../ToolCallBlocks/renderers/execute.js";
 const EXECUTE_GROUP_ICON = (_jsx(SquareTerminalIcon, { className: "size-4 shrink-0 text-foreground-subtle" }));
 // V4 row 进入共享 renderer 前会把 inputStreaming/pendingApproval 统一适配为 pending。
 const ACTIVE_STATUSES = new Set(["pending", "in_progress"]);

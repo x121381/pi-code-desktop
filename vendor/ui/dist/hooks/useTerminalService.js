@@ -2,7 +2,7 @@
  * useTerminalService —— 终端服务 hooks
  */
 import { useState, useEffect, useCallback, useRef } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 import { useServices } from "./useServices.js";
 /**
  * 终端生命周期管理 hook

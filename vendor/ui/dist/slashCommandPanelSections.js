@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
-import {} from "@/mentions/components/MentionPanel.js";
+import {} from "./mentions/components/MentionPanel.js";
 export function useSlashCommandMentionPanelSections(intl, commandsLength, filteredCommandSuggestions, filteredSkillSuggestions, skillsLoading, skillsError, filteredSubagentSuggestions, subagentsLoading, subagentsError) {
     return useMemo(() => [
         {

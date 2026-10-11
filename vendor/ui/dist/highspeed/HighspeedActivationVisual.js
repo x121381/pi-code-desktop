@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useCallback, useEffect, useState } from "react";
-import { FloatingParticles } from "@/components/ui/floating-particles.js";
-import { HighSpeedDiffusionCanvas } from "@/v4/highspeed/HighSpeedDiffusionCanvas.js";
+import { FloatingParticles } from "../components/ui/floating-particles.js";
+import { HighSpeedDiffusionCanvas } from "../v4/highspeed/HighSpeedDiffusionCanvas.js";
 const HIGHSPEED_HANDOFF_FALLBACK_MS = 1_000;
 /**
  * 仅渲染 Highspeed 输入壳的视觉层；激活资格、有效期和模型仍由外部卡片快照决定。

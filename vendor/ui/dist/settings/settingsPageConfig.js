@@ -1,5 +1,5 @@
 import { Monitor, Moon, Settings, Settings2, Package, Bot, Palette, Sun, BarChart3, Terminal, AlarmClock, Anchor, Brain, Blocks, Globe2, Cable, WandSparkles, Keyboard, FileSearch, } from "lucide-react";
-import { isSettingsSectionEnabled } from "@/lib/settingsNavigation.js";
+import { isSettingsSectionEnabled } from "../lib/settingsNavigation.js";
 export const THEME_MODES = [
     { mode: "system", icon: Monitor },
     { mode: "zai-dark", icon: Moon },

@@ -1,5 +1,5 @@
 import { sanitizeTelemetryModelValue, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const UI_PERF_ARMS_GROUP = "ui_perf";
 export const UI_PERF_EVENT_LAUNCH_TO_INPUT = "perf_ui_launch_to_input";
 export const UI_PERF_EVENT_LAUNCH_ELECTRON_INIT = "perf_ui_launch_electron_init_ms";

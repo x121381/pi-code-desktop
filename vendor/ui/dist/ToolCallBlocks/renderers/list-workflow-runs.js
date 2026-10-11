@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { History } from "lucide-react";
 import { useMemo } from "react";
-import { RUN_STATUS_DOT, RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "@/components/workflow-graph/run-status-presentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatWorkflowTimestamp, formatWorkflowTokenCount, } from "@/lib/workflowObservationFormat.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { RUN_STATUS_DOT, RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "../../components/workflow-graph/run-status-presentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatWorkflowTimestamp, formatWorkflowTokenCount, } from "../../lib/workflowObservationFormat.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 import { ToolLayout } from "../ToolLayout.js";
 const LIST_WORKFLOW_RUNS_TOOL_ICON = _jsx(History, { className: "size-4 shrink-0 text-foreground-subtle" });
 /**

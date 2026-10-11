@@ -1,5 +1,5 @@
-import { captureProcessTreeSnapshot, filterCurrentProcessIdentities, } from "#src/process/processTreeSnapshot.js";
-import { captureProcessTreeSnapshotAsync, filterCurrentProcessIdentitiesAsync, } from "#src/process/processTreeSnapshotAsync.js";
+import { captureProcessTreeSnapshot, filterCurrentProcessIdentities, } from "../process/processTreeSnapshot.js";
+import { captureProcessTreeSnapshotAsync, filterCurrentProcessIdentitiesAsync, } from "../process/processTreeSnapshotAsync.js";
 function hasChildExited(child) {
     return child.exitCode !== null || child.signalCode !== null;
 }

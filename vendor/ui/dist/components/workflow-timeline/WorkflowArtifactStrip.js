@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { ARTIFACT_CHIP_MAX_VISIBLE } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ARTIFACT_CHIP_MAX_VISIBLE } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { PILL_STAGGER_MS } from "./WorkflowTimeline.js";
 import { WorkflowArtifactPill, } from "./WorkflowArtifactPill.js";
 /**

@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { STATUS_DOT } from "@/components/workflow-graph/run-status-presentation.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { STATUS_DOT } from "../../components/workflow-graph/run-status-presentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { LEDGE_PITCH, LEDGE_LAMP, ledgeLamps, railKey, scrollbarThumb } from "./timeline-ledge.js";
 /**
  * 边檐与滚动条。

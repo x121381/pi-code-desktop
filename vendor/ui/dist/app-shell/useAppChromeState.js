@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { toast } from "@/components/ui/toast.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { toast } from "../components/ui/toast.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const MACOS_WINDOW_CONTROLS_DEFAULT_LEFT_PADDING_PX = 96;
 const WINDOWS_WINDOW_CONTROLS_DEFAULT_RIGHT_PADDING_PX = 136;
 function readFinitePositivePx(value) {

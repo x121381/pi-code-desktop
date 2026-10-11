@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeStore } from "./store/StoreProvider.js";
+import { resolveTheme } from "./useTheme.js";
 function getThemeHeroPalette(theme) {
     switch (theme) {
         case "light":

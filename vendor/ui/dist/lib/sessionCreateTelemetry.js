@@ -1,5 +1,5 @@
 import { resolveWorkspaceTelemetryDetail, } from "@zcode/shared";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
 export function createSessionCreateReporter() {
     const reported = new Set();
     return async (platform, input) => {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useIdleTrigger } from "@/settings/model-provider-section/useIdleTrigger.js";
+import { useIdleTrigger } from "../../settings/model-provider-section/useIdleTrigger.js";
 export function useModelConfigResolution({ open, enabled = true, originalModelId, modelId, resolve, }) {
     const [result, setResult] = useState(null);
     const [resolving, setResolving] = useState(false);

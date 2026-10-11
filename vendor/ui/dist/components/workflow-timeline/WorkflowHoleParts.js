@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { PenIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 留白的小零件（docs/dynamic-workflow/presentation.md「Holes on the timeline」），卡、侧板与工具行共用：
  * 无阶段补全后站名旁的笔标（它的头）、等待中的元数据词「等待补全」、表头与侧板的「{n} 处留白待补全」芯片。

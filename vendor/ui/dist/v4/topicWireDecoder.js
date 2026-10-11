@@ -1,5 +1,5 @@
 import { TopicWireFrameAssembler, } from "@zcode/shared/zcode-protocol-v4";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /**
  * renderer 侧 physical → logical 原子边界。assembler 只在齐片且校验通过时
  * 产出 logical frame；30s timeout 用单个最近到期 timer 驱动，避免每片建 timer。

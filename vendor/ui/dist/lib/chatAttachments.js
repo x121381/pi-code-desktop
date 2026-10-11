@@ -2,10 +2,10 @@
 import { nanoid } from "nanoid";
 import { VIDEO_INPUT_MAX_BYTES, } from "@zcode/shared";
 import { PROTOCOL_V4_LIMITS } from "@zcode/shared/zcode-protocol-v4";
-import { MissingInlineImageContentError, MissingInlinePdfContentError, OversizedInlineImageAttachmentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, } from "@/lib/chatAttachmentErrors.js";
-import { basenameFromPath, countClipboardTextLines, createClipboardTextAttachmentFilename, inferAttachmentMimeType, isTextLikeAttachment, } from "@/lib/chatAttachmentMetadata.js";
-export { MissingInlineImageContentError, MissingInlinePdfContentError, OversizedInlineImageAttachmentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, } from "@/lib/chatAttachmentErrors.js";
-export { countClipboardTextLines, formatAttachmentSize, shouldPreferSpreadsheetClipboardText, } from "@/lib/chatAttachmentMetadata.js";
+import { MissingInlineImageContentError, MissingInlinePdfContentError, OversizedInlineImageAttachmentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, } from "../lib/chatAttachmentErrors.js";
+import { basenameFromPath, countClipboardTextLines, createClipboardTextAttachmentFilename, inferAttachmentMimeType, isTextLikeAttachment, } from "../lib/chatAttachmentMetadata.js";
+export { MissingInlineImageContentError, MissingInlinePdfContentError, OversizedInlineImageAttachmentError, OversizedInlinePdfAttachmentError, OversizedInlineVideoAttachmentError, } from "../lib/chatAttachmentErrors.js";
+export { countClipboardTextLines, formatAttachmentSize, shouldPreferSpreadsheetClipboardText, } from "../lib/chatAttachmentMetadata.js";
 export const MAX_CHAT_ATTACHMENTS = 8;
 export const LONG_PASTE_TEXT_ATTACHMENT_CHAR_THRESHOLD = 15 * 1024;
 const INLINE_IMAGE_ATTACHMENT_MAX_BYTES = 20 * 1024 * 1024;

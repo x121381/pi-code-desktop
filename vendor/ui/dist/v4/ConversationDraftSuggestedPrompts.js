@@ -1,14 +1,14 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction, } from "@/components/ui/alert-dialog.js";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction, } from "../components/ui/alert-dialog.js";
 import { X, Check, Info, LoaderCircle, SquareCode, TriangleAlert } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ClientSceneLucideIcon } from "@/components/ClientSceneLucideIcon.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveDraftSuggestedPromptText, } from "@/v4/draftSuggestedPromptItems.js";
+import { ClientSceneLucideIcon } from "../components/ClientSceneLucideIcon.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { Popover, PopoverAnchor, PopoverContent } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { resolveDraftSuggestedPromptText, } from "../v4/draftSuggestedPromptItems.js";
 const PLUGIN_SUCCESS_ROLL_TRANSITION = {
     duration: 0.2,
     ease: [0.4, 0, 0.2, 1],

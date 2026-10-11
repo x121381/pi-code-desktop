@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { appendRemoteConnectionRuntimeLog, normalizeRemoteConnectionLogMessage, } from "@/hooks/useRemoteConnectionLogs.js";
-import { resolveRemoteWorkspaceReconnectLogWorkspaceKeys } from "@/root/reconnectingRemoteWorkspaceLogs.js";
+import { appendRemoteConnectionRuntimeLog, normalizeRemoteConnectionLogMessage, } from "../hooks/useRemoteConnectionLogs.js";
+import { resolveRemoteWorkspaceReconnectLogWorkspaceKeys } from "../root/reconnectingRemoteWorkspaceLogs.js";
 const RECONNECT_RUNTIME_LOG_LIMIT = 50;
 export function useReconnectingRemoteWorkspaceLogs({ platform, reconnectingWorkspaceKeys, resolveWorkspaceTargetByKey, resolveWorkspaceRequestIdByKey, }) {
     const reconnectingWorkspaceKeysRef = useRef([]);

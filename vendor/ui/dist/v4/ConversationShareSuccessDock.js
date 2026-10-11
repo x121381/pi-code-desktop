@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckCircle2, Copy, ExternalLink, X } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareWarningMessageId, } from "@/lib/conversationShareError.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareWarningMessageId, } from "../lib/conversationShareError.js";
 function formatValue(value, code) {
     if (value === undefined)
         return "—";

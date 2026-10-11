@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 function isLocalWorkspaceTab(tab) {
     return !tab.remoteSessionId && !tab.remoteTarget && !tab.workspaceIdentity;
 }

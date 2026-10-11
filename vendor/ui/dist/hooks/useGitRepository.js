@@ -1,10 +1,10 @@
 /* eslint-disable max-lines */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { buildTurnChangeSummary, toWorkspaceRelativePath } from "@/lib/taskChangeSummary.js";
-import { logger } from "@/logger.js";
-import { shouldEnableWorkspaceRpc } from "@/lib/workspaceRpcAvailability.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useResolvedRemoteWorkspaceSessionId } from "@/hooks/useResolvedRemoteWorkspaceSessionId.js";
+import { buildTurnChangeSummary, toWorkspaceRelativePath } from "../lib/taskChangeSummary.js";
+import { logger } from "../logger.js";
+import { shouldEnableWorkspaceRpc } from "../lib/workspaceRpcAvailability.js";
+import { useServices } from "../hooks/useServices.js";
+import { useResolvedRemoteWorkspaceSessionId } from "../hooks/useResolvedRemoteWorkspaceSessionId.js";
 const EMPTY_BRANCH_COMPARISON = {
     baseRef: null,
     headRef: null,

@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const REMOTE_SKILL_SYNC_CARD_ACTION_SELECTOR = "button,input,a,textarea,select,label,[data-remote-skill-sync-card-action]";
 export function shouldToggleRemoteSkillSyncCardSelection({ exists, target, }) {
     if (exists) {

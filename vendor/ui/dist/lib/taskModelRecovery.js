@@ -1,5 +1,5 @@
 import { getZCodeAgentModeSelectOptions } from "@zcode/shared";
-import { decodeCustomModelValue, encodeCustomModelValue, } from "@/lib/zcodeCustomModelValue.js";
+import { decodeCustomModelValue, encodeCustomModelValue, } from "../lib/zcodeCustomModelValue.js";
 function parseProviderQualifiedModel(model) {
     const normalizedModel = model.trim();
     const separatorIndex = normalizedModel.indexOf("/");

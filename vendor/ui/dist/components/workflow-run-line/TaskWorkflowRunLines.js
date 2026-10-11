@@ -6,14 +6,14 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 import { useEffect, useMemo } from "react";
 import { Workflow } from "lucide-react";
 import { isSessionWorkflowRunLive } from "@zcode/shared/zcode-protocol-v4";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "@/components/workflow-graph/run-status-presentation.js";
-import { formatTaskRelativeTime } from "@/lib/taskListItemPresentation.js";
-import { getWorkflowRunAckStore, useWorkflowRunAcknowledged } from "@/lib/workflowRunAckStore.js";
-import { foldWorkflowRunRail, selectWorkflowRunLines, settledWorkflowRunIds, workflowRunParallelPhaseLabel, } from "@/lib/workflowRunLine.js";
-import { WorkflowRunRail as RunRail } from "@/components/workflow-run-line/WorkflowRunRail.js";
-import { useWorkflowRunOpen } from "@/v4/workflowRunOpenContext.js";
+import { cn } from "../../components/lib/utils.js";
+import { ControlHintTooltip } from "../../ControlHintTooltip.js";
+import { readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "../../components/workflow-graph/run-status-presentation.js";
+import { formatTaskRelativeTime } from "../../lib/taskListItemPresentation.js";
+import { getWorkflowRunAckStore, useWorkflowRunAcknowledged } from "../../lib/workflowRunAckStore.js";
+import { foldWorkflowRunRail, selectWorkflowRunLines, settledWorkflowRunIds, workflowRunParallelPhaseLabel, } from "../../lib/workflowRunLine.js";
+import { WorkflowRunRail as RunRail } from "../../components/workflow-run-line/WorkflowRunRail.js";
+import { useWorkflowRunOpen } from "../../v4/workflowRunOpenContext.js";
 const SEPARATOR = " · ";
 function runStatusWord(run, intl) {
     return intl.formatMessage({ id: `chat.toolCall.workflow.run.status.${run.status}` });

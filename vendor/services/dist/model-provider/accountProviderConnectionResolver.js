@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { AccountProviderService, createAccountProviderConfigResolver } from "@zcode/provider";
 import {} from "@zcode/shared";
-import { validateBigModelAccountProviderAvailability, validateZaiAccountProviderAvailability, } from "#src/model-provider/codingPlanProviderAvailability.js";
+import { validateBigModelAccountProviderAvailability, validateZaiAccountProviderAvailability, } from "../model-provider/codingPlanProviderAvailability.js";
 /**
  * off-peak 与 highspeed 都不是独立套餐，而是「已连接的个人/团队 Coding Plan」派生出的
  * 执行入口：请求期鉴权分别来自 ticket 与加速卡 JWT，本身没有可校验的套餐 Key。

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 /** main 站点权限 store 是唯一授权状态源；hook 只持有读取投影和用户操作的进度。 */
 export function useBrowserSitePermissions(origin, enabled) {
     const platform = usePlatform();

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { logger } from "@/logger.js";
-import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, unbindRemoteWorkspaceIdentity, unbindRemoteWorkspacePath, unregisterRemoteWorkspaceSession, } from "@/store/remoteWorkspaceSessionStore.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { logger } from "../logger.js";
+import { bindRemoteWorkspaceIdentity, bindRemoteWorkspacePath, unbindRemoteWorkspaceIdentity, unbindRemoteWorkspacePath, unregisterRemoteWorkspaceSession, } from "../store/remoteWorkspaceSessionStore.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 function remoteWorkspaceKey(tab) {
     if (!tab.workspaceIdentity?.trim() && !tab.remoteSessionId && !tab.remoteTarget) {
         return null;

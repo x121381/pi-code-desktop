@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createContext, useCallback, useEffect, useContext, useMemo, useRef, useState, } from "react";
-import { CodingPlanUpgradeDialog, } from "@/settings/CodingPlanUpgradeDialog.js";
-import { useCodingPlanEntryPlanList, } from "@/hooks/useCodingPlanEntryPlanList.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { reportCodingPlanUpgradeClick } from "@/lib/codingPlanFunnelTelemetry.js";
+import { CodingPlanUpgradeDialog, } from "../settings/CodingPlanUpgradeDialog.js";
+import { useCodingPlanEntryPlanList, } from "../hooks/useCodingPlanEntryPlanList.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { reportCodingPlanUpgradeClick } from "../lib/codingPlanFunnelTelemetry.js";
 const CodingPlanUpgradeDialogContext = createContext(null);
 export function CodingPlanUpgradeDialogProvider({ children }) {
     const platform = usePlatform();

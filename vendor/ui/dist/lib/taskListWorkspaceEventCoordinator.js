@@ -1,6 +1,6 @@
-import { getTaskMetaWorkspaceEventSyncMode, isTaskListDeletionWorkspaceEvent, isTaskListMembershipWorkspaceEvent, shouldApplyTaskMetaFromWorkspaceEvent, shouldRefreshTaskListForWorkspaceEvent, } from "@/lib/taskListRefreshPolicy.js";
-import { removeTaskFromTaskCaches, syncTaskMembershipEventToTaskCaches, syncTaskMetaToTaskCaches, } from "@/lib/taskListMetaSync.js";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { getTaskMetaWorkspaceEventSyncMode, isTaskListDeletionWorkspaceEvent, isTaskListMembershipWorkspaceEvent, shouldApplyTaskMetaFromWorkspaceEvent, shouldRefreshTaskListForWorkspaceEvent, } from "../lib/taskListRefreshPolicy.js";
+import { removeTaskFromTaskCaches, syncTaskMembershipEventToTaskCaches, syncTaskMetaToTaskCaches, } from "../lib/taskListMetaSync.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 const COORDINATED_EVENT_TTL_MS = 2_000;
 const MAX_COORDINATED_EVENTS = 200;
 const coordinatedResults = new Map();

@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState } from "react";
-import { resolveTheme } from "@/useTheme.js";
-import { Card, CardContent } from "@/components/ui/card.js";
-import { Input } from "@/components/ui/input.js";
-import { Switch } from "@/components/ui/switch.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { getThemeOptionLabel, SettingsRow, ThemePreviewCard, ThemeSelect, } from "@/settings/SettingsPageParts.js";
-import { getCodePreviewTheme } from "@/lib/codePreviewPreferences.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { THEME_MODES } from "@/settings/settingsPageConfig.js";
-import { MAX_UI_FONT_SIZE_PX, MIN_UI_FONT_SIZE_PX } from "@/lib/uiFontSize.js";
+import { resolveTheme } from "./useTheme.js";
+import { Card, CardContent } from "./components/ui/card.js";
+import { Input } from "./components/ui/input.js";
+import { Switch } from "./components/ui/switch.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./components/ui/select.js";
+import { getThemeOptionLabel, SettingsRow, ThemePreviewCard, ThemeSelect, } from "./settings/SettingsPageParts.js";
+import { getCodePreviewTheme } from "./lib/codePreviewPreferences.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { THEME_MODES } from "./settings/settingsPageConfig.js";
+import { MAX_UI_FONT_SIZE_PX, MIN_UI_FONT_SIZE_PX } from "./lib/uiFontSize.js";
 function FontSizeInput({ value, min, max, ariaLabel, onChange, }) {
     const [draft, setDraft] = useState(String(value));
     const commit = () => {

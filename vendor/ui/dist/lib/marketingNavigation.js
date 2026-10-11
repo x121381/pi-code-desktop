@@ -1,5 +1,5 @@
 import { createStore } from "zustand/vanilla";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const marketingSettingsSections = {
     general: "general",
     appearance: "appearance",

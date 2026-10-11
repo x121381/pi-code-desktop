@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRightIcon } from "lucide-react";
 import { useMemo } from "react";
-import { WORKFLOW_CARD_ICON } from "@/components/workflow-timeline/WorkflowCardChrome.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
+import { WORKFLOW_CARD_ICON } from "../components/workflow-timeline/WorkflowCardChrome.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ToolLayout } from "../ToolCallBlocks/ToolLayout.js";
 export function WorkflowToolSummary({ toolCallId, summary, onOpen, amend = false, fill, }) {
     const { intl } = useZCodeIntl();
     // ToolLayout 是 memo 组件：primaryText 若是内联 JSX，每次渲染都会打破 memo（reactStableReferences 测试会拦下）。

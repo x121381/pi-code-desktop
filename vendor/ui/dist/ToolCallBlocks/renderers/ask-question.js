@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { CircleHelpIcon } from "lucide-react";
 import { useCallback } from "react";
-import { getAskUserQuestionAnswerText, normalizeAskUserQuestionInput, readAskUserQuestionAnswers, readAskUserQuestionInput, } from "@/lib/askUserQuestion.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
+import { getAskUserQuestionAnswerText, normalizeAskUserQuestionInput, readAskUserQuestionAnswers, readAskUserQuestionInput, } from "../../lib/askUserQuestion.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
 const ASK_QUESTION_TOOL_ICON = (_jsx(CircleHelpIcon, { className: "size-4 shrink-0 text-foreground-subtle" }));
 export function AskQuestionToolCallBlock(context) {
     const { intl } = useZCodeIntl();

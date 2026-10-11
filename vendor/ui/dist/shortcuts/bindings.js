@@ -6,8 +6,8 @@
  * - IME 组合中（isComposing / Process / Dead / keyCode 229）与长按 repeat 一律不匹配、不录制。
  */
 import { parseShortcutBinding, serializeShortcutBinding, SHORTCUT_COMMANDS, } from "@zcode/shared";
-import { isAppleKeyboardPlatform, } from "@/lib/keyboardShortcuts.js";
-import { logger } from "@/logger.js";
+import { isAppleKeyboardPlatform, } from "../lib/keyboardShortcuts.js";
+import { logger } from "../logger.js";
 // ============================================================================
 // 噪声过滤（IME / 长按）
 // ============================================================================

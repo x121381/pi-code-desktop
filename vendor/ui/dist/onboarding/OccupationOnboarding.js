@@ -1,23 +1,23 @@
 import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useOnboardingTelemetry } from "@/onboarding/useOnboardingTelemetry.js";
-import { OnboardingHeader } from "@/onboarding/OnboardingHeader.js";
-import { OccupationOnboardingVisual } from "@/onboarding/OccupationOnboardingVisual.js";
-import { occupations } from "@/onboarding/occupationOptions.js";
-import { OnboardingModeSelector } from "@/onboarding/OnboardingModeSelector.js";
-import { OnboardingOccupationGrid } from "@/onboarding/OnboardingOccupationGrid.js";
-import { useOnboardingTrigger } from "@/onboarding/useOnboardingTrigger.js";
+import { useOnboardingTelemetry } from "../onboarding/useOnboardingTelemetry.js";
+import { OnboardingHeader } from "../onboarding/OnboardingHeader.js";
+import { OccupationOnboardingVisual } from "../onboarding/OccupationOnboardingVisual.js";
+import { occupations } from "../onboarding/occupationOptions.js";
+import { OnboardingModeSelector } from "../onboarding/OnboardingModeSelector.js";
+import { OnboardingOccupationGrid } from "../onboarding/OnboardingOccupationGrid.js";
+import { useOnboardingTrigger } from "../onboarding/useOnboardingTrigger.js";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { useOnboardingRecordService } from "@/hooks/useOnboardingRecordService.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useEffectiveShortcutBindings } from "@/shortcuts/useShortcutBindings.js";
-import { matchesShortcutBinding } from "@/shortcuts/bindings.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { Button } from "@/components/ui/button.js";
-import { Checkbox } from "@/components/ui/checkbox.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { logger } from "@/logger.js";
-import { DesktopWindowControls } from "@/DesktopWindowControls.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { useOnboardingRecordService } from "../hooks/useOnboardingRecordService.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useEffectiveShortcutBindings } from "../shortcuts/useShortcutBindings.js";
+import { matchesShortcutBinding } from "../shortcuts/bindings.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { Checkbox } from "../components/ui/checkbox.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
+import { logger } from "../logger.js";
+import { DesktopWindowControls } from "../DesktopWindowControls.js";
 /** 追加本地引导记录（userId 由 host 补全）；channel 缺失挂起时 5 秒超时按写失败处理。 */
 async function appendOnboardingRecord(service, deviceMid, entry) {
     await Promise.race([

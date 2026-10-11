@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export async function refreshRootProviderState(services) {
     try {
         // Provider Runtime 统一刷新 Config、Account Source 与 Registry；Root 不再维护旧快照。

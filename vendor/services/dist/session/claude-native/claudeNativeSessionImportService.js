@@ -1,11 +1,11 @@
 import { access, rm } from "node:fs/promises";
 import { constants } from "node:fs";
 import { normalize, resolve } from "node:path";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { buildImportedClaudeTaskFile } from "#src/session/claude-native/buildImportedClaudeTaskFile.js";
-import { claudeNativeSessionImportRepo } from "#src/session/claude-native/claudeNativeSessionImportRepo.js";
-import { parseClaudeNativeSessionFile } from "#src/session/claude-native/claudeNativeSessionImportParser.js";
-import { buildSearchableTextFromMessages, persistImportedClaudeTask, writeImportedClaudeTaskSnapshot, } from "#src/session/claude-native/persistImportedClaudeTask.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
+import { buildImportedClaudeTaskFile } from "../../session/claude-native/buildImportedClaudeTaskFile.js";
+import { claudeNativeSessionImportRepo } from "../../session/claude-native/claudeNativeSessionImportRepo.js";
+import { parseClaudeNativeSessionFile } from "../../session/claude-native/claudeNativeSessionImportParser.js";
+import { buildSearchableTextFromMessages, persistImportedClaudeTask, writeImportedClaudeTaskSnapshot, } from "../../session/claude-native/persistImportedClaudeTask.js";
 const logger = createServiceLogger("claude-native-import");
 function normalizePathForComparison(path) {
     const normalized = normalize(resolve(path));

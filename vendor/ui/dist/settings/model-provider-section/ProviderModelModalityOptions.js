@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { LockKeyholeIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { modelEditorControlStyle } from "@/settings/model-provider-section/modelEditorControlStyle.js";
-import { ModelOptionCheckbox } from "@/settings/model-provider-section/ProviderModelMetadataFields.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { modelEditorControlStyle } from "../../settings/model-provider-section/modelEditorControlStyle.js";
+import { ModelOptionCheckbox } from "../../settings/model-provider-section/ProviderModelMetadataFields.js";
 // PDF 已经是正式的模型输入事实和可执行附件能力，旧列表漏掉它后用户无法修正该事实。
 // Audio 仍没有设置页附件入口，因此继续只在 Draft 中无损保留。
 const INPUT_MODALITY_OPTIONS = ["text", "image", "video", "pdf"];

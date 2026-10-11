@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
-import { buildHighlightedLightweightDiffCode, getHighlightedLightweightDiffLine, HighlightedLightweightDiffPreview, } from "@/components/ui/highlighted-lightweight-diff-preview.js";
-import { inferCodeLanguage } from "@/lib/codeViewer.js";
-import { getPlainTextPatchPreviewLines } from "@/lib/patchDiffPreview.js";
-import { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/lib/codePreviewSettings.js";
+import { buildHighlightedLightweightDiffCode, getHighlightedLightweightDiffLine, HighlightedLightweightDiffPreview, } from "../../components/ui/highlighted-lightweight-diff-preview.js";
+import { inferCodeLanguage } from "../../lib/codeViewer.js";
+import { getPlainTextPatchPreviewLines } from "../../lib/patchDiffPreview.js";
+import { DEFAULT_CODE_PREVIEW_SETTINGS } from "../../lib/codePreviewSettings.js";
 export { buildHighlightedLightweightDiffCode as buildInlineDiffHighlightCode, getHighlightedLightweightDiffLine as getInlineDiffHighlightLine, };
 function resolveInlineDiffHighlightTheme(theme, codePreviewSettings) {
     if (theme === "system") {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { usePluginStore } from "@/store/pluginStore.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
+import { logger } from "../../logger.js";
+import { usePluginStore } from "../../store/pluginStore.js";
 /**
  * 工作区级面板入口（）：经桥读 `plugins/listUiSurfaces`。
  * 刷新信号复用插件设置页的 store：`installedPlugins` 的 id+enabled 指纹变化（安装 / 卸载 / 启停）即重新拉取；

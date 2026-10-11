@@ -1,8 +1,8 @@
 import { resolveWorkspaceKey } from "@zcode/shared";
-import { AutomationRepo } from "#src/session/automationRepo.js";
-import { assertValidAutomationIntervalCarrier, forceIntervalCarrierRecurring, } from "#src/session/automationIntervalCarrier.js";
-export { InvalidAutomationIntervalCarrierError } from "#src/session/automationIntervalCarrier.js";
-import { buildIntervalScheduleRule, buildRelativeDelaySchedule, computeInitialAutomationNextRunAt, computeAutomationNextRunAt, inferMinuteIntervalScheduleRule, isValidCronExpr, scheduleRuleDefinition, } from "#src/session/automationCron.js";
+import { AutomationRepo } from "../session/automationRepo.js";
+import { assertValidAutomationIntervalCarrier, forceIntervalCarrierRecurring, } from "../session/automationIntervalCarrier.js";
+export { InvalidAutomationIntervalCarrierError } from "../session/automationIntervalCarrier.js";
+import { buildIntervalScheduleRule, buildRelativeDelaySchedule, computeInitialAutomationNextRunAt, computeAutomationNextRunAt, inferMinuteIntervalScheduleRule, isValidCronExpr, scheduleRuleDefinition, } from "../session/automationCron.js";
 /** scope → workspaceKey；缺省返回 undefined（不加归属过滤，供 scheduler/host 跨 workspace 用）。 */
 function resolveScopeKey(scope) {
     if (!scope?.workspacePath)

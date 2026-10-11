@@ -1,4 +1,4 @@
-import { taskKey } from "@/workspace-grouped-tasks/ids.js";
+import { taskKey } from "../workspace-grouped-tasks/ids.js";
 function cloneView(view) {
     return {
         nodes: view.nodes.map((node) => node.type === "task" ? { ...node } : { ...node, tasks: [...node.tasks] }),

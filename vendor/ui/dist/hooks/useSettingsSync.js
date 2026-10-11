@@ -1,9 +1,9 @@
 /* eslint-disable max-lines -- 设置同步流程聚合了发现、选择与导入状态机，集中维护更利于问题定位 */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeSessionService } from "@/hooks/useZCodeSessionService.js";
-import { invalidateDeferredDraftSessionForSkillChange } from "@/lib/zcodeDraftSkillInvalidation.js";
+import { logger } from "../logger.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeSessionService } from "../hooks/useZCodeSessionService.js";
+import { invalidateDeferredDraftSessionForSkillChange } from "../lib/zcodeDraftSkillInvalidation.js";
 const IMPORTING_TASK_DELAY_MS = 320;
 const FORCE_SHOW_ONBOARDING_ON_EVERY_REFRESH = false;
 function createInitialState() {

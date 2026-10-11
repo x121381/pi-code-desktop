@@ -1,18 +1,18 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
+import { useIsOfficeMode } from "../hooks/useInterfaceMode.js";
 /* eslint-disable max-lines -- 商店列表页把标题/搜索/已安装条/公开-个人分段/Featured/分类折叠聚合成一个连贯浏览面，拆散反而难以维持 1:1 布局。 */
 import { useMemo, useState } from "react";
 import { Download, Loader2, Settings2 } from "lucide-react";
 import { ZCODE_OFFICIAL_PLUGIN_MARKETPLACE_ID } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { PluginStoreAvatar } from "@/settings/PluginStoreAvatar.js";
-import { PluginStoreCard } from "@/settings/PluginStoreCard.js";
-import { SettingsSearchInput } from "@/settings/SettingsSearchInput.js";
-import { FALLBACK_CATEGORY, KNOWN_CATEGORY_LABEL_IDS, canUpdatePluginItem, groupItemsByCategory, isPublicStoreMarketplaceId, resolveItemDisplayName, selectFeaturedItems, sortInstalledStripItems, sortPersonalMarketplaceGroups, storeItemMatches, } from "@/settings/pluginStoreListing.js";
-import { resolveMarketplaceDisplayName } from "@/settings/pluginSourceLabel.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { PluginStoreAvatar } from "../settings/PluginStoreAvatar.js";
+import { PluginStoreCard } from "../settings/PluginStoreCard.js";
+import { SettingsSearchInput } from "../settings/SettingsSearchInput.js";
+import { FALLBACK_CATEGORY, KNOWN_CATEGORY_LABEL_IDS, canUpdatePluginItem, groupItemsByCategory, isPublicStoreMarketplaceId, resolveItemDisplayName, selectFeaturedItems, sortInstalledStripItems, sortPersonalMarketplaceGroups, storeItemMatches, } from "../settings/pluginStoreListing.js";
+import { resolveMarketplaceDisplayName } from "../settings/pluginSourceLabel.js";
 // 分类/市场分组手动收起后的展示数量；默认完整展示，避免较少的插件又被自动隐藏。
 const CATEGORY_VISIBLE_LIMIT = 6;
 const RETIRED_STORE_PLUGIN_ID = `restore-legacy-sessions@${ZCODE_OFFICIAL_PLUGIN_MARKETPLACE_ID}`;

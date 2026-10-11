@@ -1,4 +1,4 @@
-import { isTasksStorageMigrated, isTasksStoragePrepared, } from "#src/session/tasksDatabase/prepared.js";
+import { isTasksStorageMigrated, isTasksStoragePrepared, } from "../session/tasksDatabase/prepared.js";
 /* eslint-disable max-lines -- 与 automationRepo 同理：off-peak 仓库集中维护 off_peak_tasks 的
    sqlite schema、状态机守卫写入与调度认领，稳定后再按读写职责拆分。 */
 /* off-peak 任务仓库：off_peak_tasks 的 sqlite schema、状态机守卫写入与调度认领。
@@ -9,8 +9,8 @@ import { createRequire } from "node:module";
 import { dirname } from "node:path";
 import { randomUUID } from "node:crypto";
 import { OFF_PEAK_TERMINAL_STATUSES, modelSelectionSchema, resolveWorkspaceKey, } from "@zcode/shared";
-import { getTasksIndexDatabasePath } from "#src/paths.js";
-import { runTasksDatabaseMigrations } from "#src/session/tasksDatabase/migrations.js";
+import { getTasksIndexDatabasePath } from "../paths.js";
+import { runTasksDatabaseMigrations } from "../session/tasksDatabase/migrations.js";
 const require = createRequire(import.meta.url);
 const { DatabaseSync } = require("node:sqlite");
 /** 认领超时回收：claim_running=1 超过该时长仍未结算，视为持有者已崩溃，允许重新认领。

@@ -1,7 +1,7 @@
 import { DEFAULT_FEEDBACK_TICKET_FRAMEWORK, } from "@zcode/shared";
-import { persistFeedbackContactPreference } from "@/feedback/feedbackContactPreference.js";
-import { buildDeveloperFacingDescription, buildFeedbackTitle, } from "@/feedback/feedbackSubmitDescription.js";
-import { startFeedbackSubmissionJob, } from "@/feedback/feedbackSubmissionJob.js";
+import { persistFeedbackContactPreference } from "../feedback/feedbackContactPreference.js";
+import { buildDeveloperFacingDescription, buildFeedbackTitle, } from "../feedback/feedbackSubmitDescription.js";
+import { startFeedbackSubmissionJob, } from "../feedback/feedbackSubmissionJob.js";
 const FEEDBACK_ZCODE_AGENT_LABEL = "ZCode Agent";
 export const DEFAULT_FEEDBACK_TYPE = "bug";
 export const DEFAULT_FEEDBACK_SEVERITY = "P2-中";

@@ -1,4 +1,4 @@
-import { fetchPersonalCodingPlanEntitlement, fetchTeamCodingPlanEntitlement, } from "#src/bigmodel/codingPlanEntitlement.js";
+import { fetchPersonalCodingPlanEntitlement, fetchTeamCodingPlanEntitlement, } from "../../bigmodel/codingPlanEntitlement.js";
 import { pickCurrentSubscriptionFromList } from "./bigmodelUsageQuotaMapper.js";
 export async function fetchBigModelSubscriptionSummary(params) {
     try {

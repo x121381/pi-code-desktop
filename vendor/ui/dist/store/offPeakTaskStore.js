@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { normalizeProviderFamilyDomain, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function toErrorMessage(error) {
     return error instanceof Error ? error.message : String(error);
 }

@@ -4,7 +4,7 @@ import { homedir } from "node:os";
 import { isAbsolute, join, resolve } from "node:path";
 import { buildWorkspaceHookBundleSnapshot, createWorkspaceHookSourceInput, readWorkspaceHookProjectSources, resolveWorkspaceHookRuntimeRoot, workspaceHooksConfigSchema, } from "@zcode/shared/workspace-hook-discovery";
 import { parseWorkspaceHookTrustStoreContent } from "@zcode/shared/workspace-hook-trust-store-file";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 import { atomicWriteWorkspaceHookConfig } from "./workspaceHookConfigMutation.js";
 import { fromLegacyHooksConfig, fromProjectSnapshot, fromUserZCodeSource, resolveNextRootEnabled, toZCodeHooksEvents, } from "./workspaceHookSettingsModel.js";
 const SETTINGS_FILE = "settings.json";

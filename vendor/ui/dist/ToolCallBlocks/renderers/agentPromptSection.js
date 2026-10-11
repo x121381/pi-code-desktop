@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { formatAgentMessage } from "./agentHelpers.js";
 export function AgentPromptSection({ prompt, workspacePath, theme, codePreviewSettings, onOpenCodeViewer, onOpenFileLink, onOpenBrowserUrl, }) {
     const { intl } = useZCodeIntl();

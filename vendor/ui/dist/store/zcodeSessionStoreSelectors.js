@@ -1,4 +1,4 @@
-import { mergeTaskWithOptimisticMeta } from "@/lib/zcodeTaskMetaMerge.js";
+import { mergeTaskWithOptimisticMeta } from "../lib/zcodeTaskMetaMerge.js";
 import { DEFAULT_TASK_UI_STATE, DEFAULT_WORKSPACE_INIT_STATE, DEFAULT_TASK_RUNTIME_STATE, createDefaultWorkspaceState, getDefaultWorkspaceState, } from "./zcodeSessionStoreTypes.js";
 // ────────────────────────────────────────────
 // Internal helpers（store 本体也需要使用）

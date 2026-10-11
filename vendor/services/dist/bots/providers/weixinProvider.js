@@ -1,7 +1,7 @@
 /* eslint-disable max-lines -- 微信 iLink provider 集中处理轮询、文本/媒体解析、发送和 typing 协议。 */
 import { Buffer } from "node:buffer";
 import { createDecipheriv, randomInt, randomUUID } from "node:crypto";
-import { fetchBotProviderJson } from "#src/bots/providers/providerRequest.js";
+import { fetchBotProviderJson } from "../../bots/providers/providerRequest.js";
 export const DEFAULT_WEIXIN_ILINK_BASE_URL = "https://ilinkai.weixin.qq.com";
 const WEIXIN_BOT_API_PREFIX = "/ilink/bot";
 const WEIXIN_CHANNEL_VERSION = "2.0.0";

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckCircle2, CornerDownRight, MessageSquare, Sparkle, UserCheck2, } from "lucide-react";
-import { filterUserVisibleComments, formatRelativeTime } from "@/feedback/feedbackUserView.js";
-import { getUserFacingEventSummary } from "@/feedback/feedbackTimelineSummary.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { filterUserVisibleComments, formatRelativeTime } from "../feedback/feedbackUserView.js";
+import { getUserFacingEventSummary } from "../feedback/feedbackTimelineSummary.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 const EVENT_ICON = {
     created: Sparkle,
     status_changed: CheckCircle2,

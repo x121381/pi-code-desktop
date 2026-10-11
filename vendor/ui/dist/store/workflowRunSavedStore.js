@@ -5,7 +5,7 @@
 // 而卡片上什么都不记。这里只是个缓存：完成卡挂在虚拟列表里，滚动一次就重挂一次，不能每次重挂都
 // 发一次 RPC。与中枢的读缓存同一条纪律（savedWorkflowStore）：磁盘仍是唯一权威，变更后一律作废。
 import { create } from "zustand";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /** JSON-RPC「方法不存在」：老 agent 的能力探测就靠它（中枢用 -32602 区分旧 scope，同一条先例）。 */
 const METHOD_NOT_FOUND = -32601;
 const inFlight = new Map();

@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 import { unpackWorkspaceFileEntries } from "@zcode/shared/workspaceFileEntriesCodec";
 import { filterWorkspaceFileSearchCandidates, mapWorkspaceFileEntriesToSearchCandidates, } from "./workspaceFileSearch.js";
 export function createSyncWorkspaceFileSearchFilterBackend() {
@@ -29,7 +29,7 @@ export function createWorkerWorkspaceFileSearchFilterBackend() {
     }
     let worker;
     try {
-        worker = new Worker(new URL("./workspaceFileSearchFilter.worker.ts", import.meta.url), {
+        worker = new Worker(new URL("./workspaceFileSearchFilter.worker.js", import.meta.url), {
             type: "module",
             name: "zcode-workspace-file-search",
         });

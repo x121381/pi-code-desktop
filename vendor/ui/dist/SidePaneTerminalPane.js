@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback } from "react";
-import { TerminalSession } from "@/terminal/TerminalSession.js";
+import { TerminalSession } from "./terminal/TerminalSession.js";
 export function SidePaneTerminalPane({ services, sessionId, workspaceKey, cwd, isVisible, isWindowsDesktop = false, onOpenBrowserUrl, }) {
     const handleShellLabelChange = useCallback(() => {
         // 业务说明：side pane 外层 tab 已经承载终端标题，这里只需要单个 shell 实例，

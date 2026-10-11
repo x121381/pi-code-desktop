@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Loader2Icon, XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
+import { Button } from "../../components/ui/button.js";
 import { useEffect, useState } from "react";
-import { CloudInteractiveBundleHero } from "@/components/cloud-content-dialog/CloudDialogHero.js";
-import { CloudVideo } from "@/components/cloud-content-dialog/CloudDialogMediaHero.js";
+import { CloudInteractiveBundleHero } from "../../components/cloud-content-dialog/CloudDialogHero.js";
+import { CloudVideo } from "../../components/cloud-content-dialog/CloudDialogMediaHero.js";
 export function MarketingBannerView(props) {
     return (_jsx(MarketingBannerContent, { ...props }, props.bundle?.resolvedUrl ?? props.video?.src ?? props.src));
 }

@@ -1,4 +1,4 @@
-import { dismissToast, toast } from "@/components/ui/toast.js";
+import { dismissToast, toast } from "../components/ui/toast.js";
 export async function runExportLogsAction(platform, intl) {
     const pendingToastId = toast(intl.formatMessage({ id: "sidebar.exportLogs.pending" }), {
         durationMs: Number.POSITIVE_INFINITY,

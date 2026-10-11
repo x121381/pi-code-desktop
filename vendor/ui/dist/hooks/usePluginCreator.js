@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { toast } from "@/components/ui/toast.js";
-import { logger } from "@/logger.js";
-import { loadPluginCreatorPrefill } from "@/settings/pluginCreatorPrefill.js";
-import { isWorkspaceReadOnly } from "@/store/tabStore.js";
-import { useTabStore, useTabStoreApi } from "@/store/TabStoreProvider.js";
-import { INITIAL_PANE_LAYOUT, usePaneLayoutStore } from "@/v4/paneLayoutStore.js";
-import { resolveWorkbenchNewTaskTarget } from "@/v4/workbenchNewTaskTarget.js";
-import { useWorkbenchGroupStore } from "@/v4/workbenchGroupStore.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { toast } from "../components/ui/toast.js";
+import { logger } from "../logger.js";
+import { loadPluginCreatorPrefill } from "../settings/pluginCreatorPrefill.js";
+import { isWorkspaceReadOnly } from "../store/tabStore.js";
+import { useTabStore, useTabStoreApi } from "../store/TabStoreProvider.js";
+import { INITIAL_PANE_LAYOUT, usePaneLayoutStore } from "../v4/paneLayoutStore.js";
+import { resolveWorkbenchNewTaskTarget } from "../v4/workbenchNewTaskTarget.js";
+import { useWorkbenchGroupStore } from "../v4/workbenchGroupStore.js";
 export function usePluginCreator(onCreateTask, isWebRemoteControl = false) {
     const { intl } = useZCodeIntl();
     const tabStore = useTabStoreApi();

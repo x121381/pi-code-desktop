@@ -1,4 +1,4 @@
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 /** 模型编辑器专用：边框仅标记覆盖，Hover/焦点用同一底色，不修改全站控件。 */
 export function modelEditorControlStyle(overridden, selected) {
     return cn("outline-none focus-visible:ring-0", overridden

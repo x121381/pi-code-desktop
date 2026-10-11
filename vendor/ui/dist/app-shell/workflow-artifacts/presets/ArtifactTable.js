@@ -12,9 +12,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  * 而条目本身在投影侧已经是有界的。
  */
 import { memo, useMemo } from "react";
-import { applyArtifactItems, } from "@/app-shell/workflow-artifacts/presets/apply.js";
-import { fieldHeading, PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "@/app-shell/workflow-artifacts/presets/parts.js";
-import { cn } from "@/components/lib/utils.js";
+import { applyArtifactItems, } from "../../../app-shell/workflow-artifacts/presets/apply.js";
+import { fieldHeading, PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "../../../app-shell/workflow-artifacts/presets/parts.js";
+import { cn } from "../../../components/lib/utils.js";
 /** 小卡片里只露前几行——它是一个「有东西了」的信号，不是阅读面。 */
 const COMPACT_ROWS = 3;
 /** 全尺寸下真正挂进 DOM 的行数上限；再多也读不过来，且 DOM 规模必须有界。 */

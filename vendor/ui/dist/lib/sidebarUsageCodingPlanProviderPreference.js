@@ -1,5 +1,5 @@
 import { BUILTIN_MODEL_PROVIDER_IDS, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 const SIDEBAR_USAGE_CODING_PLAN_PROVIDER_STORAGE_KEY = "zcode:sidebar-usage-coding-plan-provider";
 const SIDEBAR_USAGE_CODING_PLAN_PROVIDER_IDS = [
     BUILTIN_MODEL_PROVIDER_IDS.zaiIndividualCodingPlan,

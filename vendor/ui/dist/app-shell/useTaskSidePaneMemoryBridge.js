@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { buildTaskSidePaneMemoryKey, readTaskSidePaneMemoryState, saveTaskSidePaneMemoryState, } from "@/lib/taskSidePaneMemory.js";
+import { buildTaskSidePaneMemoryKey, readTaskSidePaneMemoryState, saveTaskSidePaneMemoryState, } from "../lib/taskSidePaneMemory.js";
 export function useTaskSidePaneMemoryBridge({ activeTaskId, gitSelectedSourceId, setGitSelectedSourceId, workspaceAbsPath, workspaceIdentity, }) {
     const memoryKey = useMemo(() => buildTaskSidePaneMemoryKey({
         workspacePath: workspaceAbsPath,

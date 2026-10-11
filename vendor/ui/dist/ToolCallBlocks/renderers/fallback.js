@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { WrenchIcon } from "lucide-react";
 import { useCallback } from "react";
-import { ToolCallBody } from "@/ToolCallBlocks/ToolCallBody.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ToolCallBody } from "../../ToolCallBlocks/ToolCallBody.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { ToolLayout } from "../ToolLayout.js";
 const FALLBACK_TOOL_ICON = _jsx(WrenchIcon, { className: "size-4 shrink-0 text-foreground-subtle" });
 export function FallbackToolCallBlock(context) {

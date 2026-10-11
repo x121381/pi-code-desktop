@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { UnifiedBrowserView } from "@/browser-use/UnifiedBrowserView.js";
-import { cn } from "@/components/lib/utils.js";
-import { TabsContent } from "@/components/ui/tabs.js";
+import { UnifiedBrowserView } from "../browser-use/UnifiedBrowserView.js";
+import { cn } from "../components/lib/utils.js";
+import { TabsContent } from "../components/ui/tabs.js";
 /** browser-use 专用 TabsContent：非活动 tab 仅在截图准备期间保留真实合成布局。 */
 export function BrowserUseSidePaneContent({ tab, onOpenPermissionSettings, isPanelVisible, isSelected, isCurrentTask, screenshotSurfaceRequest, initialUrl, workspacePath, workspaceIdentity, residencyGeneration, onUrlChange, onPageMetadataChange, }) {
     // 截图 surface 不能依赖收起的 ResizablePanel 提供尺寸：面板宽度为 0 时，Electron

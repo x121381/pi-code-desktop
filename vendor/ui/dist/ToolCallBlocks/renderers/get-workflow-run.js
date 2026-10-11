@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Gauge } from "lucide-react";
 import { useCallback, useMemo } from "react";
-import { CodeBlock, CodeBlockHeader } from "@/components/ai-elements/code-block.js";
-import { RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "@/components/workflow-graph/run-status-presentation.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatWorkflowAge, formatWorkflowTokenCount } from "@/lib/workflowObservationFormat.js";
-import { WorkflowRunSubagentRoster } from "@/ToolCallBlocks/renderers/get-workflow-run-roster.js";
-import { WorkflowRunHealthLine, WorkflowRunPhaseTrack, } from "@/ToolCallBlocks/renderers/get-workflow-run-situation.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
+import { CodeBlock, CodeBlockHeader } from "../../components/ai-elements/code-block.js";
+import { RUN_STATUS_TEXT, readWorkflowRunStopReason, workflowRunStopReasonMessageId, } from "../../components/workflow-graph/run-status-presentation.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatWorkflowAge, formatWorkflowTokenCount } from "../../lib/workflowObservationFormat.js";
+import { WorkflowRunSubagentRoster } from "../../ToolCallBlocks/renderers/get-workflow-run-roster.js";
+import { WorkflowRunHealthLine, WorkflowRunPhaseTrack, } from "../../ToolCallBlocks/renderers/get-workflow-run-situation.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
 const ICON = _jsx(Gauge, { className: "size-4 shrink-0 text-foreground-subtle" });
 export function GetWorkflowRunToolCallBlock(context) {
     const { intl } = useZCodeIntl();

@@ -1,5 +1,5 @@
 import { highspeedDrawResponseSchema, highspeedHealthyResponseSchema, } from "@zcode/shared";
-import { withRequestIdHeader } from "#src/providers/api/requestIdHeaders.js";
+import { withRequestIdHeader } from "../providers/api/requestIdHeaders.js";
 const DIAGNOSTIC_HEADER_NAMES = ["x-request-id", "x-trace-id", "x-span-id"];
 const MAX_LOG_TEXT_CHARS = 1_000;
 /**

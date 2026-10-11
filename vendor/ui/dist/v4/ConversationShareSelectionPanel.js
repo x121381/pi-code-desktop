@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useEffect, useLayoutEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { cn } from "@/components/lib/utils.js";
-import { Checkbox } from "@/components/ui/checkbox.js";
-import { ScrollArea } from "@/components/ui/scroll-area.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { resolveConversationShareSelectionPanelMotion } from "@/v4/conversationShareModeMotion.js";
-import { CONVERSATION_SHARE_SELECTION_PANEL_CENTER_Y_PROPERTY, CONVERSATION_SHARE_SELECTION_PANEL_MAX_HEIGHT_PROPERTY, } from "@/v4/conversationShareSelectionPanelLayout.js";
-import { resolveConversationShareScrollbarIndicatorMetrics } from "@/v4/conversationShareScrollbarMetrics.js";
+import { cn } from "../components/lib/utils.js";
+import { Checkbox } from "../components/ui/checkbox.js";
+import { ScrollArea } from "../components/ui/scroll-area.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { resolveConversationShareSelectionPanelMotion } from "../v4/conversationShareModeMotion.js";
+import { CONVERSATION_SHARE_SELECTION_PANEL_CENTER_Y_PROPERTY, CONVERSATION_SHARE_SELECTION_PANEL_MAX_HEIGHT_PROPERTY, } from "../v4/conversationShareSelectionPanelLayout.js";
+import { resolveConversationShareScrollbarIndicatorMetrics } from "../v4/conversationShareScrollbarMetrics.js";
 const PANEL_LAYOUT_STYLE = {
     // 固定高度会让少量候选留下大块空白，并在底部 dock 增高时覆盖输入区。
     // 面板自身按内容自然撑开，max-height 与 top 由共享会话容器动态提供。

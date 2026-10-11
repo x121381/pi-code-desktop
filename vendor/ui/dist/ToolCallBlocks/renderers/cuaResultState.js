@@ -1,5 +1,5 @@
-import { readCuaErrorDetails } from "@/ToolCallBlocks/renderers/cuaErrorDetails.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { readCuaErrorDetails } from "../../ToolCallBlocks/renderers/cuaErrorDetails.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 function asRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value)
         ? value

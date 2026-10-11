@@ -5,7 +5,7 @@
  * 只消费当前 jobId 的快照，旧 job 的尾包直接丢弃；进入时先展示上次完成的快照（stale-while-revalidate）。
  */
 import { useCallback, useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 export const STORAGE_SCAN_BLUR_CANCEL_MS = 60_000;
 export function useStorageUsage({ bridge, enabled, }) {
     const [snapshot, setSnapshot] = useState(null);

@@ -1,19 +1,19 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { BotChannelMessageContent } from "@/v4/ChannelMentionContent.js";
-import { parsePromptConversationSelections } from "@/lib/conversationSelectionReference.js";
-import { ConversationSelectionReferenceChip } from "@/v4/composer/ConversationSelectionReferenceChip.js";
-import { BotGroupSourceLabel } from "@/v4/BotGroupSourceLabel.js";
+import { BotChannelMessageContent } from "../v4/ChannelMentionContent.js";
+import { parsePromptConversationSelections } from "../lib/conversationSelectionReference.js";
+import { ConversationSelectionReferenceChip } from "../v4/composer/ConversationSelectionReferenceChip.js";
+import { BotGroupSourceLabel } from "../v4/BotGroupSourceLabel.js";
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { memo, useCallback, useMemo, useState } from "react";
 import { TID_V4_QUEUE, TID_V4_QUEUE_ITEM, TID_V4_QUEUE_ITEM_DELETE, TID_V4_QUEUE_ITEM_EDIT, TID_V4_QUEUE_ITEM_SEND_NOW, TID_V4_QUEUE_PAUSED_BANNER, TID_V4_QUEUE_RESUME, testId, } from "@zcode/shared";
 import { ArrowUpFromLine, GripVertical, PencilIcon, Trash2Icon } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { runUserAction, runUserActionAsync } from "@/lib/userActionTelemetry.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { runUserAction, runUserActionAsync } from "../lib/userActionTelemetry.js";
 export function resolveV4QueueReorderAnchor(items, activeQueueItemId, overQueueItemId) {
     if (activeQueueItemId === overQueueItemId) {
         return null;

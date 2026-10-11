@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { ArrowUpRightIcon } from "lucide-react";
-import { ArtifactDetail, ArtifactKindIcon, artifactDetailText, artifactDisplayTitle, artifactKindMessageId, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ArtifactDetail, ArtifactKindIcon, artifactDetailText, artifactDisplayTitle, artifactKindMessageId, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /**
  * 交付物行（侧板）：run 的 primary 产物在完成卡与 run 侧板上的样子。
  *

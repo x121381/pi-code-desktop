@@ -1,4 +1,4 @@
-import { buildPluginUiSessionKey, } from "@/plugin-ui/contract.js";
+import { buildPluginUiSessionKey, } from "../../plugin-ui/contract.js";
 const actionsBySession = new Map();
 export function registerPluginUiSessionActions(target, actions) {
     actionsBySession.set(buildPluginUiSessionKey(target), actions);

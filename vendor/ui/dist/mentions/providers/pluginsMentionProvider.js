@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { sortPluginStoreEntries, isPublicStoreMarketplaceId, resolvePluginDisplayName, resolveLocalizedText, } from "@zcode/shared";
-import { filterMentionItemsWithOptions } from "@/mentions/mentionSearch.js";
-import { buildPluginMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { usePluginReferenceCatalog } from "@/hooks/usePluginReferenceCatalog.js";
-import { usePluginStoreOrder } from "@/hooks/usePluginStoreOrder.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { filterMentionItemsWithOptions } from "../../mentions/mentionSearch.js";
+import { buildPluginMentionMarkdown } from "../../mentions/mentionMarkdown.js";
+import { usePluginReferenceCatalog } from "../../hooks/usePluginReferenceCatalog.js";
+import { usePluginStoreOrder } from "../../hooks/usePluginStoreOrder.js";
+import { useIsOfficeMode } from "../../hooks/useInterfaceMode.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 // - 只展示 catalog 中 enabled 的 Plugin；disabled 条目不可被引用，不进入候选。
 // - 同名 manifest 冲突（conflictingPluginIds 非空）保持可见但禁选，展示冲突原因（V1 fail closed）。
 // - markdown 载体固定 `[@Label](plugin://stable-id)`；label 仅展示，身份在 destination。

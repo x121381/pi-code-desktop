@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useCodingPlanEntryGate } from "@/settings/CodingPlanEntryButton.js";
+import { useCodingPlanEntryGate } from "../../settings/CodingPlanEntryButton.js";
 /* eslint-disable max-lines -- Model Provider 详情页当前集中编排 Plan Card、API Key 表单和 OAuth 套餐态；后续稳定后再按 family/API/OAuth 拆分。 */
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, ZAI_PROVIDER_ID, isStartPlanModelProviderId, isIndividualCodingPlanModelProviderId, resolveModelProviderFamilySpecByProviderId, } from "@zcode/shared";
-import { getProviderFormApiKeyManagementUrl, } from "@/lib/providerSettingsFormTypes.js";
+import { getProviderFormApiKeyManagementUrl, } from "../../lib/providerSettingsFormTypes.js";
 import { ArrowRightIcon, AstroidIcon, UsersIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import {} from "./constants.js";
 import { InlineEditableProviderCard } from "./InlineEditableProviderCard.js";
 import { ModelProviderLoadingCard, PresetProviderPlaceholderCard, CodingPlanStatusPanel, } from "./StatusCards.js";
@@ -17,12 +17,12 @@ import { ProviderFamilyDetailShell, ProviderFamilyHeader, ProviderFamilyPlanMode
 import { resolveStartPlanEntitlementSummary } from "./StartPlanCard.js";
 import { useCodingPlanProducts } from "./useCodingPlanProducts.js";
 import { useEnterpriseCodingPlanProducts } from "./useEnterpriseCodingPlanProducts.js";
-import { useUsageEntitlement } from "@/hooks/useUsageEntitlement.js";
-import { createCodingPlanFunnelContext, resolveCodingPlanEntryPlanState, } from "@/lib/codingPlanFunnelTelemetry.js";
-import { useCodingPlanUpgradeDialog } from "@/settings/CodingPlanUpgradeDialogProvider.js";
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { resolveAccountProviderInspectionAccess } from "@/lib/accountProviderAccess.js";
-import { projectProviderSettingsViewToFormProviders } from "@/lib/providerSettingsFormProjection.js";
+import { useUsageEntitlement } from "../../hooks/useUsageEntitlement.js";
+import { createCodingPlanFunnelContext, resolveCodingPlanEntryPlanState, } from "../../lib/codingPlanFunnelTelemetry.js";
+import { useCodingPlanUpgradeDialog } from "../../settings/CodingPlanUpgradeDialogProvider.js";
+import { useProviderSettingsView } from "../../hooks/useProviderSettingsView.js";
+import { resolveAccountProviderInspectionAccess } from "../../lib/accountProviderAccess.js";
+import { projectProviderSettingsViewToFormProviders } from "../../lib/providerSettingsFormProjection.js";
 const START_PLAN_ENTRY_BANNER_CLASS = "min-h-20 w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_14%_12%,color-mix(in_srgb,var(--color-success)_24%,var(--color-background)_76%)_0%,color-mix(in_srgb,var(--color-success)_10%,var(--color-surface)_90%)_64%,var(--color-surface)_300%)] p-4 text-left transition-colors hover:border-border-hover";
 const PERSONAL_PLAN_ENTRY_BANNER_CLASS = "min-h-20 w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_14%_12%,color-mix(in_srgb,#4099ff_24%,var(--color-background)_76%)_0%,color-mix(in_srgb,#4099ff_10%,var(--color-surface)_90%)_64%,var(--color-surface)_300%)] p-4 text-left transition-colors hover:border-border-hover";
 const TEAM_PLAN_ENTRY_BANNER_CLASS = "min-h-20 w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_14%_12%,color-mix(in_srgb,#0ea5e9_24%,var(--color-background)_76%)_0%,color-mix(in_srgb,#0ea5e9_10%,var(--color-surface)_90%)_64%,var(--color-surface)_300%)] p-4 text-left transition-colors hover:border-border-hover";

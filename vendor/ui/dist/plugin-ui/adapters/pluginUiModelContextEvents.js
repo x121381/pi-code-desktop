@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { buildPluginUiSessionKey } from "@/plugin-ui/contract.js";
+import { buildPluginUiSessionKey } from "../../plugin-ui/contract.js";
 // 接收端登记不保存草稿：Composer hook 是唯一 owner；卸载立即撤销投递能力。
 const receivers = new Map();
 export function registerPluginUiModelContextReceiver(scope, receive) {

@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import { access, open, readFile, realpath, stat } from "node:fs/promises";
 import { isAbsolute, relative, resolve, sep } from "node:path";
-import { GIT_UNTRACKED_STAT_CHUNK_BYTES, GIT_UNTRACKED_STAT_CONCURRENCY, GIT_UNTRACKED_STAT_MAX_BYTES, normalizeGitPath, } from "#src/git/config.js";
+import { GIT_UNTRACKED_STAT_CHUNK_BYTES, GIT_UNTRACKED_STAT_CONCURRENCY, GIT_UNTRACKED_STAT_MAX_BYTES, normalizeGitPath, } from "../../git/config.js";
 function toResultMessage(result) {
     return result.stderr.trim() || result.stdout.trim() || `exitCode=${result.exitCode ?? "null"}`;
 }

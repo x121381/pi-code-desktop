@@ -1,4 +1,4 @@
-import { resolveModelThoughtOption } from "@/lib/modelThoughtOption.js";
+import { resolveModelThoughtOption } from "../../lib/modelThoughtOption.js";
 /** 只将结构化选择投影给现有展示控件；不能借旧 Snapshot 或平铺别名填满空选择。 */
 export function resolveDraftDisplayedConfig(composer) {
     const selection = composer.modelSelection;

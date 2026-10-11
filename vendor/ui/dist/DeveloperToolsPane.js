@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- 开发者工具面板集中展示 token 表和网络 headers，后续继续扩展时再按区块拆分。 */
 import { ActivityIcon, BugIcon, NetworkIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useSessionDebug } from "@/hooks/useSessionDebug.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useSessionDebug } from "./hooks/useSessionDebug.js";
 function formatNumber(locale, value) {
     if (value === undefined || !Number.isFinite(value)) {
         return "-";

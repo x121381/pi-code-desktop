@@ -1,4 +1,4 @@
-import { phaseNameMatches } from "@/components/workflow-graph/phase-name.js";
+import { phaseNameMatches } from "../../components/workflow-graph/phase-name.js";
 /**
  * 表外那一格按**出生阶段的戳**归位：与药丸绑定、站的观察同一个 `phaseBinder`——一次划分，不是
  * 一次广播。无 `phaseName` 的那一格因此落在无名的站上（与无戳实例同一条规则），而不是凭空

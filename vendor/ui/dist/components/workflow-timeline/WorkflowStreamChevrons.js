@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 /**
  * 流轨的 chevron（docs/dynamic-workflow/presentation.md「Stream rails」）：轨道在它可见跨度的正中断开
  * 一截 `STREAM_GAP`，缺口里站着一组 `›››`——三枚相距 5px、每枚 2.6 × 6.4、描边 1.35、圆头圆角，朝流的

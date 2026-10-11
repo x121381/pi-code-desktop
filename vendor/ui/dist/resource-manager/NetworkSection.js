@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { useZCodeIntl } from "@/i18n/index.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { useZCodeIntl } from "../i18n/index.js";
 const PAGE_SIZE = 100;
 /** 网络页只轮询有界投影；采集生命周期属于 Main 中的窗口。 */
 export function NetworkSection({ bridge }) {

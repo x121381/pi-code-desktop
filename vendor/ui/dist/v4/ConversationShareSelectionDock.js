@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo } from "react";
 import { AlertCircle, AlertTriangle, Info, LoaderCircle } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Checkbox } from "@/components/ui/checkbox.js";
-import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareIssueMessageId, resolveConversationShareWarningMessageId, } from "@/lib/conversationShareError.js";
+import { Button } from "../components/ui/button.js";
+import { Checkbox } from "../components/ui/checkbox.js";
+import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatConversationShareAllowedArtifacts, formatConversationShareArtifactType, resolveConversationShareIssueMessageId, resolveConversationShareWarningMessageId, } from "../lib/conversationShareError.js";
 // memo 组件的默认对象每次创建会破坏引用稳定性；idle 默认值仅供读取。
 const DEFAULT_PREFLIGHT = { status: "idle" };
 function ConversationShareSelectionDockImpl({ selectedCount, totalCount, onCancel, onNext, onSelectAll, onDeselectAll, onDeselectTurn, onRetryPreflight, preflight = DEFAULT_PREFLIGHT, pending = false, }) {

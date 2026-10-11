@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Bot, Webhook } from "lucide-react";
 import { ALL_BOT_WORKSPACES, BOT_BIND_CODE_TTL_MS } from "@zcode/shared";
-import { DingDingChannelIcon, DiscordChannelIcon, FeishuChannelIcon, TelegramChannelIcon, WeComChannelIcon, WeixinChannelIcon, } from "@/assets/channel-icons/index.js";
-import { cn } from "@/components/lib/utils.js";
+import { DingDingChannelIcon, DiscordChannelIcon, FeishuChannelIcon, TelegramChannelIcon, WeComChannelIcon, WeixinChannelIcon, } from "../assets/channel-icons/index.js";
+import { cn } from "../components/lib/utils.js";
 export const BIND_CODE_TTL_MS = BOT_BIND_CODE_TTL_MS;
 export const TELEGRAM_BOTFATHER_URL = "https://t.me/BotFather";
 export function isAllWorkspacesAllowed(allowedWorkspaces) {

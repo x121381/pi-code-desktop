@@ -1,22 +1,22 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable eslint(max-lines) -- UnifiedBrowserView 集中维护稳定 webview 的导航、事件和 guest 生命周期；横向滚动链已下沉独立 hook。 */
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useWebElementPicker } from "@/hooks/useWebElementPicker.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { BrowserSiteSettingsEntry } from "@/browser-use/BrowserSiteSettingsEntry.js";
-import { BrowserToolbar } from "@/EmbeddedBrowserPaneParts.js";
-import { EmbeddedBrowserPermissionPrompts } from "@/browser-use/EmbeddedBrowserPermissionPrompts.js";
-import { BrowserViewportSurface } from "@/browser-use/BrowserViewportSurface.js";
-import { BrowserViewportToolbar } from "@/browser-use/BrowserViewportToolbar.js";
-import { useBrowserResizeOperationWarning } from "@/browser-use/useBrowserResizeOperationWarning.js";
-import { useBrowserScreenshotSurfaceReady } from "@/browser-use/useBrowserScreenshotSurfaceReady.js";
-import { useEmbeddedBrowserWheelChain } from "@/browser-use/useEmbeddedBrowserWheelChain.js";
-import { useDesktopZoomFactor } from "@/browser-use/useDesktopZoomFactor.js";
-import { useResponsiveBrowserViewportControl } from "@/browser-use/useResponsiveBrowserViewportControl.js";
-import { DEFAULT_BROWSER_URL, INITIAL_BROWSER_STATE, displayBrowserUrl, isDefaultBrowserOpenableUrl, isRecoverableBrowserGuestExitReason, normalizeBrowserUrl, safeWebviewCall, } from "@/embeddedBrowserHelpers.js";
+import { cn } from "../components/lib/utils.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useWebElementPicker } from "../hooks/useWebElementPicker.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { BrowserSiteSettingsEntry } from "../browser-use/BrowserSiteSettingsEntry.js";
+import { BrowserToolbar } from "../EmbeddedBrowserPaneParts.js";
+import { EmbeddedBrowserPermissionPrompts } from "../browser-use/EmbeddedBrowserPermissionPrompts.js";
+import { BrowserViewportSurface } from "../browser-use/BrowserViewportSurface.js";
+import { BrowserViewportToolbar } from "../browser-use/BrowserViewportToolbar.js";
+import { useBrowserResizeOperationWarning } from "../browser-use/useBrowserResizeOperationWarning.js";
+import { useBrowserScreenshotSurfaceReady } from "../browser-use/useBrowserScreenshotSurfaceReady.js";
+import { useEmbeddedBrowserWheelChain } from "../browser-use/useEmbeddedBrowserWheelChain.js";
+import { useDesktopZoomFactor } from "../browser-use/useDesktopZoomFactor.js";
+import { useResponsiveBrowserViewportControl } from "../browser-use/useResponsiveBrowserViewportControl.js";
+import { DEFAULT_BROWSER_URL, INITIAL_BROWSER_STATE, displayBrowserUrl, isDefaultBrowserOpenableUrl, isRecoverableBrowserGuestExitReason, normalizeBrowserUrl, safeWebviewCall, } from "../embeddedBrowserHelpers.js";
 /**
  * UnifiedBrowserView —— 统一浏览器视图（`<webview>` + CDP-on-guest 架构）。
  *

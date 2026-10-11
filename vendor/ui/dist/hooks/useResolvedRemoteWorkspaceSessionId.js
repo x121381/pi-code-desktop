@@ -1,7 +1,7 @@
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { useRemoteWorkspaceSessionStore } from "@/store/remoteWorkspaceSessionStore.js";
-import { resolveWorkspaceRemoteSessionId, } from "@/lib/workspaceServiceResolver.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { useRemoteWorkspaceSessionStore } from "../store/remoteWorkspaceSessionStore.js";
+import { resolveWorkspaceRemoteSessionId, } from "../lib/workspaceServiceResolver.js";
 export function resolveRemoteWorkspaceSessionIdForTarget(params) {
     if (!params.workspacePath) {
         return null;

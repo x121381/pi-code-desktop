@@ -1,7 +1,7 @@
-import { USAGE_ENTITLEMENT_ACCESS_REFRESH_MS } from "@/lib/usageEntitlementRefreshPolicy.js";
+import { USAGE_ENTITLEMENT_ACCESS_REFRESH_MS } from "../lib/usageEntitlementRefreshPolicy.js";
 import { validateModelSelectionOptions } from "@zcode/provider";
 import { isBuiltinModelProviderId, isStartPlanModelProviderId, resolveModelProviderFamilySpecByProviderId, } from "@zcode/shared";
-import { bucketMatchesModel, bucketRemainingRatio, getActiveModelBuckets, } from "@/v4/startPlanQuotaBuckets.js";
+import { bucketMatchesModel, bucketRemainingRatio, getActiveModelBuckets, } from "../v4/startPlanQuotaBuckets.js";
 /** 只消费目标 Registry 与已有额度事实；未知额度跳过，不为提交增加查询门禁。 */
 export function resolveStartPlanRecommendation(selection, view, snapshot) {
     if (!isBuiltinModelProviderId(selection.providerId) ||

@@ -2,7 +2,7 @@ import { watch } from "chokidar";
 import { stat, watch as watchDirectory } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
 const logger = createServiceLogger("subagentRuntimeConfig");
 const EVENT_DEBOUNCE_MS = 300;
 const WRITE_STABILITY_MS = 1000;

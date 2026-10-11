@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckIcon, ChevronRightIcon, InfoIcon, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { TooltipProvider } from "@/components/ui/tooltip.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { TooltipProvider } from "../components/ui/tooltip.js";
 const CONTEXT_USAGE_REFRESH_SUCCESS_MS = 1_000;
 export function CodingPlanUsageHeaderAction({ error, loading, onUsageClick, openLabel, refreshingLabel, updatedLabel, warningLabel, }) {
     const [refreshActionState, setRefreshActionState] = useState("idle");

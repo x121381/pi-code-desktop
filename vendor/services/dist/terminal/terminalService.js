@@ -4,7 +4,7 @@ import { homedir, release } from "node:os";
 import { delimiter, dirname, join, resolve } from "node:path";
 import { Emitter } from "@zcode/rpc";
 import { resolveTerminalFontProfile, } from "./terminalProfile.js";
-import { registerMemoryDiagnosticsProvider } from "#src/memoryDiagnostics.js";
+import { registerMemoryDiagnosticsProvider } from "../memoryDiagnostics.js";
 const require = createRequire(import.meta.url);
 let hasEnsuredNodePtyHelper = false;
 let nodePtyModulePromise = null;

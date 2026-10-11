@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { UpdateStatusDialog } from "@/UpdateStatusDialog.js";
-import { formatUpdateReleaseDate, getLocalizedUpdateReleaseNotes } from "@/updateReleaseNotes.js";
-import { deriveUpdateStatusViewModel, isUpdateActionCompleted, } from "@/updateStatusModel.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useConfirmDialog } from "./hooks/useConfirmDialog.js";
+import { UpdateStatusDialog } from "./UpdateStatusDialog.js";
+import { formatUpdateReleaseDate, getLocalizedUpdateReleaseNotes } from "./updateReleaseNotes.js";
+import { deriveUpdateStatusViewModel, isUpdateActionCompleted, } from "./updateStatusModel.js";
 export function UpdateStatusDialogController({ platform, version, updateState, open, onOpenChange, edgeToEdge = false, showOverlay = true, }) {
     const { intl, locale } = useZCodeIntl();
     const requestConfirmation = useConfirmDialog();

@@ -1,10 +1,10 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { SelectionActionMenu } from "@/v4/SelectionActionMenu.js";
-import { useTextSelection } from "@/hooks/useTextSelection.js";
+import { SelectionActionMenu } from "../v4/SelectionActionMenu.js";
+import { useTextSelection } from "../hooks/useTextSelection.js";
 import { useCallback, useRef } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { createConversationSelectionReference, } from "@/lib/conversationSelectionReference.js";
-import { guardConversationSelectionCandidate, hasExcludedConversationSelectionEndpoint, } from "@/lib/conversationSelectionGuard.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { createConversationSelectionReference, } from "../lib/conversationSelectionReference.js";
+import { guardConversationSelectionCandidate, hasExcludedConversationSelectionEndpoint, } from "../lib/conversationSelectionGuard.js";
 const SELECTABLE_SELECTOR = "[data-conversation-selectable]";
 function contentTypeForRow(row) {
     if (row.kind === "userInput")

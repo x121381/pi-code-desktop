@@ -1,4 +1,4 @@
-import { formatTaskChangedFileLabel } from "@/lib/taskChangeSummary.js";
+import { formatTaskChangedFileLabel } from "../lib/taskChangeSummary.js";
 function normalizeTaskFindText(value) {
     return value.trim().toLocaleLowerCase();
 }

@@ -1,6 +1,6 @@
 import { bundledLanguages, bundledLanguagesInfo, createHighlighter } from "shiki";
-import { logger } from "@/logger.js";
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { logger } from "../logger.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 const bundledLanguageIds = new Set(Object.keys(bundledLanguages));
 const bundledLanguageAliases = new Map(bundledLanguagesInfo.flatMap((info) => (info.aliases ?? []).map((alias) => [alias, info.id])));
 const FALLBACK_CODE_LANGUAGE = "log";

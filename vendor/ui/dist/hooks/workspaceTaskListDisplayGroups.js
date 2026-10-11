@@ -1,7 +1,7 @@
-import { mergeWorkspaceTaskListItemsWithOptimistic, } from "@/hooks/workspaceTaskListOptimisticOverlay.js";
-import { areTaskListItemsEquivalent } from "@/hooks/workspaceTaskListRefreshSignatures.js";
-import { countLiveWorkflowRuns } from "@/lib/workflowRunLine.js";
-import { getTaskListRowActivity } from "@/v4/taskListRowActivity.js";
+import { mergeWorkspaceTaskListItemsWithOptimistic, } from "../hooks/workspaceTaskListOptimisticOverlay.js";
+import { areTaskListItemsEquivalent } from "../hooks/workspaceTaskListRefreshSignatures.js";
+import { countLiveWorkflowRuns } from "../lib/workflowRunLine.js";
+import { getTaskListRowActivity } from "../v4/taskListRowActivity.js";
 export function buildWorkspaceTaskListDisplayGroups(params) {
     const cache = new Map();
     const groups = params.queryConfigs.map((config) => {

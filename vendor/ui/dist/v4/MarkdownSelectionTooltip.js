@@ -1,11 +1,11 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { SelectionActionMenu } from "@/v4/SelectionActionMenu.js";
-import { buildSelectionSideChatKey, getSelectionSideChatOpenState, requestSelectionSideChatOpen, subscribeSelectionSideChatRuntime, } from "@/lib/selectionSideChatRuntime.js";
+import { SelectionActionMenu } from "../v4/SelectionActionMenu.js";
+import { buildSelectionSideChatKey, getSelectionSideChatOpenState, requestSelectionSideChatOpen, subscribeSelectionSideChatRuntime, } from "../lib/selectionSideChatRuntime.js";
 import { useCallback, useSyncExternalStore } from "react";
-import { useTextSelection } from "@/hooks/useTextSelection.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { hasExcludedConversationSelectionEndpoint } from "@/lib/conversationSelectionGuard.js";
-import { CONVERSATION_SELECTION_MAX_TEXT_LENGTH, dispatchConversationSelectionAdd, createConversationSelectionReference, } from "@/lib/conversationSelectionReference.js";
+import { useTextSelection } from "../hooks/useTextSelection.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { hasExcludedConversationSelectionEndpoint } from "../lib/conversationSelectionGuard.js";
+import { CONVERSATION_SELECTION_MAX_TEXT_LENGTH, dispatchConversationSelectionAdd, createConversationSelectionReference, } from "../lib/conversationSelectionReference.js";
 export function MarkdownSelectionTooltip({ rootRef, sourceKey, sourceTitle, sourcePath, target, scopeKey, }) {
     const { intl } = useZCodeIntl();
     const inspect = useCallback(() => {

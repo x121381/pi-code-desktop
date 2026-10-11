@@ -1,4 +1,4 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 function taskKey(task) {
     return `${buildTaskWorkspaceKey(task.workspacePath, task.workspaceIdentity)}\u0000${task.taskId}`;
 }

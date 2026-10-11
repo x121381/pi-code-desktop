@@ -1,4 +1,4 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 export function resolveQuickPickConversationNavigation(params) {
     const taskIds = [...new Set(params.taskIds.filter((taskId) => taskId.length > 0))];
     const activeIndex = params.activeTaskId ? taskIds.indexOf(params.activeTaskId) : -1;

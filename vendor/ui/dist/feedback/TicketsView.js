@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, CopyIcon, Inbox, Loader2, PlusCircle, RefreshCcw } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { FeedbackErrorTip, StatusIndicator } from "@/feedback/feedbackBadges.js";
-import { ScrollFadeViewport } from "@/components/ui/scroll-fade-viewport.js";
-import { useFeedbackStore } from "@/feedback/feedbackStore.js";
-import { formatRelativeTime } from "@/feedback/feedbackUserView.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { FeedbackErrorTip, StatusIndicator } from "../feedback/feedbackBadges.js";
+import { ScrollFadeViewport } from "../components/ui/scroll-fade-viewport.js";
+import { useFeedbackStore } from "../feedback/feedbackStore.js";
+import { formatRelativeTime } from "../feedback/feedbackUserView.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
 export function TicketsView({ feedbackService, onCreateNew, }) {
     const selectedTicketId = useFeedbackStore((state) => state.selectedTicketId);
     const { intl } = useZCodeIntl();

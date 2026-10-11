@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const useConfirmDialogStore = create((set, get) => ({
     pendingRequest: undefined,
     requestConfirmation: async (payload) => (await get().requestChoice(payload)) === "confirm",

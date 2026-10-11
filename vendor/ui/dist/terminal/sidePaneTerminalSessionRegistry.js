@@ -12,7 +12,7 @@
 // 不与下侧 terminal 共享 session。
 // 仅 SidePaneTerminalPane 通过 TerminalSession 的 persistentKey prop 接入；下侧不传 persistentKey，
 // 走 TerminalSession 原 effect 路径，与 registry 完全无关。
-import { uiMemoryDiagnosticsRegistry } from "@/lib/memoryDiagnostics.js";
+import { uiMemoryDiagnosticsRegistry } from "../lib/memoryDiagnostics.js";
 // 模块级状态：跨 workspace、跨 React 组件树常驻。
 const sessions = new Map();
 // 内存诊断计数器：常驻 xterm 实例数无上限，先落日志。

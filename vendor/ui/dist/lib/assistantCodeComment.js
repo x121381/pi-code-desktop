@@ -1,5 +1,5 @@
-import { extractAssistantDirectives, findAssistantDirectivePrefixStart, findMarkdownCodeRanges, findUnclosedAssistantDirectiveStart, overlapsAssistantTextRanges, } from "@/lib/assistantDirectiveParser.js";
-import { resolveAssistantRawFilePath, } from "@/lib/assistantFileReferences.js";
+import { extractAssistantDirectives, findAssistantDirectivePrefixStart, findMarkdownCodeRanges, findUnclosedAssistantDirectiveStart, overlapsAssistantTextRanges, } from "../lib/assistantDirectiveParser.js";
+import { resolveAssistantRawFilePath, } from "../lib/assistantFileReferences.js";
 const CODE_COMMENT_DIRECTIVE_NAME = "code-comment";
 function parsePositiveInteger(value) {
     if (!value || !/^\d+$/.test(value))

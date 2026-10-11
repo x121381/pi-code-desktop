@@ -1,8 +1,8 @@
 import { watch } from "node:fs";
 import { resolve } from "node:path";
 import { Emitter, Event } from "@zcode/rpc";
-import { createServiceLogger, } from "#src/logger/serviceLogger.js";
-import { registerMemoryDiagnosticsProvider } from "#src/memoryDiagnostics.js";
+import { createServiceLogger, } from "../logger/serviceLogger.js";
+import { registerMemoryDiagnosticsProvider } from "../memoryDiagnostics.js";
 /** 防抖时间（ms）——批量文件变更（如 git checkout）时避免频繁刷新 */
 const DEBOUNCE_MS = 150;
 export function resolveFileWatchChangedPath(watchedDirectoryPath, fileName) {

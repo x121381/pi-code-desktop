@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useRef } from "react";
-import { createOnboardingMeshRenderer } from "@/onboarding/onboardingMeshRenderer.js";
-import { useResolvedThemeHeroPalette } from "@/openWorkspacePageThemeHero.js";
+import { createOnboardingMeshRenderer } from "../onboarding/onboardingMeshRenderer.js";
+import { useResolvedThemeHeroPalette } from "../openWorkspacePageThemeHero.js";
 /** 装饰背景拥有自己的渲染生命周期，不订阅或修改业务状态。 */
 export function OnboardingMeshBackground() {
     const ref = useRef(null);

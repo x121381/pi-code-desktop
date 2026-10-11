@@ -1,10 +1,10 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { ReplyIcon } from "lucide-react";
 import { useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ToolSnapshotFieldNotice } from "@/ToolCallBlocks/ToolSnapshotFieldNotice.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { readToolResultDisplay } from "@/ToolCallBlocks/toolResultDisplay.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ToolSnapshotFieldNotice } from "../../ToolCallBlocks/ToolSnapshotFieldNotice.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { readToolResultDisplay } from "../../ToolCallBlocks/toolResultDisplay.js";
 const RESPOND_TO_COORDINATOR_TOOL_ICON = (_jsx(ReplyIcon, { className: "size-4 shrink-0 text-foreground-subtle" }));
 function toRecord(value) {
     if (typeof value === "object" && value !== null && !Array.isArray(value)) {

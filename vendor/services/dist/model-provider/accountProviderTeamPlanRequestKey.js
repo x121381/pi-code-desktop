@@ -1,6 +1,6 @@
 import { BIGMODEL_PROVIDER_ID, ProjectAccessTokenClient, resolveBigModelApiOrigin, resolveZaiBusinessBaseUrl, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { readApiJson } from "#src/providers/api/apiJson.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { readApiJson } from "../providers/api/apiJson.js";
 const log = createServiceLogger("account-provider-team-plan-request-key");
 const ZCODE_JWT_TOKEN_KEY = "zcodejwttoken";
 const TEAM_PLAN_RUNTIME_KEY_REQUEST_TIMEOUT_MS = 15_000;

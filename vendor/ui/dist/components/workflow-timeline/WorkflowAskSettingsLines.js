@@ -14,11 +14,11 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // 不可用」：它取决于异步读回的模型清单，不是用户的一次操作，只能在清单到达后回报给父组件。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { ThoughtLevelCycleControl } from "@/chat-input-toolbar/ThoughtLevelCycleControl.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { MODEL_CONFIG_SELECT_BADGE_CLASS_NAME, ModelConfigSelect } from "@/ModelConfigSelect.js";
-import { workflowScriptNamesModels, } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { ThoughtLevelCycleControl } from "../../chat-input-toolbar/ThoughtLevelCycleControl.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { MODEL_CONFIG_SELECT_BADGE_CLASS_NAME, ModelConfigSelect } from "../../ModelConfigSelect.js";
+import { workflowScriptNamesModels, } from "../../ToolCallBlocks/renderers/createWorkflowInput.js";
 import { describeWorkflowSubagentModel, workflowSubagentModelText, workflowSubagentModelTooltip, } from "./subagent-model-label.js";
 import { WORKFLOW_ASK_CHIP_CLASS_NAME, WORKFLOW_ASK_LINE_CLASS_NAME, WORKFLOW_ASK_TAIL_CLASS_NAME, WorkflowAskBoundLine, WorkflowAskWasTail, } from "./WorkflowAskSettingsParts.js";
 import { useWorkflowSettingsModelChoices, } from "./useWorkflowSettingsModelChoices.js";

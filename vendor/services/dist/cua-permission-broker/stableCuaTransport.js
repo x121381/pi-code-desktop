@@ -1,6 +1,6 @@
 import { mintBrokerSocketPath } from "@zcode/zcode-cua/broker";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { resolveWindowsCuaRuntime } from "#src/cua-permission-broker/windowsCuaDevRuntime.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { resolveWindowsCuaRuntime } from "../cua-permission-broker/windowsCuaDevRuntime.js";
 const logger = createServiceLogger("stable-cua-transport");
 let stablePipeName = null;
 let recipePromise = null;

@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo } from "react";
 import { SquareArrowRightEnter } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ConversationShareReadonlyTimeline } from "@/v4/ConversationShareReadonlyTimeline.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ConversationShareReadonlyTimeline } from "../v4/ConversationShareReadonlyTimeline.js";
 // 注入边界：只读时间线被匿名公开分享页共用，不能静态依赖 open-with 子树；
 // OpenSplitButton（platform hooks、tab store、文件树模型等 Desktop 能力）只能在本 Desktop
 // 消费侧引入并经 artifactOpenAction 注入，公开页入口图因此不含该子树。
-import { OpenSplitButton } from "@/OpenSplitButton.js";
+import { OpenSplitButton } from "../OpenSplitButton.js";
 const EMPTY_ARTIFACT_NAMES = new Map();
 const EMPTY_ARTIFACT_WORKSPACE_RELATIVE_PATHS = new Map();
 /**

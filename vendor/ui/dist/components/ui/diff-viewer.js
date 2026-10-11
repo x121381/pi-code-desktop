@@ -2,8 +2,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
 import { MultiFileDiff, PatchDiff } from "@pierre/diffs/react";
-import { cn } from "@/components/lib/utils.js";
-import { DIFFS_PREFERRED_HIGHLIGHTER } from "@/lib/diffsHighlighterEngine.js";
+import { cn } from "../../components/lib/utils.js";
+import { DIFFS_PREFERRED_HIGHLIGHTER } from "../../lib/diffsHighlighterEngine.js";
 const DIFF_VIEWER_UNSAFE_CSS = ``;
 function DiffViewerComponent(props) {
     const rendersPatch = isPatchDiffProps(props);

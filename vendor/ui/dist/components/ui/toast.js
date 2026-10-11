@@ -3,12 +3,12 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
  * 轻量 toast 提示
  *
  * 不引入第三方库，用 React portal 渲染到 body，3 秒自动消失。
- * 调用方式：`import { toast } from "@/components/ui/toast.js"; toast("message");`
+ * 调用方式：`import { toast } from "../../components/ui/toast.js"; toast("message");`
  */
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
 import { Info, TriangleAlert, X } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 export function upsertToastItem(items, item) {
     if (!item.dedupeKey)
         return [...items, item];

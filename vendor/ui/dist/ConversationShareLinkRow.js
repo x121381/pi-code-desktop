@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "./components/ui/button.js";
+import { Spinner } from "./components/ui/spinner.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 export function ConversationShareLinkRow({ isPublic, pending, shareUrl, onOpen, onCopy, }) {
     const { intl } = useZCodeIntl();
     return (_jsx("div", { className: "flex flex-col gap-2 px-2 pb-2", children: _jsxs("div", { className: "flex min-w-0 items-center gap-3", children: [isPublic && pending ? (_jsxs("div", { role: "status", "aria-label": intl.formatMessage({ id: "conversationShare.generatingLink" }), className: "flex h-9 min-w-0 flex-1 items-center gap-1.5 rounded-lg border border-input-border bg-input px-3 text-ui-base text-foreground-subtle", children: [_jsx(Spinner, { "aria-hidden": "true", className: "size-4 shrink-0" }), _jsx("span", { className: "truncate", children: intl.formatMessage({ id: "conversationShare.generatingLink" }) })] })) : isPublic && shareUrl ? (_jsxs("button", { type: "button", role: "link", onClick: onOpen, "aria-label": intl.formatMessage({ id: "conversationShare.openLink" }), title: shareUrl, className: "group flex h-9 min-w-0 flex-1 items-center gap-1 rounded-lg border border-input-border bg-input px-3 text-left text-ui-base text-foreground outline-none transition-colors hover:border-input-border-hover focus-visible:border-input-border-focused focus-visible:bg-input-focused", children: [_jsx("span", { className: "min-w-0 flex-1 truncate", children: shareUrl }), _jsx(ArrowUpRight, { "data-conversation-share-open-icon": "true", "aria-hidden": "true", strokeWidth: 1.33, 

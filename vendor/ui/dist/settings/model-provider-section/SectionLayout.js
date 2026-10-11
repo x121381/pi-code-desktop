@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TID_MODEL_PROVIDER_ADD_PROVIDER_BUTTON } from "@zcode/shared";
-import { ModelProviderSectionNavigation } from "@/settings/model-provider-section/Navigation.js";
-import { ProviderDetailFeedbackBoundary } from "@/settings/model-provider-section/ProviderDetailFeedback.js";
-import { SettingsResourceHeaderActions } from "@/settings/SettingsResourceHeaderActions.js";
+import { ModelProviderSectionNavigation } from "../../settings/model-provider-section/Navigation.js";
+import { ProviderDetailFeedbackBoundary } from "../../settings/model-provider-section/ProviderDetailFeedback.js";
+import { SettingsResourceHeaderActions } from "../../settings/SettingsResourceHeaderActions.js";
 export function shouldShowModelProviderRefreshLoading(params) {
     return params.presetLoading || params.customLoading;
 }

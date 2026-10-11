@@ -1,4 +1,4 @@
-import { isWorkflowRunConfigurable } from "@/components/workflow-timeline/workflowRunSettings.js";
+import { isWorkflowRunConfigurable } from "../components/workflow-timeline/workflowRunSettings.js";
 const MS_PER_SECOND = 1_000;
 const I18N_PREFIX = "chat.toolCall.workflow.run.";
 const EVENT_KEY_PREFIX = `${I18N_PREFIX}event.`;

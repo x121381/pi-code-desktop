@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
 export function useComposerTextInsertApplied(workspacePath, workspaceIdentity) {
     return useCallback((requestId, signal) => new Promise((resolve) => {
         let unsubscribe = () => undefined;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { EmbeddedBrowserWebviewChannels, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function validatedDelta(value) {
     return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }

@@ -4,8 +4,8 @@
  * 抽成纯函数是因为详情页里唯一有"规则"的部分就是这些，而它们全都能被穷举单测，
  * 不必渲染一张 React Flow 画布。组件只负责把这里的结果贴到 DOM 上。
  */
-import { readWorkflowRunStopReason, } from "@/components/workflow-graph/run-status-presentation.js";
-import { workflowRunConcurrencyEventLine } from "@/app-shell/workflowRunThrottle.js";
+import { readWorkflowRunStopReason, } from "../components/workflow-graph/run-status-presentation.js";
+import { workflowRunConcurrencyEventLine } from "../app-shell/workflowRunThrottle.js";
 /** 未知事件种类的兜底原文上限：事件日志绝不把整条 journal 灌进 DOM。 */
 const UNKNOWN_PAYLOAD_MAX_LENGTH = 200;
 /**

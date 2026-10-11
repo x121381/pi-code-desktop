@@ -12,11 +12,11 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  */
 import { memo, useMemo } from "react";
 import { Bar, CartesianGrid, ComposedChart, Line, ReferenceLine, Scatter, XAxis, YAxis, } from "recharts";
-import { applyArtifactItems, } from "@/app-shell/workflow-artifacts/presets/apply.js";
-import { artifactSeriesColorVar, artifactSeriesDash, artifactSeriesSymbol, ARTIFACT_CHART_MAX_SERIES, } from "@/app-shell/workflow-artifacts/presets/palette.js";
-import { fieldHeading, PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "@/app-shell/workflow-artifacts/presets/parts.js";
-import { cn } from "@/components/lib/utils.js";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart.js";
+import { applyArtifactItems, } from "../../../app-shell/workflow-artifacts/presets/apply.js";
+import { artifactSeriesColorVar, artifactSeriesDash, artifactSeriesSymbol, ARTIFACT_CHART_MAX_SERIES, } from "../../../app-shell/workflow-artifacts/presets/palette.js";
+import { fieldHeading, PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "../../../app-shell/workflow-artifacts/presets/parts.js";
+import { cn } from "../../../components/lib/utils.js";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "../../../components/ui/chart.js";
 /** 点多到这个数以上就不画点了：一条挤满圆点的线比没有点更难读。 */
 const MAX_VISIBLE_DOTS = 60;
 const FULL_MARGIN = { top: 8, right: 16, bottom: 0, left: 0 };

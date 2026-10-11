@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { collectPendingInteractionNotificationPayloads, collectTerminalTaskNotificationPayloads, } from "@/lib/taskNotificationOrchestrator.js";
-import { acquireSessionsIndex, releaseSessionsIndex, } from "@/v4/sessionsIndexRegistry.js";
+import { useServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
+import { collectPendingInteractionNotificationPayloads, collectTerminalTaskNotificationPayloads, } from "../lib/taskNotificationOrchestrator.js";
+import { acquireSessionsIndex, releaseSessionsIndex, } from "../v4/sessionsIndexRegistry.js";
 function trimOptional(value) {
     const trimmed = value?.trim();
     return trimmed ? trimmed : undefined;

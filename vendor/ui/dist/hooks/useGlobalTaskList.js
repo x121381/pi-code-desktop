@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { logger } from "@/logger.js";
-import { useBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { attachTaskListRowActivity } from "@/v4/taskListRowActivity.js";
-import { stabilizeTaskListItems } from "@/v4/taskListItemStabilization.js";
-import { getWindowControllerTaskListRegistry } from "@/v4/windowControllerTaskListRegistry.js";
+import { logger } from "../logger.js";
+import { useBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { attachTaskListRowActivity } from "../v4/taskListRowActivity.js";
+import { stabilizeTaskListItems } from "../v4/taskListItemStabilization.js";
+import { getWindowControllerTaskListRegistry } from "../v4/windowControllerTaskListRegistry.js";
 const subscribeToNothing = () => () => { };
 const zeroRevision = () => 0;
 function buildWorkspaceScopes(workspaceTabs) {

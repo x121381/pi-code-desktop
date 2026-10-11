@@ -3,12 +3,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Trash2Icon } from "lucide-react";
 import { File } from "@pierre/diffs/react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { isDarkCodePreviewTheme } from "@/lib/codePreviewPreferences.js";
-import { DIFFS_PREFERRED_HIGHLIGHTER } from "@/lib/diffsHighlighterEngine.js";
-import { formatCommandShortcutLabel, isAppleKeyboardPlatform, } from "@/lib/keyboardShortcuts.js";
+import { cn } from "../../components/lib/utils.js";
+import { Button } from "../../components/ui/button.js";
+import { Textarea } from "../../components/ui/textarea.js";
+import { isDarkCodePreviewTheme } from "../../lib/codePreviewPreferences.js";
+import { DIFFS_PREFERRED_HIGHLIGHTER } from "../../lib/diffsHighlighterEngine.js";
+import { formatCommandShortcutLabel, isAppleKeyboardPlatform, } from "../../lib/keyboardShortcuts.js";
 export function resolveCodeViewerColorScheme(theme) {
     if (!theme) {
         if (typeof document !== "undefined" && document.documentElement.classList.contains("dark")) {

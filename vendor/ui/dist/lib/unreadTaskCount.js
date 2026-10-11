@@ -1,4 +1,4 @@
-import { getVisibleTaskMetas } from "@/store/zcodeSessionStoreSelectors.js";
+import { getVisibleTaskMetas } from "../store/zcodeSessionStoreSelectors.js";
 export function countWorkspaceUnreadTasks(workspace) {
     const visibleTasks = getVisibleTaskMetas(workspace);
     if (visibleTasks.length > 0) {

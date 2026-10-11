@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { FileDisplayIcon, getFileDisplayPath, resolveFileDisplayDescriptor, } from "@/lib/fileDisplay.js";
-import { FlipMetricValue } from "@/components/ui/flip-metric-value.js";
-import { getPathLeaf } from "@/lib/path.js";
-import { inferEditOperation } from "@/ToolCallBlocks/fileSummaries.js";
+import { FileDisplayIcon, getFileDisplayPath, resolveFileDisplayDescriptor, } from "../lib/fileDisplay.js";
+import { FlipMetricValue } from "../components/ui/flip-metric-value.js";
+import { getPathLeaf } from "../lib/path.js";
+import { inferEditOperation } from "../ToolCallBlocks/fileSummaries.js";
 export function renderDiffCount(changeStat, options) {
     if (!changeStat) {
         return null;

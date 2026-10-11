@@ -1,8 +1,8 @@
 import { StringDecoder } from "node:string_decoder";
 import { Emitter } from "@zcode/rpc";
 import { zcodeProtocolMessageSchema } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, terminateProcessTree, terminateProcessTreeAndWait, } from "#src/process/processTreeTerminator.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, terminateProcessTree, terminateProcessTreeAndWait, } from "../process/processTreeTerminator.js";
 import { AgentStderrCollector, EXIT_STDERR_DRAIN_MS } from "./agentStderrCollector.js";
 const STDIO_EOF_EXIT_WAIT_MS = 1_800;
 const DISPOSE_STDERR_DRAIN_MS = 3_250;

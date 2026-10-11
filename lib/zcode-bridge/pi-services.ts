@@ -4,8 +4,9 @@ import { Emitter, type Event, type IDisposable } from "@zcode/rpc";
 import {
   createHomeOnlyWebRemoteControlServices,
   createWebPlatform,
-} from "@zcode/web-host";
-import type { ITerminalService } from "@zcode/services";
+} from "../../vendor/web-host/dist/host.js";
+import type { IZCodeAgentService, ITerminalService } from "@zcode/services";
+import { createPiAgentService } from "./pi-agent-service";
 
 /**
  * Bridges ZCode's real UI (vendored @zcode/ui Root) to the Pi backend:
@@ -102,11 +103,13 @@ function createPiTerminalService(): ITerminalService {
   } as ITerminalService;
 }
 
-export function createPiServices() {
+export function createPiServices(cwd = "~") {
   const services = createHomeOnlyWebRemoteControlServices();
-  // Real implementations over the Pi backend. The conversation/session agent
-  // service lands in the next increment; terminal works end-to-end today.
+  // Real implementations over the Pi backend: terminal end-to-end today; the
+  // V4 conversation adapter streams snapshots/deltas from Pi session APIs.
   (services as Record<string, unknown>).terminalService = createPiTerminalService();
+  const agent = createPiAgentService({ cwd });
+  (services as Record<string, unknown>).zcodeAgentService = agent as unknown as IZCodeAgentService;
   return services;
 }
 

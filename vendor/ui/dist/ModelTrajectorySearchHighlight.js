@@ -1,4 +1,4 @@
-import { findTrajectoryTextMatches } from "@/ModelTrajectorySearch.js";
+import { findTrajectoryTextMatches } from "./ModelTrajectorySearch.js";
 const HIGHLIGHT_NAME = "zcode-model-trajectory-find";
 const ACTIVE_HIGHLIGHT_NAME = "zcode-model-trajectory-find-active";
 const STYLE_ID = "zcode-model-trajectory-find-highlight-style";

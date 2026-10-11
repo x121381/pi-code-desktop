@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { CheckIcon, MinusIcon, XIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { DialogDescription, DialogTitle } from "@/components/ui/dialog.js";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "./components/lib/utils.js";
+import { DialogDescription, DialogTitle } from "./components/ui/dialog.js";
+import { Button } from "./components/ui/button.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
 const REMOTE_WIZARD_STEPS = [
     {
         key: "kind",

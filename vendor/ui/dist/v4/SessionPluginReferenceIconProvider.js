@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useMemo } from "react";
-import { usePluginReferenceCatalog } from "@/hooks/usePluginReferenceCatalog.js";
-import { PluginReferenceIconProvider } from "@/v4/pluginReferenceIconContext.js";
-import { buildSessionPluginIconMap } from "@/v4/pluginReferenceIconProjection.js";
+import { usePluginReferenceCatalog } from "../hooks/usePluginReferenceCatalog.js";
+import { PluginReferenceIconProvider } from "../v4/pluginReferenceIconContext.js";
+import { buildSessionPluginIconMap } from "../v4/pluginReferenceIconProjection.js";
 function ActiveSessionPluginReferenceIconProvider({ children, remoteSessionId, sessionId, workspaceIdentity, workspacePath, }) {
     const catalog = usePluginReferenceCatalog(workspacePath, workspaceIdentity, sessionId, true, {
         dedupeSessionRequest: true,

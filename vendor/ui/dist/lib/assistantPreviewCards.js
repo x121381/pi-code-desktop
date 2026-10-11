@@ -1,8 +1,8 @@
 import { buildConversationPreviewArtifactCandidatesFromReferences, CONVERSATION_PREVIEW_CARD_CANDIDATE_LIMIT, CONVERSATION_PREVIEW_CARD_VISIBLE_LIMIT, } from "@zcode/shared";
-import { cleanAssistantFilePathCandidate, extractAssistantFileReferences, getAssistantPreviewFileTypeDefinition, hasAssistantPreviewFileChangeCandidates, isAssistantPreviewHtmlPath, parseAssistantFileUrlPath, resolveAssistantRawFilePath, } from "@/lib/assistantFileReferences.js";
-import { decodeFilePathUriEscapes, getPathLeaf, toFileUrl } from "@/lib/path.js";
-import { collectGenUiSourcePaths, matchesGenUiSourcePath } from "@/gen-ui/contract.js";
-export { extractAssistantFileReferences, hasAssistantPreviewFileChangeCandidates, isAssistantPreviewHtmlPath, } from "@/lib/assistantFileReferences.js";
+import { cleanAssistantFilePathCandidate, extractAssistantFileReferences, getAssistantPreviewFileTypeDefinition, hasAssistantPreviewFileChangeCandidates, isAssistantPreviewHtmlPath, parseAssistantFileUrlPath, resolveAssistantRawFilePath, } from "../lib/assistantFileReferences.js";
+import { decodeFilePathUriEscapes, getPathLeaf, toFileUrl } from "../lib/path.js";
+import { collectGenUiSourcePaths, matchesGenUiSourcePath } from "../gen-ui/contract.js";
+export { extractAssistantFileReferences, hasAssistantPreviewFileChangeCandidates, isAssistantPreviewHtmlPath, } from "../lib/assistantFileReferences.js";
 export const ASSISTANT_PREVIEW_CARD_CANDIDATE_LIMIT = CONVERSATION_PREVIEW_CARD_CANDIDATE_LIMIT;
 export const ASSISTANT_PREVIEW_CARD_VISIBLE_LIMIT = CONVERSATION_PREVIEW_CARD_VISIBLE_LIMIT;
 const LOCALHOST_URL_RE = /\bhttps?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?(?:[/?#][^\s<>()\]`"'*，。！？；：、]*)?/gi;

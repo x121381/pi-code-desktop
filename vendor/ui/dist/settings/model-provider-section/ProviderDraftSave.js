@@ -1,5 +1,5 @@
 import { isApiKeyAccess } from "@zcode/provider";
-import { getProviderFormLabel, } from "@/lib/providerSettingsFormTypes.js";
+import { getProviderFormLabel, } from "../../lib/providerSettingsFormTypes.js";
 function normalizeConfiguredBaseUrl(value) {
     const normalized = value.trim().replace(/\/+$/, "");
     if (!normalized)

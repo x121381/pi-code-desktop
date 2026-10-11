@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { logger } from "@/logger.js";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { getRemoteWorkspaceSession } from "@/store/remoteWorkspaceSessionStore.js";
+import { logger } from "../logger.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { getRemoteWorkspaceSession } from "../store/remoteWorkspaceSessionStore.js";
 function getWorkspaceKey(workspacePath, workspaceIdentity) {
     return buildTaskWorkspaceKey(workspacePath, workspaceIdentity);
 }

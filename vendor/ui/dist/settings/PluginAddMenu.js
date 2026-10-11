@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronDown, Loader2, Plus, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { usePluginCreator } from "@/hooks/usePluginCreator.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { usePluginCreator } from "../hooks/usePluginCreator.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function PluginAddMenu({ onCreateTask, onAddMarketplace, testId, isWebRemoteControl = false, }) {
     const { intl } = useZCodeIntl();
     const creator = usePluginCreator(onCreateTask, isWebRemoteControl);

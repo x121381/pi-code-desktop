@@ -2,13 +2,13 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useEffect, useMemo, useState } from "react";
 import { MonitorUp, Paperclip, ShieldAlert, Usb, X } from "lucide-react";
 import { TID_BROWSER_PERMISSION_ALLOW_ALWAYS, TID_BROWSER_PERMISSION_ALLOW_ONCE, TID_BROWSER_PERMISSION_DENY, TID_BROWSER_PERMISSION_DISMISS, TID_BROWSER_PERMISSION_PROMPTS, } from "@zcode/shared";
-import { BrowserPermissionIcon } from "@/browser-use/BrowserPermissionIcon.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/index.js";
-import { logger } from "@/logger.js";
-import { useEmbeddedBrowserPermissionStore } from "@/store/embeddedBrowserPermissionStore.js";
+import { BrowserPermissionIcon } from "../browser-use/BrowserPermissionIcon.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/index.js";
+import { logger } from "../logger.js";
+import { useEmbeddedBrowserPermissionStore } from "../store/embeddedBrowserPermissionStore.js";
 /**
  * 内置浏览器权限弹窗层（spec：docs/browser-use/2026-10-08-embedded-browser-permission-governance-spec.md）。
  * permission → Chrome 式锚定气泡（地址栏下方左侧，自动弹出；卡片为 origin 标题 + ✕ 关闭 +

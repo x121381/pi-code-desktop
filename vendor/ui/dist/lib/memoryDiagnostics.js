@@ -1,5 +1,5 @@
 import { createMemoryDiagnosticsRegistry, createMemorySampleWriteGate, formatMemorySampleLine, MEMORY_SAMPLE_INTERVAL_MS, } from "@zcode/shared";
-import { logMemoryDiagnostics } from "@/logger.js";
+import { logMemoryDiagnostics } from "../logger.js";
 /**
  * renderer 内存诊断计数器注册表。
  * 各缓存/store 模块在模块加载时注册纯读取 provider；`startMemoryDiagnosticsLogger` 每 60 秒

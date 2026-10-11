@@ -1,5 +1,5 @@
 import { resolveTelemetryModelId, resolveTelemetryProviderScope, sanitizeTelemetryModelValue, } from "@zcode/shared";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const PLAN_USAGE_ARMS_GROUP = "plan_usage";
 export const PLAN_USAGE_ARMS_EVENT_REQUEST = "plan_request";
 export const PLAN_USAGE_ARMS_EVENT_TTFT = "plan_ttft";

@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { MousePointer2Icon } from "lucide-react";
-import { BrowserTabFavicon } from "@/app-shell/BrowserTabFavicon.js";
-import { useBrowserUseOperationActive } from "@/browser-use/useBrowserUseOperationActive.js";
+import { BrowserTabFavicon } from "../app-shell/BrowserTabFavicon.js";
+import { useBrowserUseOperationActive } from "../browser-use/useBrowserUseOperationActive.js";
 export function BrowserUseTabIcon({ tab }) {
     const isAgentOperating = useBrowserUseOperationActive(tab.browserUseOperationUntil);
     if (isAgentOperating) {

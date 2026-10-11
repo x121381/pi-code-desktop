@@ -1,5 +1,5 @@
 import { BIGMODEL_PROVIDER_ID, buildBigModelApiUrl, buildBigModelCodingPlanPersonalManageUrl, BUILTIN_MODEL_PROVIDER_IDS, createUuid, ZCODE_ENV, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import { getProviderFormLabel } from "@/lib/providerSettingsFormTypes.js";
+import { getProviderFormLabel } from "../../lib/providerSettingsFormTypes.js";
 export function generateId() {
     return createUuid();
 }

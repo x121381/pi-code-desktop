@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { TID_WORKFLOW_ARTIFACT_CHIP } from "@zcode/shared";
-import { WorkflowArtifactStrip } from "@/components/workflow-timeline/WorkflowArtifactStrip.js";
+import { WorkflowArtifactStrip } from "../../components/workflow-timeline/WorkflowArtifactStrip.js";
 /**
  * 中枢里的产物条：运行历史行的状态词之后用小号药丸，
  * 详情页头部那条「最近产物」用常规尺寸。

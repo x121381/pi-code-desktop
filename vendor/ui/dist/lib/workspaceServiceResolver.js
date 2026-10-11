@@ -1,4 +1,4 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
 export function resolveWorkspaceRemoteSessionId(target, state) {
     const workspaceIdentity = target.workspaceIdentity?.trim();
     const candidateSessionIds = [

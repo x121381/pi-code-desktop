@@ -2,17 +2,17 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from "react";
 import { DesktopCommandIds, TID_WORKSPACE_HELP_MENU_RESOURCE_MANAGER, TID_WORKSPACE_HELP_MENU_TRIGGER, } from "@zcode/shared";
 import { ActivityIcon, BookOpenIcon, CircleHelpIcon, DownloadIcon, LightbulbIcon, InfoIcon, MessageSquareIcon, UsersIcon, RefreshCwIcon, ShieldAlertIcon, } from "lucide-react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useFeedbackStore } from "@/feedback/feedbackStore.js";
-import { useDesktopUpdateMenu } from "@/hooks/useDesktopUpdateMenu.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useVulnerabilityReportUrl } from "@/hooks/useVulnerabilityReportUrl.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { createHelpMenuActionHandlers } from "@/lib/helpMenuActions.js";
+import { Badge } from "./components/ui/badge.js";
+import { Button } from "./components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { cn } from "./components/lib/utils.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { useFeedbackStore } from "./feedback/feedbackStore.js";
+import { useDesktopUpdateMenu } from "./hooks/useDesktopUpdateMenu.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useVulnerabilityReportUrl } from "./hooks/useVulnerabilityReportUrl.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { createHelpMenuActionHandlers } from "./lib/helpMenuActions.js";
 export function WorkspaceHelpMenuButton({ className, isDesktop = false, }) {
     const { intl } = useZCodeIntl();
     const platform = usePlatform();

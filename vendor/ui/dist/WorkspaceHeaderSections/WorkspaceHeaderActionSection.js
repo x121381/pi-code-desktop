@@ -1,11 +1,11 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { WorkspaceEditorButtonGroup } from "@/WorkspaceEditorButtonGroup.js";
-import { WorkspaceSidePaneToggleButton } from "@/WorkspaceSidePaneToggleButton.js";
-import { WorkspaceTerminalToggleButton } from "@/WorkspaceTerminalToggleButton.js";
-import { cn } from "@/components/lib/utils.js";
-import { WorkspaceHelpMenuButton } from "@/WorkspaceHelpMenuButton.js";
-import { ConversationShareMenu } from "@/ConversationShareMenu.js";
-import { DesktopWindowControls } from "@/DesktopWindowControls.js";
+import { WorkspaceEditorButtonGroup } from "../WorkspaceEditorButtonGroup.js";
+import { WorkspaceSidePaneToggleButton } from "../WorkspaceSidePaneToggleButton.js";
+import { WorkspaceTerminalToggleButton } from "../WorkspaceTerminalToggleButton.js";
+import { cn } from "../components/lib/utils.js";
+import { WorkspaceHelpMenuButton } from "../WorkspaceHelpMenuButton.js";
+import { ConversationShareMenu } from "../ConversationShareMenu.js";
+import { DesktopWindowControls } from "../DesktopWindowControls.js";
 export function WorkspaceHeaderActionSection({ variant = "task", activeTaskId, user, readOnlyReason, workspaceAbsPath, workspaceIdentity, remoteTarget, isWebRemoteControl = false, isDesktop, isTerminalOpen, isSidePaneOpen, onToggleTerminal, onToggleSidePane, toggleSidePaneShortcutLabel, onSelectedEditorChange, simplifyForNarrowRemote = false, hideHelpMenu = false, showWindowControls = false, useWindowsCaptionSpacing = false, }) {
     return (_jsxs("div", { className: cn("flex shrink-0 items-center [app-region:no-drag]", 
         // Windows header 内容区有 p-2，普通工具栏按钮 hover 只覆盖 32px 高度。

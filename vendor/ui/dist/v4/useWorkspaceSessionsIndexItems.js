@@ -4,12 +4,12 @@
 // scope 携带 endpoint 维度与该 endpoint 的 agentService（resolveWorkspaceServices 产物），
 // remote shard（web/手机远控/SSH workspace）经 @zcode/rpc proxy 走同一条 sessions-index 链路。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { compareZCodeTaskListItems } from "@/lib/taskListOrdering.js";
-import { mapSessionSummaryToTaskMeta } from "@/v4/mapSessionSummaryToTaskMeta.js";
-import { buildTaskListItemIdentityKey, stabilizeTaskListItems, } from "@/v4/taskListItemStabilization.js";
-import { LOCAL_SESSIONS_INDEX_ENDPOINT, buildSessionsIndexEntryKey, } from "@/v4/sessionsIndexRegistry.js";
-import { WorkspaceSessionsIndexSubscriptionSet, } from "@/v4/workspaceSessionsIndexSubscriptionSet.js";
+import { useBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { compareZCodeTaskListItems } from "../lib/taskListOrdering.js";
+import { mapSessionSummaryToTaskMeta } from "../v4/mapSessionSummaryToTaskMeta.js";
+import { buildTaskListItemIdentityKey, stabilizeTaskListItems, } from "../v4/taskListItemStabilization.js";
+import { LOCAL_SESSIONS_INDEX_ENDPOINT, buildSessionsIndexEntryKey, } from "../v4/sessionsIndexRegistry.js";
+import { WorkspaceSessionsIndexSubscriptionSet, } from "../v4/workspaceSessionsIndexSubscriptionSet.js";
 /** workspace 复用键 = services resolveWorkspaceKey 口径（identity ?? path）。 */
 function workspaceKeyOf(scope) {
     return scope.workspaceIdentity?.trim() || scope.workspacePath;

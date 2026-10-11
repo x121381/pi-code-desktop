@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Ban, ChevronRight, CircleCheck, Loader2, TriangleAlert } from "lucide-react";
 import { TID_WORKFLOW_RUN_ROW, testId } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatDateTime } from "@/settings/automationFormat.js";
-import { SavedWorkflowArtifactChips } from "@/settings/saved-workflows/SavedWorkflowArtifactChips.js";
-import { formatSavedWorkflowRunArgs, formatSavedWorkflowTokens, savedWorkflowRunBadgeKind, savedWorkflowRunDurationMs, } from "@/settings/saved-workflows/savedWorkflowRunHistory.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatDateTime } from "../../settings/automationFormat.js";
+import { SavedWorkflowArtifactChips } from "../../settings/saved-workflows/SavedWorkflowArtifactChips.js";
+import { formatSavedWorkflowRunArgs, formatSavedWorkflowTokens, savedWorkflowRunBadgeKind, savedWorkflowRunDurationMs, } from "../../settings/saved-workflows/savedWorkflowRunHistory.js";
 /** 详情页「运行历史」：journal 行（状态 / 时间 / 花费 / 实参），有归属字段的行可「查看实例」。 */
 export function SavedWorkflowRunHistory({ runs, now, canOpenRun, onOpenRun, onOpenArtifact, resolveRunProject, }) {
     const { intl } = useZCodeIntl();

@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { CircleHelp } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function ModelConfigInputLabel({ field, htmlFor, }) {
     const { intl } = useZCodeIntl();
     return (_jsxs(_Fragment, { children: [_jsx("label", { htmlFor: htmlFor, children: intl.formatMessage({ id: `settings.modelProvider.${field}` }) }), _jsx(ModelConfigHelp, { field: field })] }));

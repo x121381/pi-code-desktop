@@ -1,5 +1,5 @@
-import { isPptxElementReferenceInWorkspaceScope, } from "@/lib/pptxElementReference.js";
-import { isWorkspaceFilePathInside } from "@/workspace-file-tree/model.js";
+import { isPptxElementReferenceInWorkspaceScope, } from "../lib/pptxElementReference.js";
+import { isWorkspaceFilePathInside } from "../workspace-file-tree/model.js";
 function createPptxReferencePreviewNavigation(reference) {
     const requestId = typeof crypto !== "undefined" && "randomUUID" in crypto
         ? crypto.randomUUID()

@@ -3,13 +3,13 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from "react";
 import { TID_REMOTE_KIND_DOCKER, TID_REMOTE_KIND_SERVER, TID_REMOTE_KIND_SSH, TID_REMOTE_KIND_WSL, } from "@zcode/shared";
 import { AlertTriangleIcon, ChevronRightIcon, CloudIcon, LoaderIcon, MonitorCogIcon, ServerIcon, TerminalIcon, } from "lucide-react";
-import { DirectoryBrowser } from "@/DirectoryBrowser.js";
-import { RemoteConnectionFields } from "@/RemoteConnectionFields.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { RemoteSyncDialogs, RemoteSyncDropdownButton, shouldShowRemoteSyncActions, } from "@/settings/RemoteSyncActions.js";
-export { RemoteConnectionConnectingStep } from "@/remote-connection/RemoteConnectionConnectingStep.js";
+import { DirectoryBrowser } from "./DirectoryBrowser.js";
+import { RemoteConnectionFields } from "./RemoteConnectionFields.js";
+import { Button } from "./components/ui/button.js";
+import { cn } from "./components/lib/utils.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { RemoteSyncDialogs, RemoteSyncDropdownButton, shouldShowRemoteSyncActions, } from "./settings/RemoteSyncActions.js";
+export { RemoteConnectionConnectingStep } from "./remote-connection/RemoteConnectionConnectingStep.js";
 function getKindIcon(kind) {
     switch (kind) {
         case "ssh":

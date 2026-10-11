@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { useLocalWorkspaceScopes } from "@/hooks/useLocalWorkspaceScopes.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
+import { useLocalWorkspaceScopes } from "../hooks/useLocalWorkspaceScopes.js";
 export function isRemoteAutomationWorkspace(tab) {
     return Boolean(tab?.remoteSessionId || tab?.remoteTarget || tab?.workspaceIdentity);
 }

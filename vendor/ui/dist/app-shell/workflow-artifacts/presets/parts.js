@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../../components/lib/utils.js";
 /**
  * 新元素的揭示动画。稳定 React key + 只在**挂载**时播一次，所以老点不会随着新点到达重播；
  * `motion-reduce` 下整个关掉。

@@ -1,4 +1,4 @@
-import { hasAutomationFailureState, resolveAutomationStatusKind, } from "@/settings/automationFormat.js";
+import { hasAutomationFailureState, resolveAutomationStatusKind, } from "../settings/automationFormat.js";
 /** 默认筛选：不过滤。AutomationsSection 通过该常量引用，避免源码里再出现裸 "all" 触发 All tab 回归断言。 */
 export const DEFAULT_AUTOMATION_STATUS_FILTER = "all";
 export const AUTOMATION_STATUS_FILTERS = [

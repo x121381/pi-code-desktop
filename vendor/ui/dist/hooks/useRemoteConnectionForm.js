@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DEFAULT_REMOTE_ASSET_INSTALL_MODE } from "@zcode/shared";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { loadRemoteConnectionDockerOptions, resolveDockerContainerSelectionAfterRefresh, } from "@/lib/remoteConnectionDockerOptions.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { loadRemoteConnectionDockerOptions, resolveDockerContainerSelectionAfterRefresh, } from "../lib/remoteConnectionDockerOptions.js";
 export function buildAvailableKinds(options) {
     const kinds = ["ssh"];
     // Bugfix: Server remote 目前只是本地开发能力。之前无条件放入可选列表，

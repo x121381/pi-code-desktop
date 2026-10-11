@@ -2,17 +2,17 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 /* eslint-disable max-lines -- 商店详情页把 hero/示例提示词/组件分区/信息区/高级折叠组织为一个连贯页面，与截图 1:1 对齐。 */
 import { useState } from "react";
 import { Anchor, ArrowRight, Bot, ChevronRight, ExternalLink, Loader2, MessagesSquare, RefreshCw, Server, Terminal, TriangleAlert, WandSparkles, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { PluginStoreAvatar } from "@/settings/PluginStoreAvatar.js";
-import { ThemeHeroVisual } from "@/openWorkspacePageThemeHero.js";
-import documentsIconUrl from "@/assets/document-skill-icons/documents@2x.png";
-import pdfIconUrl from "@/assets/document-skill-icons/pdf@2x.png";
-import spreadsheetsIconUrl from "@/assets/document-skill-icons/spreadsheets@2x.png";
-import { PluginStoreInstallButton, PluginStoreItemMenu, PluginStorePaidPlanBadge, } from "@/settings/PluginStoreCard.js";
-import { isTrustedImageUrl, KNOWN_CATEGORY_LABEL_IDS, resolveItemDescription, resolveStoreCategory, resolveItemDisplayName, resolveLocalizedList, } from "@/settings/pluginStoreListing.js";
-import { buildInstalledPluginDisplayGroups, describeResultToDisplayGroups, } from "@/settings/pluginManagedResourceGroups.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useOptionalPlatform } from "../hooks/usePlatform.js";
+import { PluginStoreAvatar } from "../settings/PluginStoreAvatar.js";
+import { ThemeHeroVisual } from "../openWorkspacePageThemeHero.js";
+import documentsIconUrl from "../assets/document-skill-icons/documents@2x.png";
+import pdfIconUrl from "../assets/document-skill-icons/pdf@2x.png";
+import spreadsheetsIconUrl from "../assets/document-skill-icons/spreadsheets@2x.png";
+import { PluginStoreInstallButton, PluginStoreItemMenu, PluginStorePaidPlanBadge, } from "../settings/PluginStoreCard.js";
+import { isTrustedImageUrl, KNOWN_CATEGORY_LABEL_IDS, resolveItemDescription, resolveStoreCategory, resolveItemDisplayName, resolveLocalizedList, } from "../settings/pluginStoreListing.js";
+import { buildInstalledPluginDisplayGroups, describeResultToDisplayGroups, } from "../settings/pluginManagedResourceGroups.js";
 // 组件分区顺序与截图一致：MCP 服务器 → 技能 → 命令 → 子智能体 → Hooks。
 const SECTION_ORDER = ["mcp", "skill", "command", "agent", "hook"];
 const SECTION_TITLE_IDS = {

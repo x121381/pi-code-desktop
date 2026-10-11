@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { laneDisplayName } from "@/components/workflow-graph/lane-name.js";
-import { phaseDisplayName } from "@/components/workflow-graph/phase-name.js";
-import { pillActivity } from "@/components/workflow-timeline/timeline-pill-activity.js";
-import { pillInstanceKey } from "@/components/workflow-timeline/roster-model.js";
-import { WorkflowAgentPill, } from "@/components/workflow-timeline/WorkflowAgentPill.js";
-import { WorkflowRunQuestionRow } from "@/app-shell/WorkflowRunQuestionRow.js";
-import { SpinePillTrailer, } from "@/app-shell/WorkflowRunSpineParts.js";
+import { laneDisplayName } from "../components/workflow-graph/lane-name.js";
+import { phaseDisplayName } from "../components/workflow-graph/phase-name.js";
+import { pillActivity } from "../components/workflow-timeline/timeline-pill-activity.js";
+import { pillInstanceKey } from "../components/workflow-timeline/roster-model.js";
+import { WorkflowAgentPill, } from "../components/workflow-timeline/WorkflowAgentPill.js";
+import { WorkflowRunQuestionRow } from "../app-shell/WorkflowRunQuestionRow.js";
+import { SpinePillTrailer, } from "../app-shell/WorkflowRunSpineParts.js";
 export function phasePillRenderers({ actorModels, format, graph, model, now, onOpenActor, onOpenWorkspace, questionsByInstance, run, }) {
     const pillKey = pillInstanceKey;
     const nameOf = (pill) => pill.runtimeName ?? laneDisplayName(pill.lane, format);

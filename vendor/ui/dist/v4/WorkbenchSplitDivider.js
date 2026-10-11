@@ -5,9 +5,9 @@ import { jsx as _jsx } from "react/jsx-runtime";
 // pointerup 一次性提交到 paneLayoutStore（进持久化）。
 import { memo, useCallback, useEffect, useRef, useState, } from "react";
 import { TID_V4_SPLIT_DIVIDER } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { clampSplitRatio } from "@/v4/paneLayoutTree.js";
-import { SPLIT_VAR_PREFIX } from "@/v4/workbenchLayout.js";
+import { cn } from "../components/lib/utils.js";
+import { clampSplitRatio } from "../v4/paneLayoutTree.js";
+import { SPLIT_VAR_PREFIX } from "../v4/workbenchLayout.js";
 export const WorkbenchSplitDivider = memo(function WorkbenchSplitDivider({ containerRef, splitId, direction, ratio, regionFraction, style, onCommitRatio, }) {
     const dragRef = useRef(null);
     // 仅分隔条自身的高亮态；切换时 memo pane 子树不受影响。

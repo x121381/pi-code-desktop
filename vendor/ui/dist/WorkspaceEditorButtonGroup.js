@@ -1,16 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { createOpenInEditorRemoteTarget } from "@zcode/shared";
 import { useEffect, useMemo, useState } from "react";
-import { Button } from "@/components/ui/button.js";
+import { Button } from "./components/ui/button.js";
 import { ChevronDown } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { persistLastSelectedEditorId, readLastSelectedEditorId } from "@/lib/editorPreference.js";
-import { resolveWorkspaceEditorSelection, shouldPersistWorkspaceEditorSelection, } from "@/lib/workspaceEditorSelection.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { isFileManagerOpenTarget } from "@/lib/openWithEditors.js";
-import { logger } from "@/logger.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger, } from "./components/ui/dropdown-menu.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { persistLastSelectedEditorId, readLastSelectedEditorId } from "./lib/editorPreference.js";
+import { resolveWorkspaceEditorSelection, shouldPersistWorkspaceEditorSelection, } from "./lib/workspaceEditorSelection.js";
+import { useIsOfficeMode } from "./hooks/useInterfaceMode.js";
+import { isFileManagerOpenTarget } from "./lib/openWithEditors.js";
+import { logger } from "./logger.js";
 export function WorkspaceEditorButtonGroup({ disabledReason, workspaceAbsPath, workspaceIdentity, remoteTarget, onSelectedEditorChange, }) {
     const { intl } = useZCodeIntl();
     const platform = usePlatform();

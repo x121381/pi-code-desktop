@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { buildRewardsUrl, createRewardsInjectionScript, isTrustedRewardsUrl, REWARDS_PARTITION, resolveRewardsOrigin, ZCODE_ENV, } from "@zcode/shared";
-import { useServices } from "@/hooks/useServices.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
-import { logger } from "@/logger.js";
-import { Button } from "@/components/ui/button.js";
-import { EmbeddedWebsiteHeader } from "@/components/EmbeddedWebsiteHeader.js";
+import { useServices } from "../hooks/useServices.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
+import { resolveTheme } from "../useTheme.js";
+import { logger } from "../logger.js";
+import { Button } from "../components/ui/button.js";
+import { EmbeddedWebsiteHeader } from "../components/EmbeddedWebsiteHeader.js";
 export function RewardsWebview({ onClose }) {
     const { credentialService, oauthService } = useServices();
     const platform = usePlatform();

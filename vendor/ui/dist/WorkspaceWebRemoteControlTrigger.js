@@ -2,17 +2,17 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from "react";
 import { Smartphone } from "lucide-react";
 import { buildWebRemoteControlEntryViewTelemetry, parseRemoteWorkspaceIdentity, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useResolvedRemoteWorkspaceSessionId } from "@/hooks/useResolvedRemoteWorkspaceSessionId.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useWebRemoteControlStatus } from "@/hooks/useWebRemoteControlStatus.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { WebRemoteControlDialog } from "@/WebRemoteControlDialog.js";
-import { useWebRemoteControlFeatureEnabled } from "@/WebRemoteControlFeatureProvider.js";
+import { Button } from "./components/ui/button.js";
+import { cn } from "./components/lib/utils.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { useResolvedRemoteWorkspaceSessionId } from "./hooks/useResolvedRemoteWorkspaceSessionId.js";
+import { useOptionalPlatform } from "./hooks/usePlatform.js";
+import { useWebRemoteControlStatus } from "./hooks/useWebRemoteControlStatus.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { logger } from "./logger.js";
+import { reportAppTelemetryEvent } from "./lib/appTelemetry.js";
+import { WebRemoteControlDialog } from "./WebRemoteControlDialog.js";
+import { useWebRemoteControlFeatureEnabled } from "./WebRemoteControlFeatureProvider.js";
 export function getWebRemoteControlTriggerPresentation(status, formatMessage) {
     if (status.status === "error") {
         return {

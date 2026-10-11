@@ -1,5 +1,5 @@
 import { buildServerRemoteWorkspaceIdentity } from "@zcode/shared";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 const REMOTE_WORKSPACE_SESSION_LIMIT = 20;
 function buildRemoteWorkspacePasswordCredentialKey(workspaceKey) {
     return `remote-workspace:${workspaceKey}:password`;

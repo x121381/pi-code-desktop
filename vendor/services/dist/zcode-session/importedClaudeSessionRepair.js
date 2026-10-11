@@ -1,5 +1,5 @@
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
-import { repairImportedClaudeSessionSnapshot } from "#src/session/claude-native/importedClaudeHistoryRepair.js";
+import { createServiceLogger } from "../logger/serviceLogger.js";
+import { repairImportedClaudeSessionSnapshot } from "../session/claude-native/importedClaudeHistoryRepair.js";
 const logger = createServiceLogger("zcode-session-service");
 export async function repairEmptyImportedClaudeSessionSnapshot(params) {
     const repaired = await repairImportedClaudeSessionSnapshot({

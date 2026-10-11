@@ -1,5 +1,5 @@
 import { normalizeAgentProviderToZCodeAgent, ZCODE_AGENT_PROVIDER, } from "@zcode/shared";
-import { useSkillStore } from "@/store/skillStore.js";
+import { useSkillStore } from "../store/skillStore.js";
 export async function refreshSharedSkillStoreForWorkspace(params) {
     const workspacePath = params.workspacePath;
     if (!workspacePath) {

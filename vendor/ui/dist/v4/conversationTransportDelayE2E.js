@@ -1,4 +1,4 @@
-import { shouldExposeE2EStoreBridge } from "@/lib/e2eStoreBridge.js";
+import { shouldExposeE2EStoreBridge } from "../lib/e2eStoreBridge.js";
 /** 仅 E2E build 的公开传输 seam 故障注入；只延迟真实命令/ACK，不伪造事件。 */
 export async function sendWithConversationDelayE2E(envelope, send) {
     const host = typeof window === "undefined"

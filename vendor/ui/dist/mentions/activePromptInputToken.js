@@ -1,4 +1,4 @@
-import { extractActivePromptInputTrigger, } from "@/lib/promptInputTriggers.js";
+import { extractActivePromptInputTrigger, } from "../lib/promptInputTriggers.js";
 function isCaretInsideToken(snapshot, cursorOffset) {
     return cursorOffset >= snapshot.tokenStart + 1 && cursorOffset <= snapshot.tokenEnd;
 }

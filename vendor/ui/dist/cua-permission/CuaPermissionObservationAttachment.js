@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { requiredCuaPermissionsForRequestAccessStatus } from "@zcode/shared/zcode-protocol-v4";
 import { isCuaPermissionStatusAvailable, } from "@zcode/services";
-import { useConfirmDialog } from "@/hooks/useConfirmDialog.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { shouldRestartHelperAfterCuaPermissionReturn } from "@/lib/cuaPermissionAction.js";
-import { createCuaPermissionOnboardingOperationId } from "@/lib/cuaPermissionOnboardingOperation.js";
-import { fetchCuaPermissionStatus } from "@/lib/cuaPermissionStatusStore.js";
-import { logger } from "@/logger.js";
-import { requiredCuaPermissionsForFreshStatus } from "@/settings/cuaPermissionPreparation.js";
+import { useConfirmDialog } from "../hooks/useConfirmDialog.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { shouldRestartHelperAfterCuaPermissionReturn } from "../lib/cuaPermissionAction.js";
+import { createCuaPermissionOnboardingOperationId } from "../lib/cuaPermissionOnboardingOperation.js";
+import { fetchCuaPermissionStatus } from "../lib/cuaPermissionStatusStore.js";
+import { logger } from "../logger.js";
+import { requiredCuaPermissionsForFreshStatus } from "../settings/cuaPermissionPreparation.js";
 const CUA_PERMISSION_RETRY_DELAY_MS = 500;
 function assertCuaPermissionPromptActive(dependencies) {
     if (dependencies.isDisposed?.())

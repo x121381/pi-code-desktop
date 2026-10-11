@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 // import { GripHorizontal, GripVertical } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 import { Group, Panel, Separator, useDefaultLayout, } from "react-resizable-panels";
 /* ------------------------------------------------------------------ */
 /*  ResizablePanelGroup                                                */

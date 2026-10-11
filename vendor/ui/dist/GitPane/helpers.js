@@ -1,5 +1,5 @@
 import { getFiletypeFromFileName } from "@pierre/diffs";
-import { getPatchPreviewLineContent, getPlainTextPatchContentLines, getPlainTextPatchFallbackLines, parseTruncatedMarkerOmittedLineCount, } from "@/lib/patchDiffPreview.js";
+import { getPatchPreviewLineContent, getPlainTextPatchContentLines, getPlainTextPatchFallbackLines, parseTruncatedMarkerOmittedLineCount, } from "../lib/patchDiffPreview.js";
 const MAX_RICH_DIFF_FULL_CONTENT_CHAR_COUNT = 180_000;
 const MAX_RICH_DIFF_FULL_CONTENT_LINE_COUNT = 1_200;
 export function getSourceMessageId(sourceId) {

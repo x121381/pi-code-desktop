@@ -6,7 +6,7 @@
  * 全部输入由调用方（useCuaComposerEntry）注入。
  */
 import { isCuaPermissionStatusAvailable } from "@zcode/services";
-import { isCuaPermissionTccGranted } from "@/lib/cuaPermissionStatusStore.js";
+import { isCuaPermissionTccGranted } from "../lib/cuaPermissionStatusStore.js";
 const TOOLTIP_MESSAGE_ID = {
     idle: "chat.toolbar.computerUse.tooltip.idle",
     starting: "chat.toolbar.computerUse.tooltip.starting",

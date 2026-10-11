@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "@/mentions/components/scrollMask.js";
-import { ToolCallBlock } from "@/ToolCallBlocks.js";
-import { ToolLayout } from "@/ToolCallBlocks/ToolLayout.js";
-import { buildCuaSummaryPresentation } from "@/ToolCallBlocks/renderers/cua.js";
-import { CUA_TOOL_ICON } from "@/ToolCallBlocks/renderers/cuaIcon.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { EMPTY_SCROLL_MASK_STATE, getVerticalScrollMaskStyle, resolveVerticalScrollMaskState, } from "../../mentions/components/scrollMask.js";
+import { ToolCallBlock } from "../../ToolCallBlocks.js";
+import { ToolLayout } from "../../ToolCallBlocks/ToolLayout.js";
+import { buildCuaSummaryPresentation } from "../../ToolCallBlocks/renderers/cua.js";
+import { CUA_TOOL_ICON } from "../../ToolCallBlocks/renderers/cuaIcon.js";
 const TERMINAL_CUA_STATUSES = new Set(["completed", "failed", "stopped"]);
 const STICK_TO_BOTTOM_THRESHOLD_PX = 8;
 export function scrollCuaGroupToBottom(viewport) {

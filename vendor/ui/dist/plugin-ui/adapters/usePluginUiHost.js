@@ -1,5 +1,5 @@
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useOptionalServices } from "@/hooks/useServices.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { useOptionalServices } from "../../hooks/useServices.js";
 import { isRemoteWorkspaceIdentity } from "@zcode/shared";
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { buildPluginUiSurfaceKey, PLUGIN_UI_CARD_DEFAULT_HEIGHT_PX } from "../contract.js";

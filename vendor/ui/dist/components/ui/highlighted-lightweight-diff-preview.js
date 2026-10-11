@@ -1,8 +1,8 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
 import { useEffect, useMemo, useState } from "react";
-import { getLightweightDiffLineParts, LightweightDiffPreview, } from "@/components/ui/lightweight-diff-preview.js";
-import { highlightCode, shouldUseSyntaxHighlighting, } from "@/lib/shikiHighlighter.js";
-import { logger } from "@/logger.js";
+import { getLightweightDiffLineParts, LightweightDiffPreview, } from "../../components/ui/lightweight-diff-preview.js";
+import { highlightCode, shouldUseSyntaxHighlighting, } from "../../lib/shikiHighlighter.js";
+import { logger } from "../../logger.js";
 const HIGHLIGHTED_LIGHTWEIGHT_DIFF_MAX_CHARS = 120_000;
 export function getHighlightedLightweightDiffLine(line) {
     const lineParts = getLightweightDiffLineParts(line);

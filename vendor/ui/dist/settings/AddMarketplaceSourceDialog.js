@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useState } from "react";
 import { FolderOpen, Loader2, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog.js";
-import { Input } from "@/components/ui/input.js";
-import { cn } from "@/components/lib/utils.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { isImeComposingKeyEvent } from "@/lib/imeComposition.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogTitle } from "../components/ui/dialog.js";
+import { Input } from "../components/ui/input.js";
+import { cn } from "../components/lib/utils.js";
+import { useOptionalPlatform } from "../hooks/usePlatform.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { isImeComposingKeyEvent } from "../lib/imeComposition.js";
 /**
  * 顶栏 New 直接打开添加市场源对话框：收编原 AddMarketplacePopover 的
  * github/git/URL/本地路径（含拖放与目录选择）能力，零后端新增。

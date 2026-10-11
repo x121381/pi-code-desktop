@@ -1,7 +1,7 @@
 // Thin re-export shim — the broker server (51 files, formerly under
 // services/src/cua-permission-broker/) has been consolidated into
 // @zcode/zcode-cua as part of the single-package merge. This file preserves
-// the existing `#src/cua-permission-broker/index.js` import site for the
+// the existing `../cua-permission-broker/index.js` import site for the
 // services internal callers (node.ts, accessor.ts, etc.) so they keep
 // compiling without per-file edits.
 //

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { useSubagents } from "@/hooks/useSubagents.js";
-import { buildSubagentMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { filterMentionItemsWithOptions } from "@/mentions/mentionSearch.js";
+import { useSubagents } from "../../hooks/useSubagents.js";
+import { buildSubagentMentionMarkdown } from "../../mentions/mentionMarkdown.js";
+import { filterMentionItemsWithOptions } from "../../mentions/mentionSearch.js";
 function getSubagentSourcePriority(agent) {
     if (agent.scope === "workspace") {
         return 0;

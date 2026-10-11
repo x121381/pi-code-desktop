@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox.js";
+import { Checkbox } from "./components/ui/checkbox.js";
 import { XIcon } from "lucide-react";
 import { TID_CONFIRM_DIALOG_CONFIRM } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useConfirmDialogStore } from "@/store/confirmDialogStore.js";
-import { cn } from "@/components/lib/utils.js";
-import { AUTOMATION_CONFIRM_DIALOG_CONTENT_CLASS, AUTOMATION_CONFIRM_DIALOG_DESCRIPTION_CLASS, } from "@/settings/automationConfirmDialogPresentation.js";
+import { Button } from "./components/ui/button.js";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { useConfirmDialogStore } from "./store/confirmDialogStore.js";
+import { cn } from "./components/lib/utils.js";
+import { AUTOMATION_CONFIRM_DIALOG_CONTENT_CLASS, AUTOMATION_CONFIRM_DIALOG_DESCRIPTION_CLASS, } from "./settings/automationConfirmDialogPresentation.js";
 export function ConfirmDialogHost() {
     const { intl } = useZCodeIntl();
     const pendingRequest = useConfirmDialogStore((state) => state.pendingRequest);

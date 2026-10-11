@@ -10,9 +10,9 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
  * 让用户拖动会凭空造出一个「谁是权威」的问题（v1 明确不做交互式筛选 / 排序）。
  */
 import { memo, useMemo } from "react";
-import { applyArtifactItems, } from "@/app-shell/workflow-artifacts/presets/apply.js";
-import { PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "@/app-shell/workflow-artifacts/presets/parts.js";
-import { cn } from "@/components/lib/utils.js";
+import { applyArtifactItems, } from "../../../app-shell/workflow-artifacts/presets/apply.js";
+import { PresetEmpty, PresetHeading, REVEAL_ANIMATION_CLASS, } from "../../../app-shell/workflow-artifacts/presets/parts.js";
+import { cn } from "../../../components/lib/utils.js";
 function columnLabel(column, labels) {
     return column.other ? labels.otherColumn : column.id;
 }

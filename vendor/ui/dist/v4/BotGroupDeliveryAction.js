@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { DeliveryContext } from "@/v4/botGroupDeliveryContext.js";
+import { DeliveryContext } from "../v4/botGroupDeliveryContext.js";
 import { useContext, useMemo } from "react";
 import { CircleAlertIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useBotGroupTask } from "@/hooks/useBotGroupTask.js";
-import { useBotGroupMemberNames } from "@/hooks/useBotGroupMemberNames.js";
-import { BotGroupMemberNamesContext } from "@/v4/BotGroupMemberNamesContext.js";
+import { Button } from "../components/ui/button.js";
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useBotGroupTask } from "../hooks/useBotGroupTask.js";
+import { useBotGroupMemberNames } from "../hooks/useBotGroupMemberNames.js";
+import { BotGroupMemberNamesContext } from "../v4/BotGroupMemberNamesContext.js";
 export function BotGroupDeliveryProvider({ taskId, workspacePath, workspaceIdentity, children, }) {
     // 同一任务只订阅一次群状态，历史回复不各自请求全量 Bot 状态。
     const { context, provider, busyId, retry, reconcile, retryPreparation } = useBotGroupTask(taskId, workspacePath, workspaceIdentity);

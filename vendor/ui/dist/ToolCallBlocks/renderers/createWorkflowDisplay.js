@@ -1,5 +1,5 @@
 import { toolCallCreateWorkflowDisplaySchema, } from "@zcode/shared/zcode-protocol-v4";
-import { isPlainRecord } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { isPlainRecord } from "../../ToolCallBlocks/renderers/createWorkflowInput.js";
 /**
  * CreateWorkflow 工具输出侧的读取规则（display 载荷与纯文本兜底）。从 `create-workflow.tsx`
  * 拆出（oxlint max-lines 400 门，与 `createWorkflowInput.ts` 同一先例）：纯函数、无 JSX。

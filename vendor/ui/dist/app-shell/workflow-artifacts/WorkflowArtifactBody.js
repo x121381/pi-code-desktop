@@ -1,13 +1,13 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { lazy, Suspense, useMemo } from "react";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildPresetLabels, isArtifactPresetKind, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { ArtifactPresetBody } from "@/app-shell/workflow-artifacts/ArtifactPresetBody.js";
-import { ArtifactMetadataCard, ArtifactNotice, WorkflowArtifactHtmlCard, } from "@/app-shell/workflow-artifacts/WorkflowArtifactCards.js";
-import { encodeBytesToBase64 } from "@/hooks/useWorkflowRunArtifactBytes.js";
-import { usePdfViewerLabels, usePptxViewerLabels } from "@/hooks/usePreviewViewerLabels.js";
+import { CodeBlock } from "../../components/ai-elements/code-block.js";
+import { MessageResponse } from "../../components/ai-elements/message.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { buildPresetLabels, isArtifactPresetKind, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { ArtifactPresetBody } from "../../app-shell/workflow-artifacts/ArtifactPresetBody.js";
+import { ArtifactMetadataCard, ArtifactNotice, WorkflowArtifactHtmlCard, } from "../../app-shell/workflow-artifacts/WorkflowArtifactCards.js";
+import { encodeBytesToBase64 } from "../../hooks/useWorkflowRunArtifactBytes.js";
+import { usePdfViewerLabels, usePptxViewerLabels } from "../../hooks/usePreviewViewerLabels.js";
 /**
  * `workflow-artifact` tab 的正文。
  *
@@ -23,9 +23,9 @@ import { usePdfViewerLabels, usePptxViewerLabels } from "@/hooks/usePreviewViewe
  */
 // 三个重量级查看器都懒加载：pdf.js / docx-preview / xlsx wasm 各自都是几百 KB，
 // 而绝大多数会话从不打开产物 tab。既有的 previewPane* 包装本身已经带 Suspense。
-const PdfPreviewContent = lazy(() => import("@/previewPanePdfContent.js").then((module) => ({ default: module.PdfPreviewContent })));
-const PptxPreviewContent = lazy(() => import("@/previewPanePptxContent.js").then((module) => ({ default: module.PptxPreviewContent })));
-const PreviewPaneOfficeContent = lazy(() => import("@/previewPaneOfficeContent.js").then((module) => ({
+const PdfPreviewContent = lazy(() => import("../../previewPanePdfContent.js").then((module) => ({ default: module.PdfPreviewContent })));
+const PptxPreviewContent = lazy(() => import("../../previewPanePptxContent.js").then((module) => ({ default: module.PptxPreviewContent })));
+const PreviewPaneOfficeContent = lazy(() => import("../../previewPaneOfficeContent.js").then((module) => ({
     default: module.PreviewPaneOfficeContent,
 })));
 const PPTX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.presentationml.presentation";

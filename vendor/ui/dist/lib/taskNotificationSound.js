@@ -1,5 +1,5 @@
-import taskNotificationPopUrl from "@/assets/notification-sounds/task-notification-pop.mp3";
-import { isTaskNotificationSoundEnabled } from "@/lib/taskNotificationPreferences.js";
+const taskNotificationPopUrl = "/zcode-assets/notification-sounds/task-notification-pop.mp3";
+import { isTaskNotificationSoundEnabled } from "../lib/taskNotificationPreferences.js";
 let taskNotificationAudio = null;
 function getTaskNotificationAudio() {
     if (typeof Audio === "undefined") {

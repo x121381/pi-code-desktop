@@ -1,5 +1,5 @@
-import { dispatchPluginUiResourceDelta } from "@/plugin-ui/app/pluginUiResourceNotificationBus.js";
-import { buildPluginUiSessionKey } from "@/plugin-ui/contract.js";
+import { dispatchPluginUiResourceDelta } from "../../plugin-ui/app/pluginUiResourceNotificationBus.js";
+import { buildPluginUiSessionKey } from "../../plugin-ui/contract.js";
 import { useEffect } from "react";
 /**
  * 把一个会话投影 store 的 live-only 增量接到资源通知路由表。

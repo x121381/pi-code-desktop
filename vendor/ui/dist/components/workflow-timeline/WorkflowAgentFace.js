@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef } from "react";
-import { BASE_EXPRESSION, faceState, startFaceMotion, } from "@/components/workflow-timeline/workflow-face-motion.js";
-export { faceState } from "@/components/workflow-timeline/workflow-face-motion.js";
-import { cn } from "@/components/lib/utils.js";
+import { BASE_EXPRESSION, faceState, startFaceMotion, } from "../../components/workflow-timeline/workflow-face-motion.js";
+export { faceState } from "../../components/workflow-timeline/workflow-face-motion.js";
+import { cn } from "../../components/lib/utils.js";
 /**
  * 瓦片脸：应用图标的圆角方块去掉 Z、
  * 加上两只眼。子代理的头像就是它——药丸、名册格、侧栏折叠头像串共用这一张脸。

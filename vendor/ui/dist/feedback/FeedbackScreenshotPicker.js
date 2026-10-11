@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useRef, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
 import { ImageIcon, TriangleAlertIcon, XIcon } from "lucide-react";
 export function FeedbackScreenshotPicker({ screenshots, screenshotHint, screenshotPrivacyHint, addScreenshotLabel, removeScreenshotLabel, onChange, onAddFiles, }) {
     const screenshotInputRef = useRef(null);

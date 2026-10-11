@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const useAlertDialogStore = create((set, get) => ({
     pendingRequest: undefined,
     requestAlert: (payload) => {

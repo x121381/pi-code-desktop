@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button.js";
-import { PluginUiCard } from "@/plugin-ui/components/PluginUiCard.js";
+import { Button } from "../../components/ui/button.js";
+import { PluginUiCard } from "../../plugin-ui/components/PluginUiCard.js";
 import { TID_PLUGIN_UI_OPEN_SIDE_PANE } from "@zcode/shared";
 import { PanelRightOpenIcon, PinIcon, PinOffIcon } from "lucide-react";
 /** 纯工具卡片视图：平台能力、结果与侧栏归属都由适配器提供。 */

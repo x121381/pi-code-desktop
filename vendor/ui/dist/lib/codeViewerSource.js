@@ -1,4 +1,4 @@
-import { decodeFilePathUriEscapes, getPathLeaf } from "@/lib/path.js";
+import { decodeFilePathUriEscapes, getPathLeaf } from "../lib/path.js";
 export function normalizeCodeViewerSource(source) {
     const decodedTitle = decodeFilePathUriEscapes(source.title);
     if (!("path" in source) || !source.path) {

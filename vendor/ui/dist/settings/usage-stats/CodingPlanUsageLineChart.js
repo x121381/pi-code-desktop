@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, } from "@/settings/usage-stats/usageStatsUiParts.js";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "../../components/ui/chart.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { UsageEmptyState, formatCompactNumber, formatCompactTokenUsage, } from "../../settings/usage-stats/usageStatsUiParts.js";
 const LINE_CHART_COLORS = [
     "var(--color-usage-chart-1)",
     "var(--color-usage-chart-2)",

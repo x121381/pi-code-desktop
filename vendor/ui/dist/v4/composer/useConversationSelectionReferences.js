@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { clearConversationSelectionReferenceLimitReason, getConversationSelectionReferenceScope, getConversationSelectionReferenceLimitReason, getConversationSelectionAddEventName, isConversationSelectionAddEvent, setConversationSelectionReferenceScope, } from "@/lib/conversationSelectionReference.js";
+import { clearConversationSelectionReferenceLimitReason, getConversationSelectionReferenceScope, getConversationSelectionReferenceLimitReason, getConversationSelectionAddEventName, isConversationSelectionAddEvent, setConversationSelectionReferenceScope, } from "../../lib/conversationSelectionReference.js";
 export function useConversationSelectionReferences(options) {
     const [references, setReferencesState] = useState(() => getConversationSelectionReferenceScope(options.sessionId, options.workspaceKey));
     const [limitReason, setLimitReason] = useState(() => getConversationSelectionReferenceLimitReason(options.sessionId, options.workspaceKey));

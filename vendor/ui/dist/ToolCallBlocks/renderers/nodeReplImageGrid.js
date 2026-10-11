@@ -1,8 +1,8 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo, useRef, useState } from "react";
-import { ImagePreviewDialog } from "@/components/ai-elements/image-preview-dialog.js";
-import { ImageThumbnailGallery, imageThumbnailClassName, imageThumbnailTriggerClassName, } from "@/components/ai-elements/image-thumbnail-gallery.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ImagePreviewDialog } from "../../components/ai-elements/image-preview-dialog.js";
+import { ImageThumbnailGallery, imageThumbnailClassName, imageThumbnailTriggerClassName, } from "../../components/ai-elements/image-thumbnail-gallery.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function NodeReplImageGrid({ images, resultImageLabel, }) {
     const { intl } = useZCodeIntl();
     const [previewIndex, setPreviewIndex] = useState(0);

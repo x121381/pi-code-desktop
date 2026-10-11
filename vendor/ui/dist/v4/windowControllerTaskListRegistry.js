@@ -1,5 +1,5 @@
 import { CONTROLLER_TASKS_INDEX_TOPIC, CONTROLLER_WORKSPACES_TOPIC, isWindowHostControllerFrameGap, matchesTaskListMembershipKind, } from "@zcode/shared/zcode-protocol-v4";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 const registries = new WeakMap();
 function taskAddressKey(address) {
     return JSON.stringify([

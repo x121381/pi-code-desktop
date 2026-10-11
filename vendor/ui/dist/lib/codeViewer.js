@@ -1,8 +1,8 @@
 import { getMediaPreviewFormat } from "@zcode/shared";
-import { decodeFilePathUriEscapes, getPathLeaf, isAbsoluteFilePath, joinFilePath, } from "@/lib/path.js";
-import { buildUnifiedDiff, extractBeforeAfter, extractStructuredDiff, } from "@/lib/toolDiffPreview.js";
-import { isFileContentWriteToolCall, isFileDiffToolCall, resolveToolCallIdentity, } from "@/lib/toolIdentity.js";
-export { buildUnifiedDiff } from "@/lib/toolDiffPreview.js";
+import { decodeFilePathUriEscapes, getPathLeaf, isAbsoluteFilePath, joinFilePath, } from "../lib/path.js";
+import { buildUnifiedDiff, extractBeforeAfter, extractStructuredDiff, } from "../lib/toolDiffPreview.js";
+import { isFileContentWriteToolCall, isFileDiffToolCall, resolveToolCallIdentity, } from "../lib/toolIdentity.js";
+export { buildUnifiedDiff } from "../lib/toolDiffPreview.js";
 export const FILE_VIEWER_MAX_TEXT_BYTES = 256 * 1024;
 const EXTENSION_TO_LANGUAGE = {
     bash: "bash",

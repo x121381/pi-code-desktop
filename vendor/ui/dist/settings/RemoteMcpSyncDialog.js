@@ -2,12 +2,12 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- 远端 MCP 同步弹窗集中维护加载、选择、结果和批量选择状态，拆分会增加跨状态传递复杂度。 */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertCircleIcon, Loader2, Server, UploadCloud } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatRemoteSkillSyncTarget } from "@/settings/RemoteSkillSyncDialog.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "@/settings/RemoteSyncActions.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatRemoteSkillSyncTarget } from "../settings/RemoteSkillSyncDialog.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "../settings/RemoteSyncActions.js";
 export function buildRemoteMcpSyncRows(candidates, statuses) {
     const statusByName = new Map(statuses.map((status) => [status.name, status]));
     return candidates.map((candidate) => ({

@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback } from "react";
 import { TID_AUTOMATIONS_PAGE_TAB, testId } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export const AUTOMATIONS_PAGE_TABS = ["automation", "workflow"];
 /**
  * 自动化页的标题。动态工作流灰度未命中时

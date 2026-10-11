@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
+import { usePlatform } from "../hooks/usePlatform.js";
 export function normalizeRemoteConnectionLogMessage(message) {
     return message
         .replace(/^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}\]\s*/u, "")

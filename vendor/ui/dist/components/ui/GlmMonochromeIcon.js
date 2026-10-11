@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import glmDarkIcon from "@/assets/cli-icons/icon-glm-for-dark.png";
-import glmLightIcon from "@/assets/cli-icons/icon-glm-for-light.png";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
-import { resolveTheme } from "@/useTheme.js";
+import glmDarkIcon from "../../assets/cli-icons/icon-glm-for-dark.png";
+import glmLightIcon from "../../assets/cli-icons/icon-glm-for-light.png";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeStore } from "../../store/StoreProvider.js";
+import { resolveTheme } from "../../useTheme.js";
 export function GlmMonochromeIcon({ className, alt = "", style, ...props }) {
     const theme = useZCodeStore((state) => state.theme);
     const isDark = resolveTheme(theme) === "dark";

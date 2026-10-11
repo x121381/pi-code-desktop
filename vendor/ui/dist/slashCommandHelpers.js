@@ -2,8 +2,8 @@
  * slashCommandHelpers — 纯函数辅助工具，供 SlashCommandPlugin.tsx 使用
  */
 import { $getRoot, $getSelection, $isRangeSelection, $isTextNode } from "lexical";
-import { mapSubagentsToMentionItemsForTest } from "@/mentions/providers/subagentsMentionProvider.js";
-import { mapSkillsToMentionItemsForTest } from "@/mentions/providers/skillsMentionProvider.js";
+import { mapSubagentsToMentionItemsForTest } from "./mentions/providers/subagentsMentionProvider.js";
+import { mapSkillsToMentionItemsForTest } from "./mentions/providers/skillsMentionProvider.js";
 import { extractActivePromptInputTrigger, getActivePromptInputTokenTailLength, } from "./lib/promptInputTriggers.js";
 const APP_SLASH_SUGGESTION_ID_PREFIX = "app-slash:";
 export function buildAppSlashCommandSuggestions(commands) {

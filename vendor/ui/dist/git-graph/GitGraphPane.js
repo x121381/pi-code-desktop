@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { GitGraph, GitMergeIcon, RefreshCwIcon } from "lucide-react";
 import { useCallback, useMemo, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 import { GitGraphCommitDetail } from "./GitGraphCommitDetail.js";
 import { formatCommitTime, getRefIcon, getShortHash, } from "./GitGraphDisplay.js";
 import { layoutGitGraph, } from "./layout.js";

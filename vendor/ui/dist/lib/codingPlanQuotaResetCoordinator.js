@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 const STATUS_POLL_INTERVAL_MS = 5 * 60_000;
 const OPPORTUNITY_MIN_RETRY_MS = 5 * 60_000;
 const OPPORTUNITY_DEFAULT_COOLDOWN_MS = 10 * 60_000;

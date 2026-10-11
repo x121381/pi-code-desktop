@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useZCodeAgentService } from "@/hooks/useZCodeAgentService.js";
-import { ensureAgentV4ConnectionHandshake } from "@/v4/agentV4ConnectionHandshake.js";
-import { logger } from "@/logger.js";
+import { useZCodeAgentService } from "../hooks/useZCodeAgentService.js";
+import { ensureAgentV4ConnectionHandshake } from "../v4/agentV4ConnectionHandshake.js";
+import { logger } from "../logger.js";
 export function useBackgroundBashOutput(target, visible) {
     const { workspacePath, workspaceIdentity, remoteSessionId, sessionId, workId } = target;
     const service = useZCodeAgentService(workspacePath, remoteSessionId, workspaceIdentity);

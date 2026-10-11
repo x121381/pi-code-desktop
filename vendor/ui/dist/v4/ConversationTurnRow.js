@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { extractPlanToolCallContent } from "@/lib/planToolCall.js";
-import { ConversationRowView } from "@/v4/ConversationRowView.js";
-import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
+import { extractPlanToolCallContent } from "../lib/planToolCall.js";
+import { ConversationRowView } from "../v4/ConversationRowView.js";
+import { toolCallRowToLegacyNode } from "../v4/toolCallRowAdapter.js";
 export function ConversationTurnRow({ row, context, onFork, onRetry, onFeedbackChange, onEdit, editWorkspaceRewindAvailability, hideAssistantActions, deferAssistantActions, assistantCopyText, assistantPreviewCards, assistantPreviewCardsAutoOpenKey, assistantCodeCommentCards, assistantCodeCommentProjectionEnabled, reasoningContentVariant, userInputStatus, }) {
     return (_jsx(ConversationRowView, { row: row, context: context, onFork: onFork, onRetry: onRetry, onFeedbackChange: onFeedbackChange, onEdit: onEdit, editWorkspaceRewindAvailability: editWorkspaceRewindAvailability, hideAssistantActions: hideAssistantActions, deferAssistantActions: deferAssistantActions, assistantCopyText: assistantCopyText, assistantPreviewCards: assistantPreviewCards, assistantPreviewCardsAutoOpenKey: assistantPreviewCardsAutoOpenKey, assistantCodeCommentCards: assistantCodeCommentCards, assistantCodeCommentProjectionEnabled: assistantCodeCommentProjectionEnabled, reasoningContentVariant: reasoningContentVariant, userInputStatus: userInputStatus }));
 }

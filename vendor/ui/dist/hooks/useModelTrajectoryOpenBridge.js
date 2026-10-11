@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useModelTrajectoryStore } from "@/store/modelTrajectoryStore.js";
+import { useModelTrajectoryStore } from "../store/modelTrajectoryStore.js";
 /**
  * 订阅“打开模型调用轨迹”请求并交给当前 workspace 的侧边栏控制器。
  *

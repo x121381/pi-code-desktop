@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useCallback, useMemo } from "react";
-import { SessionPane } from "@/v4/SessionPane.js";
-import { V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
+import { SessionPane } from "../v4/SessionPane.js";
+import { V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
 export const SelectionSideChatPane = memo(function SelectionSideChatPane({ tab, focused, onOpenBrowserUrl, onOpenCodeViewer, onOpenFileLink, onUnavailable, }) {
     const scope = useMemo(() => ({
         workspacePath: tab.workspacePath,

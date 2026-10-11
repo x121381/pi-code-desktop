@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { ChevronRightIcon } from "lucide-react";
 import { testId, TID_TOOL_SUMMARY_TRIGGER } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { CollapsibleTrigger } from "@/components/ui/collapsible.js";
-import { QueuedSummaryContent } from "@/ToolCallBlocks/QueuedSummaryContent.js";
+import { cn } from "../components/lib/utils.js";
+import { CollapsibleTrigger } from "../components/ui/collapsible.js";
+import { QueuedSummaryContent } from "../ToolCallBlocks/QueuedSummaryContent.js";
 export function handleToolSummaryActionKeyDown(event, onActivate) {
     if (event.key !== "Enter" && event.key !== " ") {
         return false;

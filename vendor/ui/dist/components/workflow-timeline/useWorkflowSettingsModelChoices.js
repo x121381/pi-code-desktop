@@ -9,13 +9,13 @@
 import { useCallback, useMemo } from "react";
 import { completeNewModelSelection } from "@zcode/provider";
 import { ZCODE_AGENT_PROVIDER } from "@zcode/shared";
-import { useModelSelectionView } from "@/hooks/useModelSelectionView.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildRegistryModelSelectGroups } from "@/lib/modelSelectionGroups.js";
-import { resolveModelThoughtOption } from "@/lib/modelThoughtOption.js";
-import { encodeCustomModelValue } from "@/lib/zcodeCustomModelValue.js";
-import { parseModelPickerValue } from "@/lib/zcodeSessionProjection.js";
-import { formatProviderModelLabel } from "@/v4/composer/modelTriggerDisplay.js";
+import { useModelSelectionView } from "../../hooks/useModelSelectionView.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { buildRegistryModelSelectGroups } from "../../lib/modelSelectionGroups.js";
+import { resolveModelThoughtOption } from "../../lib/modelThoughtOption.js";
+import { encodeCustomModelValue } from "../../lib/zcodeCustomModelValue.js";
+import { parseModelPickerValue } from "../../lib/zcodeSessionProjection.js";
+import { formatProviderModelLabel } from "../../v4/composer/modelTriggerDisplay.js";
 import { describeWorkflowSubagentModel } from "./subagent-model-label.js";
 import { workflowRunSettingsModelCanonical, } from "./workflowRunSettings.js";
 /** 菜单里「会话模型」那一项的值：落在 encodeCustomModelValue 的值域之外，不会与真实模型相撞。 */

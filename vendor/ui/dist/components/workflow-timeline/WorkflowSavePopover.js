@@ -8,10 +8,10 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // 三个字段服务于两条路：填了什么，既随消息交给 ZCode，也是直接保存要写下去的那一份。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SparkleIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverAnchor, PopoverContent, PopoverTitle } from "@/components/ui/popover.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../../components/ui/button.js";
+import { Popover, PopoverAnchor, PopoverContent, PopoverTitle } from "../../components/ui/popover.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { WorkflowSaveFields } from "./WorkflowSaveFields.js";
 import { initialWorkflowSaveDraft, isValidSavedWorkflowNameText, savedWorkflowPathPreview, } from "./workflowRunSave.js";
 /** 占用探测的合并窗：每敲一个字符都查一次磁盘没有意义，人停下来那一刻才有。 */

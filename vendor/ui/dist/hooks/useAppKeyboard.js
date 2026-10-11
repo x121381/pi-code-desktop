@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { SHORTCUT_COMMANDS } from "@zcode/shared";
-import { isEditableShortcutEventTarget, isShiftOnlyPrintableBinding, isShortcutRecordingActive, matchesShortcutBinding, } from "@/shortcuts/bindings.js";
-import { useEffectiveShortcutBindings } from "@/shortcuts/useShortcutBindings.js";
+import { isEditableShortcutEventTarget, isShiftOnlyPrintableBinding, isShortcutRecordingActive, matchesShortcutBinding, } from "../shortcuts/bindings.js";
+import { useEffectiveShortcutBindings } from "../shortcuts/useShortcutBindings.js";
 /**
  * 全局键盘分发薄壳：window keydown capture → 内核通用匹配 → 命令 handler。
  *

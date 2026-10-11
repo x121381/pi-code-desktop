@@ -1,4 +1,4 @@
-import { buildWorkspacePrepareUiError } from "@/lib/chatPrepareError.js";
+import { buildWorkspacePrepareUiError } from "../lib/chatPrepareError.js";
 export const WORKSPACE_SESSION_RELOAD_DEBOUNCE_MS = 1200;
 export function buildWorkspaceSessionReloadPlan(activeTaskId) {
     const resumeTaskId = activeTaskId?.trim();

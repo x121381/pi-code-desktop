@@ -1,8 +1,8 @@
 /* eslint-disable max-lines -- 内置 Agent CLI 的安装/卸载状态、随机进度模板与设置同步目前集中在同一 hook，先保持收口，避免把同一条交互链拆散。 */
 import { useCallback, useMemo, useState } from "react";
-import { useSettings } from "@/hooks/useSettingService.js";
-import { resolveBuiltinAgentCliStatus, getEffectiveBuiltinAgentCliProvider, getEnabledBuiltinAgentCliProviders, requiresBuiltinAgentCliInstall, } from "@/lib/builtinAgentCli.js";
-import { persistLastSelectedAgentProvider, readLastSelectedAgentProvider, } from "@/lib/zcodeProviderPreference.js";
+import { useSettings } from "../hooks/useSettingService.js";
+import { resolveBuiltinAgentCliStatus, getEffectiveBuiltinAgentCliProvider, getEnabledBuiltinAgentCliProviders, requiresBuiltinAgentCliInstall, } from "../lib/builtinAgentCli.js";
+import { persistLastSelectedAgentProvider, readLastSelectedAgentProvider, } from "../lib/zcodeProviderPreference.js";
 const MIN_INSTALL_DURATION_MS = 5_000;
 const MAX_INSTALL_DURATION_MS = 10_000;
 const MIN_UNINSTALL_DURATION_MS = 3_000;

@@ -1,7 +1,7 @@
-import { resolveFirstSubscribedTeamPlanConnectionWithContext, resolveModelProviderFamilyConnectionProviderId, } from "@/lib/modelProviderFamilyConnectionSelection.js";
-import { hasActiveUsageEntitlementSnapshot } from "@/lib/codingPlanProvider.js";
-import { getEnterprisePricingProducts } from "@/root/oauthTeamPricing.js";
-import { logger } from "@/logger.js";
+import { resolveFirstSubscribedTeamPlanConnectionWithContext, resolveModelProviderFamilyConnectionProviderId, } from "../lib/modelProviderFamilyConnectionSelection.js";
+import { hasActiveUsageEntitlementSnapshot } from "../lib/codingPlanProvider.js";
+import { getEnterprisePricingProducts } from "../root/oauthTeamPricing.js";
+import { logger } from "../logger.js";
 /** 只计算建议，不替用户保存；闭包固定按钮展示的那个目标，点击时重新校验。 */
 export async function prepareAccountConnectionSwitch(services, event) {
     const settings = await services.settingService.get();

@@ -1,7 +1,7 @@
 import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 import { memo, useCallback } from "react";
 import { TID_V4_BACKGROUND_WORKS, TID_V4_BACKGROUND_WORK_CANCEL, TID_V4_BACKGROUND_WORK_ITEM, testId, } from "@zcode/shared";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 /**
  * M4 后台工作面板：渲染 projection.backgroundWorks + running 项 cancel 入口。
  * memo：works 不变时不随 pane 其他状态重渲染（回调由父层 useCallback 稳定）。

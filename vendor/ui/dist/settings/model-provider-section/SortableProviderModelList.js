@@ -2,7 +2,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy, } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 export function resolveReorderedModelIds(params) {
     const activeIndex = params.modelIds.indexOf(params.activeModelId);
     const overIndex = params.modelIds.indexOf(params.overModelId);

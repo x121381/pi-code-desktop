@@ -1,7 +1,7 @@
 // 分屏 Layout 层持久化（localStorage）：try/catch 静默降级；
 // 损坏数据整体丢弃回初始布局（不部分救回）。
 // 兼容读取旧版 v1（单值 splitPane），仅当 v1 workspaceKey 是可信本地路径时迁移。
-import { clampSplitRatio, leafPaneIds, MAX_WORKBENCH_PANES, PRIMARY_LEAF, V4_PRIMARY_PANE_ID, } from "@/v4/paneLayoutTree.js";
+import { clampSplitRatio, leafPaneIds, MAX_WORKBENCH_PANES, PRIMARY_LEAF, V4_PRIMARY_PANE_ID, } from "../v4/paneLayoutTree.js";
 export const PANE_LAYOUT_STORAGE_KEY = "zcode-v4-pane-layout:v2";
 /** 一期单值分屏的旧 key（只读迁移，不再写入）。 */
 export const PANE_LAYOUT_STORAGE_KEY_V1 = "zcode-v4-pane-layout:v1";

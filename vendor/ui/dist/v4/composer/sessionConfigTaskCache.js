@@ -1,4 +1,4 @@
-import { parseModelPickerValue } from "@/lib/zcodeSessionProjection.js";
+import { parseModelPickerValue } from "../../lib/zcodeSessionProjection.js";
 function resolveModelDisplayValue(options, config) {
     const provider = config.provider.trim();
     const rawModel = config.model.trim();

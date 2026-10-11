@@ -1,11 +1,11 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { TID_SIDE_PANE_TOGGLE } from "@zcode/shared";
 import { PanelRightClose, PanelRightOpen } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { WINDOWS_CAPTION_CONTROL_CLASS } from "@/windowCaptionControls.js";
+import { cn } from "./components/lib/utils.js";
+import { Button } from "./components/ui/button.js";
+import { ControlHintTooltip } from "./ControlHintTooltip.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { WINDOWS_CAPTION_CONTROL_CLASS } from "./windowCaptionControls.js";
 export function WorkspaceSidePaneToggleButton({ isSidePaneOpen, onToggleSidePane, shortcutLabel, useWindowsCaptionSpacing = false, }) {
     const { intl } = useZCodeIntl();
     const SidePaneToggleIcon = isSidePaneOpen ? PanelRightClose : PanelRightOpen;

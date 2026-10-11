@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { logger } from "@/logger.js";
-import { pendingCommandRegistry } from "@/v4/pendingCommandRegistry.js";
-import { isPendingCommandForWorkspace } from "@/v4/pendingCommandWorkspace.js";
+import { logger } from "../logger.js";
+import { pendingCommandRegistry } from "../v4/pendingCommandRegistry.js";
+import { isPendingCommandForWorkspace } from "../v4/pendingCommandWorkspace.js";
 /**
  * pending registry 的 React 接缝：projection 用 queue/guided/transcript anchor 收口；远端 query
  * 只在 subscription 代际进入 live 时执行，不跟随 streaming snapshot 高频重跑。

@@ -2,7 +2,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
 import { Fragment } from "react";
 import { AtSign } from "lucide-react";
 import { channelContentText, } from "@zcode/shared";
-import { PROMPT_MENTION_BASE_CLASS_NAME } from "@/mentions/mentionChip.js";
+import { PROMPT_MENTION_BASE_CLASS_NAME } from "../mentions/mentionChip.js";
 /** 只渲染可信消息节点；复制出的 @name 普通文本不能恢复平台身份。 */
 export function ChannelMentionContent({ parts, text, }) {
     if (!parts || channelContentText(parts) !== text)

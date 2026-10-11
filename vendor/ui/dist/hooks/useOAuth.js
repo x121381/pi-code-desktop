@@ -6,9 +6,9 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BIGMODEL_PROVIDER_ID, isCredentialDecryptError, resolveSafeTelemetryHostname, ZAI_PROVIDER_ID, } from "@zcode/shared";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStore } from "@/store/StoreProvider.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStore } from "../store/StoreProvider.js";
 import { logger } from "../logger.js";
 import { usePlatform } from "./usePlatform.js";
 import { useServices } from "./useServices.js";

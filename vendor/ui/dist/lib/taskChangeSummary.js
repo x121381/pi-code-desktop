@@ -1,6 +1,6 @@
 import { computeLineChangeStat } from "@zcode/shared";
-import { getPathLeaf } from "@/lib/path.js";
-import { readRawToolCallFileSummaries } from "@/ToolCallBlocks/fileSummaries.js";
+import { getPathLeaf } from "../lib/path.js";
+import { readRawToolCallFileSummaries } from "../ToolCallBlocks/fileSummaries.js";
 function trimTrailingSeparators(path) {
     return path.replace(/[\\/]+$/, "");
 }

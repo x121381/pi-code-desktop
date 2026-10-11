@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 function storageKey(sessionId, dismissKey) {
     return `${sessionId}\u0000${dismissKey}`;
 }

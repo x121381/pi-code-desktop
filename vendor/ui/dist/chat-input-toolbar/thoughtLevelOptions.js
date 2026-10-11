@@ -1,4 +1,4 @@
-import { getConfigOptionEntryLabel } from "@/chat-input-toolbar/display.js";
+import { getConfigOptionEntryLabel } from "../chat-input-toolbar/display.js";
 const NO_THOUGHT_LEVEL_VALUES = new Set([
     "disabled",
     "false",

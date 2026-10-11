@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { Button } from "../components/ui/button.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function ToolSnapshotFieldNotice({ refs, onLoadFullToolCallFields, }) {
     const { intl, locale } = useZCodeIntl();
     const [loading, setLoading] = useState(false);

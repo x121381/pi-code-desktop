@@ -1,10 +1,10 @@
 import { useCallback, useRef } from "react";
-import { ensureAgentV4ConnectionHandshake } from "@/v4/agentV4ConnectionHandshake.js";
-import { useOptionalServices } from "@/hooks/useServices.js";
-import { logger } from "@/logger.js";
-import { resolveWorkspaceRemoteSessionId } from "@/lib/workspaceServiceResolver.js";
-import { useRemoteWorkspaceSessionStore } from "@/store/remoteWorkspaceSessionStore.js";
-import { sendInteractionAutoResolutionSnooze } from "@/v4/interactionAutoResolutionCommand.js";
+import { ensureAgentV4ConnectionHandshake } from "../v4/agentV4ConnectionHandshake.js";
+import { useOptionalServices } from "../hooks/useServices.js";
+import { logger } from "../logger.js";
+import { resolveWorkspaceRemoteSessionId } from "../lib/workspaceServiceResolver.js";
+import { useRemoteWorkspaceSessionStore } from "../store/remoteWorkspaceSessionStore.js";
+import { sendInteractionAutoResolutionSnooze } from "../v4/interactionAutoResolutionCommand.js";
 /**
  * 侧栏 task 可能来自本地、远端、timeline 或 pinned 列表；暂停命令必须按 workspace identity
  * 找到原 host，不能因为当前激活 tab 不同而发到当前窗口的 service。

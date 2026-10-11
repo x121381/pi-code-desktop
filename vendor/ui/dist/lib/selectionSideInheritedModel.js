@@ -1,4 +1,4 @@
-import { createComposerSubmissionConfig } from "@/v4/composer/composerSubmissionConfig.js";
+import { createComposerSubmissionConfig } from "../v4/composer/composerSubmissionConfig.js";
 /** 副屏继承父 runtime 的生效模型；不能把主 Composer 未提交的草稿带进新 child。 */
 export function resolveSelectionSideInheritedModel(config, view) {
     if (!config)

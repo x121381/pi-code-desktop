@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useState } from "react";
-import { Terminal } from "@/Terminal.js";
-import { ScopedErrorBoundary } from "@/ErrorBoundary.js";
-import { cn } from "@/components/lib/utils.js";
-import { ResizableHandle, ResizablePanel } from "@/components/ui/resizable.js";
+import { Terminal } from "../Terminal.js";
+import { ScopedErrorBoundary } from "../ErrorBoundary.js";
+import { cn } from "../components/lib/utils.js";
+import { ResizableHandle, ResizablePanel } from "../components/ui/resizable.js";
 export function AnimatedTerminalPanel({ services, workspaceAbsPath, workspaceIdentity, openWorkspaceKeys, isVisible, isWindowsDesktop, frameClassName = "rounded-xl border border-border", panelRef, panelElementRef, onClose, onOpenBrowserUrl, }) {
     const [hasRenderedTerminal, setHasRenderedTerminal] = useState(isVisible);
     const [isTerminalPanelResizing, setIsTerminalPanelResizing] = useState(false);

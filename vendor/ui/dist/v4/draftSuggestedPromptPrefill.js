@@ -1,4 +1,4 @@
-import { buildPluginMentionMarkdown } from "@/mentions/mentionMarkdown.js";
+import { buildPluginMentionMarkdown } from "../mentions/mentionMarkdown.js";
 export function buildDraftSuggestedPluginMention(plugin, icon) {
     const markdown = buildPluginMentionMarkdown(plugin.label, plugin.stableId);
     return {

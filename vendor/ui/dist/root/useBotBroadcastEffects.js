@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { buildTaskContextUsageFromUsageUpdate, recordTaskContextUsageUpdate, } from "@/lib/zcodeTaskUsageFallback.js";
-import { normalizeZCodeUiError } from "@/lib/zcodeUiError.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { resolveBotTaskBroadcastRefresh, resolveBotTaskBroadcastRuntimeStatus, } from "@/root/botsTaskBroadcast.js";
-import { resolveBotTaskStreamBroadcast } from "@/root/botsTaskStreamBroadcast.js";
-import { insertTaskIntoTaskCaches, syncTaskMetaToTaskCaches, } from "@/lib/taskListMetaSync.js";
+import { buildTaskContextUsageFromUsageUpdate, recordTaskContextUsageUpdate, } from "../lib/zcodeTaskUsageFallback.js";
+import { normalizeZCodeUiError } from "../lib/zcodeUiError.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { resolveBotTaskBroadcastRefresh, resolveBotTaskBroadcastRuntimeStatus, } from "../root/botsTaskBroadcast.js";
+import { resolveBotTaskStreamBroadcast } from "../root/botsTaskStreamBroadcast.js";
+import { insertTaskIntoTaskCaches, syncTaskMetaToTaskCaches, } from "../lib/taskListMetaSync.js";
 export function syncBotTaskConfigOptionsToStore(params) {
     // Bugfix: Bot /mode 不经过 ChatInputToolbar/useTaskStreamEvents。
     // setTaskConfigOptions 会按 activeTaskId 决定是否同步到 workspace configOptions，

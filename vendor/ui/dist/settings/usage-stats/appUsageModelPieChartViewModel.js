@@ -1,4 +1,4 @@
-import { getAppUsageModelChartColor } from "@/settings/usage-stats/appUsageChartPalette.js";
+import { getAppUsageModelChartColor } from "../../settings/usage-stats/appUsageChartPalette.js";
 const MAX_APP_USAGE_MODEL_PIE_SLICES = 6;
 function resolvePieModelLabel(intl, modelId) {
     return modelId?.trim() || intl.formatMessage({ id: "settings.usage.unknownModel" });

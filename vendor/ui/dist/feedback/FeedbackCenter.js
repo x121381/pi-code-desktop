@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog.js";
-import { Tabs, TabsContent } from "@/components/ui/tabs.js";
-import { Button } from "@/components/ui/button.js";
-import { useFeedbackStore } from "@/feedback/feedbackStore.js";
-import { FeedbackSubmitForm } from "@/feedback/FeedbackSubmitForm.js";
-import { FeatureRequestDialog } from "@/feedback/FeatureRequestDialog.js";
-import { TicketsView } from "@/feedback/TicketsView.js";
-import { FeedbackBackgroundUploadIndicator } from "@/feedback/FeedbackBackgroundUploadIndicator.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../components/ui/dialog.js";
+import { Tabs, TabsContent } from "../components/ui/tabs.js";
+import { Button } from "../components/ui/button.js";
+import { useFeedbackStore } from "../feedback/feedbackStore.js";
+import { FeedbackSubmitForm } from "../feedback/FeedbackSubmitForm.js";
+import { FeatureRequestDialog } from "../feedback/FeatureRequestDialog.js";
+import { TicketsView } from "../feedback/TicketsView.js";
+import { FeedbackBackgroundUploadIndicator } from "../feedback/FeedbackBackgroundUploadIndicator.js";
 import { ArrowLeftIcon, XIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 import { memo } from "react";
 export const FeedbackCenter = memo(function FeedbackCenterComponent({ feedbackService, platform, }) {
     const open = useFeedbackStore((state) => state.open);

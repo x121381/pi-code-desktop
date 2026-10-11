@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { DocxEditorViewer, setWasmSource, useDocxEditor, useDocxModel, } from "@extend-ai/react-docx";
-import docxWasmUrl from "@extend-ai/react-docx/docx_wasm_bg.wasm?url";
-import { calculateDocxPreviewFit, installDocumentLinkSafety, } from "@/lib/officeFilePreview.js";
-import { logger } from "@/logger.js";
+const docxWasmUrl = "/zcode-ui-assets/wasm/extend-ai-react-docx-docx_wasm_bg.wasm";
+import { calculateDocxPreviewFit, installDocumentLinkSafety, } from "./lib/officeFilePreview.js";
+import { logger } from "./logger.js";
 setWasmSource(docxWasmUrl);
 let nextDocxModelRenderKey = 0;
 const docxModelRenderKeys = new WeakMap();

@@ -1,10 +1,10 @@
-import { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshot, } from "#src/process/processTreeSnapshot.js";
-import { captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, verifyWindowsProcessIdentityAsync, } from "#src/process/processTreeSnapshotAsync.js";
-import { resolveCurrentOwnedIdentities, resolveCurrentOwnedIdentitiesAsync, } from "#src/process/processTreeOwnership.js";
-import { waitForProcessTreeTermination } from "#src/process/processTreeWaiter.js";
-import { defaultWindowsTaskkillRunner } from "#src/process/windowsTaskkillRunner.js";
-export { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshot, captureProcessTreeSnapshot, } from "#src/process/processTreeSnapshot.js";
-export { captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, filterCurrentProcessIdentitiesAsync, } from "#src/process/processTreeSnapshotAsync.js";
+import { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshot, } from "../process/processTreeSnapshot.js";
+import { captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, verifyWindowsProcessIdentityAsync, } from "../process/processTreeSnapshotAsync.js";
+import { resolveCurrentOwnedIdentities, resolveCurrentOwnedIdentitiesAsync, } from "../process/processTreeOwnership.js";
+import { waitForProcessTreeTermination } from "../process/processTreeWaiter.js";
+import { defaultWindowsTaskkillRunner } from "../process/windowsTaskkillRunner.js";
+export { captureProcessGroupSnapshot, captureExitedRootDescendantsSnapshot, captureProcessTreeSnapshot, } from "../process/processTreeSnapshot.js";
+export { captureExitedRootDescendantsSnapshotAsync, captureProcessTreeSnapshotAsync, filterCurrentProcessIdentitiesAsync, } from "../process/processTreeSnapshotAsync.js";
 const POSIX_TERMINATION_SIGNAL = "SIGTERM";
 const POSIX_FORCE_SIGNAL = "SIGKILL";
 const WINDOWS_TASKKILL_TIMEOUT_MS = 2_000;

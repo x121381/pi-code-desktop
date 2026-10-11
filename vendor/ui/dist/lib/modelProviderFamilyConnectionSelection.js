@@ -1,5 +1,5 @@
 import { getModelProviderFamilySpec } from "@zcode/shared";
-import { hasActiveUsageEntitlementSnapshot } from "@/lib/codingPlanProvider.js";
+import { hasActiveUsageEntitlementSnapshot } from "../lib/codingPlanProvider.js";
 /** 把当前 Family 连接意图映射为对应的 Built-in Account Provider 身份。 */
 export function resolveModelProviderFamilyConnectionProviderId(params) {
     const familySpec = getModelProviderFamilySpec(params.providerFamilyDomain);

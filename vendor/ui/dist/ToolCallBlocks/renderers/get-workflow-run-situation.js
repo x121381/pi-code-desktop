@@ -1,7 +1,7 @@
 import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
-import { throttleReasonLabel } from "@/app-shell/workflowRunThrottle.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatWorkflowAge, formatWorkflowDuration } from "@/lib/workflowObservationFormat.js";
+import { throttleReasonLabel } from "../../app-shell/workflowRunThrottle.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { formatWorkflowAge, formatWorkflowDuration } from "../../lib/workflowObservationFormat.js";
 const I18N_PREFIX = "chat.toolCall.workflow.getRun.";
 /** 情势区块的容器：与同一张卡里的日志面板同款低层容器，不是第二种卡面。 */
 export const SITUATION_BLOCK_CLASS = "min-w-0 space-y-1 rounded-lg border border-border bg-surface px-2 py-1.5";

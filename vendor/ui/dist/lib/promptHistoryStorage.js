@@ -1,4 +1,4 @@
-import { MAX_PROMPT_HISTORY } from "@/lib/promptHistory.js";
+import { MAX_PROMPT_HISTORY } from "../lib/promptHistory.js";
 const PROMPT_HISTORY_STORAGE_KEY_PREFIX = "zcode-chat-prompt-history:";
 function getBrowserStorage() {
     if (typeof window === "undefined") {

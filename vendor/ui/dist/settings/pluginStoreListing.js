@@ -1,9 +1,9 @@
 import { sortPluginStoreEntries, compareDocumentPluginPriority, resolvePluginStoreCategory as resolveStoreCategory, FALLBACK_PLUGIN_STORE_CATEGORY as FALLBACK_CATEGORY, formatCanonicalPluginName, isPublicStoreMarketplaceId, resolveLocalizedText, resolvePluginDisplayName, ZCODE_OFFICIAL_PLUGIN_MARKETPLACE_ID, } from "@zcode/shared";
-import { DEFAULT_MARKETPLACE_ID } from "@/settings/recommendedPlugins.js";
-import { pluginSearchMatches } from "@/settings/pluginSearch.js";
+import { DEFAULT_MARKETPLACE_ID } from "../settings/recommendedPlugins.js";
+import { pluginSearchMatches } from "../settings/pluginSearch.js";
 export { formatCanonicalPluginName, resolveLocalizedText, resolvePluginDisplayName, } from "@zcode/shared";
 export { isPublicStoreMarketplaceId };
-export { isTrustedImageUrl } from "@/lib/trustedImageUrl.js";
+export { isTrustedImageUrl } from "../lib/trustedImageUrl.js";
 /**
  * 仅在名称唯一时允许从目录条目回退解析 listing。
  * 能力协议的旧 payload 可能没有 pluginId；同名插件并存时继续按裸名称 join

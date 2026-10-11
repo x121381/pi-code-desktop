@@ -1,4 +1,4 @@
-import { isSubagentColor } from "@/lib/subagentColors.js";
+import { isSubagentColor } from "../../lib/subagentColors.js";
 const DEFAULT_AGENT_TYPE_LABEL = "general-purpose";
 export function formatAgentMessage(intl, id, fallback) {
     const message = intl.formatMessage({ id });

@@ -1,17 +1,17 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback } from "react";
 import { resolveModelProviderFamilyIdByProviderId } from "@zcode/shared";
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { useServices } from "@/hooks/useServices.js";
-import {} from "@/settings/model-provider-section/constants.js";
-import { resolveCodingPlanUpgradeProductsProviderId } from "@/settings/model-provider-section/codingPlanPricingCards.js";
-import { normalizeCodingPlanProviderId } from "@/settings/model-provider-section/codingPlanPurchaseAuth.js";
-import { useCodingPlanEntitlements } from "@/settings/model-provider-section/useCodingPlanEntitlements.js";
-import { beginCodingPlanUpgradeLogin, resolvePendingCodingPlanUpgradeAfterLogin, } from "@/settings/codingPlanUpgradeLoginRecovery.js";
-import { CodingPlanEmbeddedWebviewDialog } from "@/settings/CodingPlanEmbeddedWebviewDialog.js";
-import { logger } from "@/logger.js";
-export { isCodingPlanPurchaseAuthPending } from "@/settings/model-provider-section/codingPlanPurchaseAuth.js";
-export { beginCodingPlanUpgradeLogin, resolvePendingCodingPlanUpgradeAfterLogin, } from "@/settings/codingPlanUpgradeLoginRecovery.js";
+import { useProviderSettingsView } from "../hooks/useProviderSettingsView.js";
+import { useServices } from "../hooks/useServices.js";
+import {} from "../settings/model-provider-section/constants.js";
+import { resolveCodingPlanUpgradeProductsProviderId } from "../settings/model-provider-section/codingPlanPricingCards.js";
+import { normalizeCodingPlanProviderId } from "../settings/model-provider-section/codingPlanPurchaseAuth.js";
+import { useCodingPlanEntitlements } from "../settings/model-provider-section/useCodingPlanEntitlements.js";
+import { beginCodingPlanUpgradeLogin, resolvePendingCodingPlanUpgradeAfterLogin, } from "../settings/codingPlanUpgradeLoginRecovery.js";
+import { CodingPlanEmbeddedWebviewDialog } from "../settings/CodingPlanEmbeddedWebviewDialog.js";
+import { logger } from "../logger.js";
+export { isCodingPlanPurchaseAuthPending } from "../settings/model-provider-section/codingPlanPurchaseAuth.js";
+export { beginCodingPlanUpgradeLogin, resolvePendingCodingPlanUpgradeAfterLogin, } from "../settings/codingPlanUpgradeLoginRecovery.js";
 // 完成刷新：官网页通过 window.zcodeBridge.notifyPurchaseComplete 回传购买成功后调用。
 export async function refreshCodingPlanUpgradeCompletion(params) {
     await Promise.all([

@@ -1,6 +1,6 @@
-import { selectWorkspaceZCodeState, useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { selectWorkspaceZCodeState, useZCodeSessionStore } from "../store/zcodeSessionStore.js";
+import { useTabStore } from "../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 export function resolveChatViewActiveTaskProvider(taskId, workspaceState) {
     if (!taskId) {
         return workspaceState.selectedProvider;

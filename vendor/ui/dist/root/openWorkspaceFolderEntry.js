@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export async function openFolderFromWorkspaceEntry({ selectDirectory, openDirectoryBrowser, preferDirectoryBrowser = false, onSelectProject, }) {
     if (preferDirectoryBrowser) {
         if (!openDirectoryBrowser) {

@@ -1,9 +1,9 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { QuoteIcon, Trash2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { isConversationSelectionReference, } from "@/lib/conversationSelectionReference.js";
-import { ContextAttachmentPill } from "@/v4/composer/ContextAttachmentPill.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { isConversationSelectionReference, } from "../../lib/conversationSelectionReference.js";
+import { ContextAttachmentPill } from "../../v4/composer/ContextAttachmentPill.js";
 export function ConversationSelectionReferenceChip({ references, contentAlign = "start", onRemove, onRemoveAll, }) {
     const { intl, locale } = useZCodeIntl();
     if (references.length === 0)

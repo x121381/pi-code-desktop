@@ -2,10 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { TID_V4_TURN_NAVIGATOR, TID_V4_TURN_NAVIGATOR_ITEM, TID_V4_TURN_NAVIGATOR_TOOLTIP, testId, } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { HoverCard, HoverCardContent, HoverCardTrigger, } from "@/components/ui/hover-card.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildConversationTurnNavigatorItems, resolveConversationTurnNavigatorActiveUnitIndex, resolveConversationTurnNavigatorBarVisualState, resolveConversationTurnNavigatorVisualFocusItemIndex, } from "@/v4/conversationTurnNavigatorHelpers.js";
+import { cn } from "../components/lib/utils.js";
+import { HoverCard, HoverCardContent, HoverCardTrigger, } from "../components/ui/hover-card.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { buildConversationTurnNavigatorItems, resolveConversationTurnNavigatorActiveUnitIndex, resolveConversationTurnNavigatorBarVisualState, resolveConversationTurnNavigatorVisualFocusItemIndex, } from "../v4/conversationTurnNavigatorHelpers.js";
 function usePrefersReducedMotion() {
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
     useEffect(() => {

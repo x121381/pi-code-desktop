@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { logger } from "@/logger.js";
-import { getContainingDirectoryPath } from "@/lib/path.js";
+import { logger } from "../logger.js";
+import { getContainingDirectoryPath } from "../lib/path.js";
 function normalizeFileWatchPathForCompare(path) {
     const normalized = path.trim().replaceAll("\\", "/").replace(/\/+$/, "");
     return /^[a-zA-Z]:\//.test(normalized) || normalized.startsWith("//")

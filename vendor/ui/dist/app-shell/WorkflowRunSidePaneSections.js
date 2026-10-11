@@ -5,17 +5,17 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // 从 WorkflowRunSidePane.tsx 拆出（eslint max-lines 400 行门）：面板文件承载
 // 数据装配与交互接线，本文件承载纯展示分区。props 全是烹熟的视图值——不接触
 // 投影、lease 或命令通道。
-import { workflowRunStopReasonMessageId } from "@/components/workflow-graph/run-status-presentation.js";
+import { workflowRunStopReasonMessageId } from "../components/workflow-graph/run-status-presentation.js";
 import { memo } from "react";
 import { ArrowUpRightIcon, ListIcon, RotateCcwIcon, SlidersHorizontalIcon, SquareIcon, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { workflowRunConcurrencyChip } from "@/app-shell/workflowRunThrottle.js";
-import { WorkflowRunStatus } from "@/components/workflow-timeline/WorkflowCardChrome.js";
-import { RunHolesWaitingChip } from "@/components/workflow-timeline/WorkflowHoleParts.js";
-import { WorkflowTruncatedNotice } from "@/components/workflow-timeline/WorkflowTruncatedNotice.js";
-import { useNowTicker } from "@/components/workflow-graph/use-now-ticker.js";
+import { Button } from "../components/ui/button.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { workflowRunConcurrencyChip } from "../app-shell/workflowRunThrottle.js";
+import { WorkflowRunStatus } from "../components/workflow-timeline/WorkflowCardChrome.js";
+import { RunHolesWaitingChip } from "../components/workflow-timeline/WorkflowHoleParts.js";
+import { WorkflowTruncatedNotice } from "../components/workflow-timeline/WorkflowTruncatedNotice.js";
+import { useNowTicker } from "../components/workflow-graph/use-now-ticker.js";
 const formatCount = (value) => value.toLocaleString();
 /**
  * 摘要行的模型段：run 能配置时它也是一枚按钮（悬停下划线），打开同一个「配置」弹层、锚在它自己身上；

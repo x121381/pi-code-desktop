@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { acquireSessionsIndex, releaseSessionsIndex, } from "@/v4/sessionsIndexRegistry.js";
+import { useServices } from "../../hooks/useServices.js";
+import { acquireSessionsIndex, releaseSessionsIndex, } from "../../v4/sessionsIndexRegistry.js";
 export const MarketingRefreshContext = createContext(null);
 /** 仅观察任务完成边沿；活动查询仍由窗口唯一 poller 调度。 */
 export function useMarketingTaskCompletionRefresh({ workspacePath, workspaceIdentity, endpointKey, rpcReady, }) {

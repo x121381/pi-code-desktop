@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { BrowserPermissionIcon } from "@/browser-use/BrowserPermissionIcon.js";
-import { BROWSER_PERMISSION_CAPABILITIES } from "@/browser-use/browserPermissionCapabilities.js";
-import { Button } from "@/components/ui/button.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { useBrowserSitePermissions } from "@/hooks/useBrowserSitePermissions.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { BrowserPermissionIcon } from "../browser-use/BrowserPermissionIcon.js";
+import { BROWSER_PERMISSION_CAPABILITIES } from "../browser-use/browserPermissionCapabilities.js";
+import { Button } from "../components/ui/button.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { useBrowserSitePermissions } from "../hooks/useBrowserSitePermissions.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 /** 站点权限设置标签页：数据源为 main 站点权限 store，「仅本次」临时态不展示。 */
 export function BrowserSitePermissionsPage({ origin, isVisible, }) {
     const { intl } = useZCodeIntl();

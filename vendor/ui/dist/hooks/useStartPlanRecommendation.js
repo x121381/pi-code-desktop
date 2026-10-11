@@ -1,14 +1,14 @@
-import { useProviderSettingsView } from "@/hooks/useProviderSettingsView.js";
-import { buildStartPlanEntitlementOptions } from "@/lib/startPlanEntitlementOptions.js";
+import { useProviderSettingsView } from "../hooks/useProviderSettingsView.js";
+import { buildStartPlanEntitlementOptions } from "../lib/startPlanEntitlementOptions.js";
 import { useCallback } from "react";
 import { TID_START_PLAN_RECOMMENDATION_DIALOG, isStartPlanModelProviderId, } from "@zcode/shared";
-import { useOptionalBaseWorkspaceServices } from "@/hooks/useWorkspaceServices.js";
-import { useUsageEntitlementWithService } from "@/hooks/useUsageEntitlement.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useConfirmDialogStore } from "@/store/confirmDialogStore.js";
-import { resolveStartPlanRecommendation } from "@/lib/startPlanRecommendation.js";
-import { toast } from "@/components/ui/toast.js";
-import { logger } from "@/logger.js";
+import { useOptionalBaseWorkspaceServices } from "../hooks/useWorkspaceServices.js";
+import { useUsageEntitlementWithService } from "../hooks/useUsageEntitlement.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useConfirmDialogStore } from "../store/confirmDialogStore.js";
+import { resolveStartPlanRecommendation } from "../lib/startPlanRecommendation.js";
+import { toast } from "../components/ui/toast.js";
+import { logger } from "../logger.js";
 /** 推荐只编辑本次提交的选择；设置与额度仍由 App/Host 的原服务拥有。 */
 export function useStartPlanRecommendation(view, surface) {
     const services = useOptionalBaseWorkspaceServices();

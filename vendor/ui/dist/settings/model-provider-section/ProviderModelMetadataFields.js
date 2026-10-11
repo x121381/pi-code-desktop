@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { CheckIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { TECHNICAL_INPUT_ATTRIBUTES } from "@/lib/technicalInputAttributes.js";
-import { modelEditorControlStyle } from "@/settings/model-provider-section/modelEditorControlStyle.js";
+import { Button } from "../../components/ui/button.js";
+import { cn } from "../../components/lib/utils.js";
+import { Textarea } from "../../components/ui/textarea.js";
+import { TECHNICAL_INPUT_ATTRIBUTES } from "../../lib/technicalInputAttributes.js";
+import { modelEditorControlStyle } from "../../settings/model-provider-section/modelEditorControlStyle.js";
 export function BooleanModelOption({ label, selected, onToggle, overridden = false, }) {
     return (_jsxs(Button, { type: "button", role: "checkbox", variant: "outline", size: "lg", "aria-checked": selected, "data-selected": selected, "data-model-boolean-option": "true", "data-model-capability-option": "true", "data-personal-override": overridden, className: cn("gap-2 disabled:opacity-100", "px-3", modelEditorControlStyle(overridden, selected)), onClick: onToggle, children: [_jsx(ModelOptionCheckbox, { selected: selected }), _jsx("span", { children: label })] }));
 }

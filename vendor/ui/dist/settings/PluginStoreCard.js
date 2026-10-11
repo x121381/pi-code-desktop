@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { Crown, Download, Loader2, MoreHorizontal, Power, TriangleAlert, Trash2, } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Switch } from "@/components/ui/switch.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { PluginStoreAvatar } from "@/settings/PluginStoreAvatar.js";
-import { canUpdatePluginItem, resolveItemDescription, resolveItemDisplayName, } from "@/settings/pluginStoreListing.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { Button } from "../components/ui/button.js";
+import { Switch } from "../components/ui/switch.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { PluginStoreAvatar } from "../settings/PluginStoreAvatar.js";
+import { canUpdatePluginItem, resolveItemDescription, resolveItemDisplayName, } from "../settings/pluginStoreListing.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 export function isItemBusy(item, actions) {
     return (actions.operationId === `plugin:install:${item.name}@${item.marketplace}` ||
         actions.operationId === `plugin:restore:${item.id}` ||

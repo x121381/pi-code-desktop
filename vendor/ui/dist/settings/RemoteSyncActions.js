@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronDown, UploadCloud } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { RemoteMcpSyncDialog } from "@/settings/RemoteMcpSyncDialog.js";
-import { RemotePluginSyncDialog } from "@/settings/RemotePluginSyncDialog.js";
-import { RemoteSkillSyncDialog } from "@/settings/RemoteSkillSyncDialog.js";
+import { Button } from "../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "../components/ui/dropdown-menu.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { RemoteMcpSyncDialog } from "../settings/RemoteMcpSyncDialog.js";
+import { RemotePluginSyncDialog } from "../settings/RemotePluginSyncDialog.js";
+import { RemoteSkillSyncDialog } from "../settings/RemoteSkillSyncDialog.js";
 export const REMOTE_SYNC_PREFLIGHT_TIMEOUT_MS = 15_000;
 export class RemoteSyncPreflightTimeoutError extends Error {
     timeoutMs;

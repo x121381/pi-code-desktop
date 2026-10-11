@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Clock } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { getTaskListRowActivity } from "@/v4/taskListRowActivity.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { getTaskListRowActivity } from "../v4/taskListRowActivity.js";
 export function WorkspaceLastActivity({ task }) {
     const { intl } = useZCodeIntl();
     const [now, setNow] = useState(Date.now);

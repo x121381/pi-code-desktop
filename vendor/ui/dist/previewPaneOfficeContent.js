@@ -1,18 +1,18 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Component, lazy, Suspense, useMemo } from "react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { decodeBase64ToArrayBuffer } from "@/lib/officeFilePreview.js";
-import { logger } from "@/logger.js";
+import { useZCodeIntl } from "./i18n/IntlProvider.js";
+import { decodeBase64ToArrayBuffer } from "./lib/officeFilePreview.js";
+import { logger } from "./logger.js";
 const LazyXlsxContent = lazy(async () => {
-    const module = await import("@/previewPaneOfficeXlsxContent.js");
+    const module = await import("./previewPaneOfficeXlsxContent.js");
     return { default: module.PreviewPaneOfficeXlsxContent };
 });
 const LazyDocxContent = lazy(async () => {
-    const module = await import("@/previewPaneOfficeDocxContent.js");
+    const module = await import("./previewPaneOfficeDocxContent.js");
     return { default: module.PreviewPaneOfficeDocxContent };
 });
 const LazyLegacyDocContent = lazy(async () => {
-    const module = await import("@/previewPaneOfficeLegacyDocContent.js");
+    const module = await import("./previewPaneOfficeLegacyDocContent.js");
     return { default: module.PreviewPaneOfficeLegacyDocContent };
 });
 class OfficePreviewErrorBoundary extends Component {

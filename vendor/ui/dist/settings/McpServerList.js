@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TID_MCP_OPEN_AUTHORIZATION_BUTTON, TID_MCP_SERVER_ROW, testId, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { settingsResourceRowInteraction } from "@/settings/settingsResourceRowInteraction.js";
-import { SettingsScopeBadge } from "@/settings/SettingsScopeBadge.js";
-import { McpFailurePresentation, resolveMcpFailureMessageId, } from "@/settings/McpFailurePresentation.js";
-import { SettingsResourceList } from "@/settings/SettingsResourceGroup.js";
-import { runUserAction } from "@/lib/userActionTelemetry.js";
+import { Button } from "../components/ui/button.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { settingsResourceRowInteraction } from "../settings/settingsResourceRowInteraction.js";
+import { SettingsScopeBadge } from "../settings/SettingsScopeBadge.js";
+import { McpFailurePresentation, resolveMcpFailureMessageId, } from "../settings/McpFailurePresentation.js";
+import { SettingsResourceList } from "../settings/SettingsResourceGroup.js";
+import { runUserAction } from "../lib/userActionTelemetry.js";
 import { CircleIcon, Cable, Loader2Icon, ExternalLink, Plus } from "lucide-react";
 export function McpStatusDot({ status, attention = false, disabled = false, reason, }) {
     const color = disabled

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { logger } from "@/logger.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { logger } from "../logger.js";
 const EMPTY_STATE = {
     entries: [],
     authority: null,

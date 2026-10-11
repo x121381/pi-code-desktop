@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { logger } from "@/logger.js";
+import { useOptionalPlatform } from "../hooks/usePlatform.js";
+import { logger } from "../logger.js";
 function isSameWebRemoteControlStatus(left, right) {
     return (left.status === right.status &&
         left.sessionId === right.sessionId &&

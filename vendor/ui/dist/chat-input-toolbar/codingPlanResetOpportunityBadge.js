@@ -1,5 +1,5 @@
-import { findCodingPlanQuotaLimit } from "@/lib/codingPlanQuotaPresentation.js";
-import { mergeCodingPlanQuotaResetOpportunityBadges, resolveCodingPlanQuotaResetLimit, } from "@/lib/codingPlanQuotaResetUi.js";
+import { findCodingPlanQuotaLimit } from "../lib/codingPlanQuotaPresentation.js";
+import { mergeCodingPlanQuotaResetOpportunityBadges, resolveCodingPlanQuotaResetLimit, } from "../lib/codingPlanQuotaResetUi.js";
 export function resolveChatCodingPlanResetOpportunityBadge(state, resetUi) {
     const limits = state?.visibleSnapshot?.quota?.limits ?? [];
     const fiveHourTokenLimit = resolveCodingPlanQuotaResetLimit(findCodingPlanQuotaLimit(limits, "TOKENS_LIMIT", 3, 5), resetUi.entry);

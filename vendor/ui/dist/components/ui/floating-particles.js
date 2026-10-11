@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useEffect, useRef } from "react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 const PARTICLE_COUNT = 96;
 const PARTICLE_FRAME_INTERVAL_MS = 1_000 / 30;
 const PARTICLE_SPRITE_SIZE = 24;

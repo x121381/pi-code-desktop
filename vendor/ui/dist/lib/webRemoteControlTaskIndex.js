@@ -1,8 +1,8 @@
 import { resolveWebRemoteControlWorkspaceKey } from "@zcode/shared";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { compareTaskListItemsWithRunningFirst } from "@/lib/taskListOrdering.js";
-import { isLiveTaskRuntimeStatus } from "@/lib/taskRuntimeDisplayStatus.js";
-import { getTaskListRowActivity, } from "@/v4/taskListRowActivity.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { compareTaskListItemsWithRunningFirst } from "../lib/taskListOrdering.js";
+import { isLiveTaskRuntimeStatus } from "../lib/taskRuntimeDisplayStatus.js";
+import { getTaskListRowActivity, } from "../v4/taskListRowActivity.js";
 // 运行层成员 = 图标在转（displayStatus running）或挂着后台工作；与桌面 isTaskListRowActive 同义。
 // Bugfix：后台 workflow run 只推进 updatedAt、不改 displayStatus，只看图标会让两个跑 run 的
 // 会话在手机列表里随进度事件互换位置。

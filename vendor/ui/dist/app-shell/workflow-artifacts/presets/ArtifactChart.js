@@ -12,9 +12,9 @@ import { jsx as _jsx } from "react/jsx-runtime";
  * Suspense / 错误边界——本文件只是那套接法的默认封装。
  */
 import { lazy, Suspense } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { ScopedErrorBoundary } from "@/ErrorBoundary.js";
-const ArtifactChartView = lazy(() => import("@/app-shell/workflow-artifacts/presets/ArtifactChartView.js"));
+import { cn } from "../../../components/lib/utils.js";
+import { ScopedErrorBoundary } from "../../../ErrorBoundary.js";
+const ArtifactChartView = lazy(() => import("../../../app-shell/workflow-artifacts/presets/ArtifactChartView.js"));
 /** 加载中的占位：只占位不说话——一句「加载中」在 200ms 的懒加载里只会闪一下。 */
 function ChartSkeleton({ compact }) {
     return (_jsx("div", { "aria-hidden": "true", className: cn("w-full animate-pulse rounded-lg bg-surface motion-reduce:animate-none", compact ? "h-14" : "h-56"), "data-testid": "artifact-chart-skeleton" }));

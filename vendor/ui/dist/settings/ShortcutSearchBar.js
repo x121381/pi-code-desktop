@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Keyboard, Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatShortcutBindingLabel } from "@/shortcuts/label.js";
+import { Input } from "../components/ui/input.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatShortcutBindingLabel } from "../shortcuts/label.js";
 /** 快捷键设置页搜索条：文本搜索框 + VSCode 式「按组合键搜索」按钮。 */
 export function ShortcutSearchBar({ query, onQueryChange, keySearch, onArmKeySearch, actions, }) {
     const { intl } = useZCodeIntl();

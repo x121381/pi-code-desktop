@@ -2,7 +2,7 @@
 // 纯函数：ToolCallBlock 及其 renderers（execute/read/edit/...）吃的是旧 ZCode Agent 的
 // TaskChatToolCall 形态；v4 row 自包含，字段一一映射即可，不需要看别的行。
 import { buildZCodeStreamingToolInputPreview } from "@zcode/shared";
-import { normalizeWrappedErrorText } from "@/lib/toolError.js";
+import { normalizeWrappedErrorText } from "../lib/toolError.js";
 // v4 status → 旧 ChatToolCall.status（mapToolStatus 的输入词表：
 // pending/in_progress/completed/failed/stopped）。
 // pendingApproval 视为 pending：审批中输入已定，展示为待执行。

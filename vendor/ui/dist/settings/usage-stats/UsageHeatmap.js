@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* oxlint-disable max-lines -- 热力图在同一文件内维护每日、每周、累计三种展示计算，拆分会割裂共享列模型。 */
 import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { HeatmapColumn, } from "@/settings/usage-stats/UsageHeatmapCells.js";
-import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, formatCompactNumber, formatCompactTokenUsage, formatFullDay, formatMonth, } from "@/settings/usage-stats/usageStatsUiParts.js";
+import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { HeatmapColumn, } from "../../settings/usage-stats/UsageHeatmapCells.js";
+import { USAGE_STATS_TABS_LIST_CLASS, USAGE_STATS_TABS_TRIGGER_CLASS, formatCompactNumber, formatCompactTokenUsage, formatFullDay, formatMonth, } from "../../settings/usage-stats/usageStatsUiParts.js";
 const HEATMAP_DISPLAY_WEEK_COUNT = 52;
 const HEATMAP_DAYS_PER_WEEK = 7;
 const DAY_MS = 86_400_000;

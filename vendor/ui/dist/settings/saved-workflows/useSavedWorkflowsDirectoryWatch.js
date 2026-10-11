@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 const WATCH_DEBOUNCE_MS = 300;
 /** workspacePath 可能是 Windows 路径；沿用它自己的分隔符拼子目录，别把 `/` 混进 `\\` 路径。 */
 function savedWorkflowsDirectoryPath(workspacePath) {

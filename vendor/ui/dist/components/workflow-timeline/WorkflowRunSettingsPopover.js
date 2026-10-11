@@ -10,11 +10,11 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // 一个弹层、多个触发点：锚点是**打开它的那个元素**（虚拟锚），所以详情页上两个入口各自对齐。
 // 表单只在打开时挂载——模型清单的订阅也随之只活在打开期间。
 import { useCallback, useRef, useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Popover, PopoverAnchor, PopoverContent, PopoverTitle } from "@/components/ui/popover.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { Button } from "../../components/ui/button.js";
+import { Popover, PopoverAnchor, PopoverContent, PopoverTitle } from "../../components/ui/popover.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
 import { WorkflowRunSettingsBoundField, WorkflowRunSettingsModelField, } from "./WorkflowRunSettingsFields.js";
 import { useWorkflowSettingsModelChoices, } from "./useWorkflowSettingsModelChoices.js";
 import { describeWorkflowRunSettingsRejection, initialWorkflowRunSettingsDraft, workflowRunDefaultConcurrency, workflowRunSettingsChange, workflowRunSettingsConsequenceId, workflowRunSettingsRejectionDetail, workflowRunSettingsRejectionMessageId, } from "./workflowRunSettings.js";

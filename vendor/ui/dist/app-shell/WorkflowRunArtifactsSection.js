@@ -2,15 +2,15 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useMemo, useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
 import { TID_WORKFLOW_ARTIFACTS_SECTION, TID_WORKFLOW_ARTIFACTS_TOGGLE, TID_WORKFLOW_ARTIFACT_CARD, } from "@zcode/shared";
-import { cn } from "@/components/lib/utils.js";
-import { WorkflowArtifactIndex } from "@/components/workflow-timeline/WorkflowArtifactIndex.js";
-import { WorkflowArtifactRow } from "@/components/workflow-timeline/WorkflowArtifactRow.js";
-import { WorkflowArtifactTile } from "@/components/workflow-timeline/WorkflowArtifactTile.js";
-import { PILL_STAGGER_MS } from "@/components/workflow-timeline/WorkflowTimeline.js";
-import { ArtifactDetail, artifactDisplayTitle, artifactKindMessageId, buildPresetLabels, resolvePrimaryArtifact, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { WorkflowArtifactTilePreview } from "@/app-shell/workflow-artifacts/WorkflowArtifactTilePreview.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
+import { cn } from "../components/lib/utils.js";
+import { WorkflowArtifactIndex } from "../components/workflow-timeline/WorkflowArtifactIndex.js";
+import { WorkflowArtifactRow } from "../components/workflow-timeline/WorkflowArtifactRow.js";
+import { WorkflowArtifactTile } from "../components/workflow-timeline/WorkflowArtifactTile.js";
+import { PILL_STAGGER_MS } from "../components/workflow-timeline/WorkflowTimeline.js";
+import { ArtifactDetail, artifactDisplayTitle, artifactKindMessageId, buildPresetLabels, resolvePrimaryArtifact, } from "../app-shell/workflow-artifacts/artifactPresentation.js";
+import { WorkflowArtifactTilePreview } from "../app-shell/workflow-artifacts/WorkflowArtifactTilePreview.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
 /**
  * workflow run 详情页的产物区。
  *

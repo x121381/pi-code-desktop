@@ -7,10 +7,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // changed-files，带行号、按行有界）、文本（read / diff，diff 按首字符着墨）。
 import { memo, useCallback, useState } from "react";
 import { CheckIcon, CopyIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useWorkflowRunNodeResult } from "@/hooks/useWorkflowRunNodeResult.js";
-import { formatWorkspaceBytes, formatWorkspaceDuration, } from "@/app-shell/workflowWorkspaceTranscript.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useWorkflowRunNodeResult } from "../hooks/useWorkflowRunNodeResult.js";
+import { formatWorkspaceBytes, formatWorkspaceDuration, } from "../app-shell/workflowWorkspaceTranscript.js";
 /** 正文最多画多少行：网关按 32 KB 有界，这里再按行有界——一屏读不完的东西留在 journal 里。 */
 const WORKSPACE_RESULT_MAX_LINES = 200;
 const PRE_CLASS = "m-0 max-h-[300px] overflow-auto whitespace-pre-wrap break-words px-3 py-2.5 font-mono text-ui-sm leading-[17px] text-foreground-subtle";

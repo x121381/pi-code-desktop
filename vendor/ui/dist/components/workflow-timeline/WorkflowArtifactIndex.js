@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRightIcon, EllipsisIcon } from "lucide-react";
-import { ArtifactDetail, ArtifactKindIcon, artifactDetailText, artifactDisplayTitle, artifactKindMessageId, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ArtifactDetail, ArtifactKindIcon, artifactDetailText, artifactDisplayTitle, artifactKindMessageId, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 import { PILL_STAGGER_MS } from "./WorkflowTimeline.js";
 /**
  * 产物索引（侧板）：交付物行之后的**其余产物**，一件一行。

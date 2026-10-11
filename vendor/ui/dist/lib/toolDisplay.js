@@ -1,7 +1,7 @@
-import { getToolCallCodeContentPreview, getToolCallCodePreview, } from "@/lib/codeViewer.js";
-import { isAbsoluteFilePath, joinFilePath } from "@/lib/path.js";
-import { getToolCallErrorText } from "@/lib/toolError.js";
-import { isFileContentWriteToolCall, isFileDiffToolCall, resolveToolCallIdentity, } from "@/lib/toolIdentity.js";
+import { getToolCallCodeContentPreview, getToolCallCodePreview, } from "../lib/codeViewer.js";
+import { isAbsoluteFilePath, joinFilePath } from "../lib/path.js";
+import { getToolCallErrorText } from "../lib/toolError.js";
+import { isFileContentWriteToolCall, isFileDiffToolCall, resolveToolCallIdentity, } from "../lib/toolIdentity.js";
 function isRecord(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
 }

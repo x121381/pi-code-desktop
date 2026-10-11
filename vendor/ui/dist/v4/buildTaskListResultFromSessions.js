@@ -1,7 +1,7 @@
 import { matchesTaskListMembershipKind } from "@zcode/shared/zcode-protocol-v4";
-import { buildTaskEntityKey } from "@/lib/taskQueryCache.js";
-import { compareZCodeTaskListItems } from "@/lib/taskListOrdering.js";
-import { attachTaskListRowActivity, getTaskListRowActivity } from "@/v4/taskListRowActivity.js";
+import { buildTaskEntityKey } from "../lib/taskQueryCache.js";
+import { compareZCodeTaskListItems } from "../lib/taskListOrdering.js";
+import { attachTaskListRowActivity, getTaskListRowActivity } from "../v4/taskListRowActivity.js";
 function mergeTaskIndexRowWithSession(taskIndexTask, sessionTask) {
     const activity = getTaskListRowActivity(sessionTask);
     const sessionTitle = sessionTask.title.trim();

@@ -1,12 +1,12 @@
 import { useMemo, useRef } from "react";
-import { useActiveTaskSnapshotMeta } from "@/hooks/useActiveTaskSnapshotMeta.js";
-import { useTaskNativeSessionLogFile } from "@/hooks/useTaskNativeSessionLogFile.js";
-import { useTaskSessionFilePath } from "@/hooks/useTaskSessionFilePath.js";
-import { buildTaskEntityKey } from "@/lib/taskQueryCache.js";
-import { mergeTaskMetaCandidates } from "@/lib/zcodeTaskMetaMerge.js";
-import { resolveWorkspaceHeaderProvider } from "@/lib/workspaceHeaderProvider.js";
-import { getTaskMeta, selectWorkspaceZCodeState, useZCodeSessionStore, } from "@/store/zcodeSessionStore.js";
-import { useTaskQueryCacheStore } from "@/store/taskQueryCacheStore.js";
+import { useActiveTaskSnapshotMeta } from "../hooks/useActiveTaskSnapshotMeta.js";
+import { useTaskNativeSessionLogFile } from "../hooks/useTaskNativeSessionLogFile.js";
+import { useTaskSessionFilePath } from "../hooks/useTaskSessionFilePath.js";
+import { buildTaskEntityKey } from "../lib/taskQueryCache.js";
+import { mergeTaskMetaCandidates } from "../lib/zcodeTaskMetaMerge.js";
+import { resolveWorkspaceHeaderProvider } from "../lib/workspaceHeaderProvider.js";
+import { getTaskMeta, selectWorkspaceZCodeState, useZCodeSessionStore, } from "../store/zcodeSessionStore.js";
+import { useTaskQueryCacheStore } from "../store/taskQueryCacheStore.js";
 function areTaskMetaJsonFieldsEqual(left, right) {
     return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
 }

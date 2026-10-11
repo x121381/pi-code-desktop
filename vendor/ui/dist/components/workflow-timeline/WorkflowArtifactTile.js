@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { ArrowUpRightIcon } from "lucide-react";
-import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, } from "@/app-shell/workflow-artifacts/artifactPresentation.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ArtifactKindIcon, artifactDisplayTitle, artifactKindMessageId, } from "../../app-shell/workflow-artifacts/artifactPresentation.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 /** 内容拿不到时的纸页字形：一张小纸 + 右下角的扩展名徽字。诚实，不装饰。 */
 export function ArtifactSheetGlyph({ badge }) {
     return (_jsxs("div", { className: "absolute inset-0 grid place-items-center", "data-testid": "workflow-artifact-sheet", children: [_jsxs("div", { className: "flex aspect-[3/4] w-[38%] max-w-[72px] flex-col gap-1.5 rounded-[4px] border border-border bg-card p-2.5 shadow-[0_1px_0_var(--color-workflow-rule)]", children: [_jsx("i", { className: "block h-[5px] w-[55%] rounded-sm bg-surface-hover" }), _jsx("i", { className: "block h-[3px] rounded-sm bg-surface-hover" }), _jsx("i", { className: "block h-[3px] rounded-sm bg-surface-hover" }), _jsx("i", { className: "block h-[3px] w-[70%] rounded-sm bg-surface-hover" })] }), badge === undefined ? null : (_jsx("span", { className: "absolute bottom-2 right-2 rounded-[4px] bg-surface-hover px-1.5 py-0.5 font-mono text-ui-xs text-foreground-subtle", "data-testid": "workflow-artifact-sheet-badge", children: badge }))] }));

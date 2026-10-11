@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { CodingPlanEntryButton } from "@/settings/CodingPlanEntryButton.js";
+import { CodingPlanEntryButton } from "./settings/CodingPlanEntryButton.js";
 /**
  * ChatErrorBanner — 错误提示组件
  *
@@ -13,10 +13,10 @@ import { Button } from "./components/ui/button.js";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from "./components/ui/dialog.js";
 import { cn } from "./components/lib/utils.js";
 import { toast } from "./components/ui/toast.js";
-import { useFeedbackStore } from "@/feedback/feedbackStore.js";
-import { getProviderBusinessErrorMessageId } from "@/lib/providerBusinessError.js";
-import { buildErrorFeedbackDescription } from "@/lib/errorFeedbackDraft.js";
-import { isSuspiciousEmptyModelResultMessage, resolveOffPeakTicketExpiredBusinessCode, resolveRequestVerificationBusinessCode, } from "@/lib/providerBusinessError.js";
+import { useFeedbackStore } from "./feedback/feedbackStore.js";
+import { getProviderBusinessErrorMessageId } from "./lib/providerBusinessError.js";
+import { buildErrorFeedbackDescription } from "./lib/errorFeedbackDraft.js";
+import { isSuspiciousEmptyModelResultMessage, resolveOffPeakTicketExpiredBusinessCode, resolveRequestVerificationBusinessCode, } from "./lib/providerBusinessError.js";
 const HISTORICAL_MODEL_UNAVAILABLE_MESSAGES = [
     "历史任务使用的模型已不可用",
     "The model used by this historical task is no longer available",

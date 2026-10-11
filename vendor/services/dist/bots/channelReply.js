@@ -1,4 +1,4 @@
-import { resolveChannelMentionNames } from "#src/bots/channelMentionResolver.js";
+import { resolveChannelMentionNames } from "../bots/channelMentionResolver.js";
 import { createHash } from "node:crypto";
 import { channelReplyHostRequestSchema, channelContentText, resolveChannelReplyParts, } from "@zcode/shared";
 async function readBinding(request, deps) {

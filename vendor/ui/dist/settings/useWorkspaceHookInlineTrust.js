@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { toast } from "@/components/ui/toast.js";
-import { useServices } from "@/hooks/useServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { useHooksStore } from "@/store/hooksStore.js";
-import { findWorkspaceHookCommandBinding, findWorkspaceHookReviewBinding, useWorkspaceHookReviewStore, } from "@/store/workspaceHookReviewStore.js";
+import { toast } from "../components/ui/toast.js";
+import { useServices } from "../hooks/useServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
+import { useHooksStore } from "../store/hooksStore.js";
+import { findWorkspaceHookCommandBinding, findWorkspaceHookReviewBinding, useWorkspaceHookReviewStore, } from "../store/workspaceHookReviewStore.js";
 import { trustWorkspaceHookWithReview } from "./workspaceHookReviewCommands.js";
 import { didWorkspaceHookReviewSettle, resolveWorkspaceHookReasonCodeMessageId, shouldSilenceStaleRejection, } from "./workspaceHookTrustState.js";
 export function useWorkspaceHookInlineTrust(input) {

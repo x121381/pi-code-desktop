@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { useZCodeTaskService } from "@/hooks/useZCodeTaskService.js";
+import { logger } from "../logger.js";
+import { useZCodeTaskService } from "../hooks/useZCodeTaskService.js";
 const INITIAL_STATE = {
     loading: false,
     data: null,

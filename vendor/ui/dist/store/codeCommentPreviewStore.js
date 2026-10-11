@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getCodeCommentWorkspaceKey, unmarkCodeCommentRemoved, } from "@/lib/codeCommentContext.js";
+import { getCodeCommentWorkspaceKey, unmarkCodeCommentRemoved, } from "../lib/codeCommentContext.js";
 const EMPTY_CODE_COMMENT_PREVIEWS = [];
 export function buildCodeCommentPreviewBucketKey({ workspacePath, workspaceIdentity, sourcePath, }) {
     return `${getCodeCommentWorkspaceKey(workspacePath, workspaceIdentity)}\0${sourcePath}`;

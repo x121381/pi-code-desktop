@@ -1,4 +1,4 @@
-import { getWorkspaceDisplayedTaskState } from "@/store/zcodeSessionStore.js";
+import { getWorkspaceDisplayedTaskState } from "../store/zcodeSessionStore.js";
 function isRunningRuntimeStatus(status) {
     return status === "creating" || status === "restoring" || status === "streaming";
 }

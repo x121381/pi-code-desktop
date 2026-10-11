@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 function encodeTextToBase64(text) {
     const bytes = new TextEncoder().encode(text);
     let binary = "";

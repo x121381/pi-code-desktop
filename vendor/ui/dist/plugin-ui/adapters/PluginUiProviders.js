@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useEffect, useMemo, useRef } from "react";
-import { createPluginUiSessionActions } from "@/plugin-ui/adapters/pluginUiSessionBinding.js";
-import { registerPluginUiSessionActions } from "@/plugin-ui/adapters/pluginUiSessionActions.js";
-import { usePluginUiResourceDeltaFeed } from "@/plugin-ui/adapters/pluginUiResourceDeltaFeed.js";
+import { createPluginUiSessionActions } from "../../plugin-ui/adapters/pluginUiSessionBinding.js";
+import { registerPluginUiSessionActions } from "../../plugin-ui/adapters/pluginUiSessionActions.js";
+import { usePluginUiResourceDeltaFeed } from "../../plugin-ui/adapters/pluginUiResourceDeltaFeed.js";
 const WorkspaceActions = createContext(undefined);
 const SessionScope = createContext(null);
 /** Shell 只在边界提供面板动作，中间布局组件不感知插件请求。 */

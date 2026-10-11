@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Fragment } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { Badge } from "@/components/ui/badge.js";
-import { ContentPartView, EmptyState, summarizeRecords } from "@/ModelTrajectoryPaneDetails.js";
-import { ExpandableTrajectoryMessage } from "@/ModelTrajectoryExpandableMessage.js";
-import { ModelTrajectoryErrorBlock } from "@/ModelTrajectoryErrorBlock.js";
-import { formatTrajectoryClockTime, formatTrajectoryDateTime, formatTrajectoryDuration, } from "@/ModelTrajectoryFormat.js";
-import { trajectoryRoleTextClass } from "@/ModelTrajectoryRoleStyles.js";
-import { TrajectorySectionTitle } from "@/ModelTrajectorySectionTitle.js";
-export { EmptyState, summarizeRecords } from "@/ModelTrajectoryPaneDetails.js";
+import { cn } from "./components/lib/utils.js";
+import { Badge } from "./components/ui/badge.js";
+import { ContentPartView, EmptyState, summarizeRecords } from "./ModelTrajectoryPaneDetails.js";
+import { ExpandableTrajectoryMessage } from "./ModelTrajectoryExpandableMessage.js";
+import { ModelTrajectoryErrorBlock } from "./ModelTrajectoryErrorBlock.js";
+import { formatTrajectoryClockTime, formatTrajectoryDateTime, formatTrajectoryDuration, } from "./ModelTrajectoryFormat.js";
+import { trajectoryRoleTextClass } from "./ModelTrajectoryRoleStyles.js";
+import { TrajectorySectionTitle } from "./ModelTrajectorySectionTitle.js";
+export { EmptyState, summarizeRecords } from "./ModelTrajectoryPaneDetails.js";
 export function CallCard({ record, index, inputMessages, expansionKeyPrefix, intl, }) {
     const response = record.response;
     const usage = response?.usage;

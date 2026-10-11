@@ -1,5 +1,5 @@
-import { getErrorMessage } from "@/lib/errorMessage.js";
-import { logger } from "@/logger.js";
+import { getErrorMessage } from "../lib/errorMessage.js";
+import { logger } from "../logger.js";
 const DEFAULT_SUBMISSION_COPY = {
     connectingLabel: "正在连接反馈服务",
     connectingDetail: "创建成功后会继续上传截图和日志",

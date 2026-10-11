@@ -8,7 +8,7 @@
 // mode/modelSelection 与正文同 scope 保存；发送只清内容，显式清理才删除整个 scope。
 // 附件不入草稿（objectUrl/File 不可序列化，localPath 附件重启后归属难校验——
 // 与「v4 composer 不做附件草稿持久化」的裁决一致）。
-import { logger } from "@/logger.js";
+import { logger } from "../../logger.js";
 import { modelSelectionSchema } from "@zcode/shared";
 import { submissionModeSchema } from "@zcode/shared/zcode-protocol-v4";
 const STORAGE_KEY_PREFIX = "zcode-v4-composer-drafts:v1:";

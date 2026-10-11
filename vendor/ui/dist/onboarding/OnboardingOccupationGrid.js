@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Check } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { occupations, getOccupationIcon, } from "@/onboarding/occupationOptions.js";
+import { cn } from "../components/lib/utils.js";
+import { occupations, getOccupationIcon, } from "../onboarding/occupationOptions.js";
 /** 引导第一步的职业选择网格；从 OccupationOnboarding 抽出以控制文件行数。 */
 export function OnboardingOccupationGrid({ occupation, saving, onSelect, label, formatLabel, }) {
     return (_jsx("div", { className: "mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 [@media(max-height:740px)]:mt-5 [@media(max-height:740px)]:gap-2", role: "group", "aria-label": label, children: occupations.map((value, index) => {

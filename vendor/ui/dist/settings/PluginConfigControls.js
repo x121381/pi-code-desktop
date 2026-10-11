@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Eye, EyeOff, RotateCcw, Save, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button.js";
-import { Input } from "@/components/ui/input.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsScopeBadge } from "@/settings/SettingsScopeBadge.js";
+import { Button } from "../components/ui/button.js";
+import { Input } from "../components/ui/input.js";
+import { Switch } from "../components/ui/switch.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsScopeBadge } from "../settings/SettingsScopeBadge.js";
 export function PluginConfigControls({ getValue, isOptionClearPending, onClearOption, onSave, onSetDraft, operationId, plugin, scope, }) {
     const { intl } = useZCodeIntl();
     const [revealedSecrets, setRevealedSecrets] = useState({});

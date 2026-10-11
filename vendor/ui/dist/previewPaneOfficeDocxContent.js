@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { renderAsync } from "docx-preview";
-import { calculateDocxPreviewFit, installDocumentLinkSafety, } from "@/lib/officeFilePreview.js";
-import { logger } from "@/logger.js";
+import { calculateDocxPreviewFit, installDocumentLinkSafety, } from "./lib/officeFilePreview.js";
+import { logger } from "./logger.js";
 const DOCX_RENDER_OPTIONS = {
     breakPages: true,
     debug: false,

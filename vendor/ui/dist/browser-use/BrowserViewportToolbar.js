@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
 import { BROWSER_VIEWPORT_LIMITS, TID_BROWSER_RESPONSIVE_HEIGHT_INPUT, TID_BROWSER_RESPONSIVE_TOOLBAR, TID_BROWSER_RESPONSIVE_WIDTH_INPUT, TID_BROWSER_RESPONSIVE_ZOOM_OPTION, TID_BROWSER_RESPONSIVE_ZOOM_SELECT, } from "@zcode/shared";
-import { BROWSER_VIEWPORT_ZOOM_OPTIONS, } from "@/browser-use/browserViewportZoom.js";
-import { Input } from "@/components/ui/input.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { BROWSER_VIEWPORT_ZOOM_OPTIONS, } from "../browser-use/browserViewportZoom.js";
+import { Input } from "../components/ui/input.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 function isValidViewportDimension(dimension, value) {
     if (!Number.isInteger(value))
         return false;

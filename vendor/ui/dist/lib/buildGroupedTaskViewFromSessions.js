@@ -1,5 +1,5 @@
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { mergeTaskIndexRowsWithSessions } from "@/v4/buildTaskListResultFromSessions.js";
+import { buildTaskWorkspaceKey } from "../lib/taskQueryCache.js";
+import { mergeTaskIndexRowsWithSessions } from "../v4/buildTaskListResultFromSessions.js";
 // 与 taskIndexRepo GROUPED_TASK_ORDER_STEP 对齐。
 const GROUPED_TASK_ORDER_STEP = 1000;
 function memberTaskKey(params) {

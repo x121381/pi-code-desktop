@@ -1,11 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { TID_WORKFLOW_DETAIL_DESCRIPTION, TID_WORKFLOW_DETAIL_WHEN_TO_USE, TID_WORKFLOW_META_DISCARD, TID_WORKFLOW_META_SAVE, } from "@zcode/shared";
-import { Button } from "@/components/ui/button.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsFormTextarea } from "@/settings/SettingsFormTextarea.js";
-import { SavedWorkflowArgsTable } from "@/settings/saved-workflows/SavedWorkflowArgsTable.js";
+import { Button } from "../../components/ui/button.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { SettingsFormTextarea } from "../../settings/SettingsFormTextarea.js";
+import { SavedWorkflowArgsTable } from "../../settings/saved-workflows/SavedWorkflowArgsTable.js";
 /**
  * 详情页「基本信息」表单：说明 / 何时使用 / 参数表
  * 行内可编，脏了才浮出「放弃 / 保存」。状态由 SavedWorkflowDetailView 持有，这里只渲染。

@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FolderOpen, RotateCcw, Save, Undo2 } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Textarea } from "@/components/ui/textarea.js";
-import { toast } from "@/components/ui/toast.js";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useWorkspaceServicesResolution } from "@/hooks/useWorkspaceServices.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { SettingsGroupCard } from "@/settings/SettingsPageParts.js";
-import { logger } from "@/logger.js";
+import { Button } from "../components/ui/button.js";
+import { Textarea } from "../components/ui/textarea.js";
+import { toast } from "../components/ui/toast.js";
+import { usePlatform } from "../hooks/usePlatform.js";
+import { useWorkspaceServicesResolution } from "../hooks/useWorkspaceServices.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { SettingsGroupCard } from "../settings/SettingsPageParts.js";
+import { logger } from "../logger.js";
 /**
  * 工作区文件搜索忽略规则（.zcodeignore）编辑页。
  * 规则文件是目录排除的单一真相源：编辑保存即生效（下次扫描读取新内容）；

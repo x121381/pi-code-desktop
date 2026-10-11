@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useId, useRef, useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
 const ERROR_TARGETS = {
     maxOutputTokens: "[data-model-max-output] input",
     reasoningLevelValues: "[data-model-reasoning-level-editor] :is(input, button)",

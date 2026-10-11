@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { applyConversationFindHighlights, applySearchResultHighlight, clearConversationFindHighlights, clearSearchResultHighlight, scrollConversationFindRangeIntoView, } from "@/v4/conversationFindHighlightDom.js";
-import { buildConversationFindIndex, findConversationMatchIndexByKey, getConversationFindMatchKey, resolveConversationFindActiveIndex, resolveSearchResultHighlightMatch, } from "@/v4/conversationFindIndex.js";
-import { useAssistantCodeCommentFeatureEnabled } from "@/AssistantCodeCommentFeatureProvider.js";
+import { applyConversationFindHighlights, applySearchResultHighlight, clearConversationFindHighlights, clearSearchResultHighlight, scrollConversationFindRangeIntoView, } from "../v4/conversationFindHighlightDom.js";
+import { buildConversationFindIndex, findConversationMatchIndexByKey, getConversationFindMatchKey, resolveConversationFindActiveIndex, resolveSearchResultHighlightMatch, } from "../v4/conversationFindIndex.js";
+import { useAssistantCodeCommentFeatureEnabled } from "../AssistantCodeCommentFeatureProvider.js";
 const FIND_AUTO_LOAD_ROW_LIMIT = 1200;
 const SEARCH_RESULT_HIGHLIGHT_DURATION_MS = 3000;
 function normalizeSearchResultSnippet(text) {

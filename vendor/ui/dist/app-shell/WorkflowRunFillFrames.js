@@ -1,8 +1,8 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useLayoutEffect, useRef, useState, } from "react";
-import { cn } from "@/components/lib/utils.js";
-import { fillDepthOf, fillMarksOf, framePath, spineFrameBox, } from "@/components/workflow-timeline/timeline-frames.js";
-import { useFillHeadTarget, useFreshFills, } from "@/components/workflow-timeline/WorkflowTimelineFills.js";
+import { cn } from "../components/lib/utils.js";
+import { fillDepthOf, fillMarksOf, framePath, spineFrameBox, } from "../components/workflow-timeline/timeline-frames.js";
+import { useFillHeadTarget, useFreshFills, } from "../components/workflow-timeline/WorkflowTimelineFills.js";
 const EMPTY = { width: 0, height: 0, boxes: {} };
 function sectionOf(root, attribute, value) {
     return [...root.querySelectorAll(`[${attribute}]`)].find((element) => element.getAttribute(attribute) === value);

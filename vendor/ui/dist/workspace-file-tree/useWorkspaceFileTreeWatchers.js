@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export function useWorkspaceFileTreeWatchers({ fileWatcherService, watchedDirectoryPaths, onDirectoryChange, }) {
     const fileWatcherServiceRef = useRef(fileWatcherService);
     const watcherGenerationRef = useRef(0);

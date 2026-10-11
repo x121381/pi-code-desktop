@@ -1,10 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useCallback, useMemo } from "react";
 import { Cell, Pie, PieChart } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildAppUsageModelPieChartViewModel, } from "@/settings/usage-stats/appUsageModelPieChartViewModel.js";
-import { UsageEmptyState, formatCompactTokenUsage, formatPercent, } from "@/settings/usage-stats/usageStatsUiParts.js";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../../components/ui/chart.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { buildAppUsageModelPieChartViewModel, } from "../../settings/usage-stats/appUsageModelPieChartViewModel.js";
+import { UsageEmptyState, formatCompactTokenUsage, formatPercent, } from "../../settings/usage-stats/usageStatsUiParts.js";
 const APP_USAGE_MODEL_PIE_CHART_MARGIN = {
     top: 4,
     right: 4,

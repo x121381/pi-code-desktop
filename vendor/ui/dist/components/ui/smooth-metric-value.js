@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect, useId, useRef, useState } from "react";
-import { FlipMetricValue } from "@/components/ui/flip-metric-value.js";
+import { FlipMetricValue } from "../../components/ui/flip-metric-value.js";
 const DEFAULT_LINES_PER_SECOND = 48;
 const MIN_LINES_PER_SECOND = 24;
 const MAX_LINES_PER_SECOND = 180;

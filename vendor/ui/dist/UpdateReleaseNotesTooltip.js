@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { cn } from "@/components/lib/utils.js";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip.js";
+import { MessageResponse } from "./components/ai-elements/message.js";
+import { cn } from "./components/lib/utils.js";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "./components/ui/tooltip.js";
 export function UpdateReleaseNotesTooltip({ children, locale, onOpenExternalUrl, releaseDateLabel, releaseNotesMarkdown, releaseNotesTitle, }) {
     return (_jsx(TooltipProvider, { children: _jsxs(Tooltip, { children: [_jsx(TooltipTrigger, { asChild: true, children: children }), _jsxs(TooltipContent, { side: "bottom", align: "start", sideOffset: 4, className: "w-96 max-w-[calc(100vw-2rem)] flex-col items-start gap-2 rounded-xl border-popover-border bg-popover px-4 py-3 text-left text-popover-foreground shadow-md", children: [_jsx("div", { className: "flex w-full min-w-0 items-start justify-between gap-3", children: _jsxs("div", { className: "min-w-0", children: [_jsx("div", { className: "truncate text-ui-sm font-medium leading-5 text-foreground", children: releaseNotesTitle }), releaseDateLabel ? (_jsx("div", { className: "text-ui-sm leading-4 text-foreground-subtle", children: releaseDateLabel })) : null] }) }), _jsx("div", { className: "max-h-72 w-full overflow-y-auto border-t border-border pt-2", children: _jsx(MessageResponse, { className: cn("prose prose-sm max-w-none text-ui-sm leading-relaxed text-foreground dark:prose-invert", "prose-headings:font-semibold prose-headings:tracking-tight", "prose-h1:text-ui-lg prose-h2:text-ui-base prose-h3:text-ui-base"), onOpenExternalUrl: onOpenExternalUrl, children: releaseNotesMarkdown }) })] })] }, `${locale}:${releaseNotesTitle}`) }));
 }

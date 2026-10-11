@@ -1,13 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { AlertTriangle, Cable, ChevronRight, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { PluginConfigControls } from "@/settings/PluginConfigControls.js";
-import { PluginComponentGroups } from "@/settings/PluginComponentGroups.js";
-import { buildInstalledPluginDisplayGroups } from "@/settings/pluginManagedResourceGroups.js";
-import { isPluginUpdatePending } from "@/settings/pluginStoreListing.js";
+import { Badge } from "../components/ui/badge.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogTitle } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { PluginConfigControls } from "../settings/PluginConfigControls.js";
+import { PluginComponentGroups } from "../settings/PluginComponentGroups.js";
+import { buildInstalledPluginDisplayGroups } from "../settings/pluginManagedResourceGroups.js";
+import { isPluginUpdatePending } from "../settings/pluginStoreListing.js";
 export function InstalledPluginDetailDialog({ diagnostics, getPluginOptionValue, configScope, installedAt, latestVersion, onOpenChange, onRequestUninstall, onRequestUpdate, onSavePluginOptions, open, operationId, plugin, renderPluginSource, setPluginOptionDraft, uninstallable, updateStatus, }) {
     return (_jsx(Dialog, { open: open, onOpenChange: onOpenChange, children: _jsxs(DialogContent, { className: "max-h-[calc(100vh-3rem)] w-[min(600px,calc(100vw-2rem))] max-w-none gap-0 overflow-hidden p-0", "data-testid": "plugin-settings-detail-dialog", "data-plugin-id": plugin?.id, children: [_jsx(DialogTitle, { className: "sr-only", children: plugin?.name ?? "" }), _jsx(InstalledPluginDetailPanel, { diagnostics: diagnostics, getPluginOptionValue: getPluginOptionValue, configScope: configScope, installedAt: installedAt, latestVersion: latestVersion, operationId: operationId, plugin: plugin, renderPluginSource: renderPluginSource, setPluginOptionDraft: setPluginOptionDraft, uninstallable: uninstallable, updateStatus: updateStatus, onRequestUninstall: onRequestUninstall, onRequestUpdate: onRequestUpdate, onSavePluginOptions: onSavePluginOptions })] }) }));
 }

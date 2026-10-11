@@ -2,21 +2,21 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Copy } from "lucide-react";
 import { TID_WORKFLOW_DETAIL, TID_WORKFLOW_DETAIL_SCRIPT, TID_WORKFLOW_DETAIL_TAB, } from "@zcode/shared";
-import { CodeBlock } from "@/components/ai-elements/code-block.js";
-import { Button } from "@/components/ui/button.js";
-import { Spinner } from "@/components/ui/spinner.js";
-import { toast } from "@/components/ui/toast.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
-import { SettingsBreadcrumbReporter } from "@/settings/SettingsHeaderBreadcrumb.js";
-import { SETTINGS_FRAME_CONTENT_CLASSNAME } from "@/settings/SettingsPageParts.js";
-import { SettingsSegmentedTabs } from "@/settings/SettingsSegmentedTabs.js";
-import { argsDeclarationToRows, rowsToArgsDeclaration, } from "@/settings/saved-workflows/savedWorkflowArgsForm.js";
-import { SavedWorkflowArtifactChips } from "@/settings/saved-workflows/SavedWorkflowArtifactChips.js";
-import { SavedWorkflowDetailHeader } from "@/settings/saved-workflows/SavedWorkflowDetailHeader.js";
-import { SavedWorkflowMetaForm, } from "@/settings/saved-workflows/SavedWorkflowMetaForm.js";
-import { SavedWorkflowRunHistory, } from "@/settings/saved-workflows/SavedWorkflowRunHistoryPanel.js";
+import { CodeBlock } from "../../components/ai-elements/code-block.js";
+import { Button } from "../../components/ui/button.js";
+import { Spinner } from "../../components/ui/spinner.js";
+import { toast } from "../../components/ui/toast.js";
+import { cn } from "../../components/lib/utils.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { logger } from "../../logger.js";
+import { SettingsBreadcrumbReporter } from "../../settings/SettingsHeaderBreadcrumb.js";
+import { SETTINGS_FRAME_CONTENT_CLASSNAME } from "../../settings/SettingsPageParts.js";
+import { SettingsSegmentedTabs } from "../../settings/SettingsSegmentedTabs.js";
+import { argsDeclarationToRows, rowsToArgsDeclaration, } from "../../settings/saved-workflows/savedWorkflowArgsForm.js";
+import { SavedWorkflowArtifactChips } from "../../settings/saved-workflows/SavedWorkflowArtifactChips.js";
+import { SavedWorkflowDetailHeader } from "../../settings/saved-workflows/SavedWorkflowDetailHeader.js";
+import { SavedWorkflowMetaForm, } from "../../settings/saved-workflows/SavedWorkflowMetaForm.js";
+import { SavedWorkflowRunHistory, } from "../../settings/saved-workflows/SavedWorkflowRunHistoryPanel.js";
 function draftFromMeta(meta) {
     return {
         description: meta.description,

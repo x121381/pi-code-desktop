@@ -1,11 +1,11 @@
 import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
-import { pendingTopicPreparations } from "@/v4/topicPreparationRenderUnits.js";
+import { pendingTopicPreparations } from "../v4/topicPreparationRenderUnits.js";
 import { useContext, useMemo } from "react";
 import { LoaderCircleIcon } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { DeliveryContext } from "@/v4/botGroupDeliveryContext.js";
-import { ConversationUserInputBubble } from "@/v4/ConversationUserInputBubble.js";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { DeliveryContext } from "../v4/botGroupDeliveryContext.js";
+import { ConversationUserInputBubble } from "../v4/ConversationUserInputBubble.js";
 const EMPTY_ROWS = [];
 const EMPTY_PREPARATIONS = [];
 export function useBotTopicPreparations() {

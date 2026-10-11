@@ -5,9 +5,9 @@
 // 被拒时不发 start、不留会话；start 被拒时立即 deleteSession 收回刚建的空会话。
 import { useCallback, useRef, useState } from "react";
 import { SAVED_WORKFLOW_START_REJECTED_FAULT_PREFIX, savedWorkflowStartRejectionReasonSchema, } from "@zcode/shared/zcode-protocol-v4";
-import { createCommandEnvelope } from "@/v4/commandFactory.js";
-import { acquireWorkspaceConnection, } from "@/v4/workspaceConnectionRegistry.js";
-import { logger } from "@/logger.js";
+import { createCommandEnvelope } from "../../v4/commandFactory.js";
+import { acquireWorkspaceConnection, } from "../../v4/workspaceConnectionRegistry.js";
+import { logger } from "../../logger.js";
 // 能力缺席（无 dwf 端口）时 v4 handler 回的 fault code（interaction-background.ts）。
 const CAPABILITY_UNSUPPORTED_FAULT = "fault.command.capabilityUnsupported";
 /** createSession 的 workspaceId 与 conversation 连接口径一致：identity 优先，否则路径。 */

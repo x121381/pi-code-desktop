@@ -2,7 +2,7 @@ import { readRequestVerificationConfig, requestVerificationClaimHeaders, isReque
 import { BIGMODEL_PROVIDER_ID, BUILTIN_MODEL_PROVIDER_IDS, REQUEST_VERIFICATION_REQUIRED, CODING_PLAN_SYSTEM_BUSY, buildRuntimeZCodeApiUrl, isZaiCodingPlanProviderId, resolveBigModelApiOrigin, resolveZaiBusinessBaseUrl, ZAI_PROVIDER_ID, ZCODE_VERSION, DEFAULT_ZCODE_MODEL_CONTEXT_BUDGET_STRATEGY, createDynamicWorkflowClientConfig, normalizeDynamicWorkflowMode, resolveDynamicWorkflowClientConfig, DEFAULT_DYNAMIC_WORKFLOW_MODE, ZCODE_DYNAMIC_WORKFLOW_MODE_ENV, } from "@zcode/shared";
 import { readApiJson } from "../providers/api/apiJson.js";
 import { createServiceLogger } from "../logger/serviceLogger.js";
-import { ensureBigModelTeamPlanProjectApiKeyWithStatus, } from "#src/bigmodel/teamPlanApiKey.js";
+import { ensureBigModelTeamPlanProjectApiKeyWithStatus, } from "../bigmodel/teamPlanApiKey.js";
 const BIGMODEL_CODING_PLAN_API_PREFIX = "/api/biz";
 const ZAI_CODING_PLAN_PAY_API_PREFIX = "/api/pay";
 const ZCODE_CLIENT_CONFIG_API_PREFIX = "/api/v1/client/configs";

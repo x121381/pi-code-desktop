@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { AlertCircleIcon } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { DialogTitle } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { DialogTitle } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
 export function RemoteSkillSyncTitle() {
     const { intl } = useZCodeIntl();
     const [warningTooltipOpen, setWarningTooltipOpen] = useState(false);

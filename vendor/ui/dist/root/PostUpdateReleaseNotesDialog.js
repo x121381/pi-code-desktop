@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { MessageResponse } from "@/components/ai-elements/message.js";
-import { Button } from "@/components/ui/button.js";
-import { cn } from "@/components/lib/utils.js";
-import { GlmMonochromeIcon } from "@/components/ui/GlmMonochromeIcon.js";
-import { Dialog, DialogContent, DialogTitle, } from "@/components/ui/dialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useZCodeStoreWithDefault } from "@/store/StoreProvider.js";
-import { DEFAULT_CODE_PREVIEW_SETTINGS } from "@/lib/codePreviewSettings.js";
+import { MessageResponse } from "../components/ai-elements/message.js";
+import { Button } from "../components/ui/button.js";
+import { cn } from "../components/lib/utils.js";
+import { GlmMonochromeIcon } from "../components/ui/GlmMonochromeIcon.js";
+import { Dialog, DialogContent, DialogTitle, } from "../components/ui/dialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useZCodeStoreWithDefault } from "../store/StoreProvider.js";
+import { DEFAULT_CODE_PREVIEW_SETTINGS } from "../lib/codePreviewSettings.js";
 export function PostUpdateReleaseNotesDialog({ payload, onAcknowledge, onOpenExternalUrl, }) {
     const { intl } = useZCodeIntl();
     // M5②.5 store 耦合剥离：MessageResponse 不再自取 store，主题/代码预览设置由调用方传入。

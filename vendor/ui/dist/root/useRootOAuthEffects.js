@@ -1,17 +1,17 @@
 /* eslint-disable max-lines -- OAuth lifecycle effects intentionally share one coordination point. */
 import { useEffect, useRef } from "react";
 import { DesktopCommandIds, resolveProviderFamilyDomainFromOAuthProvider, ZCODE_JWT_INVALID_BROADCAST_CHANNEL, } from "@zcode/shared";
-import { useAlertDialog } from "@/hooks/useAlertDialog.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { reportAppTelemetryEvent, resolveProviderTelemetryLabel } from "@/lib/appTelemetry.js";
-import { logger } from "@/logger.js";
-import { setProviderFamilyDomain } from "@/lib/providerFamilyDomainSettings.js";
-import { refreshLatestModelProviderFamilySelectionAfterLogin, refreshRestoredOAuthProviderFamilyAfterStartup, } from "@/root/oauthProviderFamilySelectionRefresh.js";
-import { applyCachedOAuthSessionRestoreResult } from "@/root/oauthCachedSessionRestore.js";
-import { markZcodeJwtInvalidRestart } from "@/root/zcodeJwtInvalidRestartMarker.js";
-import { shouldApplyOAuthPollingFailure } from "@/root/oauthLoginAttemptGuard.js";
-import { useAccountConnectionLossNotification } from "@/root/useAccountConnectionLossNotification.js";
-export { refreshRestoredOAuthProviderFamilyAfterStartup } from "@/root/oauthProviderFamilySelectionRefresh.js";
+import { useAlertDialog } from "../hooks/useAlertDialog.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { reportAppTelemetryEvent, resolveProviderTelemetryLabel } from "../lib/appTelemetry.js";
+import { logger } from "../logger.js";
+import { setProviderFamilyDomain } from "../lib/providerFamilyDomainSettings.js";
+import { refreshLatestModelProviderFamilySelectionAfterLogin, refreshRestoredOAuthProviderFamilyAfterStartup, } from "../root/oauthProviderFamilySelectionRefresh.js";
+import { applyCachedOAuthSessionRestoreResult } from "../root/oauthCachedSessionRestore.js";
+import { markZcodeJwtInvalidRestart } from "../root/zcodeJwtInvalidRestartMarker.js";
+import { shouldApplyOAuthPollingFailure } from "../root/oauthLoginAttemptGuard.js";
+import { useAccountConnectionLossNotification } from "../root/useAccountConnectionLossNotification.js";
+export { refreshRestoredOAuthProviderFamilyAfterStartup } from "../root/oauthProviderFamilySelectionRefresh.js";
 export async function handleOAuthCallbackSuccess(params) {
     const loginProvider = resolveProviderTelemetryLabel(params.result.provider);
     params.setUser(params.result.userInfo);

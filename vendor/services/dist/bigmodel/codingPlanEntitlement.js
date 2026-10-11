@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { readApiJson } from "#src/providers/api/apiJson.js";
+import { readApiJson } from "../providers/api/apiJson.js";
 const envelopeSchema = z.object({
     code: z.number().optional(),
     success: z.boolean().optional(),

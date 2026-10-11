@@ -2,24 +2,24 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 /* eslint-disable max-lines -- context 面板聚合 Context windows、Coding Plan 和 Start Plan 三段紧耦合展示；后续拆分需要单独梳理弹层状态边界。 */
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, } from "react";
 import { TID_CHAT_CONTEXT_USAGE_TRIGGER, } from "@zcode/shared";
-import { Context, ContextContentBody, ContextContent, ContextTrigger, } from "@/components/ai-elements/context.js";
-import { cn } from "@/components/lib/utils.js";
-import { Progress } from "@/components/ui/progress.js";
-import { useOptionalTabStore } from "@/store/TabStoreProvider.js";
-import { isSettingsTab } from "@/store/tabStore.js";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { resolveCodingPlanUsageRemainingState } from "@/CodingPlanUsageRemainingPanel.js";
-import { CodingPlanQuotaResetStatusContent } from "@/components/coding-plan-quota-reset/CodingPlanQuotaResetStatus.js";
-import { useCodingPlanQuotaResetUi } from "@/hooks/useCodingPlanQuotaResetUi.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { CODING_PLAN_QUOTA_RESET_AUTOMATIC_PROCESSING_MS, CODING_PLAN_QUOTA_RESET_TYPES, advanceCodingPlanQuotaResetCelebration, pruneCodingPlanQuotaResetConfettiArms, resolveCodingPlanQuotaResetAutomaticPhase, } from "@/lib/codingPlanQuotaResetUi.js";
-import { ChatCodingPlanUsageRemainingPanel, hasChatCodingPlanUsageRemaining, } from "@/chat-input-toolbar/CodingPlanContextUsage.js";
-import { resolveChatCodingPlanResetOpportunityBadge } from "@/chat-input-toolbar/codingPlanResetOpportunityBadge.js";
-import { ChatStartPlanBalancePanel, hasChatStartPlanBalance, } from "@/chat-input-toolbar/StartPlanContextBalance.js";
-import { runContextPanelActionWithClose } from "@/chat-input-toolbar/contextPanelAction.js";
-import { coordinateCodingPlanQuotaResetAutoPlay } from "@/chat-input-toolbar/codingPlanQuotaResetAutoPlay.js";
-import { formatCompactTokenNumber } from "@/lib/tokenNumberFormat.js";
-import { CONTEXT_QUOTA_RESET_URGENT_SECONDS, ContextQuotaResetOpportunityReminderContent, contextQuotaResetOpportunityDismissalStore, resolveContextQuotaResetOpportunityReminder, resolveContextQuotaResetOpportunityTriggerTone, resolveContextTriggerTooltipKind, shouldDismissContextQuotaResetOpportunityReminder, } from "@/chat-input-toolbar/contextQuotaResetOpportunityReminder.js";
+import { Context, ContextContentBody, ContextContent, ContextTrigger, } from "../components/ai-elements/context.js";
+import { cn } from "../components/lib/utils.js";
+import { Progress } from "../components/ui/progress.js";
+import { useOptionalTabStore } from "../store/TabStoreProvider.js";
+import { isSettingsTab } from "../store/tabStore.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { resolveCodingPlanUsageRemainingState } from "../CodingPlanUsageRemainingPanel.js";
+import { CodingPlanQuotaResetStatusContent } from "../components/coding-plan-quota-reset/CodingPlanQuotaResetStatus.js";
+import { useCodingPlanQuotaResetUi } from "../hooks/useCodingPlanQuotaResetUi.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { CODING_PLAN_QUOTA_RESET_AUTOMATIC_PROCESSING_MS, CODING_PLAN_QUOTA_RESET_TYPES, advanceCodingPlanQuotaResetCelebration, pruneCodingPlanQuotaResetConfettiArms, resolveCodingPlanQuotaResetAutomaticPhase, } from "../lib/codingPlanQuotaResetUi.js";
+import { ChatCodingPlanUsageRemainingPanel, hasChatCodingPlanUsageRemaining, } from "../chat-input-toolbar/CodingPlanContextUsage.js";
+import { resolveChatCodingPlanResetOpportunityBadge } from "../chat-input-toolbar/codingPlanResetOpportunityBadge.js";
+import { ChatStartPlanBalancePanel, hasChatStartPlanBalance, } from "../chat-input-toolbar/StartPlanContextBalance.js";
+import { runContextPanelActionWithClose } from "../chat-input-toolbar/contextPanelAction.js";
+import { coordinateCodingPlanQuotaResetAutoPlay } from "../chat-input-toolbar/codingPlanQuotaResetAutoPlay.js";
+import { formatCompactTokenNumber } from "../lib/tokenNumberFormat.js";
+import { CONTEXT_QUOTA_RESET_URGENT_SECONDS, ContextQuotaResetOpportunityReminderContent, contextQuotaResetOpportunityDismissalStore, resolveContextQuotaResetOpportunityReminder, resolveContextQuotaResetOpportunityTriggerTone, resolveContextTriggerTooltipKind, shouldDismissContextQuotaResetOpportunityReminder, } from "../chat-input-toolbar/contextQuotaResetOpportunityReminder.js";
 const CONTEXT_PROGRESS_TONE_COLORS = [
     "var(--color-usage-chart-1)",
     "color-mix(in oklab, var(--color-usage-chart-1) 78%, var(--color-surface))",

@@ -1,5 +1,5 @@
 import { jsxs as _jsxs, jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../../components/lib/utils.js";
 import { CAPTION_X, PLATFORM_ROW, RAIL_ROW, STATION_PITCH, STATION_WIDTH, TAIL_STUB, stationX, } from "./timeline-geometry.js";
 import { railKey } from "./timeline-ledge.js";
 import { HoleFillMark, HoleWaitingMeta } from "./WorkflowHoleParts.js";

@@ -1,4 +1,4 @@
-import { isWorkspaceTab } from "@/store/tabStore.js";
+import { isWorkspaceTab } from "../store/tabStore.js";
 export function buildWebRemoteControlWorkspaceTargets({ tabs, reconnectingRemoteWorkspaceKeys = [], remoteWorkspaceErrorByWorkspaceKey = {}, }) {
     const reconnectingWorkspaceKeySet = new Set(reconnectingRemoteWorkspaceKeys);
     return tabs.filter(isWorkspaceTab).map((tab) => {

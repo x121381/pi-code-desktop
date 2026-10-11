@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { PresentationIcon, Trash2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ContextAttachmentPill } from "@/v4/composer/ContextAttachmentPill.js";
+import { Button } from "../../components/ui/button.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ContextAttachmentPill } from "../../v4/composer/ContextAttachmentPill.js";
 function getReferenceText(reference) {
     return reference.selectedText || reference.text || reference.nodeName || reference.nodeType;
 }

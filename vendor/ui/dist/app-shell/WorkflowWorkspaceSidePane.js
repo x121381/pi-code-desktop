@@ -11,17 +11,17 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // 按 tab 缓存）。状态以 journal 为准，活投影只叠 `cached`。
 import { Fragment, memo, useEffect, useMemo, useRef } from "react";
 import { HourglassIcon, Repeat2Icon, TerminalIcon, TriangleAlertIcon } from "lucide-react";
-import { phaseDisplayName } from "@/components/workflow-graph/phase-name.js";
-import { WorkflowRunStatus } from "@/components/workflow-timeline/WorkflowCardChrome.js";
-import { useRunningBackgroundTaskElapsedClock } from "@/hooks/useRunningBackgroundTaskElapsedClock.js";
-import { useWorkflowRunWorkspace } from "@/hooks/useWorkflowRunWorkspace.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { buildWorkflowFillGraphByRunId, buildWorkflowGraphByToolCallId, } from "@/v4/workflowRunCardJoin.js";
-import { WorkflowWorkspaceCard } from "@/app-shell/WorkflowWorkspaceCard.js";
-import { buildWorkspaceChapters, transcriptOrigin, transcriptSummary, } from "@/app-shell/workflowWorkspaceLogbook.js";
-import { buildWorkspaceCards, firstCardIndexOfPhase, formatWorkspaceDuration, } from "@/app-shell/workflowWorkspaceTranscript.js";
-import { useConversationProjection } from "@/v4/useConversationProjection.js";
-import { useV4Conversation, V4PaneConversationProvider } from "@/v4/V4ConversationContext.js";
+import { phaseDisplayName } from "../components/workflow-graph/phase-name.js";
+import { WorkflowRunStatus } from "../components/workflow-timeline/WorkflowCardChrome.js";
+import { useRunningBackgroundTaskElapsedClock } from "../hooks/useRunningBackgroundTaskElapsedClock.js";
+import { useWorkflowRunWorkspace } from "../hooks/useWorkflowRunWorkspace.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { buildWorkflowFillGraphByRunId, buildWorkflowGraphByToolCallId, } from "../v4/workflowRunCardJoin.js";
+import { WorkflowWorkspaceCard } from "../app-shell/WorkflowWorkspaceCard.js";
+import { buildWorkspaceChapters, transcriptOrigin, transcriptSummary, } from "../app-shell/workflowWorkspaceLogbook.js";
+import { buildWorkspaceCards, firstCardIndexOfPhase, formatWorkspaceDuration, } from "../app-shell/workflowWorkspaceTranscript.js";
+import { useConversationProjection } from "../v4/useConversationProjection.js";
+import { useV4Conversation, V4PaneConversationProvider } from "../v4/V4ConversationContext.js";
 /** 条目到场的错位：每个 24 ms，封顶 360 ms——第 16 个之后一起落地，长清单不该等半秒。 */
 const CARD_STAGGER_MS = 24;
 const CARD_STAGGER_CAP_MS = 360;

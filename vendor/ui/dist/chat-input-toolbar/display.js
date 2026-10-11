@@ -2,16 +2,16 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- 工具展示 */
 import { useCallback, useMemo, } from "react";
 import { TID_CHAT_MODE_SELECT_ITEM, TID_CHAT_MODE_SELECT_TRIGGER, TID_CHAT_THOUGHT_LEVEL_SELECT_ITEM, TID_CHAT_THOUGHT_LEVEL_SELECT_TRIGGER, testId, } from "@zcode/shared";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select.js";
-import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "@/lib/pickerFocus.js";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { logger } from "@/logger.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../components/ui/select.js";
+import { isCoarseTouchDevice, shouldRestoreChatInputFocusAfterPickerClose, } from "../lib/pickerFocus.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { logger } from "../logger.js";
 import { ChevronDownIcon, HandIcon, NotepadText, ShieldAlertIcon, ShieldCheckIcon, } from "lucide-react";
 import { ZCODE_MODE_OPTION_DESCRIPTION_IDS, ZCODE_MODE_OPTION_LABEL_IDS, } from "./display-help.js";
-import { RollingToolbarLabel } from "@/chat-input-toolbar/RollingToolbarLabel.js";
-export { ChatContextUsage, getContextCompressionCommand, getRenderableTaskUsage, } from "@/chat-input-toolbar/contextUsage.js";
+import { RollingToolbarLabel } from "../chat-input-toolbar/RollingToolbarLabel.js";
+export { ChatContextUsage, getContextCompressionCommand, getRenderableTaskUsage, } from "../chat-input-toolbar/contextUsage.js";
 /** Radix Select 在受控值与子项注册竞争时可能发出空值等未渲染值；直接上抛会把
  * 系统事件误当成用户选择（如 Automations 编辑页仅打开详情就被标记未保存修改）。
  * 用户只能点到已渲染的 option，值域外的选择回调一律丢弃。 */

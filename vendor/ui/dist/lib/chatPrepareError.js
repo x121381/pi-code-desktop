@@ -1,5 +1,5 @@
 import { normalizeUnknownError, ZCODE_AGENT_PROVIDER_NOT_READY_CODE, } from "@zcode/shared";
-import { normalizeZCodeUiError } from "@/lib/zcodeUiError.js";
+import { normalizeZCodeUiError } from "../lib/zcodeUiError.js";
 export const MODEL_CONFIG_MISSING_UI_ERROR_CODE = "model_config_missing";
 export function buildModelConfigMissingUiError() {
     // provider_not_ready 是进程启动门禁的内部等待原因，直接展示会被当成

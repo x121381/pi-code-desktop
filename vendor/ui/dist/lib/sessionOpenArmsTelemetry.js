@@ -1,4 +1,4 @@
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 export const SESSION_OPEN_ARMS_GROUP = "ui_perf";
 export const SESSION_OPEN_EVENT_START = "perf_ui_session_open_start";
 export const SESSION_OPEN_EVENT_RESULT = "perf_ui_session_open_result";

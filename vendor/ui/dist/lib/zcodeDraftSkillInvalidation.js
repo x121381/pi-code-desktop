@@ -1,5 +1,5 @@
-import { logger } from "@/logger.js";
-import { useZCodeSessionStore } from "@/store/zcodeSessionStore.js";
+import { logger } from "../logger.js";
+import { useZCodeSessionStore } from "../store/zcodeSessionStore.js";
 export async function invalidateDeferredDraftSessionForRuntimeChange(params) {
     if (!params.workspacePath) {
         return;

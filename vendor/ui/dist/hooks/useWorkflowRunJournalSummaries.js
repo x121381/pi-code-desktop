@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
-import { useV4Conversation } from "@/v4/V4ConversationContext.js";
+import { logger } from "../logger.js";
+import { useV4Conversation } from "../v4/V4ConversationContext.js";
 /**
  * dwf run 的发现查询。
  *

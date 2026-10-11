@@ -1,4 +1,4 @@
-import { DIFFS_PREFERRED_HIGHLIGHTER } from "@/lib/diffsHighlighterEngine.js";
+import { DIFFS_PREFERRED_HIGHLIGHTER } from "../lib/diffsHighlighterEngine.js";
 const PATCH_DIFF_UNSAFE_CSS = `
 /* 修复原因：PatchDiff 渲染在 Shadow DOM 内，外层的 Tailwind 选择器无法命中内部 code 节点。
  * 这里必须通过 unsafeCSS 注入到 shadow root，才能真正覆盖库自己的 code padding 和背景色。

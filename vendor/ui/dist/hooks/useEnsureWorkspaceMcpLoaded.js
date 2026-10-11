@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useServices } from "@/hooks/useServices.js";
-import { setMcpStoreDirectoryService, useMcpStore } from "@/store/mcpStore.js";
+import { useServices } from "../hooks/useServices.js";
+import { setMcpStoreDirectoryService, useMcpStore } from "../store/mcpStore.js";
 export function useEnsureWorkspaceMcpLoaded(workspaceAbsPath, workspaceIdentity, rpcReady) {
     const services = useServices();
     useEffect(() => {

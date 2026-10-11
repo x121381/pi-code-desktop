@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { usePluginManagementStore } from "@/store/pluginManagementStore.js";
+import { usePluginManagementStore } from "../store/pluginManagementStore.js";
 /**
  * 集中管理插件卸载的确认流程：UI 各入口（已安装详情、市场面板）都通过它发起卸载，
  * 共用同一份 pending 状态、确认弹窗目标解析与卸载收尾逻辑。

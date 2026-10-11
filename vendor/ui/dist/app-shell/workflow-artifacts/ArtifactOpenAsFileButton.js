@@ -1,14 +1,14 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useRef, useState } from "react";
 import { ChevronDownIcon, CopyIcon, ExternalLinkIcon, FolderOpenIcon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu.js";
-import { toast } from "@/components/ui/toast.js";
-import { useOptionalPlatform } from "@/hooks/usePlatform.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { persistLastSelectedEditorId } from "@/lib/editorPreference.js";
-import { sortInstalledEditorsForOpenWith } from "@/lib/openWithEditors.js";
-import { logger } from "@/logger.js";
+import { Button } from "../../components/ui/button.js";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "../../components/ui/dropdown-menu.js";
+import { toast } from "../../components/ui/toast.js";
+import { useOptionalPlatform } from "../../hooks/usePlatform.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { persistLastSelectedEditorId } from "../../lib/editorPreference.js";
+import { sortInstalledEditorsForOpenWith } from "../../lib/openWithEditors.js";
+import { logger } from "../../logger.js";
 function canOpenAsFile(platform) {
     return (platform !== null &&
         platform.materializeWorkflowArtifactFile !== undefined &&

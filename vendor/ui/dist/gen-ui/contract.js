@@ -1,4 +1,4 @@
-export { collectGenUiSourcePaths, matchesGenUiSourcePath } from "@/gen-ui/domain/sourceFiles.js";
+export { collectGenUiSourcePaths, matchesGenUiSourcePath } from "../gen-ui/domain/sourceFiles.js";
 export const EMPTY_GEN_UI_SNAPSHOT = {
     phase: "loading",
     height: 240,

@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect } from "react";
-import {} from "@/ModelTrajectorySearch.js";
-import { applyTrajectorySearchHighlights, clearTrajectorySearchHighlights, isTrajectorySearchTargetMounted, scrollTrajectorySearchRangeIntoView, } from "@/ModelTrajectorySearchHighlight.js";
-import { CallCard } from "@/ModelTrajectoryPaneParts.js";
+import {} from "./ModelTrajectorySearch.js";
+import { applyTrajectorySearchHighlights, clearTrajectorySearchHighlights, isTrajectorySearchTargetMounted, scrollTrajectorySearchRangeIntoView, } from "./ModelTrajectorySearchHighlight.js";
+import { CallCard } from "./ModelTrajectoryPaneParts.js";
 export function ModelTrajectoryTimeline({ items, searchQuery, searchMatches, activeSearchMatch, intl, scrollContainerRef, }) {
     const virtualizer = useVirtualizer({
         count: items.length,

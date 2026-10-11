@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useMemo } from "react";
 import { CheckIcon, MinusIcon } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { renderProviderCliIcon } from "@/lib/providerCliIcon.js";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { renderProviderCliIcon } from "../lib/providerCliIcon.js";
 function getSelectionKey(agent, category) {
     return `${agent}:${category}`;
 }

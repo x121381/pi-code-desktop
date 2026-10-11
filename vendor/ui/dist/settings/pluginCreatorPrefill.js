@@ -1,4 +1,4 @@
-import { buildSkillMentionMarkdown } from "@/mentions/mentionMarkdown.js";
+import { buildSkillMentionMarkdown } from "../mentions/mentionMarkdown.js";
 export const PLUGIN_CREATOR_SKILL = "plugin-creator";
 export const PLUGIN_CREATOR_ID = "plugin-creator@zcode-plugins-official";
 export function buildPluginCreatorPrefill(skills) {

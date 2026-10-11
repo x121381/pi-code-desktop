@@ -1,4 +1,4 @@
-import { describeCron, describeCronBuilder, } from "@/settings/automationFormat.js";
+import { describeCron, describeCronBuilder, } from "../settings/automationFormat.js";
 function scheduleRuleToBuilder(rule) {
     return {
         frequency: "custom",

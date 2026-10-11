@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { logger } from "@/logger.js";
+import { logger } from "../logger.js";
 /**
  * 引导触发判定：当前用户在本地记录里没有条目时
  * needsOnboarding=true。settings 回填（换号恢复偏好）只在 userId 运行时变化后发生；

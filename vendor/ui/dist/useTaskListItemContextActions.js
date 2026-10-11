@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-import { usePlatform } from "@/hooks/usePlatform.js";
-import { useTaskNativeSessionLogFile } from "@/hooks/useTaskNativeSessionLogFile.js";
-import { useTaskSessionFilePath } from "@/hooks/useTaskSessionFilePath.js";
-import { useWorkspaceProviderConfigFile } from "@/hooks/useWorkspaceProviderConfigFile.js";
-import { useWorkspaceOpenInEditorTarget } from "@/hooks/useWorkspaceOpenInEditorTarget.js";
-import { readLastSelectedEditorId } from "@/lib/editorPreference.js";
-import { sortInstalledEditorsForOpenWith } from "@/lib/openWithEditors.js";
-import { logger } from "@/logger.js";
+import { usePlatform } from "./hooks/usePlatform.js";
+import { useTaskNativeSessionLogFile } from "./hooks/useTaskNativeSessionLogFile.js";
+import { useTaskSessionFilePath } from "./hooks/useTaskSessionFilePath.js";
+import { useWorkspaceProviderConfigFile } from "./hooks/useWorkspaceProviderConfigFile.js";
+import { useWorkspaceOpenInEditorTarget } from "./hooks/useWorkspaceOpenInEditorTarget.js";
+import { readLastSelectedEditorId } from "./lib/editorPreference.js";
+import { sortInstalledEditorsForOpenWith } from "./lib/openWithEditors.js";
+import { logger } from "./logger.js";
 export function resolveProviderConfigOpenTargetPath(path, exists) {
     if (exists) {
         return path;

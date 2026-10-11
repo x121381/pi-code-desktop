@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Loader2Icon, CircleAlertIcon, CheckCircle2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button.js";
-import { Switch } from "@/components/ui/switch.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { ModelConfigHelp } from "@/settings/model-provider-section/ModelConfigHelp.js";
+import { Button } from "../../components/ui/button.js";
+import { Switch } from "../../components/ui/switch.js";
+import { useZCodeIntl } from "../../i18n/IntlProvider.js";
+import { ModelConfigHelp } from "../../settings/model-provider-section/ModelConfigHelp.js";
 export function ModelConfigRestoreButton({ disabled, onRestore, }) {
     const { intl } = useZCodeIntl();
     return (_jsx(Button, { type: "button", variant: "ghost", size: "sm", className: "shrink-0 px-0 text-ui-sm text-foreground-subtle underline underline-offset-4 hover:bg-transparent", disabled: disabled, onClick: onRestore, children: intl.formatMessage({ id: "settings.modelProvider.resetForm" }) }));

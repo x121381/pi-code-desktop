@@ -1,7 +1,7 @@
 /* eslint-disable max-lines -- quota、entitlement 与 monitor 请求共用同一套 provider 鉴权逻辑，拆文件会让 Coding Plan strict key 边界更难追踪。 */
 import { z } from "zod";
 import { ApiError, BUILTIN_MODEL_PROVIDER_IDS, isCodingPlanModelProviderId, isStartPlanModelProviderId, isZaiCodingPlanProviderId, buildBigModelApiUrl, buildRuntimeZaiBusinessUrl, buildRuntimeZCodeApiUrl, } from "@zcode/shared";
-import { createServiceLogger } from "#src/logger/serviceLogger.js";
+import { createServiceLogger } from "../../logger/serviceLogger.js";
 import { readApiJson } from "../../providers/api/apiJson.js";
 import { readEnv } from "../../oauth/providers/configUtils.js";
 import { buildZaiStartPlanBalanceUrl, fetchZaiStartPlanBalanceEnvelope, } from "../../model-provider/zaiStartPlanBilling.js";

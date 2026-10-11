@@ -2,14 +2,14 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /* eslint-disable max-lines -- 远端 plugin 同步弹窗集中维护加载、选择、风险提示、逐项进度和结果状态，保持与 Skill/MCP 同步弹窗一致。 */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertCircleIcon, CheckCircle2, CircleStop, CircleX, Loader2, Cable, UploadCloud, } from "lucide-react";
-import { ControlHintTooltip } from "@/ControlHintTooltip.js";
-import { cn } from "@/components/lib/utils.js";
-import { Button } from "@/components/ui/button.js";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "@/components/ui/dialog.js";
-import { HoverCard, HoverCardContent, HoverCardTrigger, } from "@/components/ui/hover-card.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { formatRemoteSkillSyncTarget } from "@/settings/RemoteSkillSyncDialog.js";
-import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "@/settings/RemoteSyncActions.js";
+import { ControlHintTooltip } from "../ControlHintTooltip.js";
+import { cn } from "../components/lib/utils.js";
+import { Button } from "../components/ui/button.js";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, } from "../components/ui/dialog.js";
+import { HoverCard, HoverCardContent, HoverCardTrigger, } from "../components/ui/hover-card.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { formatRemoteSkillSyncTarget } from "../settings/RemoteSkillSyncDialog.js";
+import { isRemoteSyncPreflightTimeoutError, runRemoteSyncPreflightWithTimeout, shouldStartRemoteSyncOperation, } from "../settings/RemoteSyncActions.js";
 const REMOTE_PLUGIN_SYNC_CONFIG_SCOPE = "user";
 export function shouldFinishRemotePluginSyncRun(currentRun, run) {
     return currentRun === run;

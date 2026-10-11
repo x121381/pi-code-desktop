@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { buildWhiteboardWorkspaceKey } from "@/lib/whiteboard.js";
-import { filterMentionItemsWithOptions } from "@/mentions/mentionSearch.js";
-import { useWhiteboardStore } from "@/store/whiteboardStore.js";
+import { buildWhiteboardWorkspaceKey } from "../../lib/whiteboard.js";
+import { filterMentionItemsWithOptions } from "../../mentions/mentionSearch.js";
+import { useWhiteboardStore } from "../../store/whiteboardStore.js";
 function mapWhiteboardsToMentionItems(boards) {
     return boards.map((board) => ({
         id: `whiteboard:${board.id}`,

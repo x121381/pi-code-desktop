@@ -3,15 +3,15 @@
 // 旧店面在 v4 shell 下不再被会话列表填充，继续读会得到空面板；序列化与排序语义不变
 // （collectSessionMentionItems 保留，供单测与聚合复用）。
 import { useMemo } from "react";
-import { buildSessionMentionMarkdown } from "@/mentions/mentionMarkdown.js";
-import { filterMentionItemsWithOptions } from "@/mentions/mentionSearch.js";
-import { buildTaskWorkspaceKey } from "@/lib/taskQueryCache.js";
-import { useBaseWorkspaceServices, useWorkspaceServicesResolution, } from "@/hooks/useWorkspaceServices.js";
-import { resolveWorkspaceServices, } from "@/lib/workspaceServiceResolver.js";
-import { useRemoteWorkspaceSessionStore } from "@/store/remoteWorkspaceSessionStore.js";
-import { useTabStore } from "@/store/TabStoreProvider.js";
-import { isWorkspaceTab } from "@/store/tabStore.js";
-import { useWorkspaceSessionsIndexItems, } from "@/v4/useWorkspaceSessionsIndexItems.js";
+import { buildSessionMentionMarkdown } from "../../mentions/mentionMarkdown.js";
+import { filterMentionItemsWithOptions } from "../../mentions/mentionSearch.js";
+import { buildTaskWorkspaceKey } from "../../lib/taskQueryCache.js";
+import { useBaseWorkspaceServices, useWorkspaceServicesResolution, } from "../../hooks/useWorkspaceServices.js";
+import { resolveWorkspaceServices, } from "../../lib/workspaceServiceResolver.js";
+import { useRemoteWorkspaceSessionStore } from "../../store/remoteWorkspaceSessionStore.js";
+import { useTabStore } from "../../store/TabStoreProvider.js";
+import { isWorkspaceTab } from "../../store/tabStore.js";
+import { useWorkspaceSessionsIndexItems, } from "../../v4/useWorkspaceSessionsIndexItems.js";
 const HASH_SESSION_MENTION_LIMIT_PER_WORKSPACE = 20;
 function compareSessionTasks(left, right, currentWorkspaceKey) {
     if (currentWorkspaceKey) {

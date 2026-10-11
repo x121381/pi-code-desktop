@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { PluginIcon } from "@/components/PluginIcon.js";
+import { PluginIcon } from "../components/PluginIcon.js";
 /**
  * 商店条目头像：listing.icon（仅 https）优先，加载失败或缺失时降级为
  * `bg-surface` 圆角方形容器中的中性 Blocks 图标，避免无图插件产生过多装饰色，

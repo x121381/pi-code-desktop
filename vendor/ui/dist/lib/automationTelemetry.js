@@ -1,7 +1,7 @@
 import { decodeCustomModelValue, isAutomationCreateLimitError, sanitizeTelemetryErrorMessage, } from "@zcode/shared";
 import { isApiKeyAccess } from "@zcode/provider";
-import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
-import { legacyTelemetryProviderId } from "@/lib/providerTelemetryIdentity.js";
+import { reportAppTelemetryEvent } from "../lib/appTelemetry.js";
+import { legacyTelemetryProviderId } from "../lib/providerTelemetryIdentity.js";
 const EVENT_REGION = "app.automations";
 export function resolveAutomationModelTelemetry(modelValue, explicitProvider, providerSettingsView) {
     const model = modelValue?.trim() ?? "";

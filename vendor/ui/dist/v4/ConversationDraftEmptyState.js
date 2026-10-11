@@ -6,11 +6,11 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
  * 手机远控复用同一组件，但继续保留 20px 紧凑标题；桌面草稿首页才按标题自身宽度适配。
  */
 import { useEffect, useLayoutEffect, useRef, useState, } from "react";
-import darkEmptyStateLogoUrl from "@/assets/Z.svg";
-import { cn } from "@/components/lib/utils.js";
-import { useZCodeIntl } from "@/i18n/IntlProvider.js";
-import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
-import { logger } from "@/logger.js";
+import darkEmptyStateLogoUrl from "../assets/Z.svg";
+import { cn } from "../components/lib/utils.js";
+import { useZCodeIntl } from "../i18n/IntlProvider.js";
+import { useIsOfficeMode } from "../hooks/useInterfaceMode.js";
+import { logger } from "../logger.js";
 const GREETING_BOUNDARY_HOURS = [5, 9, 12, 14, 18, 23];
 const GREETING_MIN_FONT_SIZE_PX = 20;
 const GREETING_MAX_FONT_SIZE_PX = 30;

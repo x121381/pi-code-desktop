@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { ChevronDown, CirclePlay, CircleStop, Clock, Ellipsis, ExternalLink, Info, Moon, Pencil, Play, Plus, RefreshCw, Square, Trash2, } from "lucide-react";
-import { cn } from "@/components/lib/utils.js";
+import { cn } from "../components/lib/utils.js";
 /**
  * Automations 统一使用 Lucide 原生 24×24 viewBox 与 2px 描边。
  * 旧设计稿 glyph 先裁切到 14.6667px 再放大，会连同描边一起放粗。
