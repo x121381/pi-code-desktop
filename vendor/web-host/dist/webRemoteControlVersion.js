@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWebRemoteControlVersionGuard = createWebRemoteControlVersionGuard;
 /** 只管理当前手机连接的版本校验；资源路由由服务端处理。 */
-function createWebRemoteControlVersionGuard(options) {
+export function createWebRemoteControlVersionGuard(options) {
     let generation = 0;
     let disposed = false;
     let pendingUrl;

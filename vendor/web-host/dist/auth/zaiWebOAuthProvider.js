@@ -1,8 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ZaiWebOAuthProvider = void 0;
-exports.toUserInfo = toUserInfo;
-const shared_1 = require("@zcode/shared");
+import { BIGMODEL_PROVIDER_ID, ZAI_PROVIDER_ID } from "@zcode/shared";
 function isRecord(value) {
     return typeof value === "object" && value !== null;
 }
@@ -22,7 +18,7 @@ function normalizeBackendAvatarUrl(value) {
     }
     return trimmed;
 }
-function toUserInfo(user) {
+export function toUserInfo(user) {
     if (!isRecord(user)) {
         return null;
     }
@@ -67,7 +63,7 @@ function normalizeTokenResponse(payload, now, provider) {
         throw new Error("Token exchange response missing data.token");
     }
     // 服务端按 provider 把 access_token 放在不同子对象里（GrantJWT 的 resp.Zai / resp.Bigmodel）。
-    const accessToken = (provider === shared_1.BIGMODEL_PROVIDER_ID
+    const accessToken = (provider === BIGMODEL_PROVIDER_ID
         ? payload.data?.bigmodel?.access_token
         : payload.data?.zai?.access_token)?.trim();
     if (!accessToken) {
@@ -95,7 +91,7 @@ function normalizeTokenResponse(payload, now, provider) {
         rawUserInfo,
     };
 }
-class ZaiWebOAuthProvider {
+export class ZaiWebOAuthProvider {
     config;
     now;
     constructor(config, now = Date.now) {
@@ -105,7 +101,7 @@ class ZaiWebOAuthProvider {
     buildAuthorizeUrl(params) {
         const redirectUri = params.redirectUri ?? this.config.redirectUri;
         // 两家的授权参数名完全不同，没有共通形状可抽；直接分支比造一层映射配置更好读。
-        if (params.provider === shared_1.BIGMODEL_PROVIDER_ID) {
+        if (params.provider === BIGMODEL_PROVIDER_ID) {
             const query = new URLSearchParams({
                 redirect: redirectUri,
                 appId: this.config.bigmodelAppId,
@@ -137,7 +133,7 @@ class ZaiWebOAuthProvider {
         };
     }
     async exchangeToken(params) {
-        const provider = params.provider ?? shared_1.ZAI_PROVIDER_ID;
+        const provider = params.provider ?? ZAI_PROVIDER_ID;
         const response = await fetch(this.config.tokenUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -155,5 +151,4 @@ class ZaiWebOAuthProvider {
         return normalizeTokenResponse((await response.json()), this.now, provider);
     }
 }
-exports.ZaiWebOAuthProvider = ZaiWebOAuthProvider;
 //# sourceMappingURL=zaiWebOAuthProvider.js.map

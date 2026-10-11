@@ -1,37 +1,33 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWebPlatform = createWebPlatform;
-exports.createHomeOnlyWebRemoteControlServices = createHomeOnlyWebRemoteControlServices;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const shared_1 = require("@zcode/shared");
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { sessionCreateTelemetrySchema } from "@zcode/shared";
 /* eslint-disable max-lines -- Web 远程控制启动、错误页和 web 平台桥接暂时集中在入口编排。 */
-const client_1 = require("react-dom/client");
-const ui_1 = require("@zcode/ui");
-require("@zcode/ui/styles.css");
-const client_2 = require("@zcode/client");
-const shared_2 = require("@zcode/shared");
-const WebCallbackPage_js_1 = require("./auth/WebCallbackPage.js");
-const WebLoggedInWaitingPage_js_1 = require("./auth/WebLoggedInWaitingPage.js");
-const WebLoginPage_js_1 = require("./auth/WebLoginPage.js");
-const webAuthService_js_1 = require("./auth/webAuthService.js");
-const webZaiOAuthConfig_js_1 = require("./auth/webZaiOAuthConfig.js");
-const oauthStateCodec_js_1 = require("./auth/oauthStateCodec.js");
-const communityUrl_js_1 = require("./communityUrl.js");
-const ConversationShareLandingPage_js_1 = require("./share/ConversationShareLandingPage.js");
-const conversationSharePreviewClient_js_1 = require("./share/conversationSharePreviewClient.js");
-const conversationShareRoute_js_1 = require("./share/conversationShareRoute.js");
-const shared_3 = require("@zcode/shared");
-const webRemoteControlRelayAuthProvider_js_1 = require("./webRemoteControlRelayAuthProvider.js");
-const webRemoteControlTransport_js_1 = require("./webRemoteControlTransport.js");
-const webRemoteControlLifecycle_js_1 = require("./webRemoteControlLifecycle.js");
-const webRemoteControlThemeSeed_js_1 = require("./webRemoteControlThemeSeed.js");
-const webRemoteControlFailureScreen_js_1 = require("./webRemoteControlFailureScreen.js");
-const webRemoteControlDeviceInfo_js_1 = require("./webRemoteControlDeviceInfo.js");
-const webRemoteControlVersion_js_1 = require("./webRemoteControlVersion.js");
-const webRemoteControlVersionNotice_js_1 = require("./webRemoteControlVersionNotice.js");
-const webRemoteControlRoute_js_1 = require("./webRemoteControlRoute.js");
-const webRemoteControlWorkspaceBridgeSession_js_1 = require("./webRemoteControlWorkspaceBridgeSession.js");
-const webRemoteControlTaskRead_js_1 = require("./webRemoteControlTaskRead.js");
+import { createRoot } from "react-dom/client";
+import { AppErrorBoundary, Root, ZCodeIntlProvider, generateMobileDeviceFingerprint, installDocumentHiddenMotionPause, playTaskNotificationSound, setStreamClientId, setWebRemoteControlTerminalTransportState, } from "@zcode/ui";
+// ZCode styles load globally via app/layout.tsx (turbopack css module graph).
+import { connectViaProtocol, connectViaWebSocket, createAcknowledgedWebRemoteControlRelayProtocol, } from "@zcode/client";
+import { WEB_REMOTE_CONTROL_WORKSPACE_RECONNECT_TIMEOUT_MS, resolveWebRemoteControlRelayWsUrl, } from "@zcode/shared";
+import { WebCallbackPage } from "./auth/WebCallbackPage.js";
+import { WebLoggedInWaitingPage } from "./auth/WebLoggedInWaitingPage.js";
+import { WebLoginPage } from "./auth/WebLoginPage.js";
+import { createWebAuthService } from "./auth/webAuthService.js";
+import { WEB_ZAI_OAUTH_CONFIG, resolveWebAuthDevReturnTo } from "./auth/webZaiOAuthConfig.js";
+import { parseOAuthState, resolveSafeAppReturnTo } from "./auth/oauthStateCodec.js";
+import { resolveWebCommunityUrl, resolveWebHelpConfig } from "./communityUrl.js";
+import { ConversationShareLandingLoader, ConversationShareLandingStatus, } from "./share/ConversationShareLandingPage.js";
+import { ConversationSharePreviewClient, resolveConversationShareRouteLocale, } from "./share/conversationSharePreviewClient.js";
+import { isConversationSharePath, resolveConversationShareCodeFromPath, } from "./share/conversationShareRoute.js";
+import { matchesWebRemoteControlRoutePath, parseWebRemoteControlExternalQrParams, resolveWebRemoteControlFailureReasonFromCloseCode, resolveWebRemoteControlInitialWorkspaceSelection, resolveWebRemoteControlWorkspaceKey, } from "@zcode/shared";
+import { createBrowserWebRemoteControlRelayAuthProvider } from "./webRemoteControlRelayAuthProvider.js";
+import { WebRemoteControlTerminalTransport, createWebRemoteControlAppPayloadRequester, createWebRemoteControlRelayRequestRecovery, } from "./webRemoteControlTransport.js";
+import { createWebRemoteControlLifecycleRecovery } from "./webRemoteControlLifecycle.js";
+import { WEB_REMOTE_CONTROL_DEFAULT_THEME, resolveWebRemoteControlInitialTheme, seedWebRemoteControlThemePreference, } from "./webRemoteControlThemeSeed.js";
+import { WebRemoteControlFailureScreen, resolveWebRemoteControlScreenLocale, } from "./webRemoteControlFailureScreen.js";
+import { collectWebRemoteControlMobileDeviceInfo } from "./webRemoteControlDeviceInfo.js";
+import { createWebRemoteControlVersionGuard } from "./webRemoteControlVersion.js";
+import { showWebRemoteControlVersionNotice } from "./webRemoteControlVersionNotice.js";
+import { resolveWebRemoteControlRoutePath } from "./webRemoteControlRoute.js";
+import { registerWebRemoteControlWorkspaceBridgeServices, } from "./webRemoteControlWorkspaceBridgeSession.js";
+import { markWebRemoteControlBridgeTaskRead, markWebRemoteControlTaskRead, } from "./webRemoteControlTaskRead.js";
 const viteEnv = import.meta.env ?? {};
 function logWebRemoteControlTaskReadFailure(error, context) {
     console.warn("[web-remote-control] 标记手机端 task 已读失败", {
@@ -41,7 +37,7 @@ function logWebRemoteControlTaskReadFailure(error, context) {
     });
 }
 async function markCurrentWebRemoteControlBridgeTaskRead({ bridge, services, task, }) {
-    const taskWorkspaceKey = (0, shared_3.resolveWebRemoteControlWorkspaceKey)(task);
+    const taskWorkspaceKey = resolveWebRemoteControlWorkspaceKey(task);
     if (taskWorkspaceKey !== bridge.workspaceKey) {
         // 修复原因：同路径 remote workspace 可能属于不同 identity，禁止误用当前 bridge 写另一条连接。
         console.warn("[web-remote-control] 跳过跨 workspace 的 task 已读写入", {
@@ -54,7 +50,7 @@ async function markCurrentWebRemoteControlBridgeTaskRead({ bridge, services, tas
     if (typeof task.unreadAt !== "number") {
         return;
     }
-    const result = await (0, webRemoteControlTaskRead_js_1.markWebRemoteControlTaskRead)({
+    const result = await markWebRemoteControlTaskRead({
         service: services.zcodeTaskService,
         target: {
             taskId: task.taskId,
@@ -71,7 +67,7 @@ async function markCurrentWebRemoteControlBridgeTaskRead({ bridge, services, tas
     }
 }
 async function markOpenedWebRemoteControlBridgeTaskRead({ bridge, expectedUnreadAt, services, }) {
-    const result = await (0, webRemoteControlTaskRead_js_1.markWebRemoteControlBridgeTaskRead)({
+    const result = await markWebRemoteControlBridgeTaskRead({
         bridge,
         expectedUnreadAt,
         service: services.zcodeTaskService,
@@ -83,15 +79,15 @@ async function markOpenedWebRemoteControlBridgeTaskRead({ bridge, expectedUnread
         });
     }
 }
-function resolveWebThemePreference(defaultTheme = webRemoteControlThemeSeed_js_1.WEB_REMOTE_CONTROL_DEFAULT_THEME) {
+function resolveWebThemePreference(defaultTheme = WEB_REMOTE_CONTROL_DEFAULT_THEME) {
     const saved = localStorage.getItem("zcode-theme");
-    return (0, webRemoteControlThemeSeed_js_1.resolveWebRemoteControlInitialTheme)({ storedTheme: saved, defaultTheme });
+    return resolveWebRemoteControlInitialTheme({ storedTheme: saved, defaultTheme });
 }
 // 初始化主题：默认 Zai dark，后续由 useTheme hook 接管
 // system 模式下需要查询系统偏好；非 system 模式直接用存储值
 {
     // 分享页没有本地主题配置时使用浅色，已有配置仍然沿用；其他 Web 页面继续默认深色。
-    const saved = resolveWebThemePreference((0, conversationShareRoute_js_1.isConversationSharePath)(window.location.pathname) ? "zai-light" : undefined);
+    const saved = resolveWebThemePreference(isConversationSharePath(window.location.pathname) ? "zai-light" : undefined);
     const resolved = saved === "system"
         ? window.matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
@@ -113,23 +109,23 @@ function resolveWebThemePreference(defaultTheme = webRemoteControlThemeSeed_js_1
     document.documentElement.classList.toggle("theme-zai-dark", appliedTheme === "zai-dark");
 }
 async function resolveFeedbackUrl() {
-    return (await (0, communityUrl_js_1.resolveWebHelpConfig)()).feedback_url;
+    return (await resolveWebHelpConfig()).feedback_url;
 }
 // 浏览器标签页 / 手机切后台时禁用 CSS 动画，避免 DocumentTimeline 持有已卸载的 DOM 子树。
-(0, ui_1.installDocumentHiddenMotionPause)();
-const root = (0, client_1.createRoot)(document.getElementById("root"));
-const webAuthService = (0, webAuthService_js_1.createWebAuthService)();
+installDocumentHiddenMotionPause();
+const root = createRoot(document.getElementById("root"));
+const webAuthService = createWebAuthService();
 let isPageUnloading = false;
 let isSwitchingWebRemoteControlWorkspace = false;
 // 初始化 Web 端流式 clientId，确保所有 hook 在首次渲染前就使用稳定 ID
 {
-    (0, ui_1.setStreamClientId)((0, ui_1.generateMobileDeviceFingerprint)());
+    setStreamClientId(generateMobileDeviceFingerprint());
 }
 window.addEventListener("beforeunload", () => {
     isPageUnloading = true;
 });
 function renderWebRemoteControlFailure(failure) {
-    root.render((0, jsx_runtime_1.jsx)(webRemoteControlFailureScreen_js_1.WebRemoteControlFailureScreen, { failure: failure, locale: (0, webRemoteControlFailureScreen_js_1.resolveWebRemoteControlScreenLocale)(navigator.language), onReload: () => {
+    root.render(_jsx(WebRemoteControlFailureScreen, { failure: failure, locale: resolveWebRemoteControlScreenLocale(navigator.language), onReload: () => {
             window.location.reload();
         } }));
 }
@@ -155,9 +151,9 @@ function resolveWebRemoteAppReturnTo(params) {
 }
 function renderWebAuthCallbackPage() {
     document.title = "ZCode - Web Remote Control Sign In";
-    const callbackState = (0, oauthStateCodec_js_1.parseOAuthState)(new URLSearchParams(window.location.search).get("state") ?? "");
-    const safeRetryTarget = (0, oauthStateCodec_js_1.resolveSafeAppReturnTo)(callbackState?.app_return_to);
-    root.render((0, jsx_runtime_1.jsx)(WebCallbackPage_js_1.WebCallbackPage, { authService: webAuthService, onSuccess: ({ appReturnTo }) => {
+    const callbackState = parseOAuthState(new URLSearchParams(window.location.search).get("state") ?? "");
+    const safeRetryTarget = resolveSafeAppReturnTo(callbackState?.app_return_to);
+    root.render(_jsx(WebCallbackPage, { authService: webAuthService, onSuccess: ({ appReturnTo }) => {
             window.location.replace(appReturnTo ?? "/web-remote");
         }, onRetry: () => {
             window.location.replace(safeRetryTarget ?? "/web-remote");
@@ -165,15 +161,15 @@ function renderWebAuthCallbackPage() {
 }
 async function renderConversationSharePage() {
     // 页面语言跟随路径前缀：/cn/share 中文，裸 /share 英文。
-    const routeLocale = (0, conversationSharePreviewClient_js_1.resolveConversationShareRouteLocale)(window.location.pathname);
+    const routeLocale = resolveConversationShareRouteLocale(window.location.pathname);
     // index.html 固定 lang="en"；不同步会让中文分享页对无障碍与浏览器翻译都报错语言。
     document.documentElement.lang = routeLocale;
     // 分享页必须设置 title：否则浏览器标签只显示 index.html 的通用标题。
     // 会话标题要等 preview 加载完，先给一个语言正确的兜底。
     document.title = routeLocale === "zh-CN" ? "ZCode 会话分享" : "ZCode Conversation Share";
-    const shareCode = (0, conversationShareRoute_js_1.resolveConversationShareCodeFromPath)(window.location.pathname);
+    const shareCode = resolveConversationShareCodeFromPath(window.location.pathname);
     if (!shareCode) {
-        root.render((0, jsx_runtime_1.jsx)(ConversationShareLandingPage_js_1.ConversationShareLandingStatus, { state: { kind: "error", error: "invalid_contract" }, locale: routeLocale }));
+        root.render(_jsx(ConversationShareLandingStatus, { state: { kind: "error", error: "invalid_contract" }, locale: routeLocale }));
         return;
     }
     const endpointOrigin = viteEnv.VITE_ZCODE_BASE_URL?.trim().replace(/\/+$/u, "") || window.location.origin;
@@ -188,7 +184,7 @@ async function renderConversationSharePage() {
     });
     const client = mockMode
         ? new (await import("./share/mockConversationSharePreviewClient.js")).MockConversationSharePreviewClient()
-        : new conversationSharePreviewClient_js_1.ConversationSharePreviewClient({ baseUrl: `${endpointOrigin}/api/v1` });
+        : new ConversationSharePreviewClient({ baseUrl: `${endpointOrigin}/api/v1` });
     const getMockToken = () => mockMode && window.sessionStorage.getItem("zcode:share:mock-auth") === "owner"
         ? "mock-owner-token"
         : null;
@@ -200,7 +196,7 @@ async function renderConversationSharePage() {
         }
         void webAuthService.logout();
     };
-    root.render((0, jsx_runtime_1.jsx)(ConversationShareLandingPage_js_1.ConversationShareLandingLoader, { shareCode: shareCode, client: client, getAccessToken: () => getMockToken() ?? webAuthService.getZCodeJwtToken(), onLogin: (provider) => {
+    root.render(_jsx(ConversationShareLandingLoader, { shareCode: shareCode, client: client, getAccessToken: () => getMockToken() ?? webAuthService.getZCodeJwtToken(), onLogin: (provider) => {
             if (mockMode) {
                 window.sessionStorage.setItem("zcode:share:mock-auth", "owner");
                 window.location.reload();
@@ -209,24 +205,24 @@ async function renderConversationSharePage() {
             webAuthService.startLogin({
                 provider,
                 appReturnTo: window.location.href,
-                redirectUri: webZaiOAuthConfig_js_1.WEB_ZAI_OAUTH_CONFIG.shareRedirectUri,
-                devReturnTo: (0, webZaiOAuthConfig_js_1.resolveWebAuthDevReturnTo)(webZaiOAuthConfig_js_1.WEB_ZAI_OAUTH_CONFIG, "share"),
+                redirectUri: WEB_ZAI_OAUTH_CONFIG.shareRedirectUri,
+                devReturnTo: resolveWebAuthDevReturnTo(WEB_ZAI_OAUTH_CONFIG, "share"),
             });
         }, onLogout: onLogout, locale: routeLocale, theme: resolveWebThemePreference("zai-light") }));
 }
 function renderWebLoginPage() {
     document.title = "ZCode - Web Remote Control Sign In";
-    root.render((0, jsx_runtime_1.jsx)(WebLoginPage_js_1.WebLoginPage, { onLogin: () => {
+    root.render(_jsx(WebLoginPage, { onLogin: () => {
             const params = new URLSearchParams(window.location.search);
             webAuthService.startLogin({
-                devReturnTo: (0, webZaiOAuthConfig_js_1.resolveWebAuthDevReturnTo)(webZaiOAuthConfig_js_1.WEB_ZAI_OAUTH_CONFIG),
+                devReturnTo: resolveWebAuthDevReturnTo(WEB_ZAI_OAUTH_CONFIG),
                 appReturnTo: resolveWebRemoteAppReturnTo(params),
             });
         } }));
 }
 function renderWebLoggedInWaitingPage(user) {
     document.title = "ZCode - Web Remote Control";
-    root.render((0, jsx_runtime_1.jsx)(WebLoggedInWaitingPage_js_1.WebLoggedInWaitingPage, { user: user, onLogout: async () => {
+    root.render(_jsx(WebLoggedInWaitingPage, { user: user, onLogout: async () => {
             await webAuthService.logout();
             window.location.replace("/web-remote");
         } }));
@@ -245,7 +241,7 @@ function parseWebRemoteControlBootstrapError(payload) {
     return toWebRemoteControlFailure(record.reason, typeof record.error === "string" ? record.error : undefined);
 }
 function mapWebRemoteControlSocketCloseToFailure(event) {
-    const resolvedReason = (0, shared_3.resolveWebRemoteControlFailureReasonFromCloseCode)(event.code) ??
+    const resolvedReason = resolveWebRemoteControlFailureReasonFromCloseCode(event.code) ??
         event.reason;
     switch (resolvedReason) {
         case "session-not-found":
@@ -321,7 +317,7 @@ async function requestWebRemoteControlWorkspaceBridge(proxy, workspaceKey, optio
     return payload;
 }
 async function updateWebRemoteControlMobileViewState(proxy, workspaceKey, taskId) {
-    const deviceInfo = (0, webRemoteControlDeviceInfo_js_1.collectWebRemoteControlMobileDeviceInfo)();
+    const deviceInfo = collectWebRemoteControlMobileDeviceInfo();
     const response = await fetch(`${proxy.relayOrigin.replace(/\/$/, "")}/api/remote-control/windows/${proxy.token}/mobile-view-state`, {
         method: "POST",
         headers: {
@@ -345,7 +341,7 @@ async function updateWebRemoteControlMobileViewState(proxy, workspaceKey, taskId
         throw new Error(errorMessage || "Failed to update Web remote control mobile view state");
     }
 }
-function createWebPlatform(options) {
+export function createWebPlatform(options) {
     const webRemoteControlProxy = options?.webRemoteControlProxy;
     const platformProxy = options?.externalWebRemoteControlProxy;
     return {
@@ -449,14 +445,14 @@ function createWebPlatform(options) {
         },
         openCommunity: async () => {
             const locale = document.documentElement.lang === "en-US" ? "en-US" : "zh-CN";
-            const communityUrl = await (0, communityUrl_js_1.resolveWebCommunityUrl)(locale);
+            const communityUrl = await resolveWebCommunityUrl(locale);
             if (!communityUrl) {
                 return;
             }
             window.open(communityUrl, "_blank", "noopener,noreferrer");
         },
         canOpenCommunity: async (locale) => {
-            const communityUrl = await (0, communityUrl_js_1.resolveWebCommunityUrl)(locale);
+            const communityUrl = await resolveWebCommunityUrl(locale);
             return typeof communityUrl === "string" && communityUrl.length > 0;
         },
         openInFileManager: () => Promise.resolve({ success: false, error: "Not supported in web mode" }),
@@ -468,7 +464,7 @@ function createWebPlatform(options) {
         notifyRendererReady: () => { },
         reportTelemetryEvent: async (event) => {
             // 手机只开放 session_create；不能把原有 Desktop conversation 事件一并启用。
-            const parsed = shared_1.sessionCreateTelemetrySchema.safeParse(event);
+            const parsed = sessionCreateTelemetrySchema.safeParse(event);
             if (parsed.success)
                 platformProxy?.reportTelemetryEvent?.(parsed.data);
         },
@@ -486,7 +482,7 @@ function createWebPlatform(options) {
                     body: payload.body,
                     silent: true,
                 });
-                void (0, ui_1.playTaskNotificationSound)();
+                void playTaskNotificationSound();
             }
             catch {
                 // 浏览器通知不可用时静默忽略，避免打断主流程
@@ -653,7 +649,7 @@ async function connectWebRemoteControlWindow(proxy, onClose) {
         const handleCloseBeforeReady = (event) => {
             cleanup();
             if (!settled) {
-                reject(toWebRemoteControlFailure((0, shared_3.resolveWebRemoteControlFailureReasonFromCloseCode)(event.code) ?? "relay-unavailable", event.reason || "Web remote control window socket closed before ready"));
+                reject(toWebRemoteControlFailure(resolveWebRemoteControlFailureReasonFromCloseCode(event.code) ?? "relay-unavailable", event.reason || "Web remote control window socket closed before ready"));
             }
         };
         socket.addEventListener("message", handleMessage);
@@ -662,10 +658,10 @@ async function connectWebRemoteControlWindow(proxy, onClose) {
     });
 }
 function selectInitialWebRemoteControlWorkspace(snapshot) {
-    return (0, shared_3.resolveWebRemoteControlInitialWorkspaceSelection)(snapshot);
+    return resolveWebRemoteControlInitialWorkspaceSelection(snapshot);
 }
 function isWebRemoteControlRoute() {
-    return (0, shared_3.matchesWebRemoteControlRoutePath)(window.location.pathname, (0, webRemoteControlRoute_js_1.resolveWebRemoteControlRoutePath)(viteEnv));
+    return matchesWebRemoteControlRoutePath(window.location.pathname, resolveWebRemoteControlRoutePath(viteEnv));
 }
 function createWebRemoteControlRequestId(prefix) {
     return `${prefix}-${globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`}`;
@@ -675,17 +671,17 @@ function seedStableWebRemoteControlClientId(deviceSid) {
     try {
         const existing = globalThis.localStorage?.getItem(storageKey)?.trim();
         if (existing) {
-            (0, ui_1.setStreamClientId)(existing);
+            setStreamClientId(existing);
             return;
         }
-        const nextId = globalThis.crypto?.randomUUID?.() ?? (0, ui_1.generateMobileDeviceFingerprint)();
+        const nextId = globalThis.crypto?.randomUUID?.() ?? generateMobileDeviceFingerprint();
         globalThis.localStorage?.setItem(storageKey, nextId);
-        (0, ui_1.setStreamClientId)(nextId);
+        setStreamClientId(nextId);
     }
     catch {
         // Bugfix: iOS private mode 等环境可能禁用 localStorage。
         // 这里保留前面注入的物理指纹 fallback，避免远控首屏因 clientId 持久化失败而中断。
-        (0, ui_1.setStreamClientId)((0, ui_1.generateMobileDeviceFingerprint)());
+        setStreamClientId(generateMobileDeviceFingerprint());
     }
 }
 function createUnsupportedHomeOnlyService(serviceName) {
@@ -705,14 +701,14 @@ function createEmptyHomeOnlyService(handlers) {
         },
     });
 }
-function createHomeOnlyWebRemoteControlServices() {
+export function createHomeOnlyWebRemoteControlServices() {
     const unsupported = (channel) => async () => {
         throw new Error(`${channel} is not available before a Web remote control workspace bridge is connected.`);
     };
     const settingService = {
         get: async () => ({
             recentProjects: [],
-            locale: (0, webRemoteControlFailureScreen_js_1.resolveWebRemoteControlScreenLocale)(navigator.language),
+            locale: resolveWebRemoteControlScreenLocale(navigator.language),
         }),
         update: async () => { },
         updateDataBaseDir: async () => { },
@@ -931,7 +927,7 @@ function createHomeOnlyWebRemoteControlServices() {
 function resolveExternalRelayWsUrl() {
     const endpointOrigin = viteEnv.VITE_ZCODE_BASE_URL?.trim() ||
         viteEnv.VITE_ZCODE_ENDPOINT_ORIGIN?.trim();
-    return (0, shared_2.resolveWebRemoteControlRelayWsUrl)({
+    return resolveWebRemoteControlRelayWsUrl({
         endpointOrigin,
         overrideUrl: viteEnv.VITE_ZCODE_WEB_REMOTE_CONTROL_RELAY_WS_URL,
     });
@@ -1010,19 +1006,19 @@ function resolveWebRemoteControlLoadingCopy(state) {
 }
 function WebRemoteControlLoadingScreen({ state, }) {
     const copy = resolveWebRemoteControlLoadingCopy(state);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "h-dvh min-h-dvh w-screen bg-background text-foreground", children: (0, jsx_runtime_1.jsx)("div", { className: "mx-auto flex h-full w-full max-w-lg items-center px-4", children: (0, jsx_runtime_1.jsxs)("section", { className: "w-full rounded-xl border border-card-border bg-card p-5", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-center gap-3", children: [(0, jsx_runtime_1.jsx)("span", { className: "size-2 rounded-full bg-warning animate-pulse" }), (0, jsx_runtime_1.jsx)("h1", { className: "text-ui-xs font-medium", children: copy.title })] }), (0, jsx_runtime_1.jsx)("p", { className: "mt-2 text-ui-xs/relaxed text-foreground-subtle", children: copy.description }), (0, jsx_runtime_1.jsx)("div", { className: "mt-4 grid gap-2", children: copy.steps.map((step, index) => ((0, jsx_runtime_1.jsx)("div", { className: "rounded-lg border border-border bg-surface px-3 py-2 text-ui-xs text-foreground-subtle", children: `${index + 1}. ${step}` }, step))) })] }) }) }));
+    return (_jsx("div", { className: "h-dvh min-h-dvh w-screen bg-background text-foreground", children: _jsx("div", { className: "mx-auto flex h-full w-full max-w-lg items-center px-4", children: _jsxs("section", { className: "w-full rounded-xl border border-card-border bg-card p-5", children: [_jsxs("div", { className: "flex items-center gap-3", children: [_jsx("span", { className: "size-2 rounded-full bg-warning animate-pulse" }), _jsx("h1", { className: "text-ui-xs font-medium", children: copy.title })] }), _jsx("p", { className: "mt-2 text-ui-xs/relaxed text-foreground-subtle", children: copy.description }), _jsx("div", { className: "mt-4 grid gap-2", children: copy.steps.map((step, index) => (_jsx("div", { className: "rounded-lg border border-border bg-surface px-3 py-2 text-ui-xs text-foreground-subtle", children: `${index + 1}. ${step}` }, step))) })] }) }) }));
 }
 function renderWebRemoteControlLoading(state) {
     document.title = "ZCode - Web Remote Control";
-    root.render((0, jsx_runtime_1.jsx)(WebRemoteControlLoadingScreen, { state: state }));
+    root.render(_jsx(WebRemoteControlLoadingScreen, { state: state }));
 }
 async function bootstrapExternalRelayWebRemoteControl(params) {
-    const relayParams = (0, shared_3.parseWebRemoteControlExternalQrParams)(params);
+    const relayParams = parseWebRemoteControlExternalQrParams(params);
     if (!relayParams) {
         renderWebRemoteControlFailure(toWebRemoteControlFailure("invalid-mobile-connection", "Missing or invalid Web remote control relay parameters."));
         return;
     }
-    (0, webRemoteControlThemeSeed_js_1.seedWebRemoteControlThemePreference)(relayParams.theme);
+    seedWebRemoteControlThemePreference(relayParams.theme);
     seedStableWebRemoteControlClientId(relayParams.deviceSid);
     let bootstrapping = false;
     let recovering = false;
@@ -1035,13 +1031,13 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
     let nextBridgeGeneration = 0;
     const checkVersionOnRecovery = window.location.pathname.replace(/\/+$/, "") === "/remote/v4";
     let disposeVersionNotice;
-    const versionGuard = (0, webRemoteControlVersion_js_1.createWebRemoteControlVersionGuard)({
+    const versionGuard = createWebRemoteControlVersionGuard({
         requestBootstrap: () => requestBootstrap(),
         getUrl: () => window.location.href,
         isPageReady: () => ready,
         navigate: (url) => window.location.replace(url),
         onMismatch: (version) => {
-            disposeVersionNotice = (0, webRemoteControlVersionNotice_js_1.showWebRemoteControlVersionNotice)(version, () => versionGuard.confirm());
+            disposeVersionNotice = showWebRemoteControlVersionNotice(version, () => versionGuard.confirm());
         },
     });
     // 必须先于 Root 的全局捕获阶段快捷键注册；原生 modal 只能隔离背景元素，不能隔离 window listener。
@@ -1204,13 +1200,13 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
         }
     };
     renderWebRemoteControlLoading("connecting");
-    const transport = new webRemoteControlTransport_js_1.WebRemoteControlTerminalTransport({
+    const transport = new WebRemoteControlTerminalTransport({
         relayWsUrl: resolveExternalRelayWsUrl(),
         deviceSid: relayParams.deviceSid,
         passHash: relayParams.passHash,
         deviceMid: relayParams.deviceMid,
         appVersion: relayParams.appVersion,
-        authProvider: (0, webRemoteControlRelayAuthProvider_js_1.createBrowserWebRemoteControlRelayAuthProvider)(),
+        authProvider: createBrowserWebRemoteControlRelayAuthProvider(),
         onRawTransportPayload: (payload) => activeRelayProtocol?.acceptPayload(payload) ?? false,
         onRawTransportFault: (reasonCode) => {
             activeRelayProtocol?.markDegraded(reasonCode);
@@ -1257,7 +1253,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
             terminalTransportState = state;
             if (state !== "paired")
                 versionGuard.invalidate();
-            (0, ui_1.setWebRemoteControlTerminalTransportState)(state);
+            setWebRemoteControlTerminalTransportState(state);
             if (!ready) {
                 renderWebRemoteControlLoading(state);
             }
@@ -1322,11 +1318,11 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
         },
     });
     sendMobileDiagnosticPayload = (payload) => transport.sendPayload(payload);
-    const requester = (0, webRemoteControlTransport_js_1.createWebRemoteControlAppPayloadRequester)({
+    const requester = createWebRemoteControlAppPayloadRequester({
         sendPayload: (payload) => !versionGuard.isBlocked() && transport.sendPayload(payload),
     });
     const requestAppPayload = requester.requestAppPayload;
-    const requestWithRelayRecovery = (0, webRemoteControlTransport_js_1.createWebRemoteControlRelayRequestRecovery)(() => transport.recoverConnection());
+    const requestWithRelayRecovery = createWebRemoteControlRelayRequestRecovery(() => transport.recoverConnection());
     const requestBootstrap = async () => {
         const requestId = createWebRemoteControlRequestId("bootstrap");
         const response = await requestAppPayload({ zcode_type: "bootstrap-request", requestId }, (payload) => payload.zcode_type === "bootstrap-response" && payload.requestId === requestId);
@@ -1395,7 +1391,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
                 ...(taskId ? { activeTaskId: taskId } : {}),
                 updatedAt: Date.now(),
             },
-            deviceInfo: (0, webRemoteControlDeviceInfo_js_1.collectWebRemoteControlMobileDeviceInfo)({
+            deviceInfo: collectWebRemoteControlMobileDeviceInfo({
                 appVersion: relayParams.appVersion,
             }),
         });
@@ -1411,7 +1407,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
                 payload.requestId === requestId &&
                 payload.workspaceKey === workspaceKey, {
                 // 远程重连会启动或部署 host，Docker/SSH 首连可能超过默认 10 秒；这里放宽等待，避免桌面端成功后手机端先误报超时。
-                timeoutMs: shared_2.WEB_REMOTE_CONTROL_WORKSPACE_RECONNECT_TIMEOUT_MS,
+                timeoutMs: WEB_REMOTE_CONTROL_WORKSPACE_RECONNECT_TIMEOUT_MS,
             });
         });
         if (!response.success) {
@@ -1437,7 +1433,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
             if (terminated || versionGuard.isBlocked()) {
                 throw new Error("Web remote control version changed before the workspace bridge was ready.");
             }
-            const relayProtocol = (0, client_2.createAcknowledgedWebRemoteControlRelayProtocol)({
+            const relayProtocol = createAcknowledgedWebRemoteControlRelayProtocol({
                 bridgeSessionId: response.bridge.bridgeSessionId,
                 bridgeGeneration: response.bridge.bridgeGeneration,
                 recoveryId: response.bridge.recoveryId,
@@ -1463,8 +1459,8 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
                 }
                 void recoverVisibleSession(fault.reasonCode);
             });
-            const services = (0, client_2.connectViaProtocol)(relayProtocol.protocol);
-            const bridgeServiceRegistration = (0, webRemoteControlWorkspaceBridgeSession_js_1.registerWebRemoteControlWorkspaceBridgeServices)({
+            const services = connectViaProtocol(relayProtocol.protocol);
+            const bridgeServiceRegistration = registerWebRemoteControlWorkspaceBridgeServices({
                 bridge: response.bridge,
                 services,
             });
@@ -1494,11 +1490,11 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
             return;
         ready = true;
         document.title = "ZCode - Web Remote Control";
-        root.render((0, jsx_runtime_1.jsx)(ui_1.AppErrorBoundary, { children: (0, jsx_runtime_1.jsx)(ui_1.ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, preferSettingServiceLocale: true, children: (0, jsx_runtime_1.jsx)(ui_1.Root, { services: services, platform: createWebPlatform({
+        root.render(_jsx(AppErrorBoundary, { children: _jsx(ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, preferSettingServiceLocale: true, children: _jsx(Root, { services: services, platform: createWebPlatform({
                         externalWebRemoteControlProxy: {
                             requestPlatformMethod,
                             reportTelemetryEvent: (event) => {
-                                const parsed = shared_1.sessionCreateTelemetrySchema.safeParse(event);
+                                const parsed = sessionCreateTelemetrySchema.safeParse(event);
                                 if (parsed.success)
                                     transport.sendPayload({ zcode_type: "telemetry-report", event: parsed.data });
                             },
@@ -1507,7 +1503,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
                     // Bug 原因：手机复用 Desktop Host 中已持久化的 Assistant row，但 Root 默认关闭
                     // code-comment 投影，导致 replay hydration 暴露原始 directive。该开关只修正展示能力，
                     // 不进入 relay、Host 或 replayable 状态。
-                    assistantCodeCommentCardsEnabled: true, initialWorkspaceAbsPath: bridge.workspacePath, initialWorkspaceIdentity: bridge.kind === "remote" ? bridge.workspaceIdentity : undefined, initialTaskId: bridge.initialTaskId, initialWebRemoteControlMobileNavigationIntent: initialNavigationIntent, webRemoteControlTerminalTransportState: terminalTransportState, initialWorkspaceLoadingFallback: (0, jsx_runtime_1.jsx)(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
+                    assistantCodeCommentCardsEnabled: true, initialWorkspaceAbsPath: bridge.workspacePath, initialWorkspaceIdentity: bridge.kind === "remote" ? bridge.workspaceIdentity : undefined, initialTaskId: bridge.initialTaskId, initialWebRemoteControlMobileNavigationIntent: initialNavigationIntent, webRemoteControlTerminalTransportState: terminalTransportState, initialWorkspaceLoadingFallback: _jsx(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
                         listWorkspaces,
                         onWorkspaceListUpdated: subscribeWorkspaceListUpdates,
                         switchWorkspace: async (workspaceKey, options) => {
@@ -1541,16 +1537,16 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
         if (terminated || versionGuard.isBlocked())
             return;
         ready = true;
-        root.render((0, jsx_runtime_1.jsx)(ui_1.AppErrorBoundary, { children: (0, jsx_runtime_1.jsx)(ui_1.ZCodeIntlProvider, { children: (0, jsx_runtime_1.jsx)(ui_1.Root, { services: createHomeOnlyWebRemoteControlServices(), platform: createWebPlatform({
+        root.render(_jsx(AppErrorBoundary, { children: _jsx(ZCodeIntlProvider, { children: _jsx(Root, { services: createHomeOnlyWebRemoteControlServices(), platform: createWebPlatform({
                         externalWebRemoteControlProxy: {
                             requestPlatformMethod,
                             reportTelemetryEvent: (event) => {
-                                const parsed = shared_1.sessionCreateTelemetrySchema.safeParse(event);
+                                const parsed = sessionCreateTelemetrySchema.safeParse(event);
                                 if (parsed.success)
                                     transport.sendPayload({ zcode_type: "telemetry-report", event: parsed.data });
                             },
                         },
-                    }), initialWorkspaceAbsPath: workspaceKey, initialTaskId: taskId, initialWebRemoteControlMobileNavigationIntent: undefined, webRemoteControlTerminalTransportState: terminalTransportState, initialWorkspaceLoadingFallback: (0, jsx_runtime_1.jsx)(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
+                    }), initialWorkspaceAbsPath: workspaceKey, initialTaskId: taskId, initialWebRemoteControlMobileNavigationIntent: undefined, webRemoteControlTerminalTransportState: terminalTransportState, initialWorkspaceLoadingFallback: _jsx(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
                         listWorkspaces: async () => ({
                             ...(await listWorkspaces()),
                             activeWorkspaceKey: currentWorkspaceKey,
@@ -1577,11 +1573,11 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
         if (!bootstrapResult || terminated || versionGuard.isBlocked())
             return;
         const preferredWorkspace = options?.preferredWorkspaceKey
-            ? bootstrapResult.workspaces.find((workspace) => (0, shared_3.resolveWebRemoteControlWorkspaceKey)(workspace) === options.preferredWorkspaceKey)
+            ? bootstrapResult.workspaces.find((workspace) => resolveWebRemoteControlWorkspaceKey(workspace) === options.preferredWorkspaceKey)
             : undefined;
         const selectedWorkspace = preferredWorkspace
             ? {
-                workspaceKey: (0, shared_3.resolveWebRemoteControlWorkspaceKey)(preferredWorkspace),
+                workspaceKey: resolveWebRemoteControlWorkspaceKey(preferredWorkspace),
                 taskId: options?.preferredTaskId,
                 canBridge: preferredWorkspace.kind !== "remote" ||
                     Boolean(preferredWorkspace.workspaceIdentity && preferredWorkspace.remoteSessionId),
@@ -1599,7 +1595,7 @@ async function bootstrapExternalRelayWebRemoteControl(params) {
         });
         renderExternalRelayRoot(result.services, result.bridge);
     };
-    const lifecycle = (0, webRemoteControlLifecycle_js_1.createWebRemoteControlLifecycleRecovery)({
+    const lifecycle = createWebRemoteControlLifecycleRecovery({
         documentTarget: document,
         windowTarget: window,
         onSuspend: () => {
@@ -1657,9 +1653,9 @@ async function bootstrapWebRemoteControlByToken(params) {
     const renderBridgeRoot = (services, bridge, initialNavigationIntent) => {
         const initialWorkspaceIdentity = bridge.kind === "remote" ? bridge.workspaceIdentity : undefined;
         document.title = "ZCode - Web Remote Control";
-        root.render((0, jsx_runtime_1.jsx)(ui_1.AppErrorBoundary, { children: (0, jsx_runtime_1.jsx)(ui_1.ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, preferSettingServiceLocale: true, children: (0, jsx_runtime_1.jsx)(ui_1.Root, { services: services, platform: createWebPlatform({ webRemoteControlProxy: proxy }), 
+        root.render(_jsx(AppErrorBoundary, { children: _jsx(ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, preferSettingServiceLocale: true, children: _jsx(Root, { services: services, platform: createWebPlatform({ webRemoteControlProxy: proxy }), 
                     // 与 external relay 保持相同的 Renderer 投影；普通 Web Server Root 继续使用默认关闭。
-                    assistantCodeCommentCardsEnabled: true, initialWorkspaceAbsPath: bridge.workspacePath, initialWorkspaceIdentity: initialWorkspaceIdentity, initialTaskId: bridge.initialTaskId, initialWebRemoteControlMobileNavigationIntent: initialNavigationIntent, initialWorkspaceLoadingFallback: (0, jsx_runtime_1.jsx)(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
+                    assistantCodeCommentCardsEnabled: true, initialWorkspaceAbsPath: bridge.workspacePath, initialWorkspaceIdentity: initialWorkspaceIdentity, initialTaskId: bridge.initialTaskId, initialWebRemoteControlMobileNavigationIntent: initialNavigationIntent, initialWorkspaceLoadingFallback: _jsx(WebRemoteControlLoadingScreen, { state: "paired" }), restoreSession: false, allowOpenWorkspace: false, webRemoteControlWorkspaceSwitcher: {
                         listWorkspaces: () => requestWebRemoteControlWorkspaces(proxy).then((result) => ({
                             ...result,
                             activeWorkspaceKey: result.activeWorkspaceKey ?? currentWorkspaceKey,
@@ -1690,7 +1686,7 @@ async function bootstrapWebRemoteControlByToken(params) {
         let bridgeSocket = null;
         try {
             const bridge = await requestWebRemoteControlWorkspaceBridge(proxy, workspaceKey, options);
-            const services = await (0, client_2.connectViaWebSocket)(bridge.wsUrl, {
+            const services = await connectViaWebSocket(bridge.wsUrl, {
                 onOpenSocket: (socket) => {
                     bridgeSocket = socket;
                 },
@@ -1703,7 +1699,7 @@ async function bootstrapWebRemoteControlByToken(params) {
                     renderFailure(mapWebRemoteControlSocketCloseToFailure(event));
                 },
             });
-            const bridgeServiceRegistration = (0, webRemoteControlWorkspaceBridgeSession_js_1.registerWebRemoteControlWorkspaceBridgeServices)({
+            const bridgeServiceRegistration = registerWebRemoteControlWorkspaceBridgeServices({
                 bridge,
                 services,
             });
@@ -1754,7 +1750,7 @@ async function bootstrapWebApp() {
         renderWebAuthCallbackPage();
         return;
     }
-    if ((0, conversationShareRoute_js_1.isConversationSharePath)(window.location.pathname)) {
+    if (isConversationSharePath(window.location.pathname)) {
         await renderConversationSharePage();
         return;
     }
@@ -1793,12 +1789,12 @@ async function bootstrapWebApp() {
         return;
     }
     try {
-        const services = await (0, client_2.connectViaWebSocket)(bootstrap.wsUrl, {
+        const services = await connectViaWebSocket(bootstrap.wsUrl, {
             onClose: () => { },
         });
         const platform = createWebPlatform();
         document.title = "ZCode - Web + Server";
-        root.render((0, jsx_runtime_1.jsx)(ui_1.AppErrorBoundary, { children: (0, jsx_runtime_1.jsx)(ui_1.ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, children: (0, jsx_runtime_1.jsx)(ui_1.Root, { services: services, platform: platform, initialWorkspaceAbsPath: bootstrap.initialWorkspaceAbsPath, initialWorkspaceIdentity: bootstrap.initialWorkspaceIdentity, initialTaskId: bootstrap.initialTaskId, restoreSession: bootstrap.restoreSession, allowOpenWorkspace: bootstrap.allowOpenWorkspace, preferDirectoryBrowser: true, supportsEmbeddedBrowser: false, allowRemoteWorkspace: false }) }) }));
+        root.render(_jsx(AppErrorBoundary, { children: _jsx(ZCodeIntlProvider, { settingService: services.settingService, broadcastService: services.broadcastService, children: _jsx(Root, { services: services, platform: platform, initialWorkspaceAbsPath: bootstrap.initialWorkspaceAbsPath, initialWorkspaceIdentity: bootstrap.initialWorkspaceIdentity, initialTaskId: bootstrap.initialTaskId, restoreSession: bootstrap.restoreSession, allowOpenWorkspace: bootstrap.allowOpenWorkspace, preferDirectoryBrowser: true, supportsEmbeddedBrowser: false, allowRemoteWorkspace: false }) }) }));
     }
     catch (error) {
         renderWebRemoteControlFailure(error && typeof error === "object" && "reason" in error

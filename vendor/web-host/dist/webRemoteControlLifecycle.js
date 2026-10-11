@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWebRemoteControlLifecycleRecovery = createWebRemoteControlLifecycleRecovery;
-function createWebRemoteControlLifecycleRecovery({ documentTarget, windowTarget, onSuspend, onRecover, }) {
+export function createWebRemoteControlLifecycleRecovery({ documentTarget, windowTarget, onSuspend, onRecover, }) {
     let suspended = false;
     const suspend = () => {
         suspended = true;

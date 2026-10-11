@@ -1,13 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildOAuthState = buildOAuthState;
-exports.parseOAuthState = parseOAuthState;
-exports.parseOptionalUrl = parseOptionalUrl;
-exports.isTrustedDevReturnTo = isTrustedDevReturnTo;
-exports.resolveSafeAppReturnTo = resolveSafeAppReturnTo;
-exports.buildReturnToCallbackUrl = buildReturnToCallbackUrl;
-const shared_1 = require("@zcode/shared");
-const PRODUCTION_WEB_REMOTE_ORIGIN = shared_1.DEFAULT_ZCODE_ENDPOINT_ORIGIN;
+import { DEFAULT_ZCODE_ENDPOINT_ORIGIN } from "@zcode/shared";
+const PRODUCTION_WEB_REMOTE_ORIGIN = DEFAULT_ZCODE_ENDPOINT_ORIGIN;
 const WEB_REMOTE_PATHS = new Set(["/web-remote", "/web-remote/"]);
 const WEB_CALLBACK_PATHS = new Set(["/web-remote/callback", "/cn/share/callback", "/share/callback"]);
 const SHARE_PATH_PATTERN = /^\/(?:cn\/share|share)\/[A-Za-z0-9._~-]{1,512}$/u;
@@ -38,10 +30,10 @@ function decodeBase64Url(value) {
     }
     return new TextDecoder().decode(bytes);
 }
-function buildOAuthState(payload) {
+export function buildOAuthState(payload) {
     return encodeBase64Url(JSON.stringify(payload));
 }
-function parseOAuthState(state) {
+export function parseOAuthState(state) {
     try {
         const parsed = JSON.parse(decodeBase64Url(state));
         if (!isNonEmptyString(parsed.nonce)) {
@@ -57,7 +49,7 @@ function parseOAuthState(state) {
         return null;
     }
 }
-function parseOptionalUrl(value) {
+export function parseOptionalUrl(value) {
     if (!isNonEmptyString(value)) {
         return null;
     }
@@ -68,7 +60,7 @@ function parseOptionalUrl(value) {
         return null;
     }
 }
-function isTrustedDevReturnTo(url) {
+export function isTrustedDevReturnTo(url) {
     return PRIVATE_DEV_RETURN_TO_PATTERN.test(url.toString()) && WEB_CALLBACK_PATHS.has(url.pathname);
 }
 function resolveAllowedAppReturnOrigin(currentOrigin) {
@@ -76,7 +68,7 @@ function resolveAllowedAppReturnOrigin(currentOrigin) {
         ? PRODUCTION_WEB_REMOTE_ORIGIN
         : currentOrigin;
 }
-function resolveSafeAppReturnTo(value, options = {}) {
+export function resolveSafeAppReturnTo(value, options = {}) {
     const url = parseOptionalUrl(value);
     if (!url || (!WEB_REMOTE_PATHS.has(url.pathname) && !SHARE_PATH_PATTERN.test(url.pathname))) {
         return null;
@@ -98,7 +90,7 @@ function resolveSafeAppReturnTo(value, options = {}) {
     const query = safeSearch.toString();
     return `${url.pathname}${query ? `?${query}` : ""}`;
 }
-function buildReturnToCallbackUrl(returnTo, params) {
+export function buildReturnToCallbackUrl(returnTo, params) {
     const returnToUrl = parseOptionalUrl(returnTo);
     if (!returnToUrl || !isTrustedDevReturnTo(returnToUrl) || !isNonEmptyString(params.state)) {
         return null;

@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWebAuthCopy = getWebAuthCopy;
 const WEB_AUTH_COPY = {
     "zh-CN": {
         brand: "ZCode",
@@ -41,7 +38,7 @@ function resolveWebAuthLocale(language) {
         "";
     return candidate.toLowerCase().startsWith("zh") ? "zh-CN" : "en-US";
 }
-function getWebAuthCopy(locale = resolveWebAuthLocale()) {
+export function getWebAuthCopy(locale = resolveWebAuthLocale()) {
     return WEB_AUTH_COPY[locale];
 }
 //# sourceMappingURL=webAuthLocale.js.map

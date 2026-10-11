@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.collectWebRemoteControlMobileDeviceInfo = collectWebRemoteControlMobileDeviceInfo;
 function readFiniteNumber(value) {
     return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }
@@ -15,7 +12,7 @@ function readTimezone(dateTimeFormat) {
         return undefined;
     }
 }
-function collectWebRemoteControlMobileDeviceInfo({ appVersion, now = () => Date.now(), navigatorLike = globalThis.navigator, windowLike = globalThis.window, dateTimeFormat = () => new Intl.DateTimeFormat(), } = {}) {
+export function collectWebRemoteControlMobileDeviceInfo({ appVersion, now = () => Date.now(), navigatorLike = globalThis.navigator, windowLike = globalThis.window, dateTimeFormat = () => new Intl.DateTimeFormat(), } = {}) {
     const viewportWidth = readFiniteNumber(windowLike?.innerWidth);
     const viewportHeight = readFiniteNumber(windowLike?.innerHeight);
     const devicePixelRatio = readFiniteNumber(windowLike?.devicePixelRatio) ?? 1;

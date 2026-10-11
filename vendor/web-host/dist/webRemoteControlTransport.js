@@ -1,39 +1,34 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebRemoteControlTerminalTransport = void 0;
-exports.createWebRemoteControlRelayRequestRecovery = createWebRemoteControlRelayRequestRecovery;
-exports.createWebRemoteControlAppPayloadRequester = createWebRemoteControlAppPayloadRequester;
 /* eslint-disable max-lines -- 外部 relay terminal transport 需要集中维护握手、配对、请求等待和重连状态机。 */
-const client_1 = require("@zcode/client");
-const shared_1 = require("@zcode/shared");
+import { WebRemoteControlRelayPayloadSerializer, } from "@zcode/client";
+import { WEB_REMOTE_CONTROL_HEARTBEAT_ACK_TIMEOUT_MS, WEB_REMOTE_CONTROL_HEARTBEAT_INTERVAL_MS, WEB_REMOTE_CONTROL_RECONNECT_JITTER_MS, getWebRemoteControlHeartbeatDelayMs, getWebRemoteControlHeartbeatJitterMs, getWebRemoteControlReconnectJitterMs, WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS, parseWebRemoteControlAppPayload, } from "@zcode/shared";
 async function readWebSocketData(data) {
     if (typeof data === "string") {
         return new TextEncoder().encode(data).byteLength <=
-            shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes
+            WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes
             ? data
             : null;
     }
     if (data instanceof ArrayBuffer) {
-        if (data.byteLength > shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
+        if (data.byteLength > WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
             return null;
         }
         return new TextDecoder().decode(data);
     }
     if (ArrayBuffer.isView(data)) {
-        if (data.byteLength > shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
+        if (data.byteLength > WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
             return null;
         }
         return new TextDecoder().decode(data);
     }
     if (typeof Blob !== "undefined" && data instanceof Blob) {
-        if (data.size > shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
+        if (data.size > WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
             return null;
         }
         return data.text();
     }
     const text = String(data);
     return new TextEncoder().encode(text).byteLength <=
-        shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes
+        WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes
         ? text
         : null;
 }
@@ -96,7 +91,7 @@ function summarizeRelayMessageForTrace(message) {
     }
     return { type: message.type };
 }
-class WebRemoteControlTerminalTransport {
+export class WebRemoteControlTerminalTransport {
     options;
     WebSocketCtor;
     socket;
@@ -119,7 +114,7 @@ class WebRemoteControlTerminalTransport {
     reconnectTimer;
     desktopOfflineFailureTimer;
     traceRelayMessages = import.meta.env.DEV;
-    payloadSerializer = new client_1.WebRemoteControlRelayPayloadSerializer();
+    payloadSerializer = new WebRemoteControlRelayPayloadSerializer();
     constructor(options) {
         this.options = options;
         this.WebSocketCtor = options.WebSocketCtor ?? globalThis.WebSocket;
@@ -227,7 +222,7 @@ class WebRemoteControlTerminalTransport {
             return {
                 kind: "oversize",
                 bytes: prepared.bytes,
-                maxBytes: shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes,
+                maxBytes: WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes,
             };
         }
         if (this.state !== "paired" || this.staleWaitingCount > 0) {
@@ -302,7 +297,7 @@ class WebRemoteControlTerminalTransport {
         this.setState("idle");
     }
     async handleMessage(data) {
-        if (webSocketDataByteLength(data) > shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
+        if (webSocketDataByteLength(data) > WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
             this.options.onRawTransportFault?.("remote.rpcFrame.envelopeTooLarge");
             return;
         }
@@ -411,7 +406,7 @@ class WebRemoteControlTerminalTransport {
         if (isRawTransportCandidate(payload) && this.options.onRawTransportPayload?.(payload)) {
             return;
         }
-        const parsed = (0, shared_1.parseWebRemoteControlAppPayload)(payload);
+        const parsed = parseWebRemoteControlAppPayload(payload);
         if (!parsed) {
             return;
         }
@@ -434,7 +429,7 @@ class WebRemoteControlTerminalTransport {
             // Bugfix: 固定 setInterval 会让同一批同时配对的设备长期同相发送心跳；
             // 每次发送后重新抽样有界 jitter，只打散调度相位，不改变平均 10 秒周期。
             this.scheduleHeartbeat();
-        }, (0, shared_1.getWebRemoteControlHeartbeatDelayMs)(this.options.heartbeatIntervalMs ?? shared_1.WEB_REMOTE_CONTROL_HEARTBEAT_INTERVAL_MS, this.options.heartbeatJitterMs));
+        }, getWebRemoteControlHeartbeatDelayMs(this.options.heartbeatIntervalMs ?? WEB_REMOTE_CONTROL_HEARTBEAT_INTERVAL_MS, this.options.heartbeatJitterMs));
     }
     armHeartbeatAckWatchdog() {
         if (this.state !== "paired" && this.state !== "waiting") {
@@ -451,13 +446,13 @@ class WebRemoteControlTerminalTransport {
             // Bugfix: ACK deadline 必须独立于下一次 jittered heartbeat；否则随机间隔会把
             // 原本 30 秒的失联判定漂移到 32~36 秒，并在半开 WebSocket 上继续黑洞发送。
             this.reconnectAfterStaleWaiting(this.getReconnectJitterMs());
-        }, this.options.heartbeatAckTimeoutMs ?? shared_1.WEB_REMOTE_CONTROL_HEARTBEAT_ACK_TIMEOUT_MS);
+        }, this.options.heartbeatAckTimeoutMs ?? WEB_REMOTE_CONTROL_HEARTBEAT_ACK_TIMEOUT_MS);
     }
     getReconnectJitterMs() {
-        const baseIntervalMs = this.options.heartbeatIntervalMs ?? shared_1.WEB_REMOTE_CONTROL_HEARTBEAT_INTERVAL_MS;
-        const heartbeatJitterMs = (0, shared_1.getWebRemoteControlHeartbeatJitterMs)(baseIntervalMs, this.options.heartbeatJitterMs);
-        return (0, shared_1.getWebRemoteControlReconnectJitterMs)(this.options.reconnectJitterMs ??
-            Math.min(heartbeatJitterMs, shared_1.WEB_REMOTE_CONTROL_RECONNECT_JITTER_MS));
+        const baseIntervalMs = this.options.heartbeatIntervalMs ?? WEB_REMOTE_CONTROL_HEARTBEAT_INTERVAL_MS;
+        const heartbeatJitterMs = getWebRemoteControlHeartbeatJitterMs(baseIntervalMs, this.options.heartbeatJitterMs);
+        return getWebRemoteControlReconnectJitterMs(this.options.reconnectJitterMs ??
+            Math.min(heartbeatJitterMs, WEB_REMOTE_CONTROL_RECONNECT_JITTER_MS));
     }
     sendPairStatusQuery() {
         return this.send({
@@ -695,7 +690,7 @@ class WebRemoteControlTerminalTransport {
         }
         const serialized = JSON.stringify(message);
         if (new TextEncoder().encode(serialized).byteLength >
-            shared_1.WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
+            WEB_REMOTE_CONTROL_RPC_TRANSPORT_LIMITS.maxPhysicalFrameBytes) {
             return false;
         }
         return this.sendSerialized(message, serialized);
@@ -743,13 +738,12 @@ class WebRemoteControlTerminalTransport {
         });
     }
 }
-exports.WebRemoteControlTerminalTransport = WebRemoteControlTerminalTransport;
 function isRecoverableRelayRequestFailure(error, options) {
     const failure = error;
     return (failure?.reason === "relay-unavailable" ||
         (options?.recoverTimeout === true && failure?.reason === "desktop-bootstrap-timeout"));
 }
-function createWebRemoteControlRelayRequestRecovery(recoverConnection) {
+export function createWebRemoteControlRelayRequestRecovery(recoverConnection) {
     let recoveryPromise;
     async function recoverRelayRequestPath() {
         if (!recoveryPromise) {
@@ -774,7 +768,7 @@ function createWebRemoteControlRelayRequestRecovery(recoverConnection) {
         }
     };
 }
-function createWebRemoteControlAppPayloadRequester({ sendPayload, timeoutMs: defaultTimeoutMs = 10_000, }) {
+export function createWebRemoteControlAppPayloadRequester({ sendPayload, timeoutMs: defaultTimeoutMs = 10_000, }) {
     const pending = new Map();
     function rejectRequest(requestId, failure) {
         const request = pending.get(requestId);

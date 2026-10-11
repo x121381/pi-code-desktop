@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.WebAuthService = void 0;
-exports.createWebAuthService = createWebAuthService;
-const shared_1 = require("@zcode/shared");
-const browserOAuthCredentialRepo_js_1 = require("./browserOAuthCredentialRepo.js");
-const oauthStateCodec_js_1 = require("./oauthStateCodec.js");
-const webZaiOAuthConfig_js_1 = require("./webZaiOAuthConfig.js");
-const zaiWebOAuthProvider_js_1 = require("./zaiWebOAuthProvider.js");
+import { ZAI_PROVIDER_ID } from "@zcode/shared";
+import { BrowserOAuthCredentialRepo, } from "./browserOAuthCredentialRepo.js";
+import { buildOAuthState, buildReturnToCallbackUrl, isTrustedDevReturnTo, parseOAuthState, parseOptionalUrl, resolveSafeAppReturnTo, } from "./oauthStateCodec.js";
+import { WEB_ZAI_OAUTH_CONFIG } from "./webZaiOAuthConfig.js";
+import { ZaiWebOAuthProvider } from "./zaiWebOAuthProvider.js";
 function createBrowserNonce() {
     if (globalThis.crypto?.randomUUID) {
         return globalThis.crypto.randomUUID();
@@ -31,23 +27,23 @@ function createDefaultRuntime() {
         },
     };
 }
-class WebAuthService {
+export class WebAuthService {
     config;
     provider;
     repo;
     runtime;
     constructor(dependencies = {}) {
-        this.config = dependencies.config ?? webZaiOAuthConfig_js_1.WEB_ZAI_OAUTH_CONFIG;
-        this.provider = dependencies.provider ?? new zaiWebOAuthProvider_js_1.ZaiWebOAuthProvider(this.config);
-        this.repo = dependencies.repo ?? new browserOAuthCredentialRepo_js_1.BrowserOAuthCredentialRepo();
+        this.config = dependencies.config ?? WEB_ZAI_OAUTH_CONFIG;
+        this.provider = dependencies.provider ?? new ZaiWebOAuthProvider(this.config);
+        this.repo = dependencies.repo ?? new BrowserOAuthCredentialRepo();
         this.runtime = dependencies.runtime ?? createDefaultRuntime();
     }
     startLogin(options = {}) {
         const nonce = this.runtime.createNonce();
-        const provider = options.provider ?? shared_1.ZAI_PROVIDER_ID;
+        const provider = options.provider ?? ZAI_PROVIDER_ID;
         this.repo.savePendingNonce(nonce);
         this.repo.savePendingProvider(provider);
-        const state = (0, oauthStateCodec_js_1.buildOAuthState)({
+        const state = buildOAuthState({
             nonce,
             app_return_to: options.appReturnTo ?? this.runtime.getCurrentHref(),
             ...(options.devReturnTo ? { return_to: options.devReturnTo } : {}),
@@ -60,14 +56,14 @@ class WebAuthService {
     }
     async handleCallback(url) {
         const callback = this.provider.parseCallbackParams(url);
-        const statePayload = (0, oauthStateCodec_js_1.parseOAuthState)(callback.state);
+        const statePayload = parseOAuthState(callback.state);
         if (!statePayload) {
             throw new Error("OAuth state is invalid");
         }
-        const returnToUrl = (0, oauthStateCodec_js_1.parseOptionalUrl)(statePayload.return_to);
+        const returnToUrl = parseOptionalUrl(statePayload.return_to);
         if (returnToUrl && returnToUrl.origin !== this.runtime.getCurrentOrigin()) {
-            if (this.config.allowDevReturnToRedirect && (0, oauthStateCodec_js_1.isTrustedDevReturnTo)(returnToUrl)) {
-                const redirectUrl = (0, oauthStateCodec_js_1.buildReturnToCallbackUrl)(returnToUrl.toString(), {
+            if (this.config.allowDevReturnToRedirect && isTrustedDevReturnTo(returnToUrl)) {
+                const redirectUrl = buildReturnToCallbackUrl(returnToUrl.toString(), {
                     ...(callback.code ? { code: callback.code } : {}),
                     ...(callback.error ? { error: callback.error } : {}),
                     state: callback.state,
@@ -90,7 +86,7 @@ class WebAuthService {
         }
         // provider 必须取跳转前记下的那个：authorize 参数名和 token 响应里 access_token 的位置
         // 都是 provider 特定的。缺失时按 zai 兜底，保持旧回调链接可用。
-        const provider = this.repo.loadPendingProvider() ?? shared_1.ZAI_PROVIDER_ID;
+        const provider = this.repo.loadPendingProvider() ?? ZAI_PROVIDER_ID;
         this.repo.clearPendingNonce();
         this.repo.clearPendingProvider();
         const callbackRedirectUri = ["/cn/share/callback", "/share/callback"].includes(new URL(url).pathname)
@@ -107,7 +103,7 @@ class WebAuthService {
         this.repo.setActiveProvider(provider);
         return {
             userInfo: exchange.userInfo,
-            appReturnTo: (0, oauthStateCodec_js_1.resolveSafeAppReturnTo)(statePayload.app_return_to, {
+            appReturnTo: resolveSafeAppReturnTo(statePayload.app_return_to, {
                 currentOrigin: this.runtime.getCurrentOrigin(),
             }),
         };
@@ -125,8 +121,7 @@ class WebAuthService {
         this.repo.clearAll();
     }
 }
-exports.WebAuthService = WebAuthService;
-function createWebAuthService() {
+export function createWebAuthService() {
     return new WebAuthService();
 }
 //# sourceMappingURL=webAuthService.js.map

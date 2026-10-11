@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.markWebRemoteControlTaskRead = markWebRemoteControlTaskRead;
-exports.markWebRemoteControlBridgeTaskRead = markWebRemoteControlBridgeTaskRead;
 /**
  * 手机任务首页的 unreadAt 来自 desktop 快照，不保证存在于当前 Root 的 query cache。
  * 已读写入因此必须直接使用当前 shared-host bridge 的 task service 和精确 workspace identity。
  */
-async function markWebRemoteControlTaskRead({ service, target, }) {
+export async function markWebRemoteControlTaskRead({ service, target, }) {
     try {
         await service.setTaskUnread({
             ...target,
@@ -19,7 +15,7 @@ async function markWebRemoteControlTaskRead({ service, target, }) {
         return { ok: false, error };
     }
 }
-async function markWebRemoteControlBridgeTaskRead({ bridge, expectedUnreadAt, service, }) {
+export async function markWebRemoteControlBridgeTaskRead({ bridge, expectedUnreadAt, service, }) {
     if (typeof expectedUnreadAt !== "number" || !bridge.initialTaskId) {
         return { ok: true };
     }

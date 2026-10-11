@@ -1,9 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.WEB_ZAI_OAUTH_CONFIG = void 0;
-exports.createWebZaiOAuthConfig = createWebZaiOAuthConfig;
-exports.resolveWebAuthDevReturnTo = resolveWebAuthDevReturnTo;
-const shared_1 = require("@zcode/shared");
+import { buildZCodeEndpointUrls, DEFAULT_ZCODE_ENDPOINT_ORIGIN, resolveBigModelApiOrigin, } from "@zcode/shared";
 function normalizeZaiOAuthOrigin(value) {
     return new URL(value.trim()).origin;
 }
@@ -19,13 +14,13 @@ function buildZaiOAuthAuthorizeUrl(origin) {
  */
 function buildBigModelAuthorizeUrl(origin) {
     const trimmed = origin?.trim();
-    return `${trimmed ? new URL(trimmed).origin : (0, shared_1.resolveBigModelApiOrigin)({})}/login`;
+    return `${trimmed ? new URL(trimmed).origin : resolveBigModelApiOrigin({})}/login`;
 }
-function createWebZaiOAuthConfig(env = {}) {
+export function createWebZaiOAuthConfig(env = {}) {
     const devOrigin = env.VITE_DEV_ORIGIN?.trim().replace(/\/$/, "");
-    const zcodeEndpointUrls = (0, shared_1.buildZCodeEndpointUrls)(env.VITE_ZCODE_BASE_URL?.trim() ||
+    const zcodeEndpointUrls = buildZCodeEndpointUrls(env.VITE_ZCODE_BASE_URL?.trim() ||
         env.VITE_ZCODE_ENDPOINT_ORIGIN?.trim() ||
-        shared_1.DEFAULT_ZCODE_ENDPOINT_ORIGIN);
+        DEFAULT_ZCODE_ENDPOINT_ORIGIN);
     return {
         // ZAI 当前 OAuth 授权入口使用 /api/oauth 前缀，继续走 /auth/oauth 会打开旧入口。
         authorizeUrl: buildZaiOAuthAuthorizeUrl(env.VITE_ZAI_OAUTH_ORIGIN),
@@ -43,8 +38,8 @@ function createWebZaiOAuthConfig(env = {}) {
 }
 const env = (import.meta.env ??
     {});
-exports.WEB_ZAI_OAUTH_CONFIG = createWebZaiOAuthConfig(env);
-function resolveWebAuthDevReturnTo(config, surface = "remote") {
+export const WEB_ZAI_OAUTH_CONFIG = createWebZaiOAuthConfig(env);
+export function resolveWebAuthDevReturnTo(config, surface = "remote") {
     return config.devOrigin
         ? `${config.devOrigin}/${surface === "share" ? "share" : "web-remote"}/callback`
         : undefined;

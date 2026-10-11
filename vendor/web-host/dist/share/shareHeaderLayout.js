@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.resolveShareHeaderView = resolveShareHeaderView;
 const DEFAULT_GAP = 16;
 const DEFAULT_EDGE_PADDING = 24;
 const DEFAULT_MIN_CLEARANCE = 16;
@@ -19,7 +16,7 @@ function lerp(from, to, progress) {
  * 推导 progress，让三个元素沿同一条轨道连续移动；当 gutter 仍足够容纳
  * 对应元素时保持宽屏外侧锚点，只有 gutter 不足后才开始向内容栏回收。
  */
-function resolveShareHeaderView({ shellWidth, railContentLeft, railContentRight, brandWidth, titleContentWidth, continueWidth, compactContinueWidth = continueWidth, hasContinueAction = continueWidth > 0, gap = DEFAULT_GAP, edgePadding = DEFAULT_EDGE_PADDING, minClearance = DEFAULT_MIN_CLEARANCE, minTitleWidth = DEFAULT_MIN_TITLE_WIDTH, }) {
+export function resolveShareHeaderView({ shellWidth, railContentLeft, railContentRight, brandWidth, titleContentWidth, continueWidth, compactContinueWidth = continueWidth, hasContinueAction = continueWidth > 0, gap = DEFAULT_GAP, edgePadding = DEFAULT_EDGE_PADDING, minClearance = DEFAULT_MIN_CLEARANCE, minTitleWidth = DEFAULT_MIN_TITLE_WIDTH, }) {
     const normalizedShellWidth = Math.max(0, shellWidth);
     const normalizedRailLeft = Math.max(0, railContentLeft);
     const normalizedRailRight = Math.max(0, railContentRight);

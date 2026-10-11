@@ -14,7 +14,7 @@ import {
   type Theme,
   type WebRemoteControlTerminalTransportState as UiWebRemoteControlTerminalTransportState,
 } from "@zcode/ui";
-import "@zcode/ui/styles.css";
+// ZCode styles load globally via app/layout.tsx (turbopack css module graph).
 import {
   connectViaProtocol,
   connectViaWebSocket,

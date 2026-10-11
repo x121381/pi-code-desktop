@@ -6,5 +6,12 @@ import dynamic from "next/dynamic";
 const ZCodeApp = dynamic(() => import("./ZCodeApp").then((m) => m.ZCodeRootPage), { ssr: false });
 
 export default function Page() {
-  return <ZCodeApp />;
+  return (
+    <>
+      {/* The vendored web-host calls createRoot(document.getElementById("root"))
+          at module scope for its own boot helpers; give it a hidden container. */}
+      <div id="root" style={{ display: "none" }} />
+      <ZCodeApp />
+    </>
+  );
 }

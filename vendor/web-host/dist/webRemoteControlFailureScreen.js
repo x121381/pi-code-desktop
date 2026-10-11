@@ -1,9 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.resolveWebRemoteControlScreenLocale = resolveWebRemoteControlScreenLocale;
-exports.resolveWebRemoteControlScreenCopy = resolveWebRemoteControlScreenCopy;
-exports.WebRemoteControlFailureScreen = WebRemoteControlFailureScreen;
-const jsx_runtime_1 = require("react/jsx-runtime");
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 const WEB_REMOTE_CONTROL_SCREEN_COPY = {
     "zh-CN": {
         "session-not-found": {
@@ -230,10 +225,10 @@ const WEB_REMOTE_CONTROL_SCREEN_COPY = {
         },
     },
 };
-function resolveWebRemoteControlScreenLocale(language) {
+export function resolveWebRemoteControlScreenLocale(language) {
     return language.toLowerCase().startsWith("zh") ? "zh-CN" : "en-US";
 }
-function resolveWebRemoteControlScreenCopy(failure, locale) {
+export function resolveWebRemoteControlScreenCopy(failure, locale) {
     return WEB_REMOTE_CONTROL_SCREEN_COPY[locale][failure.reason];
 }
 function resolveToneClassName(tone) {
@@ -255,9 +250,9 @@ function resolveToneClassName(tone) {
             };
     }
 }
-function WebRemoteControlFailureScreen({ failure, locale, onReload, }) {
+export function WebRemoteControlFailureScreen({ failure, locale, onReload, }) {
     const copy = resolveWebRemoteControlScreenCopy(failure, locale);
     const toneClassName = resolveToneClassName(copy.tone);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "flex min-h-screen items-center justify-center bg-background px-4 py-8 text-foreground", style: { minHeight: "100dvh" }, children: (0, jsx_runtime_1.jsxs)("main", { className: "w-full max-w-md rounded-xl border border-card-border bg-card p-5 shadow-sm", children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex items-start gap-3", children: [(0, jsx_runtime_1.jsx)("div", { className: `flex size-10 shrink-0 items-center justify-center rounded-lg border text-ui-lg font-semibold ${toneClassName.icon}`, "aria-hidden": "true", children: "!" }), (0, jsx_runtime_1.jsxs)("div", { className: "min-w-0 flex-1", children: [(0, jsx_runtime_1.jsx)("div", { className: `mb-2 inline-flex max-w-full items-center rounded-full border px-2 py-0.5 text-ui-xs font-medium ${toneClassName.badge}`, children: (0, jsx_runtime_1.jsx)("span", { className: "min-w-0 truncate", children: copy.badge }) }), (0, jsx_runtime_1.jsx)("h1", { className: "text-ui-lg font-medium text-foreground", children: copy.title }), (0, jsx_runtime_1.jsx)("p", { className: "mt-2 text-ui-xs leading-6 text-foreground-subtle", children: copy.description })] })] }), (0, jsx_runtime_1.jsxs)("section", { className: "mt-5 border-t border-border pt-4", children: [(0, jsx_runtime_1.jsx)("h2", { className: "text-ui-xs font-medium text-foreground", children: copy.nextStepsTitle }), (0, jsx_runtime_1.jsx)("ol", { className: "mt-2 space-y-2 text-ui-xs leading-6 text-foreground-subtle", children: copy.nextSteps.map((step, index) => ((0, jsx_runtime_1.jsxs)("li", { className: "flex gap-2", children: [(0, jsx_runtime_1.jsx)("span", { className: "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-surface text-ui-xs text-foreground-subtle", children: index + 1 }), (0, jsx_runtime_1.jsx)("span", { className: "min-w-0", children: step })] }, step))) })] }), failure.message ? ((0, jsx_runtime_1.jsxs)("section", { className: "mt-4 rounded-lg border border-border bg-surface px-3 py-2.5", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-ui-xs font-medium text-foreground", children: copy.detailLabel }), (0, jsx_runtime_1.jsx)("div", { className: "mt-1 break-words font-mono text-ui-xs leading-5 text-foreground-subtle", children: failure.message })] })) : null, (0, jsx_runtime_1.jsx)("button", { type: "button", className: "mt-5 inline-flex h-9 w-full items-center justify-center rounded-md bg-primary px-4 text-ui-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90", onClick: onReload, children: copy.action })] }) }));
+    return (_jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4 py-8 text-foreground", style: { minHeight: "100dvh" }, children: _jsxs("main", { className: "w-full max-w-md rounded-xl border border-card-border bg-card p-5 shadow-sm", children: [_jsxs("div", { className: "flex items-start gap-3", children: [_jsx("div", { className: `flex size-10 shrink-0 items-center justify-center rounded-lg border text-ui-lg font-semibold ${toneClassName.icon}`, "aria-hidden": "true", children: "!" }), _jsxs("div", { className: "min-w-0 flex-1", children: [_jsx("div", { className: `mb-2 inline-flex max-w-full items-center rounded-full border px-2 py-0.5 text-ui-xs font-medium ${toneClassName.badge}`, children: _jsx("span", { className: "min-w-0 truncate", children: copy.badge }) }), _jsx("h1", { className: "text-ui-lg font-medium text-foreground", children: copy.title }), _jsx("p", { className: "mt-2 text-ui-xs leading-6 text-foreground-subtle", children: copy.description })] })] }), _jsxs("section", { className: "mt-5 border-t border-border pt-4", children: [_jsx("h2", { className: "text-ui-xs font-medium text-foreground", children: copy.nextStepsTitle }), _jsx("ol", { className: "mt-2 space-y-2 text-ui-xs leading-6 text-foreground-subtle", children: copy.nextSteps.map((step, index) => (_jsxs("li", { className: "flex gap-2", children: [_jsx("span", { className: "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-surface text-ui-xs text-foreground-subtle", children: index + 1 }), _jsx("span", { className: "min-w-0", children: step })] }, step))) })] }), failure.message ? (_jsxs("section", { className: "mt-4 rounded-lg border border-border bg-surface px-3 py-2.5", children: [_jsx("div", { className: "text-ui-xs font-medium text-foreground", children: copy.detailLabel }), _jsx("div", { className: "mt-1 break-words font-mono text-ui-xs leading-5 text-foreground-subtle", children: failure.message })] })) : null, _jsx("button", { type: "button", className: "mt-5 inline-flex h-9 w-full items-center justify-center rounded-md bg-primary px-4 text-ui-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90", onClick: onReload, children: copy.action })] }) }));
 }
 //# sourceMappingURL=webRemoteControlFailureScreen.js.map

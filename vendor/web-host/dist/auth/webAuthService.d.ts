@@ -35,7 +35,7 @@ export declare class WebAuthService {
     startLogin(options?: WebAuthLoginOptions): void;
     handleCallback(url: string): Promise<WebAuthCallbackResult | null>;
     restoreCachedSession(): Promise<UserInfo | null>;
-    restoreCachedSessionState(): import("@zcode/shared", { with: { "resolution-mode": "import" } }).OAuthCachedSessionRestoreResult;
+    restoreCachedSessionState(): import("@zcode/shared").OAuthCachedSessionRestoreResult;
     getZCodeJwtToken(): string | null;
     logout(): Promise<void>;
 }

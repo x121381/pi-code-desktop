@@ -1,9 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BrowserOAuthCredentialRepo = void 0;
-exports.isWebOAuthProviderId = isWebOAuthProviderId;
-const shared_1 = require("@zcode/shared");
-const zaiWebOAuthProvider_js_1 = require("./zaiWebOAuthProvider.js");
+import { BIGMODEL_PROVIDER_ID, ZAI_PROVIDER_ID, resolveJwtExpiration, } from "@zcode/shared";
+import { toUserInfo } from "./zaiWebOAuthProvider.js";
 const ACTIVE_PROVIDER_KEY = "oauth:active_provider";
 const ZCODE_JWT_TOKEN_KEY = "zcodejwttoken";
 const ZAI_ACCESS_TOKEN_KEY = "oauth:zai:access_token";
@@ -12,8 +8,8 @@ const BIGMODEL_ACCESS_TOKEN_KEY = "oauth:bigmodel:access_token";
 const BIGMODEL_USER_INFO_KEY = "oauth:bigmodel:user_info";
 const OAUTH_PENDING_NONCE_KEY = "oauth_pending_nonce";
 const OAUTH_PENDING_PROVIDER_KEY = "oauth_pending_provider";
-function isWebOAuthProviderId(value) {
-    return value === shared_1.ZAI_PROVIDER_ID || value === shared_1.BIGMODEL_PROVIDER_ID;
+export function isWebOAuthProviderId(value) {
+    return value === ZAI_PROVIDER_ID || value === BIGMODEL_PROVIDER_ID;
 }
 /**
  * 每个 provider 用独立的 key 段。
@@ -22,7 +18,7 @@ function isWebOAuthProviderId(value) {
  * 让所有已登录用户在发版当天掉线。加一段 bigmodel 前缀是零风险的做法，代价只是多一个映射。
  */
 function providerKeys(provider) {
-    return provider === shared_1.BIGMODEL_PROVIDER_ID
+    return provider === BIGMODEL_PROVIDER_ID
         ? { accessToken: BIGMODEL_ACCESS_TOKEN_KEY, userInfo: BIGMODEL_USER_INFO_KEY }
         : { accessToken: ZAI_ACCESS_TOKEN_KEY, userInfo: ZAI_USER_INFO_KEY };
 }
@@ -36,7 +32,7 @@ function hasText(value) {
     return typeof value === "string" && value.trim().length > 0;
 }
 /** 浏览器 OAuth 凭据仓储：统一收敛 localStorage/sessionStorage 读写，避免业务层散落认证状态判断。 */
-class BrowserOAuthCredentialRepo {
+export class BrowserOAuthCredentialRepo {
     localStorage;
     sessionStorage;
     now;
@@ -87,13 +83,13 @@ class BrowserOAuthCredentialRepo {
             }
             return { status: "signed-out" };
         }
-        if ((0, shared_1.resolveJwtExpiration)(zcodeJwtToken, this.now()).kind === "expired") {
+        if (resolveJwtExpiration(zcodeJwtToken, this.now()).kind === "expired") {
             // Web localStorage 之前只检查 JWT 是否存在，过期后仍会恢复伪登录态。
             this.clearAll();
             return { status: "reauthentication-required", reason: "jwt-expired" };
         }
         try {
-            const userInfo = (0, zaiWebOAuthProvider_js_1.toUserInfo)(JSON.parse(rawUserInfo));
+            const userInfo = toUserInfo(JSON.parse(rawUserInfo));
             if (userInfo) {
                 return { status: "authenticated", userInfo };
             }
@@ -155,5 +151,4 @@ class BrowserOAuthCredentialRepo {
         this.sessionStorage.removeItem(OAUTH_PENDING_PROVIDER_KEY);
     }
 }
-exports.BrowserOAuthCredentialRepo = BrowserOAuthCredentialRepo;
 //# sourceMappingURL=browserOAuthCredentialRepo.js.map

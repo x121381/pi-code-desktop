@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MockConversationSharePreviewClient = void 0;
-const conversationSharePreviewClient_js_1 = require("./conversationSharePreviewClient.js");
+import { ConversationSharePreviewClientError } from "./conversationSharePreviewClient.js";
 function previewFor(accessMode) {
     const createdAt = Date.now() - 60_000;
     return {
@@ -78,10 +75,10 @@ function previewFor(accessMode) {
         },
     };
 }
-class MockConversationSharePreviewClient {
+export class MockConversationSharePreviewClient {
     async getPreview(shareCode, accessToken) {
         if (shareCode === "mock-expired") {
-            throw new conversationSharePreviewClient_js_1.ConversationSharePreviewClientError({
+            throw new ConversationSharePreviewClientError({
                 kind: "expired",
                 message: "Share expired",
                 status: 410,
@@ -89,7 +86,7 @@ class MockConversationSharePreviewClient {
             });
         }
         if (shareCode === "mock-not-found") {
-            throw new conversationSharePreviewClient_js_1.ConversationSharePreviewClientError({
+            throw new ConversationSharePreviewClientError({
                 kind: "not_found",
                 message: "Share not found",
                 status: 404,
@@ -97,7 +94,7 @@ class MockConversationSharePreviewClient {
             });
         }
         if (shareCode === "mock-private" && accessToken !== "mock-owner-token") {
-            throw new conversationSharePreviewClient_js_1.ConversationSharePreviewClientError({
+            throw new ConversationSharePreviewClientError({
                 kind: "not_found",
                 message: "Share not found",
                 status: 404,
@@ -106,7 +103,7 @@ class MockConversationSharePreviewClient {
         }
         // 跨版本兼容的两个手工验收入口（真实链路里由 conversationSharePreviewClient 判定）。
         if (shareCode === "mock-outdated-client") {
-            throw new conversationSharePreviewClient_js_1.ConversationSharePreviewClientError({
+            throw new ConversationSharePreviewClientError({
                 kind: "unsupported_schema_version",
                 message: "Share requires a newer ZCode",
                 status: 200,
@@ -123,5 +120,4 @@ class MockConversationSharePreviewClient {
         return previewFor("public_importable");
     }
 }
-exports.MockConversationSharePreviewClient = MockConversationSharePreviewClient;
 //# sourceMappingURL=mockConversationSharePreviewClient.js.map

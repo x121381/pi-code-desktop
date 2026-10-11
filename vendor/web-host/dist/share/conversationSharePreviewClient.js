@@ -1,13 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConversationSharePreviewClient = exports.ConversationSharePreviewClientError = void 0;
-exports.isSafeConversationShareCode = isSafeConversationShareCode;
-exports.parseConversationShareRoute = parseConversationShareRoute;
-exports.resolveConversationShareRouteLocale = resolveConversationShareRouteLocale;
-exports.buildShareImportDeepLink = buildShareImportDeepLink;
-const shared_1 = require("@zcode/shared");
+import { conversationShareErrorEnvelopeSchema, conversationShareKnownErrorCodeSchema, conversationSharePreviewDataSchema, createConversationShareSuccessEnvelopeSchema, decodeConversationShareRows, isConversationShareSchemaVersionSupported, parseConversationSharePathname, } from "@zcode/shared";
 const SHARE_CODE_PATTERN = /^[A-Za-z0-9._~-]{1,512}$/u;
-class ConversationSharePreviewClientError extends Error {
+export class ConversationSharePreviewClientError extends Error {
     kind;
     status;
     code;
@@ -19,12 +12,11 @@ class ConversationSharePreviewClientError extends Error {
         this.code = options.code;
     }
 }
-exports.ConversationSharePreviewClientError = ConversationSharePreviewClientError;
-function isSafeConversationShareCode(value) {
+export function isSafeConversationShareCode(value) {
     return SHARE_CODE_PATTERN.test(value);
 }
-function parseConversationShareRoute(pathname) {
-    const parsed = (0, shared_1.parseConversationSharePathname)(pathname);
+export function parseConversationShareRoute(pathname) {
+    const parsed = parseConversationSharePathname(pathname);
     if (!parsed)
         return null;
     let code;
@@ -37,13 +29,13 @@ function parseConversationShareRoute(pathname) {
     return isSafeConversationShareCode(code) ? code : null;
 }
 /** 页面语言由路径前缀决定：/cn/share 中文，裸 /share 英文；非分享路径回退到浏览器语言。 */
-function resolveConversationShareRouteLocale(pathname) {
-    const parsed = (0, shared_1.parseConversationSharePathname)(pathname);
+export function resolveConversationShareRouteLocale(pathname) {
+    const parsed = parseConversationSharePathname(pathname);
     if (parsed)
         return parsed.locale;
     return /^zh(?:-|$)/iu.test(navigator.language) ? "zh-CN" : "en-US";
 }
-function buildShareImportDeepLink(shareCode) {
+export function buildShareImportDeepLink(shareCode) {
     if (!isSafeConversationShareCode(shareCode)) {
         throw new TypeError("Invalid conversation share code");
     }
@@ -82,8 +74,8 @@ const DEFAULT_DIAGNOSTICS = {
         console.warn("[conversation-share-web]", event, details);
     },
 };
-const successEnvelopeSchema = (0, shared_1.createConversationShareSuccessEnvelopeSchema)(shared_1.conversationSharePreviewDataSchema);
-class ConversationSharePreviewClient {
+const successEnvelopeSchema = createConversationShareSuccessEnvelopeSchema(conversationSharePreviewDataSchema);
+export class ConversationSharePreviewClient {
     baseUrl;
     fetchImpl;
     diagnostics;
@@ -162,10 +154,10 @@ class ConversationSharePreviewClient {
             });
         }
         if (!response.ok) {
-            const parsedError = shared_1.conversationShareErrorEnvelopeSchema.safeParse(payload);
+            const parsedError = conversationShareErrorEnvelopeSchema.safeParse(payload);
             if (parsedError.success) {
                 // 未知业务码保留服务端 msg，不再让整条信封解析失败退化成没有上下文的 HTTP 错误。
-                const knownCode = shared_1.conversationShareKnownErrorCodeSchema.safeParse(parsedError.data.code);
+                const knownCode = conversationShareKnownErrorCodeSchema.safeParse(parsedError.data.code);
                 throw new ConversationSharePreviewClientError({
                     kind: knownCode.success ? mapErrorKind(knownCode.data) : mapHttpStatus(response.status),
                     message: parsedError.data.msg,
@@ -191,7 +183,7 @@ class ConversationSharePreviewClient {
         const data = parsed.data.data;
         // 落地页镜像是独立部署、独立回滚的，所以它随时可能比发布分享的客户端旧。版本高于本
         // build 认知时要说「请升级」，不能混进「分享格式无效」。
-        if (!(0, shared_1.isConversationShareSchemaVersionSupported)(data.schema_version)) {
+        if (!isConversationShareSchemaVersionSupported(data.schema_version)) {
             this.diagnostics.warn("preview_schema_version_unsupported", {
                 requestTarget,
                 version: data.schema_version,
@@ -203,7 +195,7 @@ class ConversationSharePreviewClient {
             });
         }
         // 逐行降级：认不出的行跳过并计数，不让整页打不开。
-        const decoded = (0, shared_1.decodeConversationShareRows)(data.rows);
+        const decoded = decodeConversationShareRows(data.rows);
         if (decoded.unsupportedCount > 0) {
             this.diagnostics.info("preview_dropped_unsupported_rows", {
                 requestTarget,
@@ -215,5 +207,4 @@ class ConversationSharePreviewClient {
         return { ...data, rows: decoded.rows, unsupportedRowCount: decoded.unsupportedCount };
     }
 }
-exports.ConversationSharePreviewClient = ConversationSharePreviewClient;
 //# sourceMappingURL=conversationSharePreviewClient.js.map

@@ -1,6 +1,5 @@
 import { type RendererTelemetryEventPayload } from "@zcode/shared";
 import { Root } from "@zcode/ui";
-import "@zcode/ui/styles.css";
 import type { IPlatformService, WebRemoteControlPlatformMethod, WebRemoteControlPlatformMethodArgsMap, WebRemoteControlPlatformMethodResultMap } from "@zcode/shared";
 type RootServices = Parameters<typeof Root>[0]["services"];
 interface WebRemoteControlProxyOptions {

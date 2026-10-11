@@ -1,0 +1,5 @@
+{
+  "name": "@zcode/web-host",
+  "type": "module",
+  "private": true
+}

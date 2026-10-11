@@ -9,6 +9,8 @@ import "./native-theme.css";
 // ZCode (zai) theme layer — must come last so the zai palettes and the legacy
 // variable remap win the cascade. See app/zai-theme.css.
 import "./zai-theme.css";
+// ZCode UI styles (vendored package) — global CSS graph.
+import "@zcode/ui/styles.css";
 import { PRODUCT_NAME } from "@/lib/branding";
 
 const notoSansMono = Noto_Sans_Mono({
