@@ -1,0 +1,1 @@
+{"version":3,"file":"useSlashCommands.js","sourceRoot":"","sources":["../../src/hooks/useSlashCommands.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,OAAO,EAAE,oBAAoB,EAAE,yBAAyB,EAAE,MAAM,+BAA+B,CAAC;AAEhG,MAAM,UAAU,gBAAgB,CAAC,aAAqB,EAAE,iBAA0B;IAChF,OAAO,oBAAoB,CACzB,CAAC,KAAK,EAAE,EAAE,CAAC,yBAAyB,CAAC,KAAK,EAAE,aAAa,EAAE,iBAAiB,CAAC,CAAC,aAAa,CAC5F,CAAC;AACJ,CAAC"}

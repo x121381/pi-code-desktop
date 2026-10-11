@@ -1,0 +1,1 @@
+{"version":3,"file":"requestIdHeaders.d.ts","sourceRoot":"","sources":["../../../src/providers/api/requestIdHeaders.ts"],"names":[],"mappings":"AAEA,eAAO,MAAM,sBAAsB,iBAAiB,CAAC;AAErD,wBAAgB,mBAAmB,CAAC,OAAO,EAAE,WAAW,CAAC,SAAS,CAAC,GAAG,SAAS,GAAG,OAAO,CAMxF;AAED,wBAAgB,yBAAyB,CACvC,OAAO,EAAE,WAAW,CAAC,SAAS,CAAC,GAAG,SAAS,GAC1C,MAAM,CAAC,MAAM,EAAE,MAAM,CAAC,CAqBxB"}

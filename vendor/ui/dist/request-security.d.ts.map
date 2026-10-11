@@ -1,0 +1,1 @@
+{"version":3,"file":"request-security.d.ts","sourceRoot":"","sources":["../src/request-security.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,2BAA2B;IAC1C,aAAa,EAAE,MAAM,CAAC;IACtB,iBAAiB,CAAC,EAAE,MAAM,CAAC;IAC3B,eAAe,CAAC,EAAE,MAAM,CAAC;IACzB,YAAY,CAAC,EAAE,OAAO,CAAC;CACxB"}

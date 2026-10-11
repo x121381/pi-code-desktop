@@ -1,0 +1,1 @@
+{"version":3,"file":"settingsWriteQueue.d.ts","sourceRoot":"","sources":["../../src/setting/settingsWriteQueue.ts"],"names":[],"mappings":"AAGA,wBAAgB,8BAA8B,IAAI,MAAM,CASvD;AAED,wBAAgB,qBAAqB,CAAC,YAAY,EAAE,MAAM,GAAG,MAAM,CAIlE;AAED,wBAAgB,6BAA6B,CAC3C,SAAS,EAAE,CAAC,gBAAgB,EAAE,MAAM,IAAI,KAAK,OAAO,CAAC,IAAI,CAAC,EAC1D,kBAAkB,EAAE,MAAM,IAAI,GAC7B,OAAO,CAAC,IAAI,CAAC,CAmCf"}

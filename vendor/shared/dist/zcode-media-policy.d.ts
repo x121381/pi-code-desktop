@@ -1,0 +1,6 @@
+/** ZCode 接受单个 video 输入的全局原始字节上限。 */
+export declare const VIDEO_INPUT_MAX_BYTES: number;
+export declare const MEDIA_BUDGET_CURRENT_IMAGE_TOO_LARGE_ERROR_CODE = "MEDIA_BUDGET_CURRENT_IMAGE_TOO_LARGE";
+export declare const MEDIA_BUDGET_CURRENT_VIDEO_TOO_LARGE_ERROR_CODE = "MEDIA_BUDGET_CURRENT_VIDEO_TOO_LARGE";
+export declare const MEDIA_BUDGET_CURRENT_ATTACHMENT_TOO_LARGE_ERROR_CODE = "MEDIA_BUDGET_CURRENT_ATTACHMENT_TOO_LARGE";
+//# sourceMappingURL=zcode-media-policy.d.ts.map

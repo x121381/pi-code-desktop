@@ -1,0 +1,1 @@
+{"version":3,"file":"useAlertDialog.js","sourceRoot":"","sources":["../../src/hooks/useAlertDialog.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,6BAA6B,CAAC;AAElE,MAAM,UAAU,cAAc;IAC5B,OAAO,mBAAmB,CAAC,CAAC,KAAK,EAAE,EAAE,CAAC,KAAK,CAAC,YAAY,CAAC,CAAC;AAC5D,CAAC"}

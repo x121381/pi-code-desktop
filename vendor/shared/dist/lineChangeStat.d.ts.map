@@ -1,0 +1,1 @@
+{"version":3,"file":"lineChangeStat.d.ts","sourceRoot":"","sources":["../src/lineChangeStat.ts"],"names":[],"mappings":"AAcA,MAAM,WAAW,cAAc;IAC7B,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,MAAM,CAAC;CACjB;AAED,wBAAgB,qBAAqB,CACnC,aAAa,EAAE,MAAM,GAAG,IAAI,EAC5B,YAAY,EAAE,MAAM,GACnB,cAAc,CAgEhB"}

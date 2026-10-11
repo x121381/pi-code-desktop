@@ -1,0 +1,1 @@
+{"version":3,"file":"shared.d.ts","sourceRoot":"","sources":["../../src/ToolCallBlocks/shared.tsx"],"names":[],"mappings":"AAAA,YAAY,EACV,eAAe,EACf,cAAc,EACd,iBAAiB,EACjB,sBAAsB,EACtB,0BAA0B,EAC1B,qBAAqB,EACrB,sBAAsB,GACvB,MAAM,sCAAsC,CAAC;AAC9C,OAAO,EAAE,4BAA4B,EAAE,MAAM,mCAAmC,CAAC;AACjF,OAAO,EACL,yBAAyB,EACzB,eAAe,EACf,cAAc,EACd,cAAc,EACd,qBAAqB,GACtB,MAAM,+BAA+B,CAAC"}

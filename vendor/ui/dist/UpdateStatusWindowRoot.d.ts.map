@@ -1,0 +1,1 @@
+{"version":3,"file":"UpdateStatusWindowRoot.d.ts","sourceRoot":"","sources":["../src/UpdateStatusWindowRoot.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,EAAsB,MAAM,eAAe,CAAC;AAMlF,wBAAgB,sBAAsB,CAAC,EACrC,QAAQ,EACR,aAAa,EACb,cAAc,GACf,EAAE;IACD,QAAQ,EAAE,gBAAgB,CAAC;IAC3B,aAAa,EAAE,MAAM,CAAC;IACtB,cAAc,EAAE,MAAM,IAAI,CAAC;CAC5B,2CA2EA"}

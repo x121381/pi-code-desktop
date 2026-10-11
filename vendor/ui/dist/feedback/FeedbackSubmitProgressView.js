@@ -1,0 +1,6 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export function SubmitProgressView({ progress, processingLabel, }) {
+    const progressValue = Math.max(0, Math.min(progress.progress ?? 0, 100));
+    return (_jsxs("div", { className: "w-full rounded-lg border border-border bg-card px-3 py-2", "aria-live": "polite", children: [_jsxs("div", { className: "mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-ui-xs leading-4", children: [_jsx("span", { className: "font-medium text-foreground", children: progress.label }), _jsx("span", { className: "shrink-0 font-mono text-foreground-subtle", children: progress.progress !== undefined ? `${progressValue}%` : processingLabel }), progress.detail ? (_jsx("span", { className: "min-w-[160px] flex-1 font-mono text-foreground-subtlest", children: progress.detail })) : null] }), _jsx("div", { className: "h-1 overflow-hidden rounded-full bg-border", children: progress.indeterminate ? (_jsx("div", { className: "h-full w-1/3 animate-pulse rounded-full bg-primary" })) : (_jsx("div", { className: "h-full rounded-full bg-primary transition-[width] duration-200", style: { width: `${progressValue}%` } })) })] }));
+}
+//# sourceMappingURL=FeedbackSubmitProgressView.js.map

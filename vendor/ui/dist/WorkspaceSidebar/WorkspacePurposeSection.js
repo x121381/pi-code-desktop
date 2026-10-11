@@ -1,0 +1,18 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ChevronDown, ChevronRight, GripVertical } from "lucide-react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger, } from "@/components/ui/collapsible.js";
+export function WorkspacePurposeSection({ title, open, onOpenChange, action, children, testId, sortableId, dragHandleLabel, }) {
+    const { attributes, listeners, setActivatorNodeRef, setNodeRef, transform, transition, isDragging, } = useSortable({ id: sortableId });
+    const style = {
+        transform: transform
+            ? CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 })
+            : undefined,
+        transition,
+        zIndex: isDragging ? 10 : undefined,
+        opacity: isDragging ? 0.85 : 1,
+    };
+    return (_jsx("section", { ref: setNodeRef, style: style, "data-testid": testId, "aria-label": title, className: "group/purpose-section relative", children: _jsxs(Collapsible, { open: open, onOpenChange: onOpenChange, children: [_jsxs("div", { className: "flex h-7 min-w-0 items-center", children: [_jsx(CollapsibleTrigger, { asChild: true, children: _jsxs("button", { type: "button", className: "flex h-7 min-w-0 flex-1 items-center gap-1 px-2.5 text-left text-ui-base font-medium text-foreground-subtlest outline-none transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring/30", children: [_jsx("span", { className: "min-w-0 truncate", children: title }), open ? (_jsx(ChevronDown, { "aria-hidden": "true", "data-purpose-section-chevron": "expanded", className: "size-3.5 shrink-0 opacity-0 transition-opacity group-hover/purpose-section:opacity-100 group-focus-within/purpose-section:opacity-100 [@media(hover:none)]:opacity-100" })) : (_jsx(ChevronRight, { "aria-hidden": "true", "data-purpose-section-chevron": "collapsed", className: "size-3.5 shrink-0 opacity-0 transition-opacity group-hover/purpose-section:opacity-100 group-focus-within/purpose-section:opacity-100 [@media(hover:none)]:opacity-100" }))] }) }), _jsxs("div", { className: "flex shrink-0 items-center pr-1.5 opacity-0 transition-opacity group-hover/purpose-section:opacity-100 group-focus-within/purpose-section:opacity-100 has-[[data-state=open]]:opacity-100 [@media(hover:none)]:opacity-100", children: [_jsx("button", { ref: setActivatorNodeRef, type: "button", "aria-label": dragHandleLabel, "data-purpose-section-drag-handle": sortableId, className: "flex size-6 touch-none cursor-grab items-center justify-center rounded-md text-foreground-subtlest outline-none hover:bg-hover hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/30 active:cursor-grabbing", ...attributes, ...listeners, children: _jsx(GripVertical, { "aria-hidden": "true", className: "size-3.5" }) }), action] })] }), _jsx(CollapsibleContent, { children: children })] }) }));
+}
+//# sourceMappingURL=WorkspacePurposeSection.js.map

@@ -25,6 +25,12 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@zcode/web-host": [
+        "./vendor/web-host/host.tsx"
+      ],
+      "@zcode/web-host/*": [
+        "./vendor/web-host/*"
       ]
     },
     "target": "ES2017"
@@ -36,9 +42,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next-desktop/types/**/*.ts",
-    ".next-desktop/dev/types/**/*.ts"
+    ".next-desktop/dev/types/**/*.ts",
+    "config/**/*.json"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "vendor"
   ]
 }

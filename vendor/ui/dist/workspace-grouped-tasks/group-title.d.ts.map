@@ -1,0 +1,1 @@
+{"version":3,"file":"group-title.d.ts","sourceRoot":"","sources":["../../src/workspace-grouped-tasks/group-title.ts"],"names":[],"mappings":"AAEA,6DAA6D;AAC7D,iBAAS,wBAAwB,CAC/B,KAAK,EAAE;IAAE,EAAE,EAAE,MAAM,CAAC;IAAC,KAAK,EAAE,MAAM,CAAA;CAAE,EACpC,qBAAqB,EAAE;IAAE,IAAI,EAAE,MAAM,CAAC;IAAC,OAAO,EAAE,MAAM,CAAA;CAAE,GACvD,MAAM,CAIR;AAED,OAAO,EAAE,wBAAwB,EAAE,CAAC"}

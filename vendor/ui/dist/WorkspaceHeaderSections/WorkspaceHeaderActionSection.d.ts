@@ -1,0 +1,4 @@
+import type { WorkspaceHeaderActionSectionProps } from "@/WorkspaceHeaderSections/shared.js";
+export type { WorkspaceHeaderActionSectionProps } from "@/WorkspaceHeaderSections/shared.js";
+export declare function WorkspaceHeaderActionSection({ variant, activeTaskId, user, readOnlyReason, workspaceAbsPath, workspaceIdentity, remoteTarget, isWebRemoteControl, isDesktop, isTerminalOpen, isSidePaneOpen, onToggleTerminal, onToggleSidePane, toggleSidePaneShortcutLabel, onSelectedEditorChange, simplifyForNarrowRemote, hideHelpMenu, showWindowControls, useWindowsCaptionSpacing, }: WorkspaceHeaderActionSectionProps): import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=WorkspaceHeaderActionSection.d.ts.map

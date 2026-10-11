@@ -1,0 +1,1 @@
+{"version":3,"file":"workspaceSidebarSelection.js","sourceRoot":"","sources":["../../src/WorkspaceSidebar/workspaceSidebarSelection.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,8BAA8B,CAAC,EAC7C,KAAK,EACL,aAAa,EACb,UAAU,EACV,WAAW,EACX,uBAAuB,GAOxB;IACC,WAAW,CAAC,KAAK,CAAC,CAAC;IAEnB,IAAI,UAAU,EAAE,CAAC;QACf,uBAAuB,CAAC,aAAa,CAAC,CAAC;IACzC,CAAC;AACH,CAAC"}

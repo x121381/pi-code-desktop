@@ -1,0 +1,1 @@
+{"version":3,"file":"BrowserSiteSettingsEntry.d.ts","sourceRoot":"","sources":["../../src/browser-use/BrowserSiteSettingsEntry.tsx"],"names":[],"mappings":"AAMA;;;;;GAKG;AACH,wBAAgB,wBAAwB,CAAC,EACvC,MAAM,EACN,cAAc,GACf,EAAE;IACD,MAAM,EAAE,MAAM,CAAC;IACf,cAAc,CAAC,EAAE,CAAC,MAAM,EAAE,MAAM,KAAK,IAAI,CAAC;CAC3C,2CAuDA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"pendingGuideProjection.d.ts","sourceRoot":"","sources":["../../src/v4/pendingGuideProjection.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,UAAU,EAAE,MAAM,iCAAiC,CAAC;AAE7E,MAAM,WAAW,2BAA2B;IAC1C,aAAa,EAAE,SAAS,SAAS,EAAE,CAAC;IACpC,YAAY,EAAE,UAAU,CAAC;CAC1B;AAED;;;;GAIG;AACH,wBAAgB,wBAAwB,CACtC,KAAK,EAAE,UAAU,GAChB,2BAA2B,CAiB7B"}

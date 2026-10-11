@@ -1,0 +1,1 @@
+{"version":3,"file":"WorkspaceContextPath.d.ts","sourceRoot":"","sources":["../../src/WorkspaceHeaderSections/WorkspaceContextPath.tsx"],"names":[],"mappings":"AAIA,wBAAgB,oBAAoB,CAAC,EACnC,aAAa,EACb,iBAAiB,EACjB,eAAe,GAChB,EAAE;IACD,aAAa,EAAE,MAAM,CAAC;IACtB,iBAAiB,CAAC,EAAE,MAAM,CAAC;IAC3B,eAAe,CAAC,EAAE,MAAM,CAAC;CAC1B,2CA2BA"}

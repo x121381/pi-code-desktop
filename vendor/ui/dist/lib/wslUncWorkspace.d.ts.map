@@ -1,0 +1,1 @@
+{"version":3,"file":"wslUncWorkspace.d.ts","sourceRoot":"","sources":["../../src/lib/wslUncWorkspace.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,mBAAmB;IAClC,MAAM,EAAE,MAAM,CAAC;IACf,SAAS,EAAE,MAAM,CAAC;IAClB,YAAY,EAAE,MAAM,CAAC;CACtB;AAED,wBAAgB,wBAAwB,CAAC,IAAI,EAAE,MAAM,GAAG,mBAAmB,GAAG,IAAI,CAcjF;AAED,wBAAgB,qBAAqB,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAE3D"}

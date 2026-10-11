@@ -1,0 +1,25 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+/**
+ * 资源管理器 CPU / 内存 tab 的展示零件：双层指标卡、分组列表、进程行。
+ * 只做格式化与布局，不持有任何指标状态。
+ */
+import { ChevronRight } from "lucide-react";
+import { cn } from "@/components/lib/utils.js";
+import { formatBytes, formatPercent } from "./resourceUsageView.js";
+export const UNSAMPLED_PLACEHOLDER = "—";
+/** 双层进度条：灰色 = 整机总占用，brand = ZCode 自身占用；图例文字做颜色之外的第二编码 */
+export function UsageMeter({ testId, label, appValue, systemValue, appPercent, systemPercent, appLabel, systemLabel, }) {
+    return (_jsxs("div", { className: "rounded-xl border border-card-border bg-card p-4", "data-testid": testId, children: [_jsx("div", { className: "text-ui-sm font-medium text-foreground-subtle", children: label }), _jsxs("div", { className: "mt-2 flex items-baseline gap-2", children: [_jsx("span", { className: "font-mono text-ui-xl font-medium", "data-testid": `${testId}-app`, children: appValue }), _jsx("span", { className: "text-ui-xs text-foreground-subtlest", children: appLabel })] }), _jsxs("div", { className: "relative mt-3 h-2 overflow-hidden rounded-sm bg-surface-hover", role: "img", "aria-label": `${appLabel} ${appValue}, ${systemLabel} ${systemValue}`, children: [_jsx("div", { className: "absolute inset-y-0 left-0 rounded-sm bg-foreground-subtlest/40", style: { width: `${systemPercent}%` } }), _jsx("div", { className: "absolute inset-y-0 left-0 rounded-sm bg-brand", style: { width: `${appPercent}%` } })] }), _jsxs("div", { className: "mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-ui-xs text-foreground-subtle", children: [_jsxs("span", { className: "inline-flex items-center gap-1", children: [_jsx("span", { className: "size-2 rounded-sm bg-brand", "aria-hidden": "true" }), appLabel] }), _jsxs("span", { className: "inline-flex items-center gap-1", children: [_jsx("span", { className: "size-2 rounded-sm bg-foreground-subtlest/40", "aria-hidden": "true" }), systemLabel, _jsx("span", { className: "font-mono text-foreground", "data-testid": `${testId}-system`, children: systemValue })] })] })] }));
+}
+const ROW_GRID_CLASS = "grid grid-cols-[minmax(0,1fr)_72px_96px] items-center gap-2";
+export function UsageGroup({ group, metric, title, expanded, onToggle, emptyText, samplingText, columns, }) {
+    return (_jsxs("div", { className: "overflow-hidden rounded-xl border border-card-border bg-card", "data-testid": `resource-manager-group-${group.category}`, children: [_jsxs("button", { type: "button", className: "flex h-9 w-full items-center gap-2 px-3 text-left hover:bg-hover", "aria-expanded": expanded, onClick: onToggle, children: [_jsx(ChevronRight, { className: cn("size-4 shrink-0 text-foreground-subtle transition-transform", expanded && "rotate-90"), "aria-hidden": "true" }), _jsx("span", { className: "min-w-0 flex-1 truncate text-ui-base font-medium", children: title }), _jsx("span", { className: "rounded-sm bg-tag px-1.5 text-ui-xs text-foreground-subtle", children: group.processCount }), _jsx("span", { className: "w-24 text-right font-mono text-ui-sm text-foreground-subtle", children: metric === "cpu" ? formatPercent(group.cpuPercent) : formatBytes(group.memoryBytes) })] }), expanded ? (group.processes.length === 0 ? (_jsx("div", { className: "border-t border-border px-3 py-2 text-ui-sm text-foreground-subtlest", children: emptyText })) : (_jsxs("div", { className: "border-t border-border", children: [_jsxs("div", { className: cn(ROW_GRID_CLASS, "h-7 border-b border-border px-3 text-ui-xs font-medium text-foreground-subtle"), children: [_jsx("div", { children: columns.process }), _jsx("div", { className: "text-right", children: columns.pid }), _jsx("div", { className: "text-right", children: metric === "cpu" ? columns.cpu : columns.memory })] }), group.processes.map((process) => (_jsx(ProcessRow, { process: process, metric: metric, samplingText: samplingText }, process.pid)))] }))) : null] }));
+}
+function ProcessRow({ process, metric, samplingText, }) {
+    return (_jsxs("div", { className: cn(ROW_GRID_CLASS, "min-h-8 border-b border-border px-3 text-ui-sm last:border-b-0"), "data-testid": "resource-manager-process-row", "data-process-name": process.name, children: [_jsxs("div", { className: "min-w-0", children: [_jsx("div", { className: "truncate font-medium text-foreground", title: process.name, children: process.name }), process.category !== "base" ? (_jsx("div", { className: "truncate text-ui-xs text-foreground-subtlest", title: process.groupLabel, children: process.groupLabel })) : null] }), _jsx("div", { className: "text-right font-mono text-foreground-subtle", children: process.pid }), _jsx("div", { className: "text-right font-mono text-foreground-subtle", title: process.sampled ? undefined : samplingText, children: !process.sampled
+                    ? UNSAMPLED_PLACEHOLDER
+                    : metric === "cpu"
+                        ? formatPercent(process.cpuPercent)
+                        : formatBytes(process.memoryBytes) })] }));
+}
+//# sourceMappingURL=resourceUsageParts.js.map

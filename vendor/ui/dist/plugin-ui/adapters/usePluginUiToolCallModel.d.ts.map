@@ -1,0 +1,1 @@
+{"version":3,"file":"usePluginUiToolCallModel.d.ts","sourceRoot":"","sources":["../../../src/plugin-ui/adapters/usePluginUiToolCallModel.ts"],"names":[],"mappings":"AA6BA,OAAO,KAAK,EAAE,0BAA0B,EAAE,MAAM,sCAAsC,CAAC;AAUvF,OAAO,KAAK,EAAE,yBAAyB,EAAE,MAAM,yBAAyB,CAAC;AAOzE,mDAAmD;AACnD,wBAAgB,wBAAwB,CACtC,OAAO,EAAE,0BAA0B,GAClC,IAAI,CAAC,yBAAyB,EAAE,UAAU,CAAC,CAwO7C"}

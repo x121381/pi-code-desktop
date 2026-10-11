@@ -1,0 +1,19 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ChevronLeft, Clock3, ListChecks } from "lucide-react";
+import { Button } from "@/components/ui/button.js";
+import { FeedbackProgress } from "@/feedback/feedbackProgress.js";
+import { FeedbackSupplementComposer } from "@/feedback/FeedbackSupplementComposer.js";
+import { FeedbackTimeline, getFeedbackTimelineItems } from "@/feedback/feedbackTimeline.js";
+import { formatRelativeTime } from "@/feedback/feedbackUserView.js";
+import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+export function FeedbackProcessView({ ticket, feedbackService, onBack, onRefresh, }) {
+    const { intl } = useZCodeIntl();
+    const formatMessage = intl.formatMessage;
+    const timelineItems = getFeedbackTimelineItems(ticket.events ?? [], ticket.comments, formatMessage);
+    const latestItem = timelineItems.at(-1);
+    return (_jsxs("div", { className: "flex min-h-full flex-col gap-5", children: [_jsxs("header", { className: "shrink-0", children: [_jsx("div", { className: "mb-3 flex items-center gap-2", children: _jsxs(Button, { type: "button", size: "sm", variant: "ghost", onClick: onBack, className: "h-8 rounded-lg text-foreground-subtle hover:bg-hover hover:text-foreground", children: [_jsx(ChevronLeft, {}), formatMessage({ id: "feedback.process.backToDetail" })] }) }), _jsxs("div", { className: "rounded-lg border border-card-border bg-card p-4", children: [_jsxs("div", { className: "flex flex-wrap items-start justify-between gap-3", children: [_jsxs("div", { className: "min-w-0", children: [_jsxs("div", { className: "flex items-center gap-2 text-ui-base font-medium text-foreground-subtle", children: [_jsx(ListChecks, { className: "size-3.5" }), formatMessage({ id: "feedback.process.title" })] }), _jsx("h2", { className: "mt-2 line-clamp-2 text-ui-lg font-semibold text-foreground", children: ticket.title })] }), _jsx("div", { className: "shrink-0 rounded-full border border-border bg-surface px-2.5 py-1 text-ui-base text-foreground-subtle", children: formatMessage({ id: "feedback.timeline.stepCount" }, { count: String(timelineItems.length) }) })] }), _jsx("div", { className: "mt-4", children: _jsx(FeedbackProgress, { status: ticket.status, assigneeDisplay: ticket.assignee_display }) }), latestItem ? (_jsxs("div", { className: "mt-4 flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-ui-base text-foreground-subtle", children: [_jsx(Clock3, { className: "size-3.5 text-primary" }), _jsx("span", { className: "text-foreground-subtle", children: formatMessage({ id: "feedback.process.currentLatest" }) }), _jsx("span", { className: "min-w-0 flex-1 truncate text-foreground", children: latestItem.summary ??
+                                            (latestItem.isStaff
+                                                ? formatMessage({ id: "feedback.timeline.officialReply" })
+                                                : formatMessage({ id: "feedback.timeline.yourSupplement" })) }), _jsx("span", { className: "shrink-0 text-foreground-subtle", children: formatRelativeTime(latestItem.createdAt, formatMessage) })] })) : null] })] }), _jsx("section", { className: "rounded-lg border border-card-border bg-card p-4", children: _jsx(FeedbackTimeline, { events: ticket.events ?? [], comments: ticket.comments, showDurations: true }) }), _jsx(FeedbackSupplementComposer, { ticketId: ticket.id, feedbackService: feedbackService, onSubmitted: onRefresh, title: formatMessage({ id: "feedback.supplement.continueTitle" }), description: formatMessage({ id: "feedback.supplement.continueDescription" }) })] }));
+}
+//# sourceMappingURL=FeedbackProcessView.js.map

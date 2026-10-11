@@ -1,0 +1,1186 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { GenUiMessageResponse } from "@/gen-ui/index.js";
+import { ConversationUserInputBubble } from "@/v4/ConversationUserInputBubble.js";
+import { expandTopicInputMessages } from "@/v4/topicInputMessages.js";
+import { ConnectedBotGroupDeliveryAction } from "@/v4/BotGroupDeliveryAction.js";
+/* oxlint-disable eslint(max-lines) -- v4 逐行 row 渲染分发集中收口（每种 row 一个 memo 叶子 + timelineMarker 分隔线），拆分会打散行类型对照。 */
+import { useIsOfficeMode } from "@/hooks/useInterfaceMode.js";
+import { memo, useCallback, useEffect, useMemo, useRef, useState, } from "react";
+import { ArchiveIcon, ArrowRightLeftIcon, CheckIcon, Clock, CopyIcon, FileClockIcon, FileIcon, GitBranchIcon, GoalIcon, PencilIcon, ThumbsDownIcon, ThumbsUpIcon, TrendingUpDownIcon, XIcon, } from "lucide-react";
+import { TID_V4_EDIT, TID_V4_EDIT_ATTACHMENT_REMOVE, TID_V4_EDIT_CANCEL, TID_V4_EDIT_INPUT, TID_V4_EDIT_SUBMIT, TID_V4_EDIT_REWIND_WORKSPACE, TID_V4_FEEDBACK_DISLIKE, TID_V4_FEEDBACK_LIKE, TID_V4_FORK, TID_V4_ROW, TID_V4_ROW_ATTACHMENTS, parseAutomationRunId, testId, } from "@zcode/shared";
+import { AssistantPreviewCards } from "@/AssistantPreviewCards.js";
+import { AssistantCodeCommentCards } from "@/AssistantCodeCommentCards.js";
+import { useAssistantCodeCommentFeatureEnabled } from "@/AssistantCodeCommentFeatureProvider.js";
+import { Attachment, AttachmentPreview, AttachmentRemove, Attachments, } from "@/components/ai-elements/attachments.js";
+import { ImagePreviewDialog } from "@/components/ai-elements/image-preview-dialog.js";
+import { ChatMediaAttachmentPreviewDialog, } from "@/ChatMediaAttachmentPreviewDialog.js";
+import { MessageAction, MessageActions } from "@/components/ai-elements/message.js";
+import { Reasoning, ReasoningContent, ReasoningTrigger, } from "@/components/ai-elements/reasoning.js";
+import { cn } from "@/components/lib/utils.js";
+import { Button } from "@/components/ui/button.js";
+import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { WorkflowToolSummary } from "@/v4/WorkflowToolSummary.js";
+import { readWorkflowName, readWorkflowRetuneCall, } from "@/ToolCallBlocks/renderers/createWorkflowInput.js";
+import { WorkflowRetuneRow } from "@/ToolCallBlocks/renderers/WorkflowRetuneRow.js";
+import { workflowRunDefaultConcurrency } from "@/components/workflow-timeline/workflowRunSettings.js";
+import { isAmendWorkflowToolCall, isFillWorkflowHoleToolCall } from "@/lib/workflowToolNames.js";
+import { readWorkflowHoleTarget, workflowFillCounts, } from "@/ToolCallBlocks/renderers/createWorkflowHoleInput.js";
+import { ToolCallBlock } from "@/ToolCallBlocks.js";
+import { resolveWorkflowRunOpenToolCallId } from "@/v4/workflowRunCardJoin.js";
+import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { useOptionalPlatform } from "@/hooks/usePlatform.js";
+import { reportAppTelemetryEvent } from "@/lib/appTelemetry.js";
+import { runUserAction, runUserActionAsync } from "@/lib/userActionTelemetry.js";
+import { logger } from "@/logger.js";
+import { PluginUiModelContextChip, formatPluginDisplayName } from "@/plugin-ui/index.js";
+import { FileDisplayIcon, FileDisplayInline, resolveFileDisplayDescriptor, } from "@/lib/fileDisplay.js";
+import { projectAssistantCodeComments, } from "@/lib/assistantCodeComment.js";
+import { resolveProviderLabel } from "@/lib/registryProviderView.js";
+import { ChatPromptEditor } from "@/prompt-editor/ChatPromptEditor.js";
+import { resolveToolCallIdentity } from "@/lib/toolIdentity.js";
+import { isConversationReasoningRowVisible, } from "@/v4/conversationRowContext.js";
+import { toolCallRowToLegacyNode } from "@/v4/toolCallRowAdapter.js";
+import { CodeCommentAttachmentChip } from "@/v4/composer/CodeCommentAttachmentChip.js";
+import { countComposerPromptContexts, parseComposerPromptContexts, serializeComposerPromptContexts, } from "@/v4/composer/composerPromptContexts.js";
+import { WebElementContextAttachmentChip } from "@/v4/composer/WebElementContextAttachmentChip.js";
+import { ConversationSelectionReferenceChip } from "@/v4/composer/ConversationSelectionReferenceChip.js";
+import { PptxElementReferenceChip } from "@/v4/composer/PptxElementReferenceChip.js";
+import { useOpenPptxElementReference } from "@/v4/composer/useOpenPptxElementReference.js";
+import { ConversationFileRewindDialog } from "@/v4/ConversationFileRewindDialog.js";
+import { BotGroupSourceLabel } from "@/v4/BotGroupSourceLabel.js";
+import { splitUserInputEpilogue } from "@/v4/ConversationUserInputEpilogue.js";
+import { ConversationHookDetailsAction } from "@/v4/ConversationHookDetailsAction.js";
+import { formatModelChangeLabel } from "@/v4/composer/modelTriggerDisplay.js";
+import { formatMessageTimeLabel } from "@/v4/messageTimeLabel.js";
+import { parseConversationShareContext } from "@/lib/conversationShareContext.js";
+function RowShell({ rowId, children, className = "", }) {
+    return (_jsx("div", { "data-row-id": rowId, "data-testid": testId(TID_V4_ROW, String(rowId)), className: cn(className), children: children }));
+}
+const ArtifactRowView = memo(function ArtifactRowView({ row }) {
+    return (_jsx(RowShell, { rowId: row.rowId, className: "px-4 py-1", children: _jsxs("div", { className: "flex items-center gap-2 rounded-lg border border-card-border bg-card px-3 py-2", children: [_jsx(FileIcon, { className: "size-4 shrink-0 text-foreground-subtle", "aria-hidden": "true" }), _jsxs("div", { className: "min-w-0 flex-1", children: [_jsx("p", { className: "truncate text-ui-base text-foreground", children: row.displayName }), _jsxs("p", { className: "text-ui-sm text-foreground-subtle", children: [row.artifactType.toUpperCase(), " \u00B7 ", row.sizeBytes, " bytes"] })] })] }) }));
+});
+/** 复制行文本：图标 ghost 按钮 + 1200ms 打勾态（对齐旧版 message copy）。
+ *  label/tooltip 必须由调用方传入 i18n 文案，禁止硬编码语言。 */
+const CopyRowAction = memo(function CopyRowAction({ text, rowId, label, tooltip = label, }) {
+    const [copied, setCopied] = useState(false);
+    const handleCopy = useCallback(() => {
+        if (!text || !navigator.clipboard)
+            return;
+        void runUserActionAsync({
+            input: { featureId: "conversation.history.feedback", action: "copy", trigger: "button" },
+            operation: () => navigator.clipboard.writeText(text),
+            completed: { resultSource: "platform_result" },
+            failureStage: "clipboard_write",
+        }).then(() => {
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 1200);
+        });
+    }, [text]);
+    return (_jsx(MessageAction, { "aria-label": label, label: label, tooltip: tooltip, "data-testid": `v4-copy-${rowId}`, disabled: text.length === 0, onClick: handleCopy, children: copied ? _jsx(CheckIcon, { className: "size-3.5 text-success" }) : _jsx(CopyIcon, { className: "size-3.5" }) }));
+});
+function getAttachmentTypeLabel(filename, mimeType) {
+    const leaf = filename.split(/[\\/]/u).at(-1) ?? filename;
+    const dotIndex = leaf.lastIndexOf(".");
+    if (dotIndex > 0 && dotIndex < leaf.length - 1) {
+        return leaf.slice(dotIndex + 1).toUpperCase();
+    }
+    return (mimeType.split("/").at(-1) ?? mimeType).toUpperCase();
+}
+export function readAssistantFeedback(row) {
+    // feedback 是 additive V4 row 字段；兼容旧 CLI 的 row 时缺省为 null。
+    const feedback = row.feedback;
+    return feedback === "like" || feedback === "dislike" ? feedback : null;
+}
+// ── 每种行拆成独立 memo 叶子：虚拟列表下父级重渲染时，只有 props 真变的行重渲染；
+// 需要 hook 的行类型（assistantText/toolCall）hook 调用留在各自组件内，避免
+// switch 分发组件里出现条件 hook。──
+/**
+ * 附件渲染：row 仍只保存 AttachmentRef；图片挂载时按 session/ref 分块读取缩略图，点击后复用已加载 URL 进入共享预览。
+ * 非图片与失败后的图片保持纯展示，避免无动作的假手型。
+ */
+const UserInputAttachmentList = memo(function UserInputAttachmentList({ attachments, attachmentIndices, entityId, attachmentKind = "all", directItems = false, onRemove, rowId, sessionId, readAttachment, readAttachmentRange, }) {
+    const { intl } = useZCodeIntl();
+    const [previewIndex, setPreviewIndex] = useState(0);
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [failedRefs, setFailedRefs] = useState(() => new Set());
+    const [thumbnailUrls, setThumbnailUrls] = useState(() => new Map());
+    // 可见消息行预取 image/video Blob：图片直接显示，视频由无控件播放器展示首帧；
+    // video URL 同时供 gallery 复用，避免用户点击后再次读取大文件。
+    const [videoPreview, setVideoPreview] = useState(null);
+    const [videoPreviewRef, setVideoPreviewRef] = useState(null);
+    const [videoPreviewLoading, setVideoPreviewLoading] = useState(false);
+    const [videoPreviewError, setVideoPreviewError] = useState(false);
+    const [textPreview, setTextPreview] = useState(null);
+    const [textLoading, setTextLoading] = useState(false);
+    const [textError, setTextError] = useState(false);
+    const textReadAbort = useRef(null);
+    useEffect(() => () => textReadAbort.current?.abort(), []);
+    const closeTextPreview = () => {
+        textReadAbort.current?.abort();
+        textReadAbort.current = null;
+        setTextPreview(null);
+    };
+    const openTextPreview = async (attachment, index) => {
+        if (!sessionId || !readAttachment)
+            return;
+        textReadAbort.current?.abort();
+        const controller = new AbortController();
+        textReadAbort.current = controller;
+        setTextPreview({ filename: attachment.fileName, mediaType: "text/plain" });
+        setTextLoading(true);
+        setTextError(false);
+        try {
+            const result = await readAttachment({
+                sessionId,
+                ref: attachment.ref,
+                mediaType: attachment.mime,
+                ...(entityId ? { target: { rowId, entityId }, attachmentIndex: index } : {}),
+                signal: controller.signal,
+            });
+            if (controller.signal.aborted)
+                return;
+            if (!("bytes" in result))
+                throw new Error("Text attachment bytes unavailable");
+            setTextPreview({
+                filename: attachment.fileName,
+                mediaType: "text/plain",
+                textContent: new TextDecoder().decode(result.bytes),
+            });
+        }
+        catch (error) {
+            if (!controller.signal.aborted) {
+                setTextError(true);
+                logger.warn("Text attachment preview failed", error);
+            }
+        }
+        finally {
+            if (!controller.signal.aborted)
+                setTextLoading(false);
+        }
+    };
+    const [pdfPreview, setPdfPreview] = useState(null);
+    const [pdfPreviewLoading, setPdfPreviewLoading] = useState(false);
+    const [pdfPreviewError, setPdfPreviewError] = useState(false);
+    const [pdfPreviewRef, setPdfPreviewRef] = useState(null);
+    const pdfPreviewUrlRef = useRef(null);
+    const pdfPreviewRequestRef = useRef(0);
+    const pdfPreviewAbortRef = useRef(null);
+    const videoPreviewUrlRef = useRef(null);
+    const videoPreviewRequestRef = useRef(0);
+    const videoPreviewAbortRef = useRef(null);
+    const thumbnailUrlsRef = useRef(new Map());
+    const thumbnailObjectUrlsRef = useRef(new Set());
+    const previewOpenLabel = intl.formatMessage({
+        id: "chat.attachments.preview.open",
+    });
+    const previewVideoOpenLabel = intl.formatMessage({
+        id: "chat.attachments.preview.openVideo",
+    });
+    const previewPdfOpenLabel = intl.formatMessage({
+        id: "chat.attachments.preview.openPdf",
+    });
+    const previewUnavailableLabel = intl.formatMessage({
+        id: "chat.attachments.preview.unavailable",
+    });
+    useEffect(() => {
+        if (attachmentKind === "file" || !attachments || !sessionId || !readAttachment) {
+            return;
+        }
+        let cancelled = false;
+        // 只丢弃读取结果不会停止底层分块传输，消息行卸载后仍可能拉取完整视频。
+        // 预取生命周期必须通过 AbortSignal 贯穿 transport，及时释放文件 IO 与 IPC 资源。
+        const controller = new AbortController();
+        const mediaAttachments = attachments.flatMap((attachment, index) => attachment.mime.startsWith("image/") || attachment.mime.startsWith("video/")
+            ? [{ attachment, index }]
+            : []);
+        // V4 虚拟列表只挂载可见行，避免扫描整段历史。视频仍使用稳定 row target，
+        // 保证同一路径多次发送时缩略图来自当前消息的 durable artifact。
+        void Promise.all(mediaAttachments.map(async ({ attachment, index }) => {
+            const ref = attachment.previewRef ?? attachment.ref;
+            const isVideo = attachment.mime.startsWith("video/");
+            try {
+                const result = await readAttachment({
+                    sessionId,
+                    ref,
+                    signal: controller.signal,
+                    ...(isVideo ? { mediaType: attachment.mime } : {}),
+                    ...(isVideo && entityId
+                        ? {
+                            target: { rowId, entityId },
+                            attachmentIndex: attachmentIndices?.[index] ?? index,
+                        }
+                        : {}),
+                });
+                if (cancelled)
+                    return;
+                const isLocalUrl = "url" in result;
+                const url = isLocalUrl
+                    ? result.url
+                    : URL.createObjectURL(new Blob([Uint8Array.from(result.bytes)], {
+                        type: result.mediaType,
+                    }));
+                if (!isLocalUrl)
+                    thumbnailObjectUrlsRef.current.add(url);
+                if (cancelled) {
+                    if (!isLocalUrl) {
+                        thumbnailObjectUrlsRef.current.delete(url);
+                        URL.revokeObjectURL(url);
+                    }
+                    return;
+                }
+                thumbnailUrlsRef.current.set(ref, url);
+                setThumbnailUrls(new Map(thumbnailUrlsRef.current));
+            }
+            catch (error) {
+                if (cancelled || controller.signal.aborted)
+                    return;
+                if (!isVideo)
+                    setFailedRefs((current) => new Set(current).add(ref));
+                logger.warn(`[v4-attachment-preview] failed to read sent ${isVideo ? "video" : "image"} thumbnail`, error);
+            }
+        }));
+        return () => {
+            controller.abort();
+            cancelled = true;
+            // Desktop local video 返回自定义协议 URL，不是 renderer 创建的 Blob；
+            // 只释放本 effect 创建的 object URL，避免把本地媒体 URL 当成 Blob 生命周期管理。
+            for (const url of thumbnailObjectUrlsRef.current)
+                URL.revokeObjectURL(url);
+            thumbnailObjectUrlsRef.current.clear();
+            thumbnailUrlsRef.current.clear();
+        };
+    }, [attachmentIndices, attachmentKind, attachments, entityId, readAttachment, rowId, sessionId]);
+    // ── sent video 预览读取：staging 语义原样保留 ──
+    const releaseVideoPreviewUrl = useCallback(() => {
+        if (!videoPreviewUrlRef.current)
+            return;
+        URL.revokeObjectURL(videoPreviewUrlRef.current);
+        videoPreviewUrlRef.current = null;
+    }, []);
+    const cancelVideoPreviewRead = useCallback(() => {
+        videoPreviewRequestRef.current += 1;
+        videoPreviewAbortRef.current?.abort();
+        videoPreviewAbortRef.current = null;
+    }, []);
+    useEffect(() => () => {
+        cancelVideoPreviewRead();
+        releaseVideoPreviewUrl();
+    }, [cancelVideoPreviewRead, releaseVideoPreviewUrl]);
+    const closeVideoPreview = useCallback(() => {
+        cancelVideoPreviewRead();
+        releaseVideoPreviewUrl();
+        setVideoPreview(null);
+        setVideoPreviewRef(null);
+        setVideoPreviewLoading(false);
+        setVideoPreviewError(false);
+    }, [cancelVideoPreviewRead, releaseVideoPreviewUrl]);
+    const closePdfPreview = useCallback(() => {
+        pdfPreviewRequestRef.current += 1;
+        pdfPreviewAbortRef.current?.abort();
+        pdfPreviewAbortRef.current = null;
+        if (pdfPreviewUrlRef.current)
+            URL.revokeObjectURL(pdfPreviewUrlRef.current);
+        pdfPreviewUrlRef.current = null;
+        setPdfPreview(null);
+        setPdfPreviewRef(null);
+        setPdfPreviewLoading(false);
+        setPdfPreviewError(false);
+    }, []);
+    useEffect(() => () => {
+        closePdfPreview();
+    }, [closePdfPreview]);
+    const openVideoPreview = useCallback(async (attachment, attachmentIndex, galleryIndex) => {
+        if (!sessionId || !readAttachment)
+            return;
+        const ref = attachment.previewRef ?? attachment.ref;
+        cancelVideoPreviewRead();
+        const thumbnailUrl = thumbnailUrlsRef.current.get(ref);
+        if (thumbnailUrl) {
+            releaseVideoPreviewUrl();
+            setPreviewIndex(galleryIndex);
+            setPreviewOpen(true);
+            setVideoPreviewRef(ref);
+            setVideoPreview({
+                filename: attachment.fileName,
+                mediaType: attachment.mime,
+                url: thumbnailUrl,
+            });
+            setVideoPreviewLoading(false);
+            setVideoPreviewError(false);
+            return;
+        }
+        const requestId = videoPreviewRequestRef.current;
+        const abortController = new AbortController();
+        videoPreviewAbortRef.current = abortController;
+        releaseVideoPreviewUrl();
+        setPreviewIndex(galleryIndex);
+        setPreviewOpen(true);
+        setVideoPreviewRef(ref);
+        setVideoPreview({
+            filename: attachment.fileName,
+            mediaType: attachment.mime,
+        });
+        setVideoPreviewLoading(true);
+        setVideoPreviewError(false);
+        try {
+            const result = await readAttachment({
+                sessionId,
+                ref,
+                mediaType: attachment.mime,
+                // 有 entityId 时按稳定 row target 精确读取；否则退回按 ref 匹配。
+                ...(entityId ? { target: { rowId, entityId }, attachmentIndex } : {}),
+                signal: abortController.signal,
+            });
+            if (videoPreviewRequestRef.current !== requestId)
+                return;
+            const isLocalUrl = "url" in result;
+            const url = isLocalUrl
+                ? result.url
+                : URL.createObjectURL(new Blob([Uint8Array.from(result.bytes)], { type: result.mediaType }));
+            if (videoPreviewRequestRef.current !== requestId) {
+                if (!isLocalUrl)
+                    URL.revokeObjectURL(url);
+                return;
+            }
+            videoPreviewUrlRef.current = isLocalUrl ? null : url;
+            setVideoPreview({
+                filename: attachment.fileName,
+                mediaType: result.mediaType,
+                url,
+            });
+        }
+        catch (error) {
+            if (videoPreviewRequestRef.current !== requestId)
+                return;
+            // 一次 read 失败曾永久禁用附件入口，把可否打开 Dialog 错绑到读取结果。
+            // 失败只属于本次预览；保留入口，让每次打开都重新读取并在 Dialog 内展示错误。
+            setVideoPreviewError(true);
+            logger.warn("[v4-attachment-preview] failed to read sent media", error);
+        }
+        finally {
+            if (videoPreviewRequestRef.current === requestId) {
+                videoPreviewAbortRef.current = null;
+                setVideoPreviewLoading(false);
+            }
+        }
+    }, [cancelVideoPreviewRead, entityId, readAttachment, releaseVideoPreviewUrl, rowId, sessionId]);
+    const openPdfPreview = useCallback(async (attachment, attachmentIndex) => {
+        if (!sessionId || (!readAttachment && !readAttachmentRange))
+            return;
+        const ref = attachment.previewRef ?? attachment.ref;
+        pdfPreviewRequestRef.current += 1;
+        const requestId = pdfPreviewRequestRef.current;
+        pdfPreviewAbortRef.current?.abort();
+        const abortController = new AbortController();
+        pdfPreviewAbortRef.current = abortController;
+        if (pdfPreviewUrlRef.current)
+            URL.revokeObjectURL(pdfPreviewUrlRef.current);
+        pdfPreviewUrlRef.current = null;
+        setPdfPreviewRef(ref);
+        setPdfPreview({ filename: attachment.fileName, mediaType: "application/pdf" });
+        setPdfPreviewLoading(true);
+        setPdfPreviewError(false);
+        try {
+            const target = entityId ? { target: { rowId, entityId }, attachmentIndex } : {};
+            if (readAttachmentRange) {
+                const firstRange = await readAttachmentRange({
+                    sessionId,
+                    ref,
+                    ...target,
+                    offset: 0,
+                    limit: 256 * 1024,
+                    signal: abortController.signal,
+                });
+                const source = {
+                    totalBytes: firstRange.totalBytes,
+                    initialData: firstRange.bytes,
+                    requestRange: async (offset, limit) => {
+                        const range = await readAttachmentRange({
+                            sessionId,
+                            ref,
+                            ...target,
+                            offset,
+                            limit,
+                            signal: abortController.signal,
+                        });
+                        return range.bytes;
+                    },
+                };
+                if (pdfPreviewRequestRef.current !== requestId)
+                    return;
+                setPdfPreview({
+                    filename: attachment.fileName,
+                    mediaType: firstRange.mediaType,
+                    pdfSource: source,
+                });
+                return;
+            }
+            if (!readAttachment)
+                return;
+            const result = await readAttachment({
+                sessionId,
+                ref,
+                ...target,
+                signal: abortController.signal,
+            });
+            if (pdfPreviewRequestRef.current !== requestId)
+                return;
+            const url = "url" in result
+                ? result.url
+                : URL.createObjectURL(new Blob([Uint8Array.from(result.bytes)], { type: result.mediaType }));
+            if (!("url" in result))
+                pdfPreviewUrlRef.current = url;
+            setPdfPreview({
+                filename: attachment.fileName,
+                mediaType: result.mediaType,
+                url,
+            });
+        }
+        catch (error) {
+            if (pdfPreviewRequestRef.current !== requestId)
+                return;
+            setPdfPreviewError(true);
+            logger.warn("[v4-attachment-preview] failed to read sent PDF", error);
+        }
+        finally {
+            if (pdfPreviewRequestRef.current === requestId) {
+                pdfPreviewAbortRef.current = null;
+                setPdfPreviewLoading(false);
+            }
+        }
+    }, [entityId, readAttachment, readAttachmentRange, rowId, sessionId]);
+    const visibleAttachments = (attachments ?? [])
+        .map((attachment, index) => ({ attachment, index }))
+        .filter(({ attachment }) => {
+        if (attachmentKind === "all")
+            return true;
+        const isMedia = attachment.mime.startsWith("image/") || attachment.mime.startsWith("video/");
+        return attachmentKind === "media" ? isMedia : !isMedia;
+    });
+    if (attachmentKind === "all") {
+        // 行内编辑器过去直接沿用只读消息的通用附件列表，既没有按输入框的
+        // “媒体 → 文件”视觉顺序排列，也误用了已发送消息的 pill。排序只改变渲染顺序，
+        // index 仍指向原数组，避免删除后提交错误的附件。
+        visibleAttachments.sort(({ attachment: left }, { attachment: right }) => Number(right.mime.startsWith("image/") || right.mime.startsWith("video/")) -
+            Number(left.mime.startsWith("image/") || left.mime.startsWith("video/")));
+    }
+    if (visibleAttachments.length === 0)
+        return null;
+    const previewEntries = (attachments ?? []).flatMap((attachment, index) => {
+        const isImage = attachment.mime.startsWith("image/");
+        const isVideo = attachment.mime.startsWith("video/");
+        if (!isImage && !isVideo)
+            return [];
+        const ref = attachment.previewRef ?? attachment.ref;
+        const src = thumbnailUrls.get(ref);
+        if (isImage && !src)
+            return [];
+        return [
+            {
+                attachment,
+                index,
+                persistedAttachmentIndex: attachmentIndices?.[index] ?? index,
+            },
+        ];
+    });
+    const previewItems = previewEntries.map(({ attachment }) => {
+        const ref = attachment.previewRef ?? attachment.ref;
+        const isVideo = attachment.mime.startsWith("video/");
+        return {
+            alt: attachment.fileName,
+            filename: attachment.fileName,
+            mediaType: attachment.mime,
+            src: isVideo && videoPreviewRef === ref ? videoPreview?.url : thumbnailUrls.get(ref),
+            loading: isVideo && videoPreviewRef === ref && videoPreviewLoading,
+            error: isVideo && videoPreviewRef === ref && videoPreviewError,
+        };
+    });
+    const selectPreviewItem = (galleryIndex) => {
+        const entry = previewEntries[galleryIndex];
+        if (!entry)
+            return;
+        if (entry.attachment.mime.startsWith("video/")) {
+            void openVideoPreview(entry.attachment, entry.persistedAttachmentIndex, galleryIndex);
+            return;
+        }
+        cancelVideoPreviewRead();
+        releaseVideoPreviewUrl();
+        setVideoPreview(null);
+        setVideoPreviewRef(null);
+        setVideoPreviewLoading(false);
+        setVideoPreviewError(false);
+        setPreviewIndex(galleryIndex);
+        setPreviewOpen(true);
+    };
+    const items = visibleAttachments.map(({ attachment, index }) => {
+        const isTextMaterial = attachment.sourceKind === "topic-history" || attachment.sourceKind === "clipboard-text";
+        const ref = attachment.previewRef ?? attachment.ref;
+        const isImage = attachment.mime.startsWith("image/");
+        const isVideo = attachment.mime.startsWith("video/");
+        const isPdf = attachment.mime.split(";", 1)[0]?.trim().toLowerCase() === "application/pdf";
+        const isMedia = isImage || isVideo;
+        const isEditingAttachment = attachmentKind === "all";
+        const isThumbnail = attachmentKind === "media" || (isEditingAttachment && isMedia);
+        const fileDisplayDescriptor = resolveFileDisplayDescriptor(attachment.fileName);
+        const isUnavailable = failedRefs.has(ref);
+        const thumbnailUrl = thumbnailUrls.get(ref) ?? "";
+        const previewItemIndex = previewEntries.findIndex((entry) => entry.index === index);
+        // 图片与视频共用当前消息的媒体 gallery；video 首次成为 active item 时再读取。
+        const canOpen = (isTextMaterial && Boolean(sessionId && readAttachment)) ||
+            (isImage && !isUnavailable && previewItemIndex >= 0) ||
+            (isVideo && Boolean(sessionId && readAttachment)) ||
+            (isPdf && Boolean(sessionId && (readAttachment || readAttachmentRange)));
+        return (_jsxs(Attachment, { variant: isThumbnail ? "grid" : "inline", "data-v4-user-edit-attachment-kind": isEditingAttachment
+                ? isImage
+                    ? "image"
+                    : isVideo
+                        ? "video"
+                        : isPdf
+                            ? "pdf"
+                            : "file"
+                : undefined, "data-v4-user-input-attachment-pill": isThumbnail ? undefined : "true", "data-v4-user-input-media-attachment": isThumbnail ? "true" : undefined, className: cn(isThumbnail &&
+                (isEditingAttachment
+                    ? "relative size-12 overflow-hidden rounded-lg bg-surface p-0 after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:border after:border-border after:content-[''] hover:bg-surface-hover"
+                    : "relative size-20 overflow-hidden rounded-xl bg-surface p-0 after:pointer-events-none after:absolute after:inset-0 after:rounded-xl after:border after:border-border after:content-[''] hover:bg-surface-hover"), !isThumbnail &&
+                (isEditingAttachment
+                    ? "h-12 w-fit max-w-full min-w-0 gap-2 rounded-lg border border-border bg-surface p-1.5 pr-6 [--attachment-bg:var(--color-surface)] hover:bg-surface-hover"
+                    : "rounded-full border-0 bg-surface px-3 py-1.5 hover:bg-surface-hover")), onRemove: onRemove ? () => onRemove(index) : undefined, onOpen: canOpen
+                ? () => isTextMaterial
+                    ? void openTextPreview(attachment, attachmentIndices?.[index] ?? index)
+                    : isPdf
+                        ? void openPdfPreview(attachment, attachmentIndices?.[index] ?? index)
+                        : selectPreviewItem(previewItemIndex)
+                : undefined, openLabel: canOpen
+                ? isTextMaterial
+                    ? intl.formatMessage({ id: "chat.attachments.preview.openText" })
+                    : isVideo
+                        ? previewVideoOpenLabel
+                        : isPdf
+                            ? previewPdfOpenLabel
+                            : previewOpenLabel
+                : undefined, title: isUnavailable ? previewUnavailableLabel : undefined, data: {
+                id: `${rowId}-${index}`,
+                type: "file",
+                filename: attachment.fileName,
+                mediaType: attachment.mime,
+                url: thumbnailUrl,
+            }, children: [isThumbnail ? (_jsx("div", { className: "relative size-full", children: _jsx(AttachmentPreview, { className: "size-full rounded-none" }) })) : isEditingAttachment ? (_jsxs(_Fragment, { children: [_jsx("div", { className: "flex size-9 shrink-0 items-center justify-center rounded-md bg-background", children: _jsx(FileDisplayIcon, { src: fileDisplayDescriptor.fileIconSrc, size: 16, className: "size-4 shrink-0" }) }), _jsxs("div", { className: "min-w-0 max-w-40 flex-1", children: [_jsx("span", { className: "block truncate text-ui-base font-medium text-foreground", title: attachment.fileName, children: attachment.fileName }), _jsx("span", { className: "block truncate text-ui-sm font-normal text-foreground-subtle", children: getAttachmentTypeLabel(attachment.fileName, attachment.mime) })] })] })) : attachment.sourceKind === "topic-history" ? (_jsx("span", { className: "truncate text-ui-base font-medium text-foreground", children: intl.formatMessage({ id: "chat.attachments.topicHistory" }, { count: attachment.messageCount ?? 0 }) })) : (_jsx(FileDisplayInline, { path: attachment.fileName, options: {
+                        className: "inline-flex min-w-0 max-w-40 items-center gap-1.5",
+                        iconSize: 16,
+                        fileNameClassName: "truncate text-ui-base font-medium text-foreground",
+                    } })), onRemove && isEditingAttachment ? (_jsx(AttachmentRemove, { placement: "corner", size: "icon", variant: "default", "aria-label": intl.formatMessage({ id: "chat.attachments.remove" }), label: intl.formatMessage({ id: "chat.attachments.remove" }), "data-testid": testId(TID_V4_EDIT_ATTACHMENT_REMOVE, `${rowId}-${index}`), className: "absolute top-0.5 right-0.5 z-10 size-3.5 rounded-full p-0 text-primary-foreground opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100", children: _jsx(XIcon, { className: "size-2.5" }) })) : null] }, `${attachment.ref}-${index}`));
+    });
+    return (_jsxs(_Fragment, { children: [directItems ? (items) : (_jsx(Attachments, { variant: "inline", "data-testid": testId(TID_V4_ROW_ATTACHMENTS, String(rowId)), className: "max-w-full gap-2", children: items })), _jsx(ChatMediaAttachmentPreviewDialog, { attachment: textPreview, open: textPreview !== null, onOpenChange: (open) => {
+                    if (!open)
+                        closeTextPreview();
+                }, loading: textLoading, error: textError }), _jsx(ImagePreviewDialog, { initialIndex: previewIndex, items: previewItems, onActiveIndexChange: selectPreviewItem, onOpenChange: (open) => {
+                    if (open) {
+                        setPreviewOpen(true);
+                        return;
+                    }
+                    setPreviewOpen(false);
+                    closeVideoPreview();
+                }, open: previewOpen }), _jsx(ChatMediaAttachmentPreviewDialog, { attachment: pdfPreview, open: pdfPreviewRef !== null, loading: pdfPreviewLoading, error: pdfPreviewError, onOpenChange: (open) => {
+                    if (!open)
+                        closePdfPreview();
+                } })] }));
+});
+const SingleUserInputRowView = memo(function SingleUserInputRowView({ row, context, onEdit, editWorkspaceRewindAvailability, status, }) {
+    const { intl } = useZCodeIntl();
+    // 引擎尾注折叠：正文只到 epilogueStart，
+    // 之后的引擎文本折进气泡底部的披露。提示词上下文解析也只看正文——尾注里没有用户引用。
+    const { body: bodyText, epilogue } = splitUserInputEpilogue(row.text, row.epilogueStart);
+    const parsedPrompt = useMemo(() => ({
+        ...parseComposerPromptContexts(bodyText, {
+            workspacePath: context.workspacePath,
+            workspaceIdentity: context.workspaceIdentity,
+        }),
+        ...(row.conversationQuotes ? { conversationSelections: row.conversationQuotes } : {}),
+    }), [context.workspaceIdentity, context.workspacePath, bodyText, row.conversationQuotes]);
+    // 只用于把历史消息里的 share URL 尾块从可见正文里剥掉。
+    // 该块已不再产出（见 ConversationComposer 的 promptText 注释）；这里保留解析，是为了让
+    // 接线修复到本次删除之间发出的消息不至于把裸 markup 当正文显示出来。
+    const parsedShareContext = useMemo(() => parseConversationShareContext(parsedPrompt.visibleContent), [parsedPrompt.visibleContent]);
+    const [editing, setEditing] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [draft, setDraft] = useState(row.text);
+    const [editAttachments, setEditAttachments] = useState(() => [
+        ...(row.attachments ?? []),
+    ]);
+    // 编辑态删除附件后，持久 FilePart 列表仍保留全部附件；序号数组把可见列表
+    // 映射回原 index，避免 video 预览等按 attachmentIndex 的读取指错分块。
+    const [editAttachmentIndices, setEditAttachmentIndices] = useState(() => (row.attachments ?? []).map((_, index) => index));
+    const [editPromptContexts, setEditPromptContexts] = useState(() => parsedPrompt);
+    const [conflictPreview, setConflictPreview] = useState(null);
+    const [conflictOpen, setConflictOpen] = useState(false);
+    const inputApiRef = useRef(null);
+    const editContextCount = countComposerPromptContexts(editPromptContexts);
+    const canSubmit = draft.trim().length > 0 || editAttachments.length > 0 || editContextCount > 0;
+    const submitLabel = intl.formatMessage({ id: "chat.send" });
+    const cancelLabel = intl.formatMessage({ id: "common.cancel" });
+    const rewindWorkspaceLabel = intl.formatMessage({
+        id: "chat.edit.resetConversationAndFiles",
+    });
+    const rewindWorkspaceTooltipTitle = intl.formatMessage({
+        id: "chat.edit.resetConversationAndFiles.tooltip",
+    });
+    const rewindWorkspaceTooltipDescription = editWorkspaceRewindAvailability?.reason === "available"
+        ? undefined
+        : intl.formatMessage({
+            id: `chat.edit.resetConversationAndFiles.${editWorkspaceRewindAvailability?.reason ?? "noFiles"}`,
+        });
+    const visibleText = parsedShareContext.visibleContent;
+    const codeCommentContexts = parsedPrompt.codeComments;
+    const webElementContexts = parsedPrompt.webElements;
+    const pptxElementReferences = parsedPrompt.pptxElements;
+    const conversationSelections = parsedPrompt.conversationSelections;
+    const hasAttachments = (row.attachments?.length ?? 0) > 0;
+    const hasMediaAttachments = row.attachments?.some((attachment) => attachment.mime.startsWith("image/") || attachment.mime.startsWith("video/")) ?? false;
+    const hasFileAttachments = row.attachments?.some((attachment) => !attachment.mime.startsWith("image/") && !attachment.mime.startsWith("video/")) ?? false;
+    const hasVisibleText = visibleText.trim().length > 0;
+    const pluginUiContexts = parsedPrompt.pluginUiContexts;
+    // nudge 轮整条都是引擎文本：正文为空但气泡仍要画，里面只有那一枚披露。
+    const hasBubble = hasVisibleText || epilogue !== undefined;
+    const hasContextReferences = codeCommentContexts.length > 0 ||
+        webElementContexts.length > 0 ||
+        pptxElementReferences.length > 0 ||
+        conversationSelections.length > 0 ||
+        pluginUiContexts.length > 0;
+    const hasAttachmentArea = hasAttachments || hasContextReferences;
+    const hasAttachmentPills = hasFileAttachments ||
+        codeCommentContexts.length > 0 ||
+        webElementContexts.length > 0 ||
+        pptxElementReferences.length > 0 ||
+        (!row.botGroupSource && conversationSelections.length > 0);
+    // Bug 根因：旧逻辑只接受 schedule runId，导致用户点击「立即运行」产生的 manual run
+    // 没有来源标识。两种合法 automation runId 都应展示；普通会话输入仍因解析失败而不展示。
+    const isScheduledAutomationPrompt = parseAutomationRunId(row.sourceCommandId ?? "") !== null;
+    const openPptxElementReference = useOpenPptxElementReference({
+        workspacePath: context.workspacePath,
+        workspaceIdentity: context.workspaceIdentity,
+        remoteSessionId: context.workspaceRemoteSessionId,
+        onOpenCodeViewer: context.onOpenCodeViewer,
+    });
+    useEffect(() => {
+        if (!editing) {
+            setDraft(parsedShareContext.visibleContent);
+            setEditAttachments([...(row.attachments ?? [])]);
+            setEditAttachmentIndices((row.attachments ?? []).map((_, index) => index));
+            setEditPromptContexts(parsedPrompt);
+            return;
+        }
+        const focusEditor = () => inputApiRef.current?.focus();
+        if (typeof requestAnimationFrame === "function") {
+            requestAnimationFrame(focusEditor);
+            return;
+        }
+        focusEditor();
+    }, [editing, parsedPrompt, row.attachments]);
+    useEffect(() => {
+        if (!onEdit) {
+            setEditing(false);
+            setSubmitting(false);
+        }
+    }, [onEdit]);
+    const handleOpenEdit = useCallback(() => {
+        // v4 迁移时把 user query 编辑误接成“直接读取主 composer 提交”，
+        // 主 composer 为空时点击只会 warn。这里恢复旧行内编辑态。
+        setDraft(parsedShareContext.visibleContent);
+        setEditAttachments([...(row.attachments ?? [])]);
+        setEditAttachmentIndices((row.attachments ?? []).map((_, index) => index));
+        setEditPromptContexts(parsedPrompt);
+        setEditing(true);
+    }, [parsedPrompt, parsedShareContext, row.attachments]);
+    const handleCancelEdit = useCallback(() => {
+        setDraft(parsedShareContext.visibleContent);
+        setEditAttachments([...(row.attachments ?? [])]);
+        setEditAttachmentIndices((row.attachments ?? []).map((_, index) => index));
+        setEditPromptContexts(parsedPrompt);
+        setEditing(false);
+    }, [parsedPrompt, parsedShareContext, row.attachments]);
+    const handleRemoveEditAttachment = useCallback((index) => {
+        setEditAttachments((current) => current.filter((_, itemIndex) => itemIndex !== index));
+        setEditAttachmentIndices((current) => current.filter((_, itemIndex) => itemIndex !== index));
+    }, []);
+    const handleSubmitEdit = useCallback(async (nextText, workspaceMode = "preserve") => {
+        if (!onEdit)
+            return;
+        if (!nextText.trim() && editAttachments.length === 0 && editContextCount === 0)
+            return;
+        setSubmitting(true);
+        try {
+            const result = await onEdit({ rowId: row.rowId, entityId: row.entityId }, serializeComposerPromptContexts(nextText, {
+                ...editPromptContexts,
+                conversationSelections: [],
+            }), 
+            // 省略空数组会让 CLI 按 attachments 缺省语义恢复 canonical 原附件，
+            // 因此 edit 必须始终提交当前完整列表，显式 [] 才能表达“删除全部”。
+            editAttachments, workspaceMode, ...(parsedPrompt.conversationSelections.length || row.conversationQuotes
+                ? [[...editPromptContexts.conversationSelections]]
+                : []));
+            if (typeof result === "object" &&
+                result !== null &&
+                result.result?.type === "editUserQuery" &&
+                result.result.disposition === "blocked" &&
+                result.result.preview) {
+                setConflictPreview(result.result.preview);
+                setConflictOpen(true);
+                return;
+            }
+            if (result !== false) {
+                setEditing(false);
+                setConflictOpen(false);
+            }
+        }
+        finally {
+            setSubmitting(false);
+        }
+    }, [
+        editAttachments,
+        editContextCount,
+        editPromptContexts,
+        onEdit,
+        row.entityId,
+        row.rowId,
+        row.conversationQuotes,
+        parsedPrompt.conversationSelections.length,
+    ]);
+    const rewindWorkspaceDisabled = submitting || editWorkspaceRewindAvailability?.enabled !== true;
+    const rewindWorkspaceButton = (_jsx(Button, { type: "button", variant: "outline", size: "icon-md", disabled: rewindWorkspaceDisabled, "data-testid": testId(TID_V4_EDIT_REWIND_WORKSPACE, String(row.rowId)), "aria-label": rewindWorkspaceLabel, onClick: () => {
+            void handleSubmitEdit(draft, "rewind");
+        }, children: _jsx(FileClockIcon, { className: "size-4" }) }));
+    if (editing) {
+        return (_jsxs(RowShell, { rowId: row.rowId, className: "flex flex-col items-end", children: [_jsx(ChatPromptEditor, { workspacePath: context.workspacePath, taskId: context.sessionId ?? null, initialValue: parsedPrompt.visibleContent, submitting: submitting, submitDisabled: !canSubmit || submitting, allowSubmitWhenEmpty: editAttachments.length > 0 || editContextCount > 0, submitLabel: submitLabel, cancelLabel: cancelLabel, showMentionButton: true, showSlashButton: true, enableWorkspaceFileDrop: true, topContent: editAttachments.length > 0 || editContextCount > 0 ? (_jsxs("div", { className: "flex max-w-full flex-col items-start gap-2", children: [editAttachments.length > 0 ? (_jsx(UserInputAttachmentList, { attachments: editAttachments, attachmentIndices: editAttachmentIndices, entityId: row.entityId, rowId: row.rowId, onRemove: handleRemoveEditAttachment, sessionId: context.sessionId ?? undefined, readAttachment: context.readAttachment, readAttachmentRange: context.readAttachmentRange })) : null, editContextCount > 0 ? (_jsxs("div", { className: "flex max-w-full flex-wrap items-center gap-2", "data-v4-user-edit-context-attachments-row": "true", children: [_jsx(CodeCommentAttachmentChip, { comments: editPromptContexts.codeComments, onRemove: (comment) => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            codeComments: current.codeComments.filter((item) => item !== comment),
+                                        })), onRemoveAll: () => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            codeComments: [],
+                                        })) }), _jsx(WebElementContextAttachmentChip, { contexts: editPromptContexts.webElements, onRemove: (id) => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            webElements: current.webElements.filter((item) => item.id !== id),
+                                        })), onRemoveAll: () => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            webElements: [],
+                                        })) }), _jsx(PptxElementReferenceChip, { references: editPromptContexts.pptxElements, onOpen: context.onOpenCodeViewer ? openPptxElementReference : undefined, onRemove: (id) => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            pptxElements: current.pptxElements.filter((item) => item.id !== id),
+                                        })), onRemoveAll: () => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            pptxElements: [],
+                                        })) }), _jsx(ConversationSelectionReferenceChip, { references: editPromptContexts.conversationSelections, onRemove: (id) => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            conversationSelections: current.conversationSelections.filter((item) => !("id" in item) || item.id !== id),
+                                        })), onRemoveAll: () => setEditPromptContexts((current) => ({
+                                            ...current,
+                                            conversationSelections: [],
+                                        })) })] })) : null] })) : null, inputApiRef: inputApiRef, inputTestId: testId(TID_V4_EDIT_INPUT, String(row.rowId)), submitTestId: testId(TID_V4_EDIT_SUBMIT, String(row.rowId)), cancelTestId: testId(TID_V4_EDIT_CANCEL, String(row.rowId)), betweenCancelAndSubmitAction: _jsx(ControlHintTooltip, { title: rewindWorkspaceTooltipTitle, description: rewindWorkspaceTooltipDescription, children: rewindWorkspaceDisabled ? (_jsx("span", { className: "inline-flex", "data-disabled-tooltip-trigger": "true", children: rewindWorkspaceButton })) : (rewindWorkspaceButton) }), className: "w-full max-w-xl", shellClassName: "min-h-32", onChange: setDraft, onSubmit: (nextText) => {
+                        void handleSubmitEdit(nextText, "preserve");
+                    }, onCancel: handleCancelEdit }), _jsx(ConversationFileRewindDialog, { variant: "editConflict", open: conflictOpen, onOpenChange: setConflictOpen, preview: conflictPreview, previewLoading: false, applying: submitting, error: null, onApply: () => { }, onConversationOnly: () => {
+                        void handleSubmitEdit(draft, "preserve");
+                    } })] }));
+    }
+    return (_jsxs(RowShell, { rowId: row.rowId, className: "group/user-row flex flex-col items-end", children: [isScheduledAutomationPrompt ? (_jsxs("div", { "data-v4-user-input-automation-origin": "schedule", className: "mb-1 flex max-w-xl items-center gap-1 text-ui-sm text-foreground-subtle", children: [_jsx(Clock, { "data-cron-task-icon": "true", "aria-hidden": "true", className: "size-3.5 shrink-0" }), _jsx("span", { children: intl.formatMessage({ id: "chat.message.sentByScheduledTask" }) })] })) : null, row.botGroupSource ? (_jsx("div", { "data-v4-user-input-source": "true", className: "mb-2 flex min-w-0 max-w-full", children: _jsx(BotGroupSourceLabel, { source: row.botGroupSource }) })) : null, hasAttachmentArea ? (_jsxs("div", { "data-v4-user-input-attachments": "true", "data-testid": testId(TID_V4_ROW_ATTACHMENTS, String(row.rowId)), className: "mb-2 flex max-w-xl flex-col items-end gap-2", children: [row.botGroupSource && conversationSelections.length > 0 ? (_jsx("div", { "data-v4-user-input-quotes": "true", className: "flex max-w-full justify-end", children: _jsx(ConversationSelectionReferenceChip, { references: conversationSelections, contentAlign: "end" }) })) : null, hasMediaAttachments ? (_jsx("div", { "data-v4-user-input-media-attachments": "true", className: "flex max-w-full flex-wrap justify-end gap-2", children: _jsx(UserInputAttachmentList, { attachments: row.attachments, entityId: row.entityId, attachmentKind: "media", directItems: true, rowId: row.rowId, sessionId: context.sessionId ?? undefined, readAttachment: context.readAttachment, readAttachmentRange: context.readAttachmentRange }) })) : null, hasAttachmentPills ? (_jsxs("div", { "data-v4-user-input-attachment-pills": "true", 
+                        // 非媒体文件与上下文引用必须共享这一层，才能在换行时
+                        // 保持“文件→评论→网页→PPT→对话引用”的顺序和统一右对齐。
+                        className: "flex max-w-full flex-wrap justify-end gap-2", children: [hasFileAttachments ? (_jsx(UserInputAttachmentList, { attachments: row.attachments, entityId: row.entityId, attachmentKind: "file", directItems: true, rowId: row.rowId, sessionId: context.sessionId ?? undefined, readAttachment: context.readAttachment, readAttachmentRange: context.readAttachmentRange })) : null, _jsx(CodeCommentAttachmentChip, { comments: codeCommentContexts, contentAlign: "end" }), _jsx(WebElementContextAttachmentChip, { contexts: webElementContexts, contentAlign: "end" }), _jsx(PptxElementReferenceChip, { references: pptxElementReferences, contentAlign: "end", onOpen: context.onOpenCodeViewer ? openPptxElementReference : undefined }), !row.botGroupSource ? (_jsx(ConversationSelectionReferenceChip, { references: conversationSelections, contentAlign: "end" })) : null, _jsx(PluginUiModelContextChip, { contexts: pluginUiContexts, contentAlign: "end" })] })) : null] })) : null, hasBubble ? (_jsx(ConversationUserInputBubble, { text: visibleText, contentParts: row.botGroupSource?.contentParts, rowId: row.rowId, epilogue: epilogue, attachments: row.attachments, contextAttachmentCount: countComposerPromptContexts(parsedPrompt) })) : null, row.source?.kind === "genUi" && (_jsx("div", { className: "mt-1 text-right text-ui-sm text-foreground-subtlest", "data-v4-user-input-source": "genUi", children: intl.formatMessage({ id: "genUi.from" }, { name: row.source.title || "Gen UI" }) })), row.source?.kind === "pluginUi" ? (_jsx("div", { "data-v4-user-input-source": row.source.pluginId, className: "mt-1 text-right text-ui-sm text-foreground-subtlest", children: intl.formatMessage({ id: "pluginUi.fromPlugin" }, { name: formatPluginDisplayName(row.source.pluginId) }) })) : null, status ? (_jsx("div", { "data-v4-user-input-status": "true", className: "mt-1 text-right text-ui-sm text-foreground-subtlest", "aria-live": "polite", children: status })) : null, _jsxs(MessageActions, { className: cn("mt-1", context.compactForRemoteControl
+                    ? "opacity-100"
+                    : "opacity-0 transition-opacity group-hover/user-row:opacity-100 focus-within:opacity-100"), children: [_jsx(CopyRowAction, { text: row.text, rowId: row.rowId, label: intl.formatMessage({ id: "chat.message.copy" }) }), onEdit && row.entityId ? (_jsx(MessageAction, { label: intl.formatMessage({ id: "chat.message.edit" }), tooltip: intl.formatMessage({ id: "chat.message.edit" }), "data-testid": testId(TID_V4_EDIT, String(row.rowId)), onClick: handleOpenEdit, children: _jsx(PencilIcon, { className: "size-3.5" }) })) : null] })] }));
+});
+const UserInputRowView = memo(function UserInputRowView(props) {
+    const rows = useMemo(() => expandTopicInputMessages(props.row), [props.row]);
+    if (rows.length === 1)
+        return _jsx(SingleUserInputRowView, { ...props, row: rows[0] });
+    return (_jsx("div", { className: "flex min-w-0 flex-col gap-3", "data-v4-topic-messages": "true", children: rows.map((row) => (_jsx("div", { "data-topic-message-id": row.botGroupSource.messageId, children: _jsx(SingleUserInputRowView, { ...props, row: row, onEdit: undefined }) }, row.botGroupSource.messageId))) }));
+});
+// memo 组件的数组默认值必须是模块级常量：内联 [] 每次渲染都是新引用，会让 memo 比较失效。
+const EMPTY_SOURCE_COMMAND_IDS = [];
+export const ConversationAssistantTextActions = memo(function ConversationAssistantTextActions({ rowId, entityId, text, createdAt, compactForRemoteControl = false, feedback = null, hookInvocations, sessionId, turnId, sourceCommandIds = EMPTY_SOURCE_COMMAND_IDS, onFork, onFeedbackChange, className, }) {
+    const { intl, locale } = useZCodeIntl();
+    const platform = useOptionalPlatform();
+    const [localFeedback, setLocalFeedback] = useState(feedback);
+    const copyLabel = intl.formatMessage({ id: "chat.message.copy" });
+    const likeLabel = intl.formatMessage({
+        id: localFeedback === "like" ? "chat.message.liked" : "chat.message.like",
+    });
+    const dislikeLabel = intl.formatMessage({
+        id: localFeedback === "dislike" ? "chat.message.disliked" : "chat.message.dislike",
+    });
+    const forkLabel = intl.formatMessage({ id: "chat.message.fork" });
+    const timeLabel = formatMessageTimeLabel(createdAt, locale, intl);
+    const resolveTooltip = (label) => compactForRemoteControl ? undefined : label;
+    useEffect(() => {
+        setLocalFeedback(feedback);
+    }, [feedback]);
+    const handleFeedback = useCallback((nextFeedback) => {
+        const previousFeedback = localFeedback;
+        const resolvedFeedback = previousFeedback === nextFeedback ? null : nextFeedback;
+        setLocalFeedback(resolvedFeedback);
+        logger.info("[ConversationRowView] 用户反馈 assistant 消息", {
+            messageId: entityId ?? null,
+            reaction: resolvedFeedback ?? "none",
+        });
+        if (entityId) {
+            void Promise.resolve(onFeedbackChange?.({ rowId, entityId }, resolvedFeedback)).then((result) => {
+                if (result === false)
+                    setLocalFeedback(previousFeedback);
+            }, (error) => {
+                setLocalFeedback(previousFeedback);
+                // V4 初版只改 renderer local state，command 失败后会显示并不存在的反馈。
+                // 失败必须回滚到点击前投影值，等待后续权威 row 再校正。
+                logger.warn("[ConversationRowView] 持久化 assistant 反馈失败", {
+                    error: error instanceof Error ? error.message : String(error),
+                    messageId: entityId,
+                });
+            });
+        }
+        if (platform && entityId) {
+            void reportAppTelemetryEvent(platform, {
+                elementName: "assistant_message_feedback",
+                eventRegion: "chat",
+                eventType: "ck",
+                eventExtraDetail: { reaction: resolvedFeedback ?? "none" },
+                ...(sessionId ? { talkId: sessionId } : {}),
+                messageId: entityId,
+            }, "ConversationRowView");
+        }
+    }, [entityId, localFeedback, onFeedbackChange, platform, rowId, sessionId]);
+    const handleFork = useCallback(() => {
+        if (entityId) {
+            runUserAction({
+                input: { featureId: "conversation.history.branch", action: "fork", trigger: "button" },
+                operation: () => onFork?.({ rowId, entityId }),
+                completed: { resultSource: "optimistic_projection" },
+                failureStage: "fork",
+            });
+        }
+    }, [entityId, onFork, rowId]);
+    return (_jsxs(MessageActions, { className: cn(className, "has-[[data-bot-group-delivery]]:opacity-100"), children: [_jsx(CopyRowAction, { text: text, rowId: rowId, label: copyLabel, tooltip: resolveTooltip(copyLabel) }), entityId && onFeedbackChange ? (_jsxs(_Fragment, { children: [_jsx(MessageAction, { "aria-label": likeLabel, "aria-pressed": localFeedback === "like", label: likeLabel, tooltip: resolveTooltip(likeLabel), "data-testid": testId(TID_V4_FEEDBACK_LIKE, String(rowId)), className: localFeedback === "like" ? "!bg-success/10" : undefined, onClick: () => handleFeedback("like"), children: _jsx("span", { className: cn("relative inline-flex", localFeedback === "like" && "zcode-reaction-burst"), children: _jsx(ThumbsUpIcon, { className: "size-3.5" }) }) }), _jsx(MessageAction, { "aria-label": dislikeLabel, "aria-pressed": localFeedback === "dislike", label: dislikeLabel, tooltip: resolveTooltip(dislikeLabel), "data-testid": testId(TID_V4_FEEDBACK_DISLIKE, String(rowId)), className: localFeedback === "dislike" ? "!bg-warning/10" : undefined, onClick: () => handleFeedback("dislike"), children: _jsx("span", { className: cn("relative inline-flex", localFeedback === "dislike" && "zcode-reaction-burst"), children: _jsx(ThumbsDownIcon, { className: "size-3.5" }) }) })] })) : null, onFork && entityId ? (_jsx(MessageAction, { "aria-label": forkLabel, label: forkLabel, tooltip: resolveTooltip(forkLabel), "data-testid": testId(TID_V4_FORK, String(rowId)), onClick: handleFork, children: _jsx(TrendingUpDownIcon, { className: "size-3.5" }) })) : null, turnId && hookInvocations ? (_jsx(ConversationHookDetailsAction, { rows: hookInvocations, turnId: turnId })) : null, timeLabel ? (_jsx("span", { className: "select-none text-ui-sm text-foreground-subtlest", children: timeLabel })) : null, turnId ? (_jsx(ConnectedBotGroupDeliveryAction, { turnId: turnId, sourceCommandIds: sourceCommandIds })) : null] }));
+});
+const AssistantTextRowView = memo(function AssistantTextRowView({ row, context, onFork, onRetry, onFeedbackChange, hideActions, deferActions, copyText, previewCards, previewCardsAutoOpenKey, codeCommentCards, codeCommentProjectionEnabled, }) {
+    const streaming = row.state === "streaming";
+    const isOfficeMode = useIsOfficeMode();
+    const codeCommentCardsEnabled = useAssistantCodeCommentFeatureEnabled();
+    const projectsCodeComments = codeCommentCardsEnabled && codeCommentProjectionEnabled === true;
+    const visibleText = useMemo(() => projectsCodeComments
+        ? projectAssistantCodeComments(row.text, { streaming }).visibleText
+        : row.text, [projectsCodeComments, row.text, streaming]);
+    const visiblePreviewCards = previewCards && previewCards.length > 0 ? previewCards : null;
+    return (_jsxs(RowShell, { rowId: row.rowId, className: "group/assistant-row", children: [_jsx("div", { "data-conversation-selectable": "true", className: "w-full text-ui-base", children: _jsx(GenUiMessageResponse, { completed: row.state === "complete", messageKey: `${row.rowId}:${row.entityId ?? ""}`, renderZCodeFileCitations: true, streaming: streaming, workspacePath: context.workspacePath, workspaceIdentity: context.workspaceIdentity, workspaceRemoteSessionId: context.workspaceRemoteSessionId, theme: context.theme, codePreviewSettings: context.codePreviewSettings, forceCodeWrap: isOfficeMode, onOpenCodeViewer: context.onOpenCodeViewer, onOpenFileLink: context.onOpenFileLink, onOpenExternalUrl: context.onOpenBrowserUrl, sessionId: context.sessionId ?? undefined, readAttachment: context.readAttachment, children: visibleText }) }), codeCommentCardsEnabled && codeCommentCards && codeCommentCards.length > 0 ? (_jsx("div", { className: "mt-3", children: _jsx(AssistantCodeCommentCards, { cards: codeCommentCards, workspacePath: context.workspacePath, workspaceIdentity: context.workspaceIdentity, workspaceRemoteSessionId: context.workspaceRemoteSessionId, onOpenCodeViewer: context.onOpenCodeViewer }) })) : null, visiblePreviewCards ? (_jsx("div", { className: "mt-3", children: _jsx(AssistantPreviewCards, { cards: visiblePreviewCards, workspacePath: context.workspacePath, workspaceIdentity: context.workspaceIdentity, workspaceRemoteSessionId: context.workspaceRemoteSessionId, onOpenBrowserUrl: context.onOpenBrowserUrl, onOpenCodeViewer: context.onOpenCodeViewer, onOpenFileLink: context.onOpenFileLink, autoOpenPptxKey: previewCardsAutoOpenKey, onAutoOpenPptx: context.onAutoOpenAssistantPptx, compactForRemoteControl: context.compactForRemoteControl }) })) : null, row.state === "complete" && !hideActions && !deferActions ? (_jsx(ConversationAssistantTextActions, { rowId: row.rowId, entityId: row.entityId, text: copyText ?? row.text, createdAt: row.createdAt, compactForRemoteControl: context.compactForRemoteControl, feedback: readAssistantFeedback(row), sessionId: context.sessionId, onFork: onFork, onRetry: onRetry, onFeedbackChange: onFeedbackChange, className: cn("mt-1", context.compactForRemoteControl
+                    ? "opacity-100"
+                    : "opacity-0 transition-opacity group-hover/assistant-row:opacity-100 focus-within:opacity-100") })) : null] }));
+});
+const ReasoningRowView = memo(function ReasoningRowView({ row, contentVariant, }) {
+    const streaming = row.state === "streaming";
+    // 外观对齐旧 ThoughtBlock（旧版 chatMessageParts）：ai-elements Reasoning
+    // 折叠组件。交互调整原因：流式 reasoning 默认展开会持续挤压工具和正文空间；
+    // 现在 streaming/complete 都默认收起，只保留运行态文案，用户可手动展开。
+    // autoCollapseKey 仍保证状态边界不会覆盖已经发生过的用户交互。
+    const durationSeconds = row.durationMs !== undefined ? Math.max(1, Math.ceil(row.durationMs / 1000)) : undefined;
+    if (streaming && row.text.length === 0) {
+        return null;
+    }
+    return (_jsx(RowShell, { rowId: row.rowId, children: _jsxs(Reasoning, { className: "w-full", isStreaming: streaming, autoCollapseKey: streaming ? null : row.state, ...(durationSeconds !== undefined ? { duration: durationSeconds } : {}), children: [_jsx(ReasoningTrigger, { streamingText: row.text }), _jsx("div", { "data-conversation-selectable": "true", children: _jsx(ReasoningContent, { variant: contentVariant, children: row.text }) })] }) }));
+});
+const TurnHeaderRowView = memo(function TurnHeaderRowView({ row }) {
+    return (_jsxs(RowShell, { rowId: row.rowId, className: "border-b border-[var(--color-border)] py-1 text-ui-sm text-[var(--color-foreground-subtle)]", children: ["turn \u00B7 ", row.origin, " \u00B7 ", row.state] }));
+});
+/** 分隔线图标（对齐旧版 synthetic-timeline dividers：size-3.5 subtle）。 */
+const MARKER_ARCHIVE_ICON = (_jsx(ArchiveIcon, { "aria-hidden": "true", className: "size-3.5 shrink-0 text-[var(--color-foreground-subtle)]" }));
+const MARKER_FORK_ICON = (_jsx(GitBranchIcon, { "aria-hidden": "true", className: "size-3.5 shrink-0 text-[var(--color-foreground-subtle)]" }));
+const MARKER_GOAL_ICON = (_jsx(GoalIcon, { "aria-hidden": "true", className: "size-3.5 shrink-0 text-[var(--color-foreground-subtle)]" }));
+const MARKER_MODEL_ICON = (_jsx(ArrowRightLeftIcon, { "aria-hidden": "true", className: "size-3.5 shrink-0 text-[var(--color-foreground-subtle)]" }));
+/**
+ * 系统标记分隔线壳：两侧细横线 + 居中「图标 + 文案」pill，视觉对齐旧版
+ * ChatMessage synthetic-timeline dividers（fork / compaction / goal 同款）。
+ * running（压缩/校验进行中）隐藏图标、文案走 animated-gradient-text 流光（同旧版）。
+ */
+function MarkerDividerRow({ rowId, markerType, markerStatus, markerOrigin, markerSourceCommandId, icon, label, running = false, onClick, }) {
+    const clickable = Boolean(onClick);
+    const rowClassName = "flex w-full items-center gap-3 px-4 py-2 text-ui-base text-[var(--color-foreground-subtle)]";
+    const inner = (_jsxs(_Fragment, { children: [_jsx("div", { "aria-hidden": "true", className: "h-px min-w-8 flex-1 bg-border/50" }), _jsxs("span", { className: "inline-flex min-w-0 shrink items-center justify-center gap-1.5 text-center leading-5", children: [running ? null : icon, _jsx("span", { className: `min-w-0 break-words${running ? " animated-gradient-text font-medium" : ""}${clickable ? " underline-offset-4 group-hover/marker:underline" : ""}`, children: label })] }), _jsx("div", { "aria-hidden": "true", className: "h-px min-w-8 flex-1 bg-border/50" })] }));
+    if (onClick) {
+        // 整行 <button>（对齐旧版 fork divider）：hover 变亮 + 文案下划线示意可点。
+        return (_jsx("button", { type: "button", "data-row-id": rowId, "data-row-kind": "timelineMarker", "data-marker-type": markerType, "data-status": markerStatus, "data-origin": markerOrigin, "data-source-command-id": markerSourceCommandId, "data-testid": testId(TID_V4_ROW, String(rowId)), onClick: onClick, className: `group/marker ${rowClassName} text-left transition-colors hover:text-[var(--color-foreground)]`, children: inner }));
+    }
+    return (_jsx("div", { "data-row-id": rowId, "data-row-kind": "timelineMarker", "data-marker-type": markerType, "data-status": markerStatus, "data-origin": markerOrigin, "data-source-command-id": markerSourceCommandId, "data-testid": testId(TID_V4_ROW, String(rowId)), className: rowClassName, children: inner }));
+}
+/**
+ * timelineMarker 行渲染：compact / forkNotice / goalVerify / modelChange 画成分隔线。
+ * modelChange 可见化 = 裁决（切换后实际发送出去的轮才落分隔，含
+ * model-only 续跑轮）；goalSet/forkCreated 已在投影层停产（隐形行清零），
+ * retryNotice·checkpointRestored 无 UI，default 分支兜底不渲染。
+ */
+const TimelineMarkerRowView = memo(function TimelineMarkerRowView({ row, context, }) {
+    const { intl } = useZCodeIntl();
+    const isOfficeMode = useIsOfficeMode();
+    const marker = row.marker;
+    const modelSelectionView = context.modelSelectionView ?? null;
+    const view = useMemo(() => {
+        switch (marker.type) {
+            case "compact": {
+                const running = marker.status === "running";
+                const automaticOptimization = isOfficeMode && marker.origin === "auto";
+                const scope = automaticOptimization ? "chat.contextOptimization" : "chat.contextCompaction";
+                const statusMessage = marker.status === "running"
+                    ? "started"
+                    : marker.status === "noop"
+                        ? "skipped"
+                        : marker.status === "cancelled"
+                            ? "interrupted"
+                            : marker.status === "failed"
+                                ? "failed"
+                                : marker.origin === "auto" && !automaticOptimization
+                                    ? "completedAuto"
+                                    : "completed";
+                return {
+                    icon: MARKER_ARCHIVE_ICON,
+                    label: intl.formatMessage({ id: `${scope}.${statusMessage}` }),
+                    running,
+                };
+            }
+            case "forkNotice":
+                return {
+                    icon: MARKER_FORK_ICON,
+                    label: intl.formatMessage({ id: "chat.message.fork.derivedFrom" }),
+                    running: false,
+                };
+            case "modelChange": {
+                // marker 已携带完整 provider/model 元组，旧渲染却只读取 model，
+                // 且没有订阅 provider snapshot，导致同名模型无差异、目录水合后名称不刷新。
+                // 这里保留 provider ID fallback，并让现有 marker 随目录更新。
+                const fromProvider = resolveProviderLabel(marker.fromProvider, modelSelectionView);
+                const toProvider = resolveProviderLabel(marker.toProvider, modelSelectionView);
+                const to = formatModelChangeLabel(marker.toProvider, toProvider, marker.toModel, intl);
+                if (marker.fromProvider === undefined || marker.fromModel === undefined) {
+                    return {
+                        // source-less 表示首次使用的模型事实，不是模型切换，因此不显示切换箭头。
+                        icon: null,
+                        label: intl.formatMessage({ id: "chat.modelChange.using" }, { model: to }),
+                        running: false,
+                    };
+                }
+                return {
+                    icon: MARKER_MODEL_ICON,
+                    label: intl.formatMessage({ id: "chat.modelChange.switched" }, {
+                        from: formatModelChangeLabel(marker.fromProvider, fromProvider, marker.fromModel, intl),
+                        to,
+                    }),
+                    running: false,
+                };
+            }
+            case "goalVerify": {
+                const running = marker.outcome === "running";
+                // pass→完成；notSatisfied/failed→未完成（沿用旧版 failed_closed 归「未完成」的处理）。
+                const statusId = marker.outcome === "running"
+                    ? "chat.goalVerification.checking"
+                    : marker.outcome === "pass"
+                        ? "chat.goalVerification.complete"
+                        : "chat.goalVerification.incomplete";
+                return {
+                    icon: MARKER_GOAL_ICON,
+                    running,
+                    // innerText 形如「第 1 次迭代 · 目标校验中」，对齐 goal-timeline 待命 e2e 断言。
+                    label: (_jsxs(_Fragment, { children: [_jsx("span", { children: intl.formatMessage({ id: "chat.summaryPanel.goalIterationValue" }, { count: String(marker.iteration) }) }), _jsx("span", { "aria-hidden": "true", children: " \u00B7 " }), intl.formatMessage({ id: statusId })] })),
+                };
+            }
+            default:
+                return null;
+        }
+    }, [intl, isOfficeMode, marker, modelSelectionView]);
+    // fork 跳父会话（Tier 1）：仅 forkNotice 且宿主提供 onNavigateToRow 时可点，
+    // 切到 marker.parentSessionId（rowId 预留 Tier 2 精确滚动，当前恒 0 占位）。
+    const onNavigate = context.onNavigateToRow;
+    const handleClick = useMemo(() => {
+        if (marker.type !== "forkNotice" || !onNavigate) {
+            return undefined;
+        }
+        return () => onNavigate(marker.parentSessionId, marker.parentRowId);
+    }, [marker, onNavigate]);
+    if (!view) {
+        return null;
+    }
+    return (_jsx(MarkerDividerRow, { rowId: row.rowId, markerType: marker.type, markerStatus: marker.type === "compact"
+            ? marker.status
+            : marker.type === "goalVerify"
+                ? marker.outcome
+                : marker.type === "forkNotice"
+                    ? "created"
+                    : "applied", markerOrigin: marker.type === "compact" ? marker.origin : undefined, markerSourceCommandId: row.sourceCommandId, icon: view.icon, label: view.label, running: view.running, onClick: handleClick }));
+});
+const ToolCallRowView = memo(function ToolCallRowView({ row, context, }) {
+    // toolCall 行回接 ToolCallBlocks（execute/read/edit/... renderer 按
+    // tool identity 分流）。适配 memo 按 row 引用：row.delta/upserted 换新对象才重建。
+    const toolCallNode = useMemo(() => toolCallRowToLegacyNode(row), [row]);
+    // workflow run 详情入口的门控：run 身份走 workflowRuns 投影（schema 里 toolCallId 就是
+    // 「工具卡 → 详情页的关联键」），不从工具输出里读——v4 行的 output 只剩一句散文。
+    // 命中的摘要同时决定卡片形态：有 run 就是紧凑可点卡，没有就是可展开卡。
+    const workflowRun = context.workflowRunByToolCallId?.get(row.toolCallId) ??
+        // ResumeWorkflowRun 行按 runId 联接：display 载荷带 runId（≡ backgroundTaskId），而投影
+        // 的 run.toolCallId 跨 resume 沿用原始 CreateWorkflow 行——resume 行按 toolCallId 永远
+        // 查不到。命中后 onOpenWorkflowRun 的收窄走同一条路径，tab 身份 runId 键、幂等。
+        (row.display?.kind === "resume_workflow_run"
+            ? context.workflowRunByRunId?.get(row.display.runId)
+            : undefined);
+    // 已接进 run 的补全行（docs/dynamic-workflow/presentation.md「The fill row」）：「留白已补全 · {name} ·
+    // {k} 个阶段 · {m} 个子代理 ↗」。按入参的 `run_id` 联接投影（补全行的 toolCallId 不是发起行的），只认成功
+    // 且编过的行——编不过的补全走下面的编译反馈行，什么都没接进 run。卡下方随之长出新的站（轮尾摘要
+    // 取的是这一行的图）。
+    // 名字来自 display 的 `fill` 块（行的入参没有名字——transcript 只存模型自己的入参）。
+    const fillTarget = isFillWorkflowHoleToolCall(row)
+        ? readWorkflowHoleTarget(row.input, row.display?.kind === "create_workflow" ? row.display.fill : undefined)
+        : undefined;
+    const fillRun = fillTarget?.runId === undefined ? undefined : context.workflowRunByRunId?.get(fillTarget.runId);
+    if (fillTarget !== undefined &&
+        fillTarget.holeId !== undefined &&
+        fillRun !== undefined &&
+        row.status === "success" &&
+        row.display?.kind === "create_workflow" &&
+        row.display.ok) {
+        const sessionId = context.sessionId;
+        const counts = workflowFillCounts(row.display.causalityGraph, fillTarget.holeId);
+        return (_jsx(RowShell, { rowId: row.rowId, className: "py-0", children: _jsx(WorkflowToolSummary, { toolCallId: row.toolCallId, summary: fillRun, fill: {
+                    name: fillTarget.name ?? fillTarget.holeId,
+                    ...counts,
+                }, onOpen: context.onOpenWorkflowRun && sessionId
+                    ? () => context.onOpenWorkflowRun?.({
+                        parentSessionId: sessionId,
+                        toolCallId: resolveWorkflowRunOpenToolCallId(row.toolCallId, fillRun),
+                        runId: fillRun.runId,
+                    })
+                    : undefined }) }));
+    }
+    // 原因：已启动的工具卡与轮尾摘要重复画同一条实时进度；上方改为普通摘要入口。
+    // 只替换成功关联的发起行，编译诊断及 Resume 等其他工具仍走原有渲染。
+    if (workflowRun &&
+        context.workflowRunByToolCallId?.has(row.toolCallId) &&
+        row.status !== "error") {
+        const workflowName = readWorkflowName(row.input);
+        const sessionId = context.sessionId;
+        return (_jsx(RowShell, { rowId: row.rowId, className: "py-0", children: _jsx(WorkflowToolSummary, { toolCallId: row.toolCallId, summary: workflowRun, amend: isAmendWorkflowToolCall(row), onOpen: context.onOpenWorkflowRun && sessionId
+                    ? () => context.onOpenWorkflowRun?.({
+                        parentSessionId: sessionId,
+                        toolCallId: resolveWorkflowRunOpenToolCallId(row.toolCallId, workflowRun),
+                        runId: workflowRun.runId,
+                        ...(workflowName === undefined ? {} : { workflowName }),
+                    })
+                    : undefined }) }));
+    }
+    // 就地生效的修订（docs/dynamic-workflow/concurrency.md）：只改并发上限、run 又在飞时这次调用
+    // 不编译、不铸新 run，结果只有一句话。判据全在已经上线的字段上——入参的形状、**没有** display、
+    // 成功且非错误；工具的结构化输出不过 v4，而三处 create_workflow display schema 都是冻结字段集
+    // 的 `.strict()`，多一个键会让旧端把整条工具结果丢掉，所以这条路不新增任何协议字段。
+    // 退回真修订的那一条（run 已结算）两条判据都不成立：它有 display，也铸出一条按 toolCallId
+    // 联接得上的 run，上面那个分支先接走它。
+    const retune = isAmendWorkflowToolCall(row) ? readWorkflowRetuneCall(row.input) : undefined;
+    if (retune !== undefined &&
+        row.status === "success" &&
+        (row.output?.display ?? row.display) === undefined &&
+        !context.workflowRunByToolCallId?.has(row.toolCallId)) {
+        const sessionId = context.sessionId;
+        // 被调整那条 run 的投影：只为两件事——默认并发（措辞据它把「等于默认」念成「恢复为默认」）与
+        // 打开请求里那条 run 的发起行 id。它不进上面的 `workflowRun`：那个变量回答的是「这一行是不是
+        // 某条 run 的发起行」，而这一行不是。
+        const retuned = context.workflowRunByRunId?.get(retune.runId);
+        const defaultConcurrency = retuned?.run === undefined ? undefined : workflowRunDefaultConcurrency(retuned.run);
+        return (_jsx(RowShell, { rowId: row.rowId, className: "py-0", children: _jsx(WorkflowRetuneRow, { requested: retune.requested, runId: retune.runId, ...(defaultConcurrency === undefined ? {} : { defaultConcurrency }), ...(context.onOpenWorkflowRun && sessionId
+                    ? {
+                        onOpen: () => context.onOpenWorkflowRun?.({
+                            parentSessionId: sessionId,
+                            toolCallId: resolveWorkflowRunOpenToolCallId(row.toolCallId, retuned),
+                            runId: retune.runId,
+                        }),
+                    }
+                    : {}) }) }));
+    }
+    // 工具行去掉纵向内边距（对齐 z-code-2 无 per-tool padding）；连续工具间距由
+    // ConversationAssistantWorkItems 的 gap-4 组容器统一给。
+    return (_jsx(RowShell, { rowId: row.rowId, className: "py-0", children: _jsx("div", { "data-conversation-selectable": "true", children: _jsx(ToolCallBlock, { toolCallNode: toolCallNode, workspacePath: context.workspacePath, theme: context.theme, codePreviewSettings: context.codePreviewSettings, showTodoToolCalls: context.messageStreamShowTodos === true, onOpenCodeViewer: context.onOpenCodeViewer, onOpenFileLink: context.onOpenFileLink, onOpenBrowserUrl: context.onOpenBrowserUrl, onOpenAutomationsMain: context.onOpenAutomationsMain, onOpenPlanDetail: context.onOpenPlanDetail && context.sessionId
+                    ? (request) => context.onOpenPlanDetail?.({
+                        ...request,
+                        parentSessionId: context.sessionId,
+                    })
+                    : undefined, onOpenWorkflowRun: context.onOpenWorkflowRun && context.sessionId && workflowRun
+                    ? (request) => context.onOpenWorkflowRun?.({
+                        ...request,
+                        parentSessionId: context.sessionId,
+                        // 打开请求的关联键是发起行（CreateWorkflow）id，不是点中行的 id——
+                        // resume 行点开时两者不同，详情页拿它找 causalityGraph/脚本。
+                        toolCallId: resolveWorkflowRunOpenToolCallId(row.toolCallId, workflowRun),
+                        runId: workflowRun.runId,
+                    })
+                    : undefined, onOpenWorkflowActor: context.onOpenWorkflowActor && context.sessionId && workflowRun
+                    ? (request) => context.onOpenWorkflowActor?.({ ...request, parentSessionId: context.sessionId })
+                    : undefined, 
+                // 脚本药丸 → 脚本 transcript：关联键同 onOpenWorkflowRun（发起行 id + runId）。
+                onOpenWorkflowWorkspace: context.onOpenWorkflowWorkspace && context.sessionId && workflowRun
+                    ? (request) => context.onOpenWorkflowWorkspace?.({
+                        ...request,
+                        parentSessionId: context.sessionId,
+                        toolCallId: resolveWorkflowRunOpenToolCallId(row.toolCallId, workflowRun),
+                        runId: workflowRun.runId,
+                    })
+                    : undefined, onResumeWorkflowRun: context.onResumeWorkflowRun && workflowRun?.resumable
+                    ? (request) => context.onResumeWorkflowRun?.(workflowRun.runId, request.workflowName)
+                    : undefined, 
+                // 产物药丸 → 产物 tab：与通知行的 chips 同一条打开路径（不带版本号，打开即最新版）。
+                onOpenWorkflowArtifact: context.onOpenWorkflowArtifact && context.sessionId && workflowRun
+                    ? (artifactId) => {
+                        // 活投影的产物摘要带最新版的 `contentType`（宿主据它把 html 产物直接开成
+                        // 浏览器 tab）；`sourcePath` 那份摘要刻意不带，缺席时宿主自己查 journal。
+                        const artifact = workflowRun.run?.artifacts?.find((candidate) => candidate.id === artifactId);
+                        context.onOpenWorkflowArtifact?.({
+                            parentSessionId: context.sessionId,
+                            runId: workflowRun.runId,
+                            artifactId,
+                            ...(artifact?.title === undefined ? {} : { title: artifact.title }),
+                            ...(artifact?.contentType === undefined
+                                ? {}
+                                : { contentType: artifact.contentType }),
+                        });
+                    }
+                    : undefined, workflowRun: workflowRun, workflowDraft: context.workflowDraftByToolCallId?.get(row.toolCallId) }) }) }));
+});
+const SubagentRowView = memo(function SubagentRowView({ row }) {
+    // subagent 行已经和 Agent/Task 工具行配对渲染；裸行只保留异常兜底摘要，
+    // 避免再生成一个“子会话”卡片或第二套下钻入口。
+    const summary = (_jsxs(_Fragment, { children: [row.subagentType, " \u00B7 ", row.status, row.summaryText ? ` — ${row.summaryText}` : ""] }));
+    return (_jsx(RowShell, { rowId: row.rowId, children: _jsx("div", { className: "text-ui-sm text-[var(--color-foreground-subtle)]", children: summary }) }));
+});
+/**
+ * v4 row 渲染分发。memo：虚拟列表逐行渲染，父投影变化时只有 props 真正变化的行才重渲染
+ * （前提是 onFork/onRetry/onEdit 为稳定引用 + context 引用稳定，见 SessionPane 的
+ * useCallback/useMemo）。
+ */
+function ConversationRowViewImpl({ row, context, onFork, onRetry, onFeedbackChange, onEdit, editWorkspaceRewindAvailability, hideAssistantActions, deferAssistantActions, assistantCopyText, assistantPreviewCards, assistantPreviewCardsAutoOpenKey, assistantCodeCommentCards, assistantCodeCommentProjectionEnabled, reasoningContentVariant, userInputStatus, }) {
+    switch (row.kind) {
+        case "userInput":
+            return (_jsx(UserInputRowView, { row: row, context: context, onEdit: onEdit, editWorkspaceRewindAvailability: editWorkspaceRewindAvailability, status: userInputStatus }));
+        case "assistantText":
+            return (_jsx(AssistantTextRowView, { row: row, context: context, onFork: onFork, onRetry: onRetry, onFeedbackChange: onFeedbackChange, hideActions: hideAssistantActions, deferActions: deferAssistantActions, copyText: assistantCopyText, previewCards: assistantPreviewCards, previewCardsAutoOpenKey: assistantPreviewCardsAutoOpenKey, codeCommentCards: assistantCodeCommentCards, codeCommentProjectionEnabled: assistantCodeCommentProjectionEnabled }));
+        case "reasoning":
+            // 关闭“显示思考过程”只隐藏每轮后续 reasoning；首条 reasoning
+            // 是该轮最小必要思考提示，必须由 turn 全序派生的 rowId 保留下来。
+            return isConversationReasoningRowVisible(row.rowId, context) ? (_jsx(ReasoningRowView, { row: row, contentVariant: reasoningContentVariant })) : null;
+        case "turnHeader":
+            return _jsx(TurnHeaderRowView, { row: row });
+        case "timelineMarker":
+            return _jsx(TimelineMarkerRowView, { row: row, context: context });
+        case "toolCall":
+            // 只在 ToolCallBlock 内返回 null 会留下空 RowShell 和多余间距；
+            // 在行分发处按同一工具身份规则裁剪，设置关闭时不产生任何 Todo DOM。
+            if (context.messageStreamShowTodos !== true &&
+                resolveToolCallIdentity({ toolName: row.toolName, kind: row.toolName }).family === "todo") {
+                return null;
+            }
+            return _jsx(ToolCallRowView, { row: row, context: context });
+        case "subagent":
+            return _jsx(SubagentRowView, { row: row });
+        case "artifact":
+            return _jsx(ArtifactRowView, { row: row });
+        default:
+            return null;
+    }
+}
+export const ConversationRowView = memo(ConversationRowViewImpl);
+//# sourceMappingURL=ConversationRowView.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"useConfirmDialog.js","sourceRoot":"","sources":["../../src/hooks/useConfirmDialog.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,+BAA+B,CAAC;AAEtE,MAAM,UAAU,gBAAgB;IAC9B,OAAO,qBAAqB,CAAC,CAAC,KAAK,EAAE,EAAE,CAAC,KAAK,CAAC,mBAAmB,CAAC,CAAC;AACrE,CAAC"}

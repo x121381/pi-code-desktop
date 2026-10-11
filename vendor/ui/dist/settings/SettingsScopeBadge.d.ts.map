@@ -1,0 +1,1 @@
+{"version":3,"file":"SettingsScopeBadge.d.ts","sourceRoot":"","sources":["../../src/settings/SettingsScopeBadge.tsx"],"names":[],"mappings":"AAIA,wBAAgB,kBAAkB,CAAC,EACjC,KAAK,EACL,KAAK,EACL,uBAA+B,GAChC,EAAE;IACD,KAAK,EAAE,SAAS,GAAG,MAAM,GAAG,WAAW,CAAC;IACxC,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,uBAAuB,CAAC,EAAE,OAAO,CAAC;CACnC,2CAqBA"}

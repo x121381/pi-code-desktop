@@ -1,0 +1,1 @@
+{"version":3,"file":"WorkflowWorkspaceCardBody.d.ts","sourceRoot":"","sources":["../../src/app-shell/WorkflowWorkspaceCardBody.tsx"],"names":[],"mappings":"AAYA,OAAO,EAGL,KAAK,kBAAkB,EACxB,MAAM,4CAA4C,CAAC;AAuGpD,eAAO,MAAM,iBAAiB,oEAI3B;IACD,IAAI,EAAE,kBAAkB,CAAC;IACzB,KAAK,EAAE,MAAM,CAAC;IACd,SAAS,EAAE,MAAM,CAAC;CACnB,6CAuMC,CAAC"}

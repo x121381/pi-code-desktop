@@ -1,0 +1,1 @@
+{"version":3,"file":"conversationTelemetry.js","sourceRoot":"","sources":["../../src/conversation-telemetry/conversationTelemetry.ts"],"names":[],"mappings":"AAiBA,MAAM,UAAU,kCAAkC,CAChD,iBAAiF;IAEjF,OAAO;QACL,MAAM,EAAE,CAAC,MAAM,EAAE,EAAE;QACjB,gDAAgD;QAChD,sDAAsD;QACtD,iBAAiB,CAAC,kCAAkC,CAAC,MAAM,CAAC;KAC/D,CAAC;AACJ,CAAC"}

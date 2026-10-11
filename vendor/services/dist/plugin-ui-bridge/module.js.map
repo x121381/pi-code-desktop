@@ -1,0 +1,1 @@
+{"version":3,"file":"module.js","sourceRoot":"","sources":["../../src/plugin-ui-bridge/module.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,CAAC,MAAM,oBAAoB,GAAG;IAClC,EAAE,EAAE,kBAAkB;IACtB,QAAQ,EAAE,CAAC,UAAU,EAAE,QAAQ,EAAE,mBAAmB,CAAC;IACrD,QAAQ,EAAE,CAAC,0BAA0B,CAAC;IACtC,iBAAiB,EAAE,CAAC,UAAU,EAAE,aAAa,EAAE,qBAAqB,EAAE,qBAAqB,CAAC;CACpF,CAAC"}

@@ -1,0 +1,25 @@
+{
+  "name": "@zcode/provider-node",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@zcode/provider": "*",
+    "@zcode/shared": "*",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@zcode/model-option-map": "*",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
+  }
+}

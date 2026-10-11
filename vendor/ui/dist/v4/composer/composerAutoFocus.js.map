@@ -1,0 +1,1 @@
+{"version":3,"file":"composerAutoFocus.js","sourceRoot":"","sources":["../../../src/v4/composer/composerAutoFocus.ts"],"names":[],"mappings":"AAsBA,MAAM,UAAU,wBAAwB,CAAC,EACvC,gBAAgB,EAChB,QAAQ,EACR,gBAAgB,GACS;IACzB,IAAI,CAAC,gBAAgB,IAAI,gBAAgB;QAAE,OAAO,MAAM,CAAC;IACzD,IAAI,QAAQ;QAAE,OAAO,OAAO,CAAC;IAC7B,OAAO,WAAW,CAAC;AACrB,CAAC"}

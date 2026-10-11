@@ -1,0 +1,1 @@
+{"version":3,"file":"installedPluginRoots.d.ts","sourceRoot":"","sources":["../../src/plugins/installedPluginRoots.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,mBAAmB;IAClC,cAAc,EAAE,OAAO,CAAC;IACxB,WAAW,EAAE,MAAM,CAAC;IACpB,QAAQ,EAAE,MAAM,CAAC;CAClB;AAUD,wBAAsB,wBAAwB,CAC5C,iBAAiB,EAAE,MAAM,GACxB,OAAO,CAAC,mBAAmB,EAAE,CAAC,CAOhC"}

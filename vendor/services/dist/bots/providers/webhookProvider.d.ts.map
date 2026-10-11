@@ -1,0 +1,1 @@
+{"version":3,"file":"webhookProvider.d.ts","sourceRoot":"","sources":["../../../src/bots/providers/webhookProvider.ts"],"names":[],"mappings":"AAQA,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,YAAY,CAAC;AAErD,UAAU,mBAAmB;IAC3B,cAAc,CAAC,GAAG,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAAC;CACrD;AA2JD,wBAAgB,wBAAwB,CACtC,IAAI,EAAE,mBAAmB,GACxB,kBAAkB,CAwHpB"}

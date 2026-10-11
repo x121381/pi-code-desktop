@@ -1,0 +1,1 @@
+{"version":3,"file":"usePluginUiHost.d.ts","sourceRoot":"","sources":["../../../src/plugin-ui/adapters/usePluginUiHost.ts"],"names":[],"mappings":"AAMA,OAAO,KAAK,EAAE,oBAAoB,EAAE,qBAAqB,EAAE,MAAM,wBAAwB,CAAC;AAG1F,YAAY,EAAE,oBAAoB,EAAE,qBAAqB,EAAE,MAAM,wBAAwB,CAAC;AAO1F,wCAAwC;AACxC,wBAAgB,eAAe,CAAC,KAAK,EAAE,oBAAoB,GAAG,qBAAqB,CAsDlF"}

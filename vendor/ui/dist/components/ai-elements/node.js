@@ -1,0 +1,18 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+/*
+ * Derived from vercel/ai-elements (packages/elements/src/node.tsx).
+ * Copyright 2023 Vercel, Inc. Licensed under Apache-2.0.
+ * Modified by ZCode: local integration, formatting and adaptations.
+ * See THIRD-PARTY-NOTICES.md in the repository root for license and provenance.
+ */
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "../ui/card.js";
+import { cn } from "../lib/utils.js";
+import { Handle, Position } from "@xyflow/react";
+export const Node = ({ handles, className, ...props }) => (_jsxs(Card, { className: cn("node-container relative size-full h-auto w-sm gap-0 rounded-md p-0", className), ...props, children: [handles.target && _jsx(Handle, { position: Position.Left, type: "target" }), handles.source && _jsx(Handle, { position: Position.Right, type: "source" }), props.children] }));
+export const NodeHeader = ({ className, ...props }) => (_jsx(CardHeader, { className: cn("gap-0.5 rounded-t-md border-b bg-secondary p-3!", className), ...props }));
+export const NodeTitle = (props) => _jsx(CardTitle, { ...props });
+export const NodeDescription = (props) => _jsx(CardDescription, { ...props });
+export const NodeAction = (props) => _jsx(CardAction, { ...props });
+export const NodeContent = ({ className, ...props }) => (_jsx(CardContent, { className: cn("p-3", className), ...props }));
+export const NodeFooter = ({ className, ...props }) => (_jsx(CardFooter, { className: cn("rounded-b-md border-t bg-secondary p-3!", className), ...props }));
+//# sourceMappingURL=node.js.map

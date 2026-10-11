@@ -1,0 +1,1 @@
+{"version":3,"file":"hierarchyGuides.js","sourceRoot":"","sources":["../../src/workspace-file-tree/hierarchyGuides.ts"],"names":[],"mappings":"AAEA,MAAM,8CAA8C,GAClD,0JAA0J,CAAC;AAE7J,MAAM,UAAU,uCAAuC,CAAC,KAAa;IACnE,IAAI,KAAK,IAAI,CAAC,EAAE,CAAC;QACf,OAAO,IAAI,CAAC;IACd,CAAC;IAED,OAAO;QACL,KAAK,EAAE,QAAQ,KAAK,aAAa;QACjC,eAAe,EAAE,8CAA8C;KAChE,CAAC;AACJ,CAAC"}

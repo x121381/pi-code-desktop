@@ -1,0 +1,1 @@
+{"version":3,"file":"interfaceMode.js","sourceRoot":"","sources":["../../src/lib/interfaceMode.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,MAAM,0BAA0B,GAAG,sBAAsB,CAAC;AAEjE,MAAM,UAAU,sBAAsB,CAAC,KAAc;IACnD,sEAAsE;IACtE,iDAAiD;IACjD,OAAO,KAAK,KAAK,QAAQ,IAAI,KAAK,KAAK,SAAS,IAAI,KAAK,KAAK,SAAS,CAAC,CAAC,CAAC,QAAQ,CAAC,CAAC,CAAC,QAAQ,CAAC;AAChG,CAAC"}

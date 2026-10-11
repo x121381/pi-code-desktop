@@ -1,0 +1,1 @@
+{"version":3,"file":"module.js","sourceRoot":"","sources":["../../src/mcp-apps/module.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,CAAC,MAAM,qBAAqB,GAAG;IACnC,EAAE,EAAE,mBAAmB;IACvB,QAAQ,EAAE,EAAE;IACZ,QAAQ,EAAE,CAAC,mBAAmB,CAAC;IAC/B,iBAAiB,EAAE,CAAC,UAAU,EAAE,aAAa,CAAC;CACtC,CAAC"}

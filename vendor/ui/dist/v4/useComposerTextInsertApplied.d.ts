@@ -1,0 +1,2 @@
+export declare function useComposerTextInsertApplied(workspacePath: string, workspaceIdentity?: string): (requestId: number, signal: AbortSignal) => Promise<boolean>;
+//# sourceMappingURL=useComposerTextInsertApplied.d.ts.map

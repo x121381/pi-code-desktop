@@ -1,0 +1,1 @@
+{"version":3,"file":"pluginSyncPath.d.ts","sourceRoot":"","sources":["../../src/plugin-sync/pluginSyncPath.ts"],"names":[],"mappings":"AAEA,UAAU,qBAAqB;IAC7B,eAAe,CAAC,EAAE,MAAM,CAAC;CAC1B;AAED,wBAAgB,+BAA+B,CAC7C,IAAI,EAAE,MAAM,EACZ,OAAO,GAAE,qBAA0B,GAClC,MAAM,CAaR;AAED,wBAAgB,2BAA2B,CACzC,UAAU,EAAE,MAAM,EAClB,IAAI,EAAE,MAAM,EACZ,OAAO,GAAE,qBAA0B,GAClC,MAAM,CAcR"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"gitEnvironmentProvider.d.ts","sourceRoot":"","sources":["../../../src/git/providers/gitEnvironmentProvider.ts"],"names":[],"mappings":"AAOA,MAAM,WAAW,sBAAsB;IACrC,gBAAgB,IAAI,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAAC;IAC3C,gBAAgB,IAAI,MAAM,CAAC,UAAU,CAAC;CACvC;AA0BD,wBAAgB,4BAA4B,IAAI,sBAAsB,CA4BrE"}

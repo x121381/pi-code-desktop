@@ -1,0 +1,12 @@
+/**
+ * mcp-apps-protocol 模块清单（architecture-governance managed 模块）。
+ * 纯 domain：MCP Apps 的 ZCode 扩展常量、`_meta` 归一化、`display.ui` schema 与沙箱契约类型，零 IO。
+ * 页面 ↔ 宿主的线协议由官方 `@modelcontextprotocol/ext-apps` 承担，本模块不再持有状态机。
+ */
+export declare const mcpAppsProtocolModule: {
+    readonly id: "mcp-apps-protocol";
+    readonly requires: readonly [];
+    readonly provides: readonly ["mcp-apps-protocol"];
+    readonly publicEntrypoints: readonly ["index.ts", "contract.ts"];
+};
+//# sourceMappingURL=module.d.ts.map

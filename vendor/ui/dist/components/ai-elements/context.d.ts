@@ -1,0 +1,43 @@
+import { Button } from "../ui/button.js";
+import { HoverCard, HoverCardContent } from "../ui/hover-card.js";
+import type { LanguageModelUsage } from "ai";
+import type { ComponentProps, ReactNode } from "react";
+type ModelId = string;
+interface ContextSchema {
+    usedTokens: number;
+    maxTokens: number;
+    usage?: LanguageModelUsage;
+    modelId?: ModelId;
+}
+export type ContextProps = ComponentProps<typeof HoverCard> & ContextSchema;
+export declare const Context: ({ usedTokens, maxTokens, usage, modelId, ...props }: ContextProps) => import("react/jsx-runtime").JSX.Element;
+export type ContextTriggerProps = ComponentProps<typeof Button> & {
+    /** 触发器转圈：额度自动重置进行中时替换 ContextIcon（对应「正在重置」状态）。 */
+    loading?: boolean;
+};
+export declare const ContextTrigger: ({ children, loading, ...props }: ContextTriggerProps) => import("react/jsx-runtime").JSX.Element;
+export type ContextContentProps = ComponentProps<typeof HoverCardContent>;
+export declare const ContextContent: ({ className, ...props }: ContextContentProps) => import("react/jsx-runtime").JSX.Element;
+export type ContextContentHeaderProps = ComponentProps<"div">;
+export declare const ContextContentHeader: ({ action, children, className, progressSegments, ...props }: ContextContentHeaderProps & {
+    action?: ReactNode;
+    progressSegments?: readonly {
+        className?: string;
+        id: string;
+        percent: number;
+    }[];
+}) => import("react/jsx-runtime").JSX.Element;
+export type ContextContentBodyProps = ComponentProps<"div">;
+export declare const ContextContentBody: ({ children, className, ...props }: ContextContentBodyProps) => import("react/jsx-runtime").JSX.Element;
+export type ContextContentFooterProps = ComponentProps<"div">;
+export declare const ContextContentFooter: ({ children, className, ...props }: ContextContentFooterProps) => import("react/jsx-runtime").JSX.Element;
+export type ContextInputUsageProps = ComponentProps<"div">;
+export declare const ContextInputUsage: ({ className, children, ...props }: ContextInputUsageProps) => string | number | bigint | true | import("react/jsx-runtime").JSX.Element | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null;
+export type ContextOutputUsageProps = ComponentProps<"div">;
+export declare const ContextOutputUsage: ({ className, children, ...props }: ContextOutputUsageProps) => string | number | bigint | true | import("react/jsx-runtime").JSX.Element | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null;
+export type ContextReasoningUsageProps = ComponentProps<"div">;
+export declare const ContextReasoningUsage: ({ className, children, ...props }: ContextReasoningUsageProps) => string | number | bigint | true | import("react/jsx-runtime").JSX.Element | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null;
+export type ContextCacheUsageProps = ComponentProps<"div">;
+export declare const ContextCacheUsage: ({ className, children, ...props }: ContextCacheUsageProps) => string | number | bigint | true | import("react/jsx-runtime").JSX.Element | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null;
+export {};
+//# sourceMappingURL=context.d.ts.map

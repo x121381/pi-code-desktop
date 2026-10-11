@@ -1,0 +1,1 @@
+{"version":3,"file":"module.js","sourceRoot":"","sources":["../../src/gen-ui/module.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,WAAW,GAAG;IACzB,EAAE,EAAE,QAAQ;IACZ,QAAQ,EAAE;QACR,IAAI;QACJ,UAAU;QACV,gBAAgB;QAChB,iBAAiB;QACjB,mBAAmB;QACnB,WAAW;KACZ;IACD,QAAQ,EAAE,CAAC,gBAAgB,CAAC;IAC5B,iBAAiB,EAAE,CAAC,UAAU,EAAE,aAAa,EAAE,SAAS,CAAC;CACjD,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"useWebRemoteControlStatus.d.ts","sourceRoot":"","sources":["../../src/hooks/useWebRemoteControlStatus.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,sBAAsB,EAAE,MAAM,eAAe,CAAC;AA2B5D,wBAAgB,yBAAyB,CAAC,EACxC,OAAc,EACd,UAAiB,GAClB,GAAE;IACD,OAAO,CAAC,EAAE,OAAO,CAAC;IAClB,UAAU,CAAC,EAAE,MAAM,CAAC;CAChB,GAAG,sBAAsB,CA2D9B"}

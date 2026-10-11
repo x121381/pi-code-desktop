@@ -1,0 +1,1 @@
+{"version":3,"file":"browserPermissionCapabilities.d.ts","sourceRoot":"","sources":["../../src/browser-use/browserPermissionCapabilities.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,WAAW,2BAA2B;IAC1C,GAAG,EAAE,MAAM,CAAC;IACZ,OAAO,EAAE,MAAM,CAAC;IAChB,OAAO,EAAE,MAAM,CAAC;CACjB;AAED,eAAO,MAAM,+BAA+B,EAAE,SAAS,2BAA2B,EA0BjF,CAAC"}

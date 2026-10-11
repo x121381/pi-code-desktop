@@ -1,0 +1,1 @@
+{"version":3,"file":"sessionModeOptions.d.ts","sourceRoot":"","sources":["../../src/session/sessionModeOptions.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,aAAa,EAAiB,MAAM,eAAe,CAAC;AAsErF,wBAAgB,sCAAsC,CAAC,MAAM,EAAE;IAC7D,aAAa,EAAE,SAAS,iBAAiB,EAAE,CAAC;IAC5C,MAAM,EAAE,MAAM,GAAG,IAAI,GAAG,SAAS,CAAC;IAClC,QAAQ,CAAC,EAAE,aAAa,CAAC;CAC1B,GAAG,MAAM,GAAG,SAAS,CAwBrB"}

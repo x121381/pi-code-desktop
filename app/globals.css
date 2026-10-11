@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "@xterm/xterm/css/xterm.css";
+/* ZCode UI package (vendored): generate its Tailwind utility classes. */
+@source "../vendor/ui/src";
 
 @theme {
   --color-bg: var(--bg);

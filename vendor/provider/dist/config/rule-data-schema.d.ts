@@ -1,0 +1,783 @@
+import { z } from "zod";
+export { manualModelConfigSchema, type ManualModelConfig } from "./manual-model-config.js";
+export declare const modelMatchConfigRuleSchema: z.ZodObject<{
+    modelMatch: z.ZodString;
+    config: z.ZodObject<{
+        properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>>>;
+        optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+            maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const modelApiMatchConfigRuleSchema: z.ZodObject<{
+    modelMatch: z.ZodString;
+    config: z.ZodObject<{
+        properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>>>;
+        optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+            maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+    }, z.core.$strict>;
+    apiTypeMatch: z.ZodString;
+}, z.core.$strict>;
+export declare const providerSiteMatchConfigRuleSchema: z.ZodObject<{
+    modelMatch: z.ZodString;
+    config: z.ZodObject<{
+        properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>>>;
+        optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+            maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+    }, z.core.$strict>;
+    baseUrlMatch: z.ZodString;
+    apiTypeMatch: z.ZodOptional<z.ZodString>;
+}, z.core.$strict>;
+export declare const templateModelConfigRuleSchema: z.ZodObject<{
+    templateId: z.ZodString;
+    modelId: z.ZodString;
+    config: z.ZodObject<{
+        properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>>>;
+        optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+            maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const providerModelConfigRuleSchema: z.ZodObject<{
+    config: z.ZodObject<{
+        properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+            supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>>>;
+        optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+            maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>>>;
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+    }, z.core.$strict>;
+    modelId: z.ZodString;
+    providerId: z.ZodString;
+}, z.core.$strict>;
+export declare const manualProviderModelConfigRuleSchema: z.ZodObject<{
+    modelId: z.ZodString;
+    providerId: z.ZodString;
+    config: z.ZodObject<{
+        enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        properties: z.ZodObject<{
+            contextWindow: z.ZodNumber;
+            supportsJsonSchemaOutput: z.ZodBoolean;
+            supportsNativeWebSearch: z.ZodBoolean;
+            supportsMidConversationSystem: z.ZodBoolean;
+            inputFormat: z.ZodObject<{
+                supportsImage: z.ZodBoolean;
+                supportsVideo: z.ZodBoolean;
+                supportsPdf: z.ZodBoolean;
+            }, z.core.$strict>;
+        }, z.core.$strict>;
+        optionSpecs: z.ZodObject<{
+            reasoningLevel: z.ZodObject<{
+                values: z.ZodReadonly<z.ZodArray<z.ZodString>>;
+                map: z.ZodString;
+            }, z.core.$strict>;
+            maxOutputTokens: z.ZodObject<{
+                max: z.ZodNumber;
+            }, z.core.$strict>;
+        }, z.core.$strict>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const builtinModelConfigRulesSchema: z.ZodObject<{
+    modelRules: z.ZodArray<z.ZodObject<{
+        modelMatch: z.ZodString;
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+    modelApiRules: z.ZodArray<z.ZodObject<{
+        modelMatch: z.ZodString;
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+        apiTypeMatch: z.ZodString;
+    }, z.core.$strict>>;
+    providerSiteRules: z.ZodArray<z.ZodObject<{
+        modelMatch: z.ZodString;
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+        baseUrlMatch: z.ZodString;
+        apiTypeMatch: z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>>;
+    templateModelRules: z.ZodArray<z.ZodObject<{
+        templateId: z.ZodString;
+        modelId: z.ZodString;
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+    builtinProviderModelRules: z.ZodArray<z.ZodObject<{
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+        modelId: z.ZodString;
+        providerId: z.ZodString;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const personalModelConfigRulesSchema: z.ZodObject<{
+    providerModelRules: z.ZodArray<z.ZodObject<{
+        config: z.ZodObject<{
+            properties: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                inputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsImage: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsVideo: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsAudio: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                    supportsPdf: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                outputFormat: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    supportsText: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                }, z.core.$strict>>>;
+                requiresMfjsToolSchema: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                contextWindow: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                supportsToolCall: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsJsonSchemaOutput: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsNativeWebSearch: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+                supportsMidConversationSystem: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>>>;
+            optionSpecs: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                reasoningLevel: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    values: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+                maxOutputTokens: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                    max: z.ZodOptional<z.ZodNullable<z.ZodNumber>>;
+                    map: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                }, z.core.$strict>>>;
+            }, z.core.$strict>>>;
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>;
+        modelId: z.ZodString;
+        providerId: z.ZodString;
+    }, z.core.$strict>>;
+    manualProviderModelRules: z.ZodArray<z.ZodObject<{
+        modelId: z.ZodString;
+        providerId: z.ZodString;
+        config: z.ZodObject<{
+            enabled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            properties: z.ZodObject<{
+                contextWindow: z.ZodNumber;
+                supportsJsonSchemaOutput: z.ZodBoolean;
+                supportsNativeWebSearch: z.ZodBoolean;
+                supportsMidConversationSystem: z.ZodBoolean;
+                inputFormat: z.ZodObject<{
+                    supportsImage: z.ZodBoolean;
+                    supportsVideo: z.ZodBoolean;
+                    supportsPdf: z.ZodBoolean;
+                }, z.core.$strict>;
+            }, z.core.$strict>;
+            optionSpecs: z.ZodObject<{
+                reasoningLevel: z.ZodObject<{
+                    values: z.ZodReadonly<z.ZodArray<z.ZodString>>;
+                    map: z.ZodString;
+                }, z.core.$strict>;
+                maxOutputTokens: z.ZodObject<{
+                    max: z.ZodNumber;
+                }, z.core.$strict>;
+            }, z.core.$strict>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const providerConfigRuleSchema: z.ZodObject<{
+    providerId: z.ZodString;
+    templateId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    providerName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    enabled: z.ZodOptional<z.ZodBoolean>;
+    config: z.ZodObject<{
+        group: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            "standard-personal": "standard-personal";
+            "zai-family": "zai-family";
+            "bigmodel-family": "bigmodel-family";
+        }>>>;
+        logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodLiteral<"builtin">;
+            key: z.ZodString;
+        }, z.core.$strict>>>;
+        access: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            type: z.ZodEnum<{
+                "api-key": "api-key";
+                "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+            }>;
+            apiKey: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"zhipu-account">;
+            accountType: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                zai: "zai";
+                bigmodel: "bigmodel";
+            }>>>;
+            mode: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "start-plan": "start-plan";
+                "individual-coding-plan": "individual-coding-plan";
+                "team-coding-plan": "team-coding-plan";
+                "off-peak": "off-peak";
+                highspeed: "highspeed";
+            }>>>;
+            entitled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>], "type">>>;
+        api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "anthropic-messages": "anthropic-messages";
+                "openai-chat-completions": "openai-chat-completions";
+                "openai-responses": "openai-responses";
+            }>>>;
+            headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+        }, z.core.$strict>>>;
+        builtinModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        personalModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        modelOrder: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        visibility: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            visible: "visible";
+            hidden: "hidden";
+        }>>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const providerTemplateConfigRuleSchema: z.ZodObject<{
+    templateId: z.ZodString;
+    templateNameMap: z.ZodObject<{
+        "zh-CN": z.ZodOptional<z.ZodString>;
+        "en-US": z.ZodOptional<z.ZodString>;
+    }, z.core.$strict>;
+    config: z.ZodObject<{
+        builtinModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodLiteral<"builtin">;
+            key: z.ZodString;
+        }, z.core.$strict>>>;
+        api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "anthropic-messages": "anthropic-messages";
+                "openai-chat-completions": "openai-chat-completions";
+                "openai-responses": "openai-responses";
+            }>>>;
+            headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+        }, z.core.$strict>>>;
+        access: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodEnum<{
+                "api-key": "api-key";
+                "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+            }>;
+            apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const builtinProviderConfigRuleSchema: z.ZodObject<{
+    providerId: z.ZodString;
+    templateId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    providerName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    enabled: z.ZodOptional<z.ZodBoolean>;
+    config: z.ZodObject<{
+        builtinModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodLiteral<"builtin">;
+            key: z.ZodString;
+        }, z.core.$strict>>>;
+        access: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            type: z.ZodEnum<{
+                "api-key": "api-key";
+                "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+            }>;
+            apiKey: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"zhipu-account">;
+            accountType: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                zai: "zai";
+                bigmodel: "bigmodel";
+            }>>>;
+            mode: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "start-plan": "start-plan";
+                "individual-coding-plan": "individual-coding-plan";
+                "team-coding-plan": "team-coding-plan";
+                "off-peak": "off-peak";
+                highspeed: "highspeed";
+            }>>>;
+            entitled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>], "type">>>;
+        api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "anthropic-messages": "anthropic-messages";
+                "openai-chat-completions": "openai-chat-completions";
+                "openai-responses": "openai-responses";
+            }>>>;
+            headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+        }, z.core.$strict>>>;
+        visibility: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            visible: "visible";
+            hidden: "hidden";
+        }>>>;
+        group: z.ZodEnum<{
+            "zai-family": "zai-family";
+            "bigmodel-family": "bigmodel-family";
+        }>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const personalProviderConfigRuleSchema: z.ZodObject<{
+    providerId: z.ZodString;
+    templateId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    providerName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    enabled: z.ZodOptional<z.ZodBoolean>;
+    config: z.ZodObject<{
+        personalModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        modelOrder: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+        logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodLiteral<"builtin">;
+            key: z.ZodString;
+        }, z.core.$strict>>>;
+        access: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+            type: z.ZodEnum<{
+                "api-key": "api-key";
+                "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+            }>;
+            apiKey: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>, z.ZodObject<{
+            type: z.ZodLiteral<"zhipu-account">;
+            accountType: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                zai: "zai";
+                bigmodel: "bigmodel";
+            }>>>;
+            mode: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "start-plan": "start-plan";
+                "individual-coding-plan": "individual-coding-plan";
+                "team-coding-plan": "team-coding-plan";
+                "off-peak": "off-peak";
+                highspeed: "highspeed";
+            }>>>;
+            entitled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+        }, z.core.$strict>], "type">>>;
+        visibility: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            visible: "visible";
+            hidden: "hidden";
+        }>>>;
+        group: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+            "standard-personal": "standard-personal";
+        }>>>;
+        api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+            type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "anthropic-messages": "anthropic-messages";
+                "openai-chat-completions": "openai-chat-completions";
+                "openai-responses": "openai-responses";
+            }>>>;
+            headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+            baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        }, z.core.$strict>>>;
+    }, z.core.$strict>;
+}, z.core.$strict>;
+export declare const builtinProviderConfigRulesSchema: z.ZodObject<{
+    templateRules: z.ZodArray<z.ZodObject<{
+        templateId: z.ZodString;
+        templateNameMap: z.ZodObject<{
+            "zh-CN": z.ZodOptional<z.ZodString>;
+            "en-US": z.ZodOptional<z.ZodString>;
+        }, z.core.$strict>;
+        config: z.ZodObject<{
+            builtinModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+            logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                type: z.ZodLiteral<"builtin">;
+                key: z.ZodString;
+            }, z.core.$strict>>>;
+            api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    "anthropic-messages": "anthropic-messages";
+                    "openai-chat-completions": "openai-chat-completions";
+                    "openai-responses": "openai-responses";
+                }>>>;
+                headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+            }, z.core.$strict>>>;
+            access: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                type: z.ZodEnum<{
+                    "api-key": "api-key";
+                    "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+                }>;
+                apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+    providerRules: z.ZodArray<z.ZodObject<{
+        providerId: z.ZodString;
+        templateId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        providerName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        enabled: z.ZodOptional<z.ZodBoolean>;
+        config: z.ZodObject<{
+            builtinModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+            logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                type: z.ZodLiteral<"builtin">;
+                key: z.ZodString;
+            }, z.core.$strict>>>;
+            access: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                type: z.ZodEnum<{
+                    "api-key": "api-key";
+                    "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+                }>;
+                apiKey: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"zhipu-account">;
+                accountType: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    zai: "zai";
+                    bigmodel: "bigmodel";
+                }>>>;
+                mode: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    "start-plan": "start-plan";
+                    "individual-coding-plan": "individual-coding-plan";
+                    "team-coding-plan": "team-coding-plan";
+                    "off-peak": "off-peak";
+                    highspeed: "highspeed";
+                }>>>;
+                entitled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>], "type">>>;
+            api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    "anthropic-messages": "anthropic-messages";
+                    "openai-chat-completions": "openai-chat-completions";
+                    "openai-responses": "openai-responses";
+                }>>>;
+                headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+            }, z.core.$strict>>>;
+            visibility: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                visible: "visible";
+                hidden: "hidden";
+            }>>>;
+            group: z.ZodEnum<{
+                "zai-family": "zai-family";
+                "bigmodel-family": "bigmodel-family";
+            }>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export declare const personalProviderConfigRulesSchema: z.ZodObject<{
+    providerRules: z.ZodArray<z.ZodObject<{
+        providerId: z.ZodString;
+        templateId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        providerName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        enabled: z.ZodOptional<z.ZodBoolean>;
+        config: z.ZodObject<{
+            personalModelIds: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+            modelOrder: z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodArray<z.ZodString>>>>;
+            logo: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                type: z.ZodLiteral<"builtin">;
+                key: z.ZodString;
+            }, z.core.$strict>>>;
+            access: z.ZodOptional<z.ZodNullable<z.ZodDiscriminatedUnion<[z.ZodObject<{
+                type: z.ZodEnum<{
+                    "api-key": "api-key";
+                    "zhipu-coding-plan-api-key": "zhipu-coding-plan-api-key";
+                }>;
+                apiKey: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+                apiKeyManagementUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>, z.ZodObject<{
+                type: z.ZodLiteral<"zhipu-account">;
+                accountType: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    zai: "zai";
+                    bigmodel: "bigmodel";
+                }>>>;
+                mode: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    "start-plan": "start-plan";
+                    "individual-coding-plan": "individual-coding-plan";
+                    "team-coding-plan": "team-coding-plan";
+                    "off-peak": "off-peak";
+                    highspeed: "highspeed";
+                }>>>;
+                entitled: z.ZodOptional<z.ZodNullable<z.ZodBoolean>>;
+            }, z.core.$strict>], "type">>>;
+            visibility: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                visible: "visible";
+                hidden: "hidden";
+            }>>>;
+            group: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                "standard-personal": "standard-personal";
+            }>>>;
+            api: z.ZodOptional<z.ZodNullable<z.ZodObject<{
+                type: z.ZodOptional<z.ZodNullable<z.ZodEnum<{
+                    "anthropic-messages": "anthropic-messages";
+                    "openai-chat-completions": "openai-chat-completions";
+                    "openai-responses": "openai-responses";
+                }>>>;
+                headers: z.ZodOptional<z.ZodNullable<z.ZodOptional<z.ZodNullable<z.ZodReadonly<z.ZodRecord<z.ZodString, z.ZodString>>>>>>;
+                baseUrl: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+            }, z.core.$strict>>>;
+        }, z.core.$strict>;
+    }, z.core.$strict>>;
+}, z.core.$strict>;
+export type ModelMatchConfigRuleData = z.infer<typeof modelMatchConfigRuleSchema>;
+export type ModelApiMatchConfigRuleData = z.infer<typeof modelApiMatchConfigRuleSchema>;
+export type ProviderSiteMatchConfigRuleData = z.infer<typeof providerSiteMatchConfigRuleSchema>;
+export type TemplateModelConfigRuleData = z.infer<typeof templateModelConfigRuleSchema>;
+export type ProviderModelConfigRuleData = z.infer<typeof providerModelConfigRuleSchema>;
+export type ManualProviderModelConfigRuleData = z.infer<typeof manualProviderModelConfigRuleSchema>;
+export type BuiltinModelConfigRulesData = z.infer<typeof builtinModelConfigRulesSchema>;
+export type PersonalModelConfigRulesData = z.infer<typeof personalModelConfigRulesSchema>;
+export type ProviderConfigRuleData = z.infer<typeof providerConfigRuleSchema>;
+export type ProviderTemplateConfigRuleData = z.infer<typeof providerTemplateConfigRuleSchema>;
+//# sourceMappingURL=rule-data-schema.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"SettingsFormActions.d.ts","sourceRoot":"","sources":["../../src/settings/SettingsFormActions.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,OAAO,CAAC;AAEvC,wBAAgB,mBAAmB,CAAC,EAClC,aAAa,EACb,QAAQ,GACT,EAAE;IACD,aAAa,CAAC,EAAE,SAAS,CAAC;IAC1B,QAAQ,EAAE,SAAS,CAAC;CACrB,2CAOA"}

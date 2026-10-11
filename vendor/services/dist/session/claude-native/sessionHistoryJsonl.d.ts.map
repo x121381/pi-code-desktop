@@ -1,0 +1,1 @@
+{"version":3,"file":"sessionHistoryJsonl.d.ts","sourceRoot":"","sources":["../../../src/session/claude-native/sessionHistoryJsonl.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,8CAA8C,CAAC;AAWnF,wBAAsB,iBAAiB,CAAC,QAAQ,EAAE,MAAM,GAAG,OAAO,CAAC,cAAc,EAAE,CAAC,CAInF;AAED,wBAAsB,qBAAqB,CACzC,QAAQ,EAAE,MAAM,EAChB,QAAQ,EAAE,MAAM,GACf,OAAO,CAAC,cAAc,EAAE,CAAC,CA6B3B"}

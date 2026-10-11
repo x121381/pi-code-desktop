@@ -1,0 +1,67 @@
+import type { MarkdownSelectionTarget } from "@/lib/conversationSelectionReference.js";
+import type { BundledTheme } from "shiki";
+import { type Ref, type SyntheticEvent, type UIEventHandler } from "react";
+import type { FileBinaryPreview, FileMediaPreview, FileTextSlice } from "@zcode/shared";
+import type { CodeViewerSource } from "@/lib/codeViewer.js";
+import type { CodePreviewSettings } from "@/store/index.js";
+import type { CodeCommentLabels } from "@/components/ui/code-viewer.js";
+import type { PdfViewerLabels, PdfViewerSource } from "@/components/ui/pdf-viewer.js";
+import type { PptxPreviewViewerLabels } from "@/components/ui/pptx-preview-viewer.js";
+import type { CodeCommentPreview, CodeCommentRange } from "@/lib/codeCommentContext.js";
+import type { Theme } from "@/useTheme.js";
+import type { OfficeFilePreviewKind } from "@/lib/officeFilePreview.js";
+import type { PptxElementReferenceSource } from "@/lib/pptxElementReference.js";
+import type { MediaCodeViewerSource, PptxReferencePreviewNavigation } from "@/lib/codeViewer.js";
+interface PreviewPaneContentProps {
+    source: CodeViewerSource;
+    filePreview: FileTextSlice | null;
+    fileTooLarge: boolean;
+    loadingInitial: boolean;
+    loadingImagePreview: boolean;
+    imagePreview: FileMediaPreview | null;
+    mediaSource: MediaCodeViewerSource | null;
+    loadingMediaPreview: boolean;
+    mediaPreviewUrl: string | null;
+    onMediaError: (event: SyntheticEvent<HTMLMediaElement>) => void;
+    onMediaLoadedMetadata: (event: SyntheticEvent<HTMLMediaElement>) => void;
+    loadingPdfPreview: boolean;
+    pdfViewerSource: PdfViewerSource | null;
+    pdfViewerLabels: PdfViewerLabels;
+    loadingOfficePreview: boolean;
+    officePreview: FileBinaryPreview | null;
+    officePreviewKind: OfficeFilePreviewKind | null;
+    loadingPptxPreview: boolean;
+    pptxPreviewData: ArrayBuffer | null;
+    pptxViewerLabels: PptxPreviewViewerLabels;
+    pptxReferenceSource: PptxElementReferenceSource | null;
+    pptxReferenceNavigation: PptxReferencePreviewNavigation | null;
+    pptxReferenceNavigationReady: boolean;
+    error: string | null;
+    codePreviewSettings: CodePreviewSettings;
+    codeTheme: BundledTheme;
+    resolvedTheme: "light" | "dark";
+    /** 应用主题（store 耦合剥离）：透传给 markdown/mermaid 预览，缺省按 "system" 兜底。 */
+    theme?: Theme;
+    workspacePath?: string;
+    onOpenBrowserUrl?: (url: string) => void;
+    markdownSelectionTarget?: MarkdownSelectionTarget;
+    markdownViewMode: "preview" | "code";
+    svgViewMode: "preview" | "code";
+    wrapLongLines: boolean;
+    codeComments: readonly CodeCommentPreview[];
+    enableCodeLineSelection?: boolean;
+    enableCodeGutterUtility?: boolean;
+    codeCommentLabels: CodeCommentLabels;
+    onSubmitCodeComment?: (params: {
+        range: CodeCommentRange;
+        selectedText: string;
+        comment: string;
+    }) => void;
+    onDeleteCodeComment?: (commentId: string) => void;
+    onScroll?: UIEventHandler<HTMLDivElement>;
+    scrollContainerRef?: Ref<HTMLDivElement>;
+}
+export declare function getPreviewPaneErrorTextClass(error: string | null, fileMissingMessage: string): "text-destructive" | "text-foreground-subtlest";
+export declare function PreviewPaneContent({ source, filePreview, fileTooLarge, loadingInitial, loadingImagePreview, imagePreview, mediaSource, loadingMediaPreview, mediaPreviewUrl, onMediaError, onMediaLoadedMetadata, loadingPdfPreview, pdfViewerSource, pdfViewerLabels, loadingOfficePreview, officePreview, officePreviewKind, loadingPptxPreview, pptxPreviewData, pptxViewerLabels, pptxReferenceSource, pptxReferenceNavigation, pptxReferenceNavigationReady, error, codePreviewSettings, codeTheme, resolvedTheme, theme, workspacePath, onOpenBrowserUrl, markdownSelectionTarget, markdownViewMode, svgViewMode, wrapLongLines, codeComments, enableCodeLineSelection, enableCodeGutterUtility, codeCommentLabels, onSubmitCodeComment, onDeleteCodeComment, onScroll, scrollContainerRef, }: PreviewPaneContentProps): import("react/jsx-runtime").JSX.Element | null;
+export {};
+//# sourceMappingURL=previewPaneContent.d.ts.map

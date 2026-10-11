@@ -1,0 +1,1 @@
+{"version":3,"file":"WebRemoteControlFeatureProvider.d.ts","sourceRoot":"","sources":["../src/WebRemoteControlFeatureProvider.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,OAAO,CAAC;AAOvC,wBAAgB,+BAA+B,CAAC,EAC9C,OAAoD,EACpD,QAAQ,GACT,EAAE;IACD,OAAO,CAAC,EAAE,OAAO,CAAC;IAClB,QAAQ,EAAE,SAAS,CAAC;CACrB,2CAMA;AAED,wBAAgB,iCAAiC,IAAI,OAAO,CAE3D"}

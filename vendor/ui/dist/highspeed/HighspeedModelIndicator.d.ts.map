@@ -1,0 +1,1 @@
+{"version":3,"file":"HighspeedModelIndicator.d.ts","sourceRoot":"","sources":["../../src/highspeed/HighspeedModelIndicator.tsx"],"names":[],"mappings":"AAWA,wBAAgB,uBAAuB,CAAC,EACtC,KAAK,EACL,aAAa,EACb,WAAW,EACX,eAAe,GAChB,EAAE;IACD,KAAK,EAAE,MAAM,CAAC;IACd,aAAa,EAAE,MAAM,CAAC;IACtB,WAAW,EAAE,OAAO,CAAC;IACrB,wCAAwC;IACxC,eAAe,EAAE,OAAO,CAAC;CAC1B,2CA8CA"}

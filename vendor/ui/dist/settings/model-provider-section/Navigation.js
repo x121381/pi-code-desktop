@@ -1,0 +1,150 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+/* eslint-disable max-lines -- 设置页 provider 导航同时承载分组、卡片化预置入口和拖拽排序，当前先集中维护交互边界。 */
+import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy, } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { Loader2Icon } from "lucide-react";
+import { ProviderStatusIndicator } from "./ProviderStatusIndicator.js";
+import { resolveModelProviderFamilySpecByProviderId, isStartPlanModelProviderId, TID_MODEL_PROVIDER_NAV_ITEM, testId, } from "@zcode/shared";
+import { useCallback, useMemo } from "react";
+import { ControlHintTooltip } from "@/ControlHintTooltip.js";
+import { useOptimisticReorder } from "./useOptimisticReorder.js";
+import { renderModelProviderNavIcon } from "./utils.js";
+// 侧栏会裁切水平溢出；排序只改变纵向位置，拖动时也必须保持 x=0。
+const restrictToVerticalAxis = ({ transform }) => ({ ...transform, x: 0 });
+export function getSortableProviderId(item, reorderableProviderIds) {
+    if ((item.type === "custom" || item.type === "preset") && item.provider) {
+        return !reorderableProviderIds || reorderableProviderIds.has(item.provider.providerId)
+            ? item.provider.providerId
+            : null;
+    }
+    return null;
+}
+export function resolveReorderedProviderIdsForGroup(params) {
+    const activeIndex = params.providerIds.indexOf(params.activeProviderId);
+    const overIndex = params.providerIds.indexOf(params.overProviderId);
+    if (activeIndex < 0 || overIndex < 0 || activeIndex === overIndex) {
+        return [...params.providerIds];
+    }
+    return arrayMove([...params.providerIds], activeIndex, overIndex);
+}
+export function shouldShowModelProviderGroupLoadingIndicator(params) {
+    if (params.groupId === "preset") {
+        return params.presetLoading;
+    }
+    return params.customLoading;
+}
+export function resolveModelProviderSideNavLabel(item) {
+    if (item.type === "preset") {
+        return resolveModelProviderFamilySpecByProviderId(item.presetId)?.label ?? item.label;
+    }
+    if (item.type === "codingPlan" && isStartPlanModelProviderId(item.presetId)) {
+        return "Start Plan";
+    }
+    return item.label;
+}
+function ModelProviderNavigationButton({ item, label, selectedNodeKey, onSelectNavItem, showIcon = true, }) {
+    const isSelected = item.key === selectedNodeKey;
+    const isLoadingItem = item.type === "codingPlanLoading";
+    const inactiveItemClassName = "border-transparent text-foreground hover:border-border-hover/60";
+    return (_jsx(ControlHintTooltip, { title: label, side: "right", children: _jsxs("button", { type: "button", disabled: isLoadingItem, "aria-label": label, "aria-selected": isSelected, "data-state": isSelected ? "selected" : "idle", "data-testid": testId(TID_MODEL_PROVIDER_NAV_ITEM, item.key), onClick: () => {
+                if (isLoadingItem) {
+                    return;
+                }
+                onSelectNavItem(item);
+            }, className: `relative box-border flex h-8 w-full items-center gap-2 rounded-lg border px-2 py-1 text-left text-ui-base font-medium transition-colors max-md:size-8 max-md:justify-center max-md:gap-0 max-md:px-0 ${isSelected
+                ? "border-border-hover bg-card-selected text-foreground"
+                : inactiveItemClassName} disabled:cursor-not-allowed disabled:opacity-60`, children: [isLoadingItem ? (_jsx(Loader2Icon, { className: "size-4 shrink-0 animate-spin text-foreground-subtlest" })) : showIcon ? (_jsx("span", { className: "shrink-0 text-current", children: renderModelProviderNavIcon(item) })) : null, _jsx("span", { className: "flex min-w-0 flex-1 items-center gap-1.5 max-md:sr-only", children: _jsx("span", { className: "min-w-0 truncate", children: label }) }), "provider" in item ? (_jsx(ProviderStatusIndicator, { provider: item.type === "preset" ? item.statusProvider : item.provider })) : null] }) }));
+}
+function handleModelProviderNavigationRowKeyDown({ event, item, onSelectNavItem, }) {
+    if (event.key !== "Enter" && event.key !== " ") {
+        return;
+    }
+    event.preventDefault();
+    onSelectNavItem(item);
+}
+function SortableModelProviderNavigationButton({ providerId, item, label, selectedNodeKey, onSelectNavItem, }) {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: providerId,
+    });
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
+    const isSelected = item.key === selectedNodeKey;
+    const inactiveItemClassName = "border-transparent text-foreground hover:border-border-hover/60";
+    const handleKeyDown = (event) => {
+        listeners?.onKeyDown?.(event);
+        if (event.defaultPrevented)
+            return;
+        handleModelProviderNavigationRowKeyDown({ event, item, onSelectNavItem });
+    };
+    return (_jsx(ControlHintTooltip, { title: label, side: "right", children: _jsxs("div", { ref: setNodeRef, style: style, "aria-label": label, "aria-selected": isSelected, "data-state": isSelected ? "selected" : "idle", "data-testid": testId(TID_MODEL_PROVIDER_NAV_ITEM, item.key), onClick: () => onSelectNavItem(item), ...attributes, ...listeners, onKeyDown: handleKeyDown, className: `relative box-border flex h-8 w-full cursor-grab touch-pan-y select-none items-center gap-2 rounded-lg border px-2 py-1 text-left text-ui-base font-medium transition-colors active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 max-md:size-8 max-md:justify-center max-md:gap-0 max-md:px-0 ${isSelected
+                ? "border-border-hover bg-card-selected text-foreground"
+                : inactiveItemClassName} ${isDragging ? "z-20 opacity-70" : ""}`, children: [_jsx("span", { className: "shrink-0 text-current", "aria-hidden": "true", children: renderModelProviderNavIcon(item) }), _jsx("span", { className: "flex min-w-0 flex-1 items-center gap-1.5 max-md:sr-only", children: _jsx("span", { className: "min-w-0 truncate", children: label }) }), "provider" in item ? (_jsx(ProviderStatusIndicator, { provider: item.type === "preset" ? item.statusProvider : item.provider })) : null] }) }));
+}
+function PresetProviderCardNavigation({ group, selectedNodeKey, onSelectNavItem, }) {
+    return (_jsx("div", { className: "flex flex-col gap-2 max-md:items-center max-md:gap-1", children: group.items.map((item) => (_jsx(ModelProviderNavigationButton, { item: item, label: resolveModelProviderSideNavLabel(item), selectedNodeKey: selectedNodeKey, onSelectNavItem: onSelectNavItem }, item.key))) }));
+}
+function SortableProviderNavigationGroup({ group, selectedNodeKey, onSelectNavItem, onReorderProviderIds, reorderableProviderIds, sensors, }) {
+    const authoritativeProviderIds = useMemo(() => group.items.flatMap((item) => {
+        const providerId = getSortableProviderId(item, reorderableProviderIds);
+        return providerId ? [providerId] : [];
+    }), [group.items, reorderableProviderIds]);
+    const persist = useCallback(async (providerIds) => {
+        await onReorderProviderIds?.([...providerIds]);
+    }, [onReorderProviderIds]);
+    const optimisticOrder = useOptimisticReorder({
+        authoritativeIds: authoritativeProviderIds,
+        persist,
+    });
+    const renderedItems = useMemo(() => projectItemsToOptimisticProviderOrder({
+        items: group.items,
+        providerIds: optimisticOrder.renderedIds,
+        reorderableProviderIds,
+    }), [group.items, optimisticOrder.renderedIds, reorderableProviderIds]);
+    return (_jsx(DndContext, { sensors: sensors, modifiers: [restrictToVerticalAxis], collisionDetection: closestCenter, onDragEnd: (event) => {
+            const activeProviderId = String(event.active.id);
+            const overProviderId = event.over ? String(event.over.id) : "";
+            if (!overProviderId || activeProviderId === overProviderId)
+                return;
+            const nextProviderIds = resolveReorderedProviderIdsForGroup({
+                activeProviderId,
+                overProviderId,
+                providerIds: optimisticOrder.renderedIds,
+            });
+            void optimisticOrder.commit(nextProviderIds).catch(() => undefined);
+        }, children: _jsx(SortableContext, { items: [...optimisticOrder.renderedIds], strategy: verticalListSortingStrategy, children: _jsx("div", { className: "flex flex-col gap-1 max-md:items-center", children: renderedItems.map((item) => {
+                    const providerId = getSortableProviderId(item, reorderableProviderIds);
+                    if (!providerId) {
+                        return (_jsx(ModelProviderNavigationButton, { item: item, label: item.label, selectedNodeKey: selectedNodeKey, onSelectNavItem: onSelectNavItem }, item.key));
+                    }
+                    return (_jsx(SortableModelProviderNavigationButton, { providerId: providerId, item: item, label: item.label, selectedNodeKey: selectedNodeKey, onSelectNavItem: onSelectNavItem }, item.key));
+                }) }) }) }));
+}
+function projectItemsToOptimisticProviderOrder({ items, providerIds, reorderableProviderIds, }) {
+    const itemByProviderId = new Map(items.flatMap((item) => {
+        const providerId = getSortableProviderId(item, reorderableProviderIds);
+        return providerId ? [[providerId, item]] : [];
+    }));
+    let providerIndex = 0;
+    return items.map((item) => {
+        if (!getSortableProviderId(item, reorderableProviderIds))
+            return item;
+        const providerId = providerIds[providerIndex++];
+        return (providerId && itemByProviderId.get(providerId)) || item;
+    });
+}
+export function ModelProviderSectionNavigation({ navigationGroups, selectedNodeKey, presetLoading, customLoading, onSelectNavItem, onReorderProviderIds, reorderableProviderIds, }) {
+    const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }), useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+    }));
+    return (_jsx("aside", { className: "px-1.5 py-3 md:py-2 md:px-2", children: _jsx("div", { className: "flex min-h-0 flex-col gap-3 max-md:gap-1", children: navigationGroups
+                .filter((group) => group.id !== "custom" || group.items.length > 0)
+                .map((group) => (_jsxs("div", { className: "flex flex-col gap-2 max-md:gap-1", children: [_jsxs("div", { className: "flex h-7 items-center justify-between px-2 py-1 max-md:hidden", children: [_jsx("h3", { className: "text-ui-sm font-semibold text-foreground-subtlest", children: group.title }), shouldShowModelProviderGroupLoadingIndicator({
+                                groupId: group.id,
+                                presetLoading,
+                                customLoading,
+                            }) ? (_jsx(Loader2Icon, { className: "size-3 animate-spin text-foreground-subtlest" })) : null] }), group.id === "preset" ? (_jsx(PresetProviderCardNavigation, { group: group, selectedNodeKey: selectedNodeKey, onSelectNavItem: onSelectNavItem })) : (_jsx(SortableProviderNavigationGroup, { group: group, selectedNodeKey: selectedNodeKey, onSelectNavItem: onSelectNavItem, onReorderProviderIds: onReorderProviderIds, reorderableProviderIds: reorderableProviderIds, sensors: sensors }))] }, group.id))) }) }));
+}
+//# sourceMappingURL=Navigation.js.map

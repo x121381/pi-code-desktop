@@ -1,0 +1,25 @@
+import type { CodingPlanQuotaResetAutoPlayReservation, CodingPlanQuotaResetAutoPlayReservationAttempt } from "@/store/codingPlanQuotaResetState.js";
+export type CodingPlanQuotaResetAutoPlayCoordinationResult = {
+    status: "committed";
+} | {
+    status: "released";
+} | {
+    status: "retry";
+    retryAfterMs: number;
+} | {
+    status: "blocked";
+};
+/**
+ * 把异步 reservation 和组件展示边界串起来。
+ *
+ * Main 返回 winner 时 Composer 可能已经卸载或切换 source；必须先用 isCurrent
+ * 复核，再 commit played。失效 winner 只 release token，不能消费全局播放资格。
+ */
+export declare function coordinateCodingPlanQuotaResetAutoPlay(params: {
+    reserve: () => Promise<CodingPlanQuotaResetAutoPlayReservationAttempt>;
+    isCurrent: () => boolean;
+    commit: (reservation: CodingPlanQuotaResetAutoPlayReservation) => boolean;
+    release: (reservation: CodingPlanQuotaResetAutoPlayReservation) => Promise<void>;
+    onCommitted: (reservation: CodingPlanQuotaResetAutoPlayReservation) => void;
+}): Promise<CodingPlanQuotaResetAutoPlayCoordinationResult>;
+//# sourceMappingURL=codingPlanQuotaResetAutoPlay.d.ts.map

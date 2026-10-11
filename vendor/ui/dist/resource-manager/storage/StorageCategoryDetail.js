@@ -1,0 +1,25 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ChevronLeft, FolderOpen, Loader2 } from "lucide-react";
+import { STORAGE_MORE_ENTRIES_PATH, TID_RESOURCE_MANAGER_STORAGE_CATEGORY_CLEAN, TID_RESOURCE_MANAGER_STORAGE_DETAIL, TID_RESOURCE_MANAGER_STORAGE_DETAIL_BACK, TID_RESOURCE_MANAGER_STORAGE_DETAIL_ENTRY, testId, } from "@zcode/shared";
+import { Button } from "@/components/ui/button.js";
+import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { formatBytes } from "@/resource-manager/resourceUsageView.js";
+import { STORAGE_CATEGORY_ICONS, joinStoragePath, storageCategoryDescriptionId, storageCategoryTitleId, } from "./storageCategoryPresentation.js";
+export function StorageCategoryDetail({ categoryId, roots, cleaning, disabled, onBack, onClean, onReveal, }) {
+    const { intl } = useZCodeIntl();
+    const Icon = STORAGE_CATEGORY_ICONS[categoryId];
+    const perRoot = roots
+        .map((root) => ({ root, category: root.categories.find((item) => item.id === categoryId) }))
+        .filter((item) => item.category && item.category.bytes > 0);
+    const totalBytes = perRoot.reduce((sum, item) => sum + (item.category?.bytes ?? 0), 0);
+    const cleanability = perRoot[0]?.category?.cleanability ?? "none";
+    return (_jsxs("div", { "data-testid": TID_RESOURCE_MANAGER_STORAGE_DETAIL, className: "space-y-3", children: [_jsxs("div", { className: "flex items-center gap-2", children: [_jsxs(Button, { type: "button", variant: "ghost", size: "sm", "data-testid": TID_RESOURCE_MANAGER_STORAGE_DETAIL_BACK, onClick: onBack, children: [_jsx(ChevronLeft, { className: "size-4", "aria-hidden": "true" }), intl.formatMessage({ id: "resourceManager.storage.detailBack" })] }), _jsx("span", { className: "flex size-8 items-center justify-center rounded-lg bg-surface text-foreground-subtle", children: _jsx(Icon, { className: "size-4", "aria-hidden": "true" }) }), _jsxs("div", { className: "min-w-0 flex-1", children: [_jsx("div", { className: "truncate text-ui-base font-medium text-foreground", children: intl.formatMessage({ id: storageCategoryTitleId(categoryId) }) }), _jsx("div", { className: "text-ui-caption text-foreground-subtle", children: intl.formatMessage({ id: storageCategoryDescriptionId(categoryId) }) })] }), _jsx("span", { className: "text-ui-base tabular-nums text-foreground", children: formatBytes(totalBytes) }), cleanability !== "none" && totalBytes > 0 ? (_jsxs(Button, { type: "button", variant: "outline", size: "sm", "data-testid": testId(TID_RESOURCE_MANAGER_STORAGE_CATEGORY_CLEAN, categoryId), disabled: disabled, onClick: onClean, children: [cleaning ? _jsx(Loader2, { className: "size-4 animate-spin", "aria-hidden": "true" }) : null, intl.formatMessage({
+                                id: cleaning ? "resourceManager.storage.cleaning" : "resourceManager.storage.clean",
+                            })] })) : null] }), perRoot.map(({ root, category }) => (_jsxs("div", { className: "overflow-hidden rounded-xl border border-card-border bg-card", children: [_jsxs("div", { className: "flex items-center gap-2 border-b border-border bg-surface px-4 py-2 text-ui-caption", children: [_jsx("span", { className: "min-w-0 flex-1 truncate font-mono text-foreground-subtle", title: root.path, children: root.path }), _jsx("span", { className: "tabular-nums text-foreground", children: formatBytes(category?.bytes ?? 0) })] }), (category?.entries ?? []).map((entry) => {
+                        const isMore = entry.relativePath === STORAGE_MORE_ENTRIES_PATH;
+                        return (_jsxs("div", { "data-testid": TID_RESOURCE_MANAGER_STORAGE_DETAIL_ENTRY, className: "flex items-center gap-3 border-t border-border px-4 py-2 first:border-t-0", children: [_jsxs("span", { className: "min-w-0 flex-1", children: [_jsx("span", { className: "block truncate font-mono text-ui-base text-foreground", title: entry.relativePath, children: isMore
+                                                ? intl.formatMessage({ id: "resourceManager.storage.moreEntries" }, { count: entry.fileCount })
+                                                : entry.relativePath }), _jsx("span", { className: "block text-ui-caption text-foreground-subtle", children: intl.formatMessage({ id: "resourceManager.storage.filesCount" }, { count: entry.fileCount }) })] }), _jsx("span", { className: "text-ui-base tabular-nums text-foreground", children: formatBytes(entry.bytes) }), isMore ? null : (_jsx("button", { type: "button", className: "flex size-8 shrink-0 items-center justify-center rounded-md text-foreground-subtlest hover:bg-surface-hover", title: intl.formatMessage({ id: "resourceManager.storage.reveal" }), "aria-label": intl.formatMessage({ id: "resourceManager.storage.reveal" }), onClick: () => void onReveal(joinStoragePath(root.path, entry.relativePath)), children: _jsx(FolderOpen, { className: "size-4", "aria-hidden": "true" }) }))] }, entry.relativePath));
+                    })] }, root.id)))] }));
+}
+//# sourceMappingURL=StorageCategoryDetail.js.map

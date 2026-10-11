@@ -1,0 +1,15 @@
+export function resolveWorkflowLaunchProvenance(rows, toolCallId) {
+    let fallback;
+    for (const row of rows ?? []) {
+        if (row.kind === "turnHeader" && row.workflowLaunch?.toolCallId === toolCallId) {
+            return { meta: row.workflowLaunch, startedAt: row.startedAt };
+        }
+        if (fallback === undefined &&
+            row.kind === "userInput" &&
+            row.workflowLaunch?.toolCallId === toolCallId) {
+            fallback = { meta: row.workflowLaunch, startedAt: row.createdAt };
+        }
+    }
+    return fallback;
+}
+//# sourceMappingURL=workflowRunLaunchProvenance.js.map

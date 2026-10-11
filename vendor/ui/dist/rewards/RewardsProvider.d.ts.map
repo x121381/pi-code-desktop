@@ -1,0 +1,1 @@
+{"version":3,"file":"RewardsProvider.d.ts","sourceRoot":"","sources":["../../src/rewards/RewardsProvider.tsx"],"names":[],"mappings":"AAAA,OAAO,EAOL,KAAK,SAAS,EACf,MAAM,OAAO,CAAC;AAUf,eAAO,MAAM,cAAc,eADiB,OAAO,CAAC,IAAI,CAAC,QACK,CAAC;AAC/D,wBAAgB,eAAe,CAAC,EAC9B,QAAQ,EACR,OAAO,GACR,EAAE;IACD,QAAQ,EAAE,SAAS,CAAC;IACpB,OAAO,EAAE,OAAO,CAAC;CAClB,2CAoDA"}

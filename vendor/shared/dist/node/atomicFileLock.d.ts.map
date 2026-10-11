@@ -1,0 +1,1 @@
+{"version":3,"file":"atomicFileLock.d.ts","sourceRoot":"","sources":["../../src/node/atomicFileLock.ts"],"names":[],"mappings":"AA8KA,wBAAsB,eAAe,CACnC,QAAQ,EAAE,MAAM,EAChB,aAAa,EAAE,SAAS,MAAM,EAAE,EAChC,gBAAgB,EAAE,MAAM,EACxB,SAAS,EAAE,MAAM,GAChB,OAAO,CAAC,MAAM,OAAO,CAAC,IAAI,CAAC,CAAC,CA+F9B"}

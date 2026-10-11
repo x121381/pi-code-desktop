@@ -1,0 +1,1 @@
+{"version":3,"file":"workflowArtifactOpen.d.ts","sourceRoot":"","sources":["../../src/lib/workflowArtifactOpen.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;;GAeG;AACH,wBAAgB,mCAAmC,CAAC,MAAM,EAAE;IAC1D,WAAW,CAAC,EAAE,MAAM,CAAC;IACrB,uBAAuB,EAAE,OAAO,CAAC;IACjC,iBAAiB,CAAC,EAAE,MAAM,CAAC;IAC3B,eAAe,CAAC,EAAE,MAAM,CAAC;CAC1B,GAAG,OAAO,CAOV"}

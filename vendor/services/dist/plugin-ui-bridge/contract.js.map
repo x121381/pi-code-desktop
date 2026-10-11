@@ -1,0 +1,1 @@
+{"version":3,"file":"contract.js","sourceRoot":"","sources":["../../src/plugin-ui-bridge/contract.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,eAAe,EAAE,MAAM,eAAe,CAAC;AAEhD,OAAO,EAAE,uBAAuB,EAAE,MAAM,mBAAmB,CAAC;AAiI5D,MAAM,CAAC,MAAM,sBAAsB,GAAG,uBAAuB,CAC3D,eAAe,CAAC,cAAc,CAC/B,CAAC"}

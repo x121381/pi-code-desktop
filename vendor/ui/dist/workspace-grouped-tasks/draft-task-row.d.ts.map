@@ -1,0 +1,1 @@
+{"version":3,"file":"draft-task-row.d.ts","sourceRoot":"","sources":["../../src/workspace-grouped-tasks/draft-task-row.tsx"],"names":[],"mappings":"AAMA,wBAAgB,mBAAmB,CAAC,EAClC,MAAM,EACN,cAAc,EACd,QAAQ,EACR,OAAO,GACR,EAAE;IACD,MAAM,EAAE,OAAO,CAAC;IAChB,cAAc,EAAE,MAAM,CAAC;IACvB,QAAQ,EAAE,MAAM,IAAI,CAAC;IACrB,OAAO,CAAC,EAAE,MAAM,IAAI,CAAC;CACtB,2CAqEA"}

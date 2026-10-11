@@ -1,0 +1,1 @@
+{"version":3,"file":"OnboardingDialog.d.ts","sourceRoot":"","sources":["../../src/onboarding/OnboardingDialog.tsx"],"names":[],"mappings":"AAmCA,OAAO,EAAE,gCAAgC,EAAE,MAAM,wCAAwC,CAAC;AAc1F,wBAAgB,gBAAgB,CAAC,KAAK,EAAE;IACtC,aAAa,CAAC,EAAE,MAAM,CAAC;IACvB,iBAAiB,CAAC,EAAE,MAAM,CAAC;IAC3B,SAAS,CAAC,EAAE,OAAO,CAAC;CACrB,2CAgdA"}

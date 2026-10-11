@@ -1,0 +1,1 @@
+{"version":3,"file":"composerPlanTransition.d.ts","sourceRoot":"","sources":["../../../src/v4/composer/composerPlanTransition.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,qCAAqC,CAAC;AAC3E,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,iCAAiC,CAAC;AAE1E,uCAAuC;AACvC,wBAAgB,2BAA2B,CACzC,KAAK,EAAE,eAAe,EACtB,UAAU,EAAE,kBAAkB,CAAC,gBAAgB,CAAC,GAC/C,eAAe,CAOjB"}

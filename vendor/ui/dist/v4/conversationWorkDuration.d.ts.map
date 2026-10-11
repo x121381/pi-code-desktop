@@ -1,0 +1,1 @@
+{"version":3,"file":"conversationWorkDuration.d.ts","sourceRoot":"","sources":["../../src/v4/conversationWorkDuration.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,eAAe,CAAC;AAC5C,OAAO,KAAK,EAAE,YAAY,EAAE,MAAM,wBAAwB,CAAC;AAa3D,yDAAyD;AACzD,wBAAgB,8BAA8B,CAC5C,UAAU,EAAE,MAAM,GAAG,SAAS,EAC9B,IAAI,EAAE,YAAY,EAClB,MAAM,EAAE,MAAM,GACb,MAAM,GAAG,IAAI,CAmBf"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"pluginReferenceIconContext.d.ts","sourceRoot":"","sources":["../../src/v4/pluginReferenceIconContext.tsx"],"names":[],"mappings":"AAEA,MAAM,WAAW,2BAA2B;IAC1C,SAAS,EAAE,MAAM,CAAC;IAClB,cAAc,EAAE,WAAW,CAAC,MAAM,EAAE,MAAM,CAAC,CAAC;CAC7C;AAKD,eAAO,MAAM,2BAA2B,8DAAsC,CAAC;AAE/E,wBAAgB,gCAAgC,IAAI,2BAA2B,GAAG,IAAI,CAErF"}

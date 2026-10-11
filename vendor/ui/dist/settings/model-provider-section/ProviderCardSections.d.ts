@@ -1,0 +1,66 @@
+import { type KeyboardEvent as ReactKeyboardEvent, type RefObject, type ReactNode } from "react";
+import type { ProviderSettingsFormProvider, ProviderSettingsFormModel } from "@/lib/providerSettingsFormTypes.js";
+import type { ModelConnectivityResult } from "@zcode/shared";
+import type { ProviderApiType } from "@zcode/provider";
+import type { ProviderConfigObject } from "@zcode/provider";
+export { resolveProviderConnectionApiFormatDisplayLabel, resolveProviderConnectionApiFormatOptions, } from "@/settings/model-provider-section/ProviderApiFormatSelect.js";
+export { formatModelContextWindowLabel } from "@/lib/tokenNumberFormat.js";
+export declare function resolveProviderApiFormatOptions(_provider: Pick<ProviderSettingsFormProvider, "config" | "models">): ProviderApiType[];
+export declare function shouldShowProviderApiFormat(_provider: Pick<ProviderSettingsFormProvider, "providerId">): boolean;
+export declare function ProviderCardHeader({ providerName, logo, editingName, nameValue, nameInputRef, nameEditable, onNameChange, onNameBlur, onNameKeyDown, onNameCompositionEnd, onNameCompositionStart, onStartEditName, onDelete, actionsVisible, providerToggle, }: {
+    providerName: string;
+    logo?: ProviderConfigObject["logo"];
+    editingName: boolean;
+    nameValue: string;
+    nameInputRef: RefObject<HTMLInputElement | null>;
+    nameEditable?: boolean;
+    onNameChange: (value: string) => void;
+    onNameBlur: () => void;
+    onNameKeyDown: (event: ReactKeyboardEvent) => void;
+    onNameCompositionEnd?: () => void;
+    onNameCompositionStart?: () => void;
+    onStartEditName: () => void;
+    onDelete?: () => void;
+    actionsVisible?: boolean;
+    providerToggle?: ReactNode;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function ProviderConnectionSection({ provider, readOnly, apiFormat, baseUrlValue, onApiFormatChange, onBaseUrlChange, onBaseUrlBlur, onBaseUrlKeyDown, onBaseUrlCompositionStart, onBaseUrlCompositionEnd, }: {
+    provider: ProviderSettingsFormProvider;
+    readOnly?: boolean;
+    apiFormat: ProviderApiType;
+    baseUrlValue: string;
+    onApiFormatChange: (value: ProviderApiType) => void;
+    onBaseUrlChange: (value: string) => void;
+    onBaseUrlBlur: () => void;
+    onBaseUrlKeyDown?: (event: ReactKeyboardEvent<HTMLInputElement>) => void;
+    onBaseUrlCompositionStart?: () => void;
+    onBaseUrlCompositionEnd?: () => void;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function ProviderApiKeySection({ apiKeyValue, apiKeyVisible, readOnly, presetApiKeyUrl, onOpenPresetApiKey, onApiKeyChange, onApiKeyBlur, onApiKeyKeyDown, onApiKeyCompositionStart, onApiKeyCompositionEnd, onToggleApiKeyVisibility, }: {
+    apiKeyValue: string;
+    apiKeyVisible: boolean;
+    readOnly?: boolean;
+    presetApiKeyUrl?: string;
+    onOpenPresetApiKey?: () => void;
+    onApiKeyChange: (value: string) => void;
+    onApiKeyBlur: () => void;
+    onApiKeyKeyDown?: (event: ReactKeyboardEvent<HTMLInputElement>) => void;
+    onApiKeyCompositionStart?: () => void;
+    onApiKeyCompositionEnd?: () => void;
+    onToggleApiKeyVisibility: () => void;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function ProviderModelsSection({ providerId, providerName, providerEnabled, providerAccess, models, onTestModel, onModelCommit, onModelEnabledChange, onDeleteModel, onAddModel, onReorderModelIds, settingsRevision, }: {
+    providerId: string;
+    providerName?: string;
+    providerEnabled?: boolean;
+    providerAccess?: ProviderConfigObject["access"];
+    models: ProviderSettingsFormModel[];
+    onTestModel?: (model: string) => Promise<ModelConnectivityResult>;
+    onModelCommit: (originalModelId: string, model: ProviderSettingsFormModel, basedOnRevision: number) => void | Promise<void>;
+    onDeleteModel: (modelId: string) => void;
+    onModelEnabledChange?: (modelId: string, enabled: boolean) => void | Promise<void>;
+    onAddModel: (model: ProviderSettingsFormModel) => void | Promise<void>;
+    onReorderModelIds?: (modelIds: string[]) => void;
+    settingsRevision?: number;
+}): import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=ProviderCardSections.d.ts.map

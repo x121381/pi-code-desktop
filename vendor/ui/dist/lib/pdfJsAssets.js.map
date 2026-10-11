@@ -1,0 +1,1 @@
+{"version":3,"file":"pdfJsAssets.js","sourceRoot":"","sources":["../../src/lib/pdfJsAssets.ts"],"names":[],"mappings":"AAKA,MAAM,UAAU,0BAA0B,CACxC,WAAmB,EACnB,WAAmB;IAEnB,MAAM,kBAAkB,GAAG,IAAI,GAAG,CAAC,WAAW,EAAE,WAAW,CAAC,CAAC;IAC7D,OAAO;QACL,UAAU,EAAE,IAAI;QAChB,OAAO,EAAE,IAAI,GAAG,CAAC,cAAc,EAAE,kBAAkB,CAAC,CAAC,IAAI;KAC1D,CAAC;AACJ,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"contract.example.js","sourceRoot":"","sources":["../../src/gen-ui/contract.example.ts"],"names":[],"mappings":"AACA,MAAM,CAAC,MAAM,mBAAmB,GAAuB;IACrD,aAAa,EAAE,YAAY;IAC3B,SAAS,EAAE,SAAS;IACpB,IAAI,EAAE,uBAAuB;IAC7B,IAAI,EAAE,6BAA6B;IACnC,kBAAkB,EAAE,CAAC;IACrB,WAAW,EAAE,WAAW;CACzB,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"skillSyncErrors.d.ts","sourceRoot":"","sources":["../../src/skill-sync/skillSyncErrors.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,gCAAgC,EAChC,KAAK,2BAA2B,EACjC,MAAM,eAAe,CAAC;AAIvB,MAAM,WAAW,uBAAwB,SAAQ,KAAK;IACpD,IAAI,EAAE,OAAO,gCAAgC,CAAC;IAC9C,IAAI,EAAE,2BAA2B,CAAC;CACnC;AAED,wBAAgB,6BAA6B,CAC3C,IAAI,EAAE,2BAA2B,GAChC,uBAAuB,CAQzB"}

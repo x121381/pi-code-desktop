@@ -1,0 +1,1 @@
+{"version":3,"file":"GitGraphDialog.d.ts","sourceRoot":"","sources":["../../src/git-graph/GitGraphDialog.tsx"],"names":[],"mappings":"AAmBA,UAAU,mBAAmB;IAC3B,IAAI,EAAE,OAAO,CAAC;IACd,aAAa,EAAE,MAAM,CAAC;IACtB,YAAY,EAAE,CAAC,QAAQ,EAAE,OAAO,KAAK,IAAI,CAAC;CAC3C;AAID,wBAAgB,cAAc,CAAC,EAAE,IAAI,EAAE,aAAa,EAAE,YAAY,EAAE,EAAE,mBAAmB,2CAsLxF"}

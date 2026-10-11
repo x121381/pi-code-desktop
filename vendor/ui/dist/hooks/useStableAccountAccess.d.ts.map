@@ -1,0 +1,1 @@
+{"version":3,"file":"useStableAccountAccess.d.ts","sourceRoot":"","sources":["../../src/hooks/useStableAccountAccess.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,kBAAkB,EAAE,0BAA0B,EAAE,MAAM,eAAe,CAAC;AAEpF,KAAK,mBAAmB,GAAG,0BAA0B,GAAG,kBAAkB,CAAC;AAE3E,2DAA2D;AAC3D,wBAAgB,sBAAsB,CACpC,aAAa,EAAE,mBAAmB,GAAG,IAAI,GAAG,SAAS,GACpD,mBAAmB,GAAG,SAAS,CAQjC"}

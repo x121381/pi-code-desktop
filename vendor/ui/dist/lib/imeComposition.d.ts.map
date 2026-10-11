@@ -1,0 +1,1 @@
+{"version":3,"file":"imeComposition.d.ts","sourceRoot":"","sources":["../../src/lib/imeComposition.ts"],"names":[],"mappings":"AAAA,wBAAgB,sBAAsB,CAAC,KAAK,EAAE;IAC5C,iBAAiB,CAAC,EAAE,OAAO,CAAC;IAC5B,WAAW,CAAC,EAAE,OAAO,CAAC;IACtB,WAAW,CAAC,EAAE;QAAE,WAAW,CAAC,EAAE,OAAO,CAAA;KAAE,CAAC;CACzC,GAAG,OAAO,CAEV"}

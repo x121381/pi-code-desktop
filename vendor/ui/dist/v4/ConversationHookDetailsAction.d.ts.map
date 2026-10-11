@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationHookDetailsAction.d.ts","sourceRoot":"","sources":["../../src/v4/ConversationHookDetailsAction.tsx"],"names":[],"mappings":"AAUA,OAAO,KAAK,EAA2B,iBAAiB,EAAE,MAAM,iCAAiC,CAAC;AA0GlG,eAAO,MAAM,6BAA6B,qEAIvC;IACD,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,IAAI,EAAE,SAAS,iBAAiB,EAAE,CAAC;IACnC,MAAM,EAAE,MAAM,CAAC;CAChB,oDAmDC,CAAC"}

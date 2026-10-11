@@ -1,0 +1,41 @@
+{
+  "name": "@zcode/shared",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./runtime-env": "./dist/runtimeEnv.js",
+    "./mcp": "./dist/mcp.js",
+    "./runtime-tool-runtime": "./dist/runtime-tool-runtime.js",
+    "./node-repl-browser-broker": "./dist/browser-use/nodeReplBroker.js",
+    "./process-diagnostic": "./dist/process-diagnostic.js",
+    "./model-selection": "./dist/model-selection.js",
+    "./account-provider-state": "./dist/account-provider-state.js",
+    "./model-config": "./dist/model-config.js",
+    "./config-schema": "./dist/config-schema.js",
+    "./node": "./dist/node.js",
+    "./zcodeEndpoint": "./dist/zcodeEndpoint.js",
+    "./workspaceFileSearch": "./dist/workspaceFileSearch.js",
+    "./workspaceFileEntriesCodec": "./dist/workspaceFileEntriesCodec.js",
+    "./zcode-protocol-v4": "./dist/zcode-protocol-v4/index.js",
+    "./mcp-apps": "./dist/mcp-apps/index.js",
+    "./workspace-hook-discovery": "./dist/workspace-hook-discovery.js",
+    "./workspace-hook-mutation": "./dist/workspace-hook-mutation.js",
+    "./workspace-hook-review-monotonicity": "./dist/workspace-hook-review-monotonicity.js",
+    "./workspace-hook-trust-store-file": "./dist/workspace-hook-trust-store-file.js",
+    "./gen-ui": "./dist/gen-ui/index.js",
+    "./request-security": "./dist/request-security-edition/index.js"
+  },
+  "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
+  },
+  "dependencies": {
+    "@zcode/model-option-map": "*",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/ext-apps": "2.0.0",
+    "typescript": "^6.0.2"
+  }
+}

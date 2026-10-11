@@ -1,0 +1,1 @@
+{"version":3,"file":"pluginReferenceIconContext.js","sourceRoot":"","sources":["../../src/v4/pluginReferenceIconContext.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AAOlD,MAAM,0BAA0B,GAC9B,aAAa,CAAqC,IAAI,CAAC,CAAC;AAE1D,MAAM,CAAC,MAAM,2BAA2B,GAAG,0BAA0B,CAAC,QAAQ,CAAC;AAE/E,MAAM,UAAU,gCAAgC;IAC9C,OAAO,UAAU,CAAC,0BAA0B,CAAC,CAAC;AAChD,CAAC"}

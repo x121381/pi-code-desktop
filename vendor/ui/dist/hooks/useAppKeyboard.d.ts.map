@@ -1,0 +1,1 @@
+{"version":3,"file":"useAppKeyboard.d.ts","sourceRoot":"","sources":["../../src/hooks/useAppKeyboard.ts"],"names":[],"mappings":"AACA,OAAO,EAAqB,KAAK,iBAAiB,EAAE,MAAM,eAAe,CAAC;AAS1E,sDAAsD;AACtD,MAAM,MAAM,mBAAmB,GAAG,OAAO,CAAC,MAAM,CAAC,iBAAiB,EAAE,CAAC,MAAM,IAAI,CAAC,GAAG,IAAI,CAAC,CAAC,CAAC;AAE1F;;;;;;;GAOG;AACH,wBAAgB,cAAc,CAAC,QAAQ,EAAE,mBAAmB,QAsD3D"}

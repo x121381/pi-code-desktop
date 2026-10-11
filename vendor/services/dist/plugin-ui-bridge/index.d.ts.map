@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../src/plugin-ui-bridge/index.ts"],"names":[],"mappings":"AAAA,cAAc,eAAe,CAAC;AAC9B,cAAc,uBAAuB,CAAC;AACtC,OAAO,EAAE,6BAA6B,EAAE,MAAM,8BAA8B,CAAC;AAC7E,cAAc,uBAAuB,CAAC;AACtC,OAAO,EACL,6BAA6B,EAC7B,KAAK,mCAAmC,GACzC,MAAM,8BAA8B,CAAC;AACtC,OAAO,EACL,mBAAmB,EACnB,2BAA2B,EAC3B,KAAK,iCAAiC,GACvC,MAAM,4BAA4B,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"repo.d.ts","sourceRoot":"","sources":["../../src/bots/repo.ts"],"names":[],"mappings":"AAGA,OAAO,EAGL,KAAK,cAAc,EACnB,KAAK,aAAa,EACnB,MAAM,eAAe,CAAC;AAyBvB,qBAAa,QAAQ;IACb,UAAU,IAAI,OAAO,CAAC,cAAc,CAAC;IAerC,WAAW,CAAC,MAAM,EAAE,cAAc,GAAG,OAAO,CAAC,cAAc,CAAC;IAO5D,SAAS,IAAI,OAAO,CAAC,aAAa,CAAC;IAmBnC,UAAU,CAAC,KAAK,EAAE,aAAa,GAAG,OAAO,CAAC,aAAa,CAAC;CAM/D"}

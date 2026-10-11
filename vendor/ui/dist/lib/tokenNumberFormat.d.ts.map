@@ -1,0 +1,1 @@
+{"version":3,"file":"tokenNumberFormat.d.ts","sourceRoot":"","sources":["../../src/lib/tokenNumberFormat.ts"],"names":[],"mappings":"AAAA,wBAAgB,wBAAwB,CACtC,MAAM,EAAE,MAAM,EACd,KAAK,EAAE,MAAM,EACb,OAAO,GAAE;IAAE,qBAAqB,CAAC,EAAE,MAAM,CAAA;CAAO,GAC/C,MAAM,CAeR;AAED,wBAAgB,6BAA6B,CAAC,aAAa,EAAE,MAAM,EAAE,OAAO,SAAU,GAAG,MAAM,CAG9F"}

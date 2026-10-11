@@ -1,0 +1,1 @@
+{"version":3,"file":"refreshDirectories.d.ts","sourceRoot":"","sources":["../../src/workspace-file-tree/refreshDirectories.ts"],"names":[],"mappings":"AAEA,wBAAgB,yCAAyC,CAAC,EACxD,aAAa,EACb,aAAa,EACb,oBAAoB,GACrB,EAAE;IACD,aAAa,EAAE,MAAM,CAAC;IACtB,aAAa,EAAE,WAAW,CAAC,MAAM,CAAC,CAAC;IACnC,oBAAoB,EAAE,WAAW,CAAC,MAAM,CAAC,CAAC;CAC3C,GAAG,MAAM,EAAE,CAoBX"}

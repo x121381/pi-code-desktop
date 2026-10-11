@@ -1,0 +1,1 @@
+{"version":3,"file":"StatusDot.d.ts","sourceRoot":"","sources":["../../src/settings/StatusDot.tsx"],"names":[],"mappings":"AAIA,MAAM,MAAM,aAAa,GAAG,OAAO,GAAG,OAAO,GAAG,KAAK,GAAG,OAAO,GAAG,QAAQ,CAAC;AAU3E,wBAAgB,SAAS,CAAC,EAAE,IAAI,EAAE,QAAQ,EAAE,EAAE;IAAE,IAAI,EAAE,aAAa,CAAC;IAAC,QAAQ,CAAC,EAAE,OAAO,CAAA;CAAE,2CAMxF"}

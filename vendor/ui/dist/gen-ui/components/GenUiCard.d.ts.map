@@ -1,0 +1,1 @@
+{"version":3,"file":"GenUiCard.d.ts","sourceRoot":"","sources":["../../../src/gen-ui/components/GenUiCard.tsx"],"names":[],"mappings":"AASA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,sBAAsB,CAAC;AAc3D,OAAO,EAAyB,KAAK,eAAe,EAAkB,MAAM,gBAAgB,CAAC;AAuB7F,wBAAgB,SAAS,CAAC,EACxB,MAAM,EACN,SAAS,GACV,EAAE;IACD,MAAM,EAAE,eAAe,CAAC;IACxB,SAAS,EAAE,cAAc,CAAC;CAC3B,2CA+LA"}

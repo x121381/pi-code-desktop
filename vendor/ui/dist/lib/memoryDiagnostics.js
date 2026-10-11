@@ -1,0 +1,75 @@
+import { createMemoryDiagnosticsRegistry, createMemorySampleWriteGate, formatMemorySampleLine, MEMORY_SAMPLE_INTERVAL_MS, } from "@zcode/shared";
+import { logMemoryDiagnostics } from "@/logger.js";
+/**
+ * renderer 内存诊断计数器注册表。
+ * 各缓存/store 模块在模块加载时注册纯读取 provider；`startMemoryDiagnosticsLogger` 每 60 秒
+ * 采样一次，经门控后通过 `logger.logMemoryDiagnostics` 写桌面主日志。
+ */
+export const uiMemoryDiagnosticsRegistry = createMemoryDiagnosticsRegistry();
+/** Chromium 专有的 `performance.memory`；Web 端浏览器缺失时返回 undefined。 */
+export function readRendererHeapSnapshot() {
+    if (typeof performance === "undefined") {
+        return undefined;
+    }
+    const memory = performance.memory;
+    if (!memory || typeof memory.usedJSHeapSize !== "number") {
+        return undefined;
+    }
+    return memory;
+}
+export function startMemoryDiagnosticsLogger(options = {}) {
+    const now = options.now ?? (() => Date.now());
+    const readHeap = options.readHeap ?? readRendererHeapSnapshot;
+    const write = options.write ?? logMemoryDiagnostics;
+    const registry = options.registry ?? uiMemoryDiagnosticsRegistry;
+    const reportHeapSample = options.reportHeapSample;
+    const gate = createMemorySampleWriteGate();
+    const sampleNow = () => {
+        try {
+            const heap = readHeap();
+            const heapUsedKb = heap ? Math.round(heap.usedJSHeapSize / 1024) : undefined;
+            // 读到就先交给资源遥测：ARMS 要的是完整的 60 秒序列，而本地日志只在有变化时才写，
+            // 两个出口不能共用同一个门控结论；计数器采集与格式化也不该拖走这条 heap 样本。
+            if (heapUsedKb !== undefined) {
+                try {
+                    reportHeapSample?.({ heapUsedKb });
+                }
+                catch {
+                    // 桥失败只丢这条遥测样本，本地诊断日志与渲染都不受影响。
+                }
+            }
+            const sample = {
+                role: "renderer",
+                counters: registry.collect(),
+            };
+            if (heap) {
+                sample.heapUsedKb = heapUsedKb;
+                if (typeof heap.totalJSHeapSize === "number") {
+                    sample.heapTotalKb = Math.round(heap.totalJSHeapSize / 1024);
+                }
+            }
+            const reason = gate.evaluate(sample, now());
+            if (!reason) {
+                return false;
+            }
+            write(formatMemorySampleLine(sample, reason));
+            return true;
+        }
+        catch {
+            // 诊断采样失败只丢当前样本，不能影响渲染。
+            return false;
+        }
+    };
+    let handle = setInterval(sampleNow, options.intervalMs ?? MEMORY_SAMPLE_INTERVAL_MS);
+    return {
+        sampleNow,
+        stop() {
+            if (handle === undefined) {
+                return;
+            }
+            clearInterval(handle);
+            handle = undefined;
+        },
+    };
+}
+//# sourceMappingURL=memoryDiagnostics.js.map

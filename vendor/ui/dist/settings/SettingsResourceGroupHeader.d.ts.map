@@ -1,0 +1,1 @@
+{"version":3,"file":"SettingsResourceGroupHeader.d.ts","sourceRoot":"","sources":["../../src/settings/SettingsResourceGroupHeader.tsx"],"names":[],"mappings":"AAEA,UAAU,gCAAgC;IACxC,KAAK,EAAE,MAAM,CAAC;IACd,IAAI,CAAC,EAAE,MAAM,CAAC;IACd,KAAK,EAAE,MAAM,CAAC;CACf;AAED,wBAAgB,2BAA2B,CAAC,EAC1C,KAAK,EACL,IAAI,EACJ,KAAK,GACN,EAAE,gCAAgC,2CAkBlC"}

@@ -1,0 +1,2 @@
+export declare function acquireFileLock(filePath: string, retryDelaysMs: readonly number[], ownerlessGraceMs: number, maxWaitMs: number): Promise<() => Promise<void>>;
+//# sourceMappingURL=atomicFileLock.d.ts.map

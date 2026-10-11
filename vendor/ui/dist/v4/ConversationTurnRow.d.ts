@@ -1,0 +1,28 @@
+import type { AttachmentRef, CommandAck, ConversationRow, ConversationRowTarget } from "@zcode/shared/zcode-protocol-v4";
+import type { AssistantPreviewCard } from "@/lib/assistantPreviewCards.js";
+import type { AssistantCodeCommentCard } from "@/lib/assistantCodeComment.js";
+import type { AssistantFeedbackHandler, EditWorkspaceRewindAvailability } from "@/v4/ConversationRowView.js";
+import type { ConversationRowRenderContext } from "@/v4/conversationRowContext.js";
+import type { ConversationTurnRenderUnit } from "@/v4/conversationTurnRenderUnits.js";
+interface ConversationTurnRowProps {
+    row: ConversationRow;
+    context: ConversationRowRenderContext;
+    onFork?: (target: ConversationRowTarget) => void;
+    onRetry?: (target: ConversationRowTarget) => void;
+    onFeedbackChange?: AssistantFeedbackHandler;
+    onEdit?: (target: ConversationRowTarget, newText: string, attachments?: readonly AttachmentRef[], workspaceMode?: "preserve" | "rewind") => Promise<CommandAck | boolean | void> | CommandAck | boolean | void;
+    editWorkspaceRewindAvailability?: EditWorkspaceRewindAvailability;
+    hideAssistantActions?: boolean;
+    deferAssistantActions?: boolean;
+    assistantCopyText?: string;
+    assistantPreviewCards?: AssistantPreviewCard[];
+    assistantPreviewCardsAutoOpenKey?: string;
+    assistantCodeCommentCards?: AssistantCodeCommentCard[];
+    assistantCodeCommentProjectionEnabled?: boolean;
+    reasoningContentVariant?: "default" | "nested";
+    userInputStatus?: string;
+}
+export declare function ConversationTurnRow({ row, context, onFork, onRetry, onFeedbackChange, onEdit, editWorkspaceRewindAvailability, hideAssistantActions, deferAssistantActions, assistantCopyText, assistantPreviewCards, assistantPreviewCardsAutoOpenKey, assistantCodeCommentCards, assistantCodeCommentProjectionEnabled, reasoningContentVariant, userInputStatus, }: ConversationTurnRowProps): import("react/jsx-runtime").JSX.Element;
+export declare function resolveAssistantCopyText(unit: ConversationTurnRenderUnit): string | undefined;
+export {};
+//# sourceMappingURL=ConversationTurnRow.d.ts.map

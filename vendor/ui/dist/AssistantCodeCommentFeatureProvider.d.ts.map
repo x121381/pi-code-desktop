@@ -1,0 +1,1 @@
+{"version":3,"file":"AssistantCodeCommentFeatureProvider.d.ts","sourceRoot":"","sources":["../src/AssistantCodeCommentFeatureProvider.tsx"],"names":[],"mappings":"AAAA,OAAO,EAA6B,KAAK,SAAS,EAAE,MAAM,OAAO,CAAC;AAOlE,wBAAgB,mCAAmC,CAAC,EAClD,QAAQ,EACR,OAAsD,GACvD,EAAE;IACD,QAAQ,EAAE,SAAS,CAAC;IACpB,OAAO,CAAC,EAAE,OAAO,CAAC;CACnB,2CAMA;AAED,wBAAgB,qCAAqC,IAAI,OAAO,CAE/D"}

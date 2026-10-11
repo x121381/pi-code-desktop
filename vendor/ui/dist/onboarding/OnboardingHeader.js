@@ -1,0 +1,8 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Button } from "@/components/ui/button.js";
+import { cn } from "@/components/lib/utils.js";
+import { ArrowLeft, X } from "lucide-react";
+export function OnboardingHeader({ step, saving, t, onBack, onClose, }) {
+    return (_jsxs("header", { className: "relative grid h-14 shrink-0 grid-cols-[1fr_auto_1fr] [@media(max-height:740px)]:h-10 items-center px-6 sm:px-10", children: [step > 0 ? (_jsxs(Button, { variant: "ghost", disabled: saving, className: "col-start-1 row-start-1 justify-self-start h-9 rounded-xl px-2 text-ui-sm text-foreground-subtle", onClick: onBack, children: [_jsx(ArrowLeft, { className: "size-4" }), t("back")] })) : null, _jsx("ol", { "aria-label": t("preferences"), className: "col-start-2 row-start-1 flex w-28 items-center gap-2", children: ["stepRole", "stepMode", "stepPreferences"].map((key, index) => (_jsxs("li", { "aria-current": step === index ? "step" : undefined, className: "min-w-0 flex-1", children: [_jsx("div", { "aria-hidden": "true", className: cn("h-1 rounded-full transition-colors", index <= step ? "bg-primary" : "bg-border") }), _jsxs("span", { className: "sr-only", children: [index + 1, ". ", t(key)] })] }, key))) }), _jsx(Button, { variant: "ghost", size: "icon", disabled: saving, "aria-label": t("close"), title: t("close"), className: "col-start-3 row-start-1 justify-self-end size-9 rounded-xl text-foreground-subtle", onClick: onClose, children: _jsx(X, { className: "size-4" }) })] }));
+}
+//# sourceMappingURL=OnboardingHeader.js.map

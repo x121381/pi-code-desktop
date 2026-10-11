@@ -1,0 +1,1 @@
+{"version":3,"file":"promptScrollFocusPolicy.js","sourceRoot":"","sources":["../../src/v4/promptScrollFocusPolicy.ts"],"names":[],"mappings":"AASA;;;;GAIG;AACH,MAAM,UAAU,oCAAoC,CAAC,KAAmC;IACtF,IAAI,KAAK,CAAC,SAAS;QAAE,OAAO,IAAI,CAAC;IACjC,IAAI,KAAK,CAAC,oBAAoB;QAAE,OAAO,IAAI,CAAC;IAC5C,OAAO,KAAK,CAAC,gBAAgB,KAAK,UAAU,CAAC;AAC/C,CAAC"}

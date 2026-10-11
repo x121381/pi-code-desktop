@@ -1,0 +1,47 @@
+import type { AppProps } from "@/app-shell/types.js";
+import type { RootProps } from "@/root/types.js";
+import type { IFeedbackService, IServiceAccessor } from "@zcode/services";
+interface RootWorkspaceContentProps {
+    workspaceScopedServices: IServiceAccessor;
+    baseFeedbackService: IFeedbackService;
+    workspaceShellPath: string;
+    workspaceIdentity?: string;
+    workspaceRemoteSessionId?: string;
+    activeWorkspacePath: string | null;
+    isSettingsTabActive: boolean;
+    handleConnectRemote: AppProps["onConnectRemote"];
+    handleSelectRemoteProject: AppProps["onSelectRemoteProject"];
+    handleCancelRemoteProject: AppProps["onCancelRemoteProject"];
+    handleReconnectRemoteWorkspace: AppProps["onReconnectRemoteWorkspace"];
+    handleCreateTask: AppProps["onCreateTask"];
+    handleCreateConversationTask: NonNullable<AppProps["onCreateConversationTask"]>;
+    handleResolveConversationWorkspace: NonNullable<AppProps["onResolveConversationWorkspace"]>;
+    handleOpenWorkspace: AppProps["onOpenWorkspace"];
+    handleOpenFolderFromWorkspaceMenu: AppProps["onOpenFolderFromWorkspaceMenu"];
+    handleOpenRemoteWorkspace?: AppProps["onOpenRemoteWorkspace"];
+    handleCreateScratchWorkspace: AppProps["onCreateScratchWorkspace"];
+    remoteConnectionInProgress?: AppProps["remoteConnectionInProgress"];
+    remoteWorkspaceSessions: NonNullable<AppProps["remoteWorkspaceSessions"]>;
+    allowRemoteWorkspace: NonNullable<RootProps["allowRemoteWorkspace"]>;
+    handleBackFromSettings: () => void;
+    handleLogout?: () => void;
+    onLogin?: () => void;
+    user: AppProps["user"];
+    reconnectingRemoteWorkspaceKeys: AppProps["reconnectingRemoteWorkspaceKeys"];
+    remoteWorkspaceErrorByWorkspaceKey: AppProps["remoteWorkspaceErrorByWorkspaceKey"];
+    reconnectingRemoteWorkspaceLogsByWorkspaceKey: AppProps["reconnectingRemoteWorkspaceLogsByWorkspaceKey"];
+    remoteConnectionLogs?: AppProps["remoteConnectionLogs"];
+    allowOpenWorkspace: NonNullable<RootProps["allowOpenWorkspace"]>;
+    webRemoteControlWorkspaceSwitcher?: RootProps["webRemoteControlWorkspaceSwitcher"];
+    initialWebRemoteControlMobileNavigationIntent?: RootProps["initialWebRemoteControlMobileNavigationIntent"];
+    initialWebRemoteControlWorkspaceList?: RootProps["initialWebRemoteControlWorkspaceList"];
+    webRemoteControlTerminalTransportState?: RootProps["webRemoteControlTerminalTransportState"];
+    isDesktop?: RootProps["isDesktop"];
+    isMacDesktop?: RootProps["isMacDesktop"];
+    isWindowsDesktop?: RootProps["isWindowsDesktop"];
+    supportsEmbeddedBrowser: NonNullable<RootProps["supportsEmbeddedBrowser"]>;
+    windowsWindowControlsRightPaddingPx?: number;
+}
+export declare function RootWorkspaceContent({ workspaceScopedServices, baseFeedbackService, workspaceShellPath, workspaceIdentity, workspaceRemoteSessionId, activeWorkspacePath, isSettingsTabActive, handleConnectRemote, handleSelectRemoteProject, handleCancelRemoteProject, handleReconnectRemoteWorkspace, handleCreateTask, handleCreateConversationTask, handleResolveConversationWorkspace, handleOpenWorkspace, handleOpenFolderFromWorkspaceMenu, handleOpenRemoteWorkspace, handleCreateScratchWorkspace, remoteConnectionInProgress, remoteWorkspaceSessions, allowRemoteWorkspace, handleBackFromSettings, handleLogout, onLogin, user, reconnectingRemoteWorkspaceKeys, remoteWorkspaceErrorByWorkspaceKey, reconnectingRemoteWorkspaceLogsByWorkspaceKey, remoteConnectionLogs, allowOpenWorkspace, webRemoteControlWorkspaceSwitcher, initialWebRemoteControlMobileNavigationIntent, initialWebRemoteControlWorkspaceList, webRemoteControlTerminalTransportState, isDesktop, isMacDesktop, isWindowsDesktop, supportsEmbeddedBrowser, windowsWindowControlsRightPaddingPx, }: RootWorkspaceContentProps): import("react/jsx-runtime").JSX.Element;
+export {};
+//# sourceMappingURL=RootWorkspaceContent.d.ts.map

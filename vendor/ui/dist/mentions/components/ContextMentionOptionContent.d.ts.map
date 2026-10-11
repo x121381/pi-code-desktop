@@ -1,0 +1,1 @@
+{"version":3,"file":"ContextMentionOptionContent.d.ts","sourceRoot":"","sources":["../../../src/mentions/components/ContextMentionOptionContent.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,4BAA4B,CAAC;AAE9D,wBAAgB,2BAA2B,CAAC,EAC1C,IAAI,EACJ,aAAa,GACd,EAAE;IACD,IAAI,EAAE,WAAW,CAAC;IAClB,aAAa,EAAE,MAAM,CAAC;CACvB,2CA0BA"}

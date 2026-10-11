@@ -1,0 +1,1 @@
+{"version":3,"file":"FeedbackSubmitProgressView.d.ts","sourceRoot":"","sources":["../../src/feedback/FeedbackSubmitProgressView.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,+BAA+B,EAAE,MAAM,qCAAqC,CAAC;AAE3F,wBAAgB,kBAAkB,CAAC,EACjC,QAAQ,EACR,eAAe,GAChB,EAAE;IACD,QAAQ,EAAE,+BAA+B,CAAC;IAC1C,eAAe,EAAE,MAAM,CAAC;CACzB,2CA2BA"}

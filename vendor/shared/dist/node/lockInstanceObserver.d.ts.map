@@ -1,0 +1,1 @@
+{"version":3,"file":"lockInstanceObserver.d.ts","sourceRoot":"","sources":["../../src/node/lockInstanceObserver.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,KAAK,EAAE,MAAM,SAAS,CAAC;AAErC,MAAM,MAAM,mBAAmB,GAAG,CAAC,QAAQ,EAAE,MAAM,EAAE,QAAQ,EAAE,KAAK,EAAE,UAAU,EAAE,MAAM,KAAK,MAAM,CAAC;AAEpG,wBAAgB,0BAA0B,IAAI,mBAAmB,CAehE"}

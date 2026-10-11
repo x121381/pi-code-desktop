@@ -1,0 +1,65 @@
+/**
+ * 子代理模型的**词**：run 上存的是规范串
+ * `providerId/modelId[$reasoningLevel]`——那是给机器回填用的，不是给人读的。团队套餐的
+ * providerId 是一个 UUID，原样贴到屏幕上，用户第一眼看到的就是一串十六进制。
+ *
+ * 所以三个面（确认窗、运行卡、详情侧板）共用这一个纯函数：拼名规则直接复用模型菜单那一条
+ * （`formatProviderModelLabel`：内置家族只显示模型名，自定义 provider 才显示「名字/模型」），
+ * 思考强度复用思考控件的词表。规范串本身只住在 tooltip 里。
+ *
+ * 纯函数 + 注入的 formatMessage / providerName：与 timeline-summary 同一条纪律，本文件不碰 store。
+ */
+type FormatMessage = (descriptor: {
+    id: string;
+}, values?: Record<string, string | number>) => string;
+export interface WorkflowSubagentModelLabel {
+    /** 屏幕上的模型名；**永远不含 providerId**。 */
+    name: string;
+    /** 本地化的思考强度词；规范串没有 `$level` 时缺席。 */
+    level?: string;
+    /** 规范串原文（trim 过），只进 tooltip。 */
+    canonical: string;
+}
+export interface WorkflowSubagentModelDeps {
+    formatMessage: FormatMessage;
+    /**
+     * providerId → 会话模型清单里的 provider 名。缺席（或查不到）时退回裸 modelId——
+     * 这是**刻意**的兜底：解析不到名字也绝不把 providerId 摆出来。
+     */
+    providerName?: (providerId: string) => string | undefined;
+}
+/**
+ * 规范串 → 屏幕上的词。解析失败（串缺 provider 段、或形状不合 schema）不抛：UI 不是第二个
+ * 解析器，拿不准就退回裸 modelId。
+ */
+export declare function describeWorkflowSubagentModel(canonical: string, deps: WorkflowSubagentModelDeps): WorkflowSubagentModelLabel;
+/** 一句话说清模型与强度：没有档位时就是模型名本身（确认窗与 tooltip 共用）。 */
+export declare function workflowSubagentModelText(formatMessage: FormatMessage, label: WorkflowSubagentModelLabel): string;
+/**
+ * 三个面共用的 tooltip：一句解释（子代理跑在哪儿、主代理没变）+ 换行 + 规范串。
+ * 规范串是给机器回填用的，它只该在这里出现。
+ */
+export declare function workflowSubagentModelTooltip(formatMessage: FormatMessage, label: WorkflowSubagentModelLabel): string;
+/**
+ * 卡与侧板要的两样东西：屏幕上的名字（只有名字，档位留给 tooltip）与 tooltip。
+ * run 没指定过模型时缺席——跟随会话模型是常态，没有可说的。
+ */
+export declare function workflowSubagentModelCardLabel(canonical: string | undefined, deps: WorkflowSubagentModelDeps): {
+    name: string;
+    title: string;
+} | undefined;
+/**
+ * 脊线上子代理行要的模型词（docs/dynamic-workflow/presentation.md「The spine」）：persona 点名了
+ * 模型的子代理，行尾计数后面跟上模型名，行的 tooltip 多一行规范串。按实例键 `siteId@ordinal`
+ * 索引一次，行只查不算。跑在 run 模型上的子代理不进表——摘要行已经说过那个模型。
+ */
+export declare function workflowActorModelLabels(actors: readonly {
+    siteId: string;
+    ordinal: number;
+    model?: string;
+}[] | undefined, deps: WorkflowSubagentModelDeps): ReadonlyMap<string, {
+    name: string;
+    canonical: string;
+}>;
+export {};
+//# sourceMappingURL=subagent-model-label.d.ts.map

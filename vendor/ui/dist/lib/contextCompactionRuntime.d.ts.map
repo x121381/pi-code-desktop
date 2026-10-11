@@ -1,0 +1,1 @@
+{"version":3,"file":"contextCompactionRuntime.d.ts","sourceRoot":"","sources":["../../src/lib/contextCompactionRuntime.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,kCAAkC,EAAE,MAAM,eAAe,CAAC;AAIxE,wBAAgB,kCAAkC,CAChD,QAAQ,EAAE,kCAAkC,GAC3C,OAAO,CAET;AAED,wBAAgB,2CAA2C,CACzD,QAAQ,EAAE,kCAAkC,GAC3C,OAAO,CAYT"}

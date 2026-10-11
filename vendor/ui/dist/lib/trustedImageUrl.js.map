@@ -1,0 +1,1 @@
+{"version":3,"file":"trustedImageUrl.js","sourceRoot":"","sources":["../../src/lib/trustedImageUrl.ts"],"names":[],"mappings":"AAAA,yCAAyC;AACzC,MAAM,UAAU,iBAAiB,CAAC,GAAuB;IACvD,OAAO,OAAO,GAAG,KAAK,QAAQ,IAAI,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAC/D,CAAC"}

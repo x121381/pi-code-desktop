@@ -1,0 +1,3 @@
+import type { WorkspaceSettingsLayerProps } from "@/root/types.js";
+export declare function WorkspaceSettingsLayer({ workspaceScopedServices, isDesktop, isMacDesktop, isWindowsDesktop, isWebRemoteControl, windowsWindowControlsRightPaddingPx, captionWorkspacePath, onBack, onCreateTask, onOpenWorkspace, allowOpenWorkspace, onLogin, onLogout, user, }: WorkspaceSettingsLayerProps): import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=WorkspaceSettingsLayer.d.ts.map

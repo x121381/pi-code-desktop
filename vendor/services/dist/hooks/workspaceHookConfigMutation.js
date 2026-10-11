@@ -1,0 +1,2 @@
+export { atomicWriteWorkspaceHookConfig, writeWorkspaceHookConfiguredToggle, WorkspaceHookMutationError, } from "@zcode/shared/workspace-hook-mutation";
+//# sourceMappingURL=workspaceHookConfigMutation.js.map

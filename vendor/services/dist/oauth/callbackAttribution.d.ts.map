@@ -1,0 +1,1 @@
+{"version":3,"file":"callbackAttribution.d.ts","sourceRoot":"","sources":["../../src/oauth/callbackAttribution.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,qBAAqB,EAAE,MAAM,eAAe,CAAC;AAI3D,wBAAgB,0BAA0B,CACxC,YAAY,EAAE,eAAe,GAC5B,qBAAqB,GAAG,SAAS,CAWnC;AAED,wBAAgB,yBAAyB,CAAC,YAAY,EAAE,eAAe,GAAG,OAAO,CAEhF"}

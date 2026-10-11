@@ -1,0 +1,1 @@
+{"version":3,"file":"clientScenesVisibilityRecovery.d.ts","sourceRoot":"","sources":["../../src/hooks/clientScenesVisibilityRecovery.ts"],"names":[],"mappings":"AAAA,KAAK,kBAAkB,GAAG,IAAI,CAC5B,QAAQ,EACR,iBAAiB,GAAG,kBAAkB,GAAG,qBAAqB,CAC/D,CAAC;AAEF,qEAAqE;AACrE,wBAAgB,oCAAoC,CAAC,cAAc,EAAE,kBAAkB;yBAyB9D,MAAM,cAAc,MAAM,IAAI,GAAG,MAAM,IAAI;EA0BnE"}

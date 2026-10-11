@@ -1,0 +1,11 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { ChevronLeftIcon, ChevronRightIcon, RefreshCwIcon, XIcon } from "lucide-react";
+import { Button } from "@/components/ui/button.js";
+import { cn } from "@/components/lib/utils.js";
+import { useZCodeIntl } from "@/i18n/IntlProvider.js";
+import { DesktopOverlayWindowControls } from "@/DesktopOverlayWindowControls.js";
+export function EmbeddedWebsiteHeader({ title, loading, canGoBack, canGoForward, onBack, onForward, onReload, onClose, }) {
+    const { intl } = useZCodeIntl();
+    return (_jsxs("header", { className: "bg-background px-6 py-4 pb-0 max-sm:px-4", children: [_jsx(DesktopOverlayWindowControls, {}), _jsxs("div", { className: "mx-auto flex w-full max-w-5xl items-center justify-between gap-3", children: [_jsxs("div", { className: "flex min-w-0 items-center gap-2", children: [_jsxs("div", { className: "flex shrink-0 items-center gap-1", children: [_jsx(Button, { type: "button", variant: "ghost", size: "icon", className: "size-8 rounded-lg", "aria-label": intl.formatMessage({ id: "quickPick.command.goBack" }), disabled: !canGoBack, onClick: onBack, children: _jsx(ChevronLeftIcon, { className: "size-4" }) }), _jsx(Button, { type: "button", variant: "ghost", size: "icon", className: "size-8 rounded-lg", "aria-label": intl.formatMessage({ id: "quickPick.command.goForward" }), disabled: !canGoForward, onClick: onForward, children: _jsx(ChevronRightIcon, { className: "size-4" }) }), _jsx(Button, { type: "button", variant: "ghost", size: "icon", className: "size-8 rounded-lg", "aria-label": intl.formatMessage({ id: "common.refresh" }), onClick: onReload, children: _jsx(RefreshCwIcon, { className: cn("size-4", loading && "animate-spin") }) })] }), _jsx("h2", { className: "truncate text-ui-lg font-medium", children: title })] }), _jsx(Button, { type: "button", variant: "ghost", size: "icon-lg", className: "rounded-xl", "aria-label": intl.formatMessage({ id: "common.close" }), onClick: onClose, children: _jsx(XIcon, { className: "size-4" }) })] })] }));
+}
+//# sourceMappingURL=EmbeddedWebsiteHeader.js.map

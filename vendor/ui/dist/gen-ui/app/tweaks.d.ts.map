@@ -1,0 +1,1 @@
+{"version":3,"file":"tweaks.d.ts","sourceRoot":"","sources":["../../../src/gen-ui/app/tweaks.ts"],"names":[],"mappings":"AAAA,OAAO,EAGL,KAAK,iBAAiB,EACtB,KAAK,gBAAgB,EACrB,KAAK,oBAAoB,EACzB,KAAK,UAAU,EACf,KAAK,gBAAgB,EACtB,MAAM,sBAAsB,CAAC;AAI9B,qDAAqD;AACrD,wBAAgB,wBAAwB;kBAStB,iBAAiB,GAAG,gBAAgB;cA0CxC,UAAU,EAAE;uBAcH,gBAAgB,GAAG,oBAAoB;EAwB7D"}

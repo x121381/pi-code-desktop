@@ -1,0 +1,1 @@
+{"version":3,"file":"StorageSection.d.ts","sourceRoot":"","sources":["../../../src/resource-manager/storage/StorageSection.tsx"],"names":[],"mappings":"AAOA,OAAO,EAIL,KAAK,uBAAuB,EAM7B,MAAM,eAAe,CAAC;AAiBvB,wBAAgB,cAAc,CAAC,EAC7B,MAAM,EACN,MAAM,GACP,EAAE;IACD,2DAA2D;IAC3D,MAAM,EAAE,uBAAuB,GAAG,SAAS,CAAC;IAC5C,8BAA8B;IAC9B,MAAM,EAAE,OAAO,CAAC;CACjB,2CA6MA"}

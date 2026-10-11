@@ -1,0 +1,1 @@
+{"version":3,"file":"FeedbackCenter.d.ts","sourceRoot":"","sources":["../../src/feedback/FeedbackCenter.tsx"],"names":[],"mappings":"AASA,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,iBAAiB,CAAC;AACxD,OAAO,KAAK,EAAE,gBAAgB,EAAE,MAAM,eAAe,CAAC;AAItD,eAAO,MAAM,cAAc,uEAGxB;IACD,eAAe,CAAC,EAAE,gBAAgB,CAAC;IACnC,QAAQ,EAAE,gBAAgB,CAAC;CAC5B,oDAwFC,CAAC"}

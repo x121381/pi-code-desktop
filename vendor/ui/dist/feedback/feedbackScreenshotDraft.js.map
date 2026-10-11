@@ -1,0 +1,1 @@
+{"version":3,"file":"feedbackScreenshotDraft.js","sourceRoot":"","sources":["../../src/feedback/feedbackScreenshotDraft.ts"],"names":[],"mappings":"AAGA,MAAM,CAAC,KAAK,UAAU,8BAA8B,CAClD,QAA2D;IAE3D,MAAM,UAAU,GAAG,MAAM,QAAQ,CAAC,uBAAuB,EAAE,EAAE,CAAC,KAAK,CAAC,GAAG,EAAE,CAAC,IAAI,CAAC,CAAC;IAChF,OAAO,UAAU,CAAC,CAAC,CAAC,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC;AACxC,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"useGitActions.d.ts","sourceRoot":"","sources":["../../src/hooks/useGitActions.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,eAAe,CAAC;AAKvD,wBAAgB,aAAa,CAAC,OAAO,EAAE;IAAE,aAAa,EAAE,MAAM,CAAA;CAAE;;wBAc3C,iBAAiB;wBAQpB,MAAM,EAAE;0BAOR,MAAM,EAAE;0BAOR,MAAM,EAAE;sBAON,MAAM;EAczB"}

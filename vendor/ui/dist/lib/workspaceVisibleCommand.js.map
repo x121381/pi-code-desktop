@@ -1,0 +1,1 @@
+{"version":3,"file":"workspaceVisibleCommand.js","sourceRoot":"","sources":["../../src/lib/workspaceVisibleCommand.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,0BAA0B,CAAC,EACzC,kBAAkB,EAClB,mBAAmB,EACnB,GAAG,GAKJ;IACC,IAAI,CAAC,kBAAkB,EAAE,CAAC;QACxB,+CAA+C;QAC/C,4DAA4D;QAC5D,6BAA6B;QAC7B,mBAAmB,EAAE,EAAE,CAAC;IAC1B,CAAC;IAED,GAAG,EAAE,CAAC;AACR,CAAC"}

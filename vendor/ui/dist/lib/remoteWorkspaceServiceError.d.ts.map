@@ -1,0 +1,1 @@
+{"version":3,"file":"remoteWorkspaceServiceError.d.ts","sourceRoot":"","sources":["../../src/lib/remoteWorkspaceServiceError.ts"],"names":[],"mappings":"AAAA,eAAO,MAAM,wCAAwC,wCAAwC,CAAC;AAE9F,wBAAgB,sCAAsC,IAAI,KAAK,GAAG;IAChE,IAAI,EAAE,OAAO,wCAAwC,CAAC;CACvD,CAMA;AAED,wBAAgB,kCAAkC,CAAC,KAAK,EAAE,OAAO,GAAG,OAAO,CAgB1E"}

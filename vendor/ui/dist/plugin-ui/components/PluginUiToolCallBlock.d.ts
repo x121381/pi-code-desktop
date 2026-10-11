@@ -1,0 +1,4 @@
+import type { PluginUiToolCallViewProps } from "@/plugin-ui/contract.js";
+/** 纯工具卡片视图：平台能力、结果与侧栏归属都由适配器提供。 */
+export declare function PluginUiToolCallView(props: PluginUiToolCallViewProps): string | number | bigint | boolean | import("react/jsx-runtime").JSX.Element | Iterable<import("react").ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<import("react").ReactNode> | null | undefined> | null | undefined;
+//# sourceMappingURL=PluginUiToolCallBlock.d.ts.map

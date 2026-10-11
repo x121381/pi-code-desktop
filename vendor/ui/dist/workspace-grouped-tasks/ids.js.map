@@ -1,0 +1,1 @@
+{"version":3,"file":"ids.js","sourceRoot":"","sources":["../../src/workspace-grouped-tasks/ids.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,qBAAqB,EAAE,MAAM,yBAAyB,CAAC;AAEhE,SAAS,OAAO,CACd,IAA2E;IAE3E,OAAO,GAAG,qBAAqB,CAAC,IAAI,CAAC,aAAa,EAAE,IAAI,CAAC,iBAAiB,CAAC,SAAS,IAAI,CAAC,MAAM,EAAE,CAAC;AACpG,CAAC;AAED,OAAO,EAAE,OAAO,EAAE,CAAC"}

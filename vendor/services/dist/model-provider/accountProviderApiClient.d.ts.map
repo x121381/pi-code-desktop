@@ -1,0 +1,1 @@
+{"version":3,"file":"accountProviderApiClient.d.ts","sourceRoot":"","sources":["../../src/model-provider/accountProviderApiClient.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,SAAS,EAAE,MAAM,eAAe,CAAC;AAiB/C,qBAAa,wBAAwB;IACvB,QAAQ,CAAC,SAAS,EAAE,SAAS;gBAApB,SAAS,EAAE,SAAS;IAEnC,eAAe,CAAC,CAAC,EAAE,GAAG,EAAE,MAAM,EAAE,IAAI,EAAE,WAAW,GAAG,OAAO,CAAC,CAAC,GAAG,IAAI,CAAC;CAS5E"}

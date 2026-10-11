@@ -1,0 +1,7 @@
+export declare const WORKSPACE_FILE_TREE_VIRTUAL_ROW_HEIGHT_PX: number;
+export declare const WORKSPACE_FILE_TREE_WATCH_DEBOUNCE_MS = 300;
+export declare const WORKSPACE_FILE_TREE_WATCH_REFRESH_CONCURRENCY = 2;
+export declare const WORKSPACE_FILE_TREE_WATCH_BULK_REFRESH_THRESHOLD = 50;
+export declare const WORKSPACE_FILE_TREE_REFRESH_DIRECTORY_TIMEOUT_MS = 15000;
+export declare const WORKSPACE_FILE_TREE_REFRESH_GIT_TIMEOUT_MS = 8000;
+//# sourceMappingURL=constants.d.ts.map

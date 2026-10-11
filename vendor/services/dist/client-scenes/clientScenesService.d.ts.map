@@ -1,0 +1,1 @@
+{"version":3,"file":"clientScenesService.d.ts","sourceRoot":"","sources":["../../src/client-scenes/clientScenesService.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAG/C,OAAO,KAAK,EAAwB,oBAAoB,EAAE,MAAM,mBAAmB,CAAC;AAEpF,wBAAgB,yBAAyB,CAAC,YAAY,EAAE;IACtD,SAAS,EAAE,SAAS,CAAC;CACtB,GAAG,oBAAoB,CAOvB"}

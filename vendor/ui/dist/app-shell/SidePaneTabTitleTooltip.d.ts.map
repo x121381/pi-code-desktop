@@ -1,0 +1,1 @@
+{"version":3,"file":"SidePaneTabTitleTooltip.d.ts","sourceRoot":"","sources":["../../src/app-shell/SidePaneTabTitleTooltip.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAuB,KAAK,SAAS,EAAE,MAAM,OAAO,CAAC;AAM5D,wBAAgB,uBAAuB,CAAC,EACtC,QAAQ,EACR,UAAU,EACV,KAAK,GACN,EAAE;IACD,QAAQ,EAAE,SAAS,CAAC;IACpB,UAAU,EAAE,OAAO,CAAC;IACpB,KAAK,EAAE,MAAM,CAAC;CACf,2CAwBA"}

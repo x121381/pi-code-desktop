@@ -1,0 +1,1 @@
+{"version":3,"file":"OccupationOnboardingVisual.d.ts","sourceRoot":"","sources":["../../src/onboarding/OccupationOnboardingVisual.tsx"],"names":[],"mappings":"AASA,OAAO,sCAAsC,CAAC;AAE9C,wBAAgB,0BAA0B,CAAC,EACzC,YAAY,EACZ,gBAAgB,GACjB,EAAE;IACD,YAAY,CAAC,EAAE,OAAO,CAAC;IACvB,gBAAgB,CAAC,EAAE,OAAO,CAAC;CAC5B,2CA6DA"}

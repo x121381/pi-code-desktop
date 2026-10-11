@@ -1,0 +1,1 @@
+{"version":3,"file":"jsonLineRecord.d.ts","sourceRoot":"","sources":["../../../src/session/claude-native/jsonLineRecord.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,cAAc,GAAG,MAAM,CAAC,MAAM,EAAE,OAAO,CAAC,CAAC;AAErD,wBAAgB,cAAc,CAAC,KAAK,EAAE,OAAO,GAAG,KAAK,IAAI,MAAM,CAAC,MAAM,EAAE,OAAO,CAAC,CAE/E;AAED,wBAAgB,iBAAiB,CAAC,KAAK,EAAE,OAAO,GAAG,MAAM,GAAG,SAAS,CAOpE"}

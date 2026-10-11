@@ -1,0 +1,1 @@
+{"version":3,"file":"ProviderStatusIndicator.d.ts","sourceRoot":"","sources":["../../../src/settings/model-provider-section/ProviderStatusIndicator.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,4BAA4B,EAAE,MAAM,oCAAoC,CAAC;AASvF,wBAAgB,uBAAuB,CAAC,EACtC,QAAQ,GACT,EAAE;IACD,QAAQ,CAAC,EAAE,IAAI,CAAC,4BAA4B,EAAE,SAAS,GAAG,YAAY,CAAC,GAAG,IAAI,CAAC;CAChF,2CAaA"}

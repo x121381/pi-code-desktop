@@ -1,0 +1,1 @@
+{"version":3,"file":"InteractionRequestOriginBadge.d.ts","sourceRoot":"","sources":["../src/InteractionRequestOriginBadge.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,6BAA6B,EAAE,MAAM,eAAe,CAAC;AAKnE,wBAAgB,6BAA6B,CAAC,EAC5C,SAAS,EACT,MAAM,GACP,EAAE;IACD,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,MAAM,CAAC,EAAE,6BAA6B,CAAC;CACxC,kDAkCA"}

@@ -1,0 +1,40 @@
+import type { ZCodeGroupedTaskViewNode, ZCodeTaskGroupColor } from "@zcode/services";
+import { type ZCodeTaskMeta } from "@zcode/shared";
+import type { TaskGroupMenuItem } from "@/workspace-grouped-tasks/shared.js";
+export declare function GroupItem({ node, groups, activeWorkspacePath, activeWorkspaceIdentity, activeTaskId, mobileActiveTaskKey, getTaskRemoteSessionId, getTaskWorkspaceLabel, onSelectTask, onCloseTask, onOpenFileTree, onCreateTask, hasDraftTask, draftTaskActive, draftWorkspaceLabel, onSelectDraftTask, onCloseDraftTask, onRenameGroup, onUpdateGroupColor, onUngroupGroup, onMoveTaskToGroup, onMoveTaskToTop, onStartRenameTask, onArchiveTask, onMarkTaskAsUnread, newGroupSetup, onNewGroupSetupStarted, collapsed, onToggleCollapsed, activeDragTaskKey, activeDragGroupId, tooltipsDisabled, }: {
+    node: Extract<ZCodeGroupedTaskViewNode, {
+        type: "group";
+    }>;
+    groups: TaskGroupMenuItem[];
+    activeWorkspacePath: string;
+    activeWorkspaceIdentity?: string;
+    activeTaskId: string | null;
+    mobileActiveTaskKey?: string | null;
+    getTaskRemoteSessionId: (task: ZCodeTaskMeta) => string | undefined;
+    getTaskWorkspaceLabel: (task: ZCodeTaskMeta) => string;
+    onSelectTask: (workspacePath: string, taskId: string, workspaceIdentity?: string) => void;
+    onCloseTask: (task: ZCodeTaskMeta) => void;
+    onOpenFileTree?: (task: ZCodeTaskMeta) => void;
+    onCreateTask: () => void;
+    hasDraftTask?: boolean;
+    draftTaskActive?: boolean;
+    draftWorkspaceLabel?: string;
+    onSelectDraftTask?: () => void;
+    onCloseDraftTask?: () => void;
+    onRenameGroup: (groupId: string, title: string) => void;
+    onUpdateGroupColor: (groupId: string, color: ZCodeTaskGroupColor) => void;
+    onUngroupGroup: (groupId: string) => void;
+    onMoveTaskToGroup: (task: ZCodeTaskMeta, groupId: string | null) => void;
+    onMoveTaskToTop: (task: ZCodeTaskMeta) => void;
+    onStartRenameTask: (task: ZCodeTaskMeta) => void;
+    onArchiveTask: (task: ZCodeTaskMeta) => void;
+    onMarkTaskAsUnread: (task: ZCodeTaskMeta) => void;
+    newGroupSetup: boolean;
+    onNewGroupSetupStarted: (groupId: string) => void;
+    collapsed: boolean;
+    onToggleCollapsed: (groupId: string) => void;
+    activeDragTaskKey?: string | null;
+    activeDragGroupId?: string | null;
+    tooltipsDisabled?: boolean;
+}): import("react/jsx-runtime").JSX.Element;
+//# sourceMappingURL=group-item.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"pluginSyncService.d.ts","sourceRoot":"","sources":["../../src/plugin-sync/pluginSyncService.ts"],"names":[],"mappings":"AAsBA,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,iBAAiB,CAAC;AA4D1D,wBAAgB,uBAAuB,CAAC,OAAO,CAAC,EAAE;IAChD,eAAe,CAAC,EAAE,MAAM,CAAC;CAC1B,GAAG,kBAAkB,CAgIrB"}

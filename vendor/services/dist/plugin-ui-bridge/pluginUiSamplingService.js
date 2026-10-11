@@ -1,0 +1,16 @@
+import { PluginUiBridgeError } from "./pluginUiBridgeService.js";
+export function createPluginUiSamplingService(dependencies = {}) {
+    return {
+        async sample(params) {
+            if (!dependencies.sample)
+                throw new PluginUiBridgeError("unavailable", "Plugin UI sampling is unavailable in this runtime");
+            return dependencies.sample(params);
+        },
+        async cancelSampling(params) {
+            if (!dependencies.cancelSampling)
+                return { cancelled: false };
+            return dependencies.cancelSampling(params);
+        },
+    };
+}
+//# sourceMappingURL=pluginUiSamplingService.js.map

@@ -1,0 +1,46 @@
+export declare const TID_AUTOMATIONS_PAGE_TAB = "automations-page-tab";
+export declare const TID_WORKFLOWS_LIST = "workflows-list";
+export declare const TID_WORKFLOWS_EMPTY = "workflows-empty";
+export declare const TID_WORKFLOWS_REFRESH = "workflows-refresh";
+export declare const TID_WORKFLOWS_CREATE_VIA_CHAT = "workflows-create-via-chat";
+export declare const TID_WORKFLOW_PROJECT_GROUP = "workflow-project-group";
+export declare const TID_WORKFLOW_GLOBAL_GROUP = "workflow-global-group";
+export declare const TID_WORKFLOW_CARD = "workflow-card";
+export declare const TID_WORKFLOW_CARD_RUN = "workflow-card-run";
+export declare const TID_WORKFLOW_CARD_MENU = "workflow-card-menu";
+export declare const TID_WORKFLOW_ACTION_DELETE = "workflow-action-delete";
+export declare const TID_WORKFLOW_LAUNCH_DIALOG = "workflow-launch-dialog";
+export declare const TID_WORKFLOW_LAUNCH_ARG = "workflow-launch-arg";
+export declare const TID_WORKFLOW_LAUNCH_TARGET = "workflow-launch-target";
+export declare const TID_WORKFLOW_LAUNCH_SUBMIT = "workflow-launch-submit";
+export declare const TID_WORKFLOW_LAUNCH_ERROR = "workflow-launch-error";
+export declare const TID_CHAT_WORKFLOW_RUN_DIGEST = "workflow-run-digest";
+export declare const TID_WORKFLOW_ACTION_MOVE = "workflow-action-move";
+export declare const TID_WORKFLOW_MOVE_DIALOG = "workflow-move-dialog";
+export declare const TID_WORKFLOW_MOVE_DIALOG_TARGET = "workflow-move-dialog-target";
+export declare const TID_WORKFLOW_MOVE_DIALOG_SUBMIT = "workflow-move-dialog-submit";
+export declare const TID_WORKFLOW_DETAIL = "workflow-detail";
+export declare const TID_WORKFLOW_DETAIL_RUN = "workflow-detail-run";
+export declare const TID_WORKFLOW_DETAIL_MENU = "workflow-detail-menu";
+export declare const TID_WORKFLOW_DETAIL_TAB = "workflow-detail-tab";
+export declare const TID_WORKFLOW_DETAIL_DESCRIPTION = "workflow-detail-description";
+export declare const TID_WORKFLOW_DETAIL_WHEN_TO_USE = "workflow-detail-when-to-use";
+export declare const TID_WORKFLOW_DETAIL_SCRIPT = "workflow-detail-script";
+export declare const TID_WORKFLOW_META_SAVE = "workflow-meta-save";
+export declare const TID_WORKFLOW_META_DISCARD = "workflow-meta-discard";
+export declare const TID_WORKFLOW_RUN_ROW = "workflow-run-row";
+export declare const TID_WORKFLOW_ARTIFACTS_SECTION = "workflow-run-artifacts";
+export declare const TID_WORKFLOW_ARTIFACTS_TOGGLE = "workflow-run-artifacts-toggle";
+export declare const TID_WORKFLOW_ARTIFACT_CARD = "workflow-run-artifact-card";
+/** `workflow-artifact` 侧板 tab 的根节点。 */
+export declare const TID_WORKFLOW_ARTIFACT_PANE = "workflow-artifact-pane";
+/** 中枢（运行历史行 / 详情页「最近产物」）上的 chip。 */
+export declare const TID_WORKFLOW_ARTIFACT_CHIP = "workflow-run-artifact-chip";
+/** 会话里终态通知行折叠头部上的 chip——与中枢那枚**刻意不同 id**：两处的载荷来源不同，
+ *  e2e 要能分别指到「通知行上出现了 chips」和「中枢历史行上出现了 chips」。 */
+export declare const TID_CHAT_WORKFLOW_ARTIFACT_CHIP = "workflow-notification-artifact-chip";
+export declare const TID_SETTINGS_DYNAMIC_WORKFLOW_MODE_TRIGGER = "settings-dynamic-workflow-mode-trigger";
+/** 动态后缀为模式（disabled / onDemand / alwaysOn）。 */
+export declare const TID_SETTINGS_DYNAMIC_WORKFLOW_MODE_ITEM = "settings-dynamic-workflow-mode-item";
+export declare const TID_WORKFLOWS_OPEN_SETTINGS = "workflows-open-settings";
+//# sourceMappingURL=test-ids-workflow.d.ts.map

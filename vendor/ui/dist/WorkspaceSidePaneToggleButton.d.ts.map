@@ -1,0 +1,1 @@
+{"version":3,"file":"WorkspaceSidePaneToggleButton.d.ts","sourceRoot":"","sources":["../src/WorkspaceSidePaneToggleButton.tsx"],"names":[],"mappings":"AAQA,wBAAgB,6BAA6B,CAAC,EAC5C,cAAc,EACd,gBAAgB,EAChB,aAAa,EACb,wBAAgC,GACjC,EAAE;IACD,cAAc,EAAE,OAAO,CAAC;IACxB,gBAAgB,EAAE,MAAM,IAAI,CAAC;IAC7B,aAAa,CAAC,EAAE,MAAM,CAAC;IACvB,wBAAwB,CAAC,EAAE,OAAO,CAAC;CACpC,2CA6BA"}

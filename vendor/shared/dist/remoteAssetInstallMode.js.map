@@ -1,0 +1,1 @@
+{"version":3,"file":"remoteAssetInstallMode.js","sourceRoot":"","sources":["../src/remoteAssetInstallMode.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,0BAA0B,GAAG,CAAC,uBAAuB,EAAE,iBAAiB,CAAU,CAAC;AAIhG,MAAM,CAAC,MAAM,iCAAiC,GAA2B,uBAAuB,CAAC;AAEjG,MAAM,UAAU,+BAA+B,CAC7C,IAAoC;IAEpC,OAAO,IAAI,KAAK,iBAAiB,CAAC,CAAC,CAAC,IAAI,CAAC,CAAC,CAAC,iCAAiC,CAAC;AAC/E,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"telegramProvider.d.ts","sourceRoot":"","sources":["../../../src/bots/providers/telegramProvider.ts"],"names":[],"mappings":"AASA,OAAO,KAAK,EAAE,kBAAkB,EAAE,MAAM,YAAY,CAAC;AAGrD,UAAU,oBAAoB;IAC5B,cAAc,CAAC,GAAG,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAAC;CACrD;AA0TD,wBAAgB,yBAAyB,CAAC,IAAI,EAAE,oBAAoB,GAAG,kBAAkB,CAuOxF"}

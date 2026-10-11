@@ -1,0 +1,1 @@
+{"version":3,"file":"WorkspaceTerminalToggleButton.d.ts","sourceRoot":"","sources":["../src/WorkspaceTerminalToggleButton.tsx"],"names":[],"mappings":"AAWA,wBAAgB,6BAA6B,CAAC,EAC5C,cAAc,EACd,gBAAgB,EAChB,cAAc,EACd,wBAAgC,GACjC,EAAE;IACD,cAAc,EAAE,OAAO,CAAC;IACxB,gBAAgB,EAAE,MAAM,IAAI,CAAC;IAC7B,cAAc,CAAC,EAAE,MAAM,CAAC;IACxB,wBAAwB,CAAC,EAAE,OAAO,CAAC;CACpC,kDA4CA"}

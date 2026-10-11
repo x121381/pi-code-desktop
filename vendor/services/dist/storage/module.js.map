@@ -1,0 +1,1 @@
+{"version":3,"file":"module.js","sourceRoot":"","sources":["../../src/storage/module.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,MAAM,CAAC,MAAM,aAAa,GAAG;IAC3B,EAAE,EAAE,SAAS;IACb,QAAQ,EAAE,CAAC,QAAQ,EAAE,KAAK,EAAE,UAAU,CAAC;IACvC,QAAQ,EAAE,CAAC,iBAAiB,CAAC;IAC7B,iBAAiB,EAAE,CAAC,aAAa,CAAC;CAC1B,CAAC"}

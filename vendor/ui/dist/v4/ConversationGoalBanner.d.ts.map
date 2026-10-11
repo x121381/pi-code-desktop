@@ -1,0 +1,1 @@
+{"version":3,"file":"ConversationGoalBanner.d.ts","sourceRoot":"","sources":["../../src/v4/ConversationGoalBanner.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,iCAAiC,CAAC;AAGjE,MAAM,WAAW,2BAA2B;IAC1C,IAAI,EAAE,SAAS,CAAC;CACjB;AAED;;;GAGG;AACH,iBAAS,0BAA0B,CAAC,EAAE,IAAI,EAAE,EAAE,2BAA2B,2CAoBxE;AAED,eAAO,MAAM,sBAAsB,wEAAmC,CAAC"}

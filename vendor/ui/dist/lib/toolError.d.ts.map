@@ -1,0 +1,1 @@
+{"version":3,"file":"toolError.d.ts","sourceRoot":"","sources":["../../src/lib/toolError.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,gBAAgB,IAAI,YAAY,EAAE,MAAM,+BAA+B,CAAC;AAmCtF,wBAAgB,yBAAyB,CAAC,IAAI,EAAE,MAAM,GAAG,MAAM,CAO9D;AAWD,wBAAgB,oBAAoB,CAClC,QAAQ,EAAE,IAAI,CAAC,YAAY,EAAE,OAAO,GAAG,QAAQ,GAAG,KAAK,GAAG,QAAQ,CAAC,GAClE,MAAM,GAAG,SAAS,CA8DpB"}
